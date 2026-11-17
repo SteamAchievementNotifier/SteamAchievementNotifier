@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Completado",
         achievementdesc: "Hizo clic en el botón para mostrar la notificación de prueba",
         gamecompletedesc: "¡Has desbloqueado todos los logros!",
+        setname: "Nombre del conjunto",
+        setcomplete: "¡Has completado el conjunto de logros!",
         defaultcustomfont: "Por Defecto (Ninguna Fuente Seleccionada)",
         defaultsoundfile: "Por Defecto (Ningún Archivo Seleccionado)",
         defaultsounddir: "Por Defecto (Ninguna Carpeta Seleccionada)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nuevo...",
         nodata: "Sin Datos",
         webhookunlockmsg: "$user desbloqueó un logro",
+        webhookunlockmsgset: "$user ha completado un conjunto de logros",
         webhookunlockmsgplat: "$user desbloqueó todos los logros",
         webhookingame: "en $gamename",
         notconnected: "No conectado",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Copiar tema",
                 copythemesub: "Selecciona el/los tipo(s) de notificación a los que copiar el tema seleccionado"
             }
+        },
+        platnotifytype: {
+            title: "Personalizar",
+            content: {
+                platsubtype: "Subtipo",
+                game: "Juego",
+                set: "Conjunto"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Alternar si se publican información de logros en un servidor de Discord cuando se desbloquea un logro $semi`,
         webhookrare: "Alternar si se publican información de logros en un servidor de Discord cuando se desbloquea un logro $rare",
         webhookplat: "Alternar si se publican información de logros en un servidor de Discord cuando se desbloquea un logro $plat",
+        webhookset: "Alternar si se debe publicar información sobre los logros en un servidor de Discord cuando se complete un conjunto de logros",
         webhooktest: "Alternar si se deben enviar los datos de prueba a un servidor de Discord cuando se activan notificaciones de prueba de cualquier tipo",
         webhookurl: `Establece la <span class="hl">URL del Webhook</span> para el servidor de Discord deseado<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> se usa para publicar en un servidor/canal de Discord en nombre de un usuario o aplicación. Para configurar un nuevo Webhook para un servidor de Discord, el usuario debe tener un rol en el servidor deseado que permita la creación de Webhooks<br><br><u>Una URL de Webhook es necesaria al usar esta opción</u><br><br>Consulta la documentación oficial de Discord para obtener más información</span>`,
         webhookspoilers: `Agregar una etiqueta de spoiler a los logros "Ocultos" cuando se publiquen en Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Configura el color usado en el embed del webhook cuando se desbloquea un logro $semi",
         webhookembedcolorrare: "Configura el color usado en el embed del webhook cuando se desbloquea un logro $rare",
         webhookembedcolorplat: "Configura el color usado en el embed del webhook cuando se desbloquea un logro $plat",
+        webhookembedcolorset: "Establecer el color utilizado en el mensaje incrustado del webhook cuando se complete un conjunto de logros",
         raemus: "Mostrar notificaciones cuando se detecten juegos en emuladores compatibles",
         rauser: "Configurar el nombre de usuario de RetroAchievements para hacer un seguimiento de los logros",
         rakey: `Establezca la clave Web API que se usará para la autenticación con la API de RetroAchievements<br><br><span class="ttdesc">Una clave Web API se puede copiar o regenerar iniciando sesión en el sitio web de RetroAchievements y navegando a <span class="hl">Configuración > Claves > Web API Key</span><br><br>🔒 La clave proporcionada se cifrará antes de almacenarse localmente en el sistema (si el sistema operativo actual es compatible con el cifrado)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Establece el número máximo de líneas de texto que se mostrarán en las notificaciones",
         notifyoverflow: "Establece el comportamiento del texto que se desborda en las notificaciones",
         scrollrepeat: `Establece cuántas veces se desplazará el texto desbordado mientras la notificación esté en pantalla<br><br><span class="ttdesc">La velocidad de desplazamiento depende del tiempo de visualización, pero los valores de repetición más altos pueden no ser adecuados para todos los ajustes preestablecidos</span>`,
-        setplat: "Mostrar la notificación de finalización al 100% después de completar cada conjunto de logros en juegos compatibles"
+        setplat: "Mostrar notificaciones al completar cada conjunto de logros en juegos compatibles",
+        platsubtype: `Selecciona el subtipo de notificación <span class="hl">100%</span> que deseas personalizar<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Juego</span>: La notificación que se muestra cuando se desbloquean todos los logros del juego</li><li><span class="hl">Conjunto</span>: La notificación que se muestra cuando se desbloquean todos los logros de un único conjunto de logros</li></ul></span>`
     },
     update: {
         updateavailable: "Actualización disponible",

@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Completato",
         achievementdesc: "Cliccato sul pulsante Mostra notifica di test",
         gamecompletedesc: "Hai sbloccato tutti gli obiettivi!",
+        setname: "Nome set",
+        setcomplete: "Hai completato il set di obiettivi!",
         defaultcustomfont: "Predefinito (Nessun carattere selezionato)",
         defaultsoundfile: "Predefinito (Nessun file audio selezionato)",
         defaultsounddir: "Predefinito (Nessuna cartella selezionata)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nuovo...",
         nodata: "Nessun dato",
         webhookunlockmsg: "$user ha sbloccato un successo",
+        webhookunlockmsgset: "$user ha completato un set di obiettivi",
         webhookunlockmsgplat: "$user ha sbloccato tutti i successi",
         webhookingame: "in $gamename",
         notconnected: "Non connesso",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Copia tema",
                 copythemesub: "Seleziona il/i tipo/i di notifica a cui copiare il tema selezionato"
             }
+        },
+        platnotifytype: {
+            title: "Personalizza",
+            content: {
+                platsubtype: "Sottotipo",
+                game: "Gioco",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Attiva o disattiva l’invio delle informazioni sul traguardo a un server Discord quando viene sbloccato un traguardo $semi`,
         webhookrare: "Attiva o disattiva l’invio delle informazioni sul traguardo a un server Discord quando viene sbloccato un traguardo $rare",
         webhookplat: "Attiva o disattiva l’invio delle informazioni sul traguardo a un server Discord quando viene sbloccato un traguardo $plat",
+        webhookset: "Attiva o disattiva la pubblicazione delle informazioni sugli obiettivi su un server Discord quando viene completato un set di obiettivi",
         webhooktest: "Attiva o disattiva l'invio di informazioni di test a un server Discord quando vengono attivate notifiche di test di qualsiasi tipo",
         webhookurl: `Imposta la <span class="hl">URL del Webhook</span> per il server Discord desiderato<br><br><span class="ttdesc">Una <span class="hl">URL del Webhook</span> viene utilizzata per pubblicare su un server/canale Discord per conto di un utente o di un'applicazione. Per impostare un nuovo Webhook per un server Discord, l'utente deve avere un ruolo nel server desiderato che consenta la creazione di Webhook<br><br><u>Un URL del Webhook è necessario quando si utilizza questa opzione</u><br><br>Consulta la documentazione ufficiale di Discord per ulteriori informazioni</span>`,
         webhookspoilers: `Aggiungi un tag spoiler alle "Realizzazioni Nascoste" quando vengono pubblicate su Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Imposta il colore usato nell’embed del webhook quando viene sbloccato un traguardo $semi",
         webhookembedcolorrare: "Imposta il colore usato nell’embed del webhook quando viene sbloccato un traguardo $rare",
         webhookembedcolorplat: "Imposta il colore usato nell’embed del webhook quando viene sbloccato un traguardo $plat",
+        webhookembedcolorset: "Imposta il colore utilizzato nell'incorporamento del webhook quando viene completato un set di obiettivi",
         raemus: "Visualizza notifiche quando i giochi vengono rilevati in emulatori supportati",
         rauser: "Imposta il nome utente RetroAchievements per tracciare i trofei",
         rakey: `Imposta la chiave Web API da utilizzare per l'autenticazione con l'API RetroAchievements<br><br><span class="ttdesc">Una chiave Web API può essere copiata o rigenerata accedendo al sito web di RetroAchievements e navigando su <span class="hl">Impostazioni > Chiavi > Web API Key</span><br><br>🔒 La chiave fornita verrà crittografata prima di essere salvata localmente nel sistema (se il sistema operativo corrente supporta la crittografia)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Imposta il numero massimo di righe di testo da visualizzare nelle notifiche",
         notifyoverflow: "Imposta il comportamento del testo in overflow all'interno delle notifiche",
         scrollrepeat: `Imposta quante volte il testo in overflow scorrerà mentre la notifica è visualizzata sullo schermo<br><br><span class="ttdesc">La velocità di scorrimento dipende dal tempo di visualizzazione, ma valori di ripetizione più elevati potrebbero non essere adatti a tutte le preimpostazioni</span>`,
-        setplat: "Mostra la notifica di completamento al 100% dopo aver completato ogni set di obiettivi nei giochi compatibili"
+        setplat: "Mostra notifiche per il completamento di ogni set di obiettivi nei giochi compatibili",
+        platsubtype: `Seleziona il sottotipo di notifica <span class="hl">100%</span> da personalizzare<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Gioco</span>: La notifica visualizzata quando vengono sbloccati tutti gli obiettivi del gioco</li><li><span class="hl">Set</span>: La notifica visualizzata quando vengono sbloccati tutti gli obiettivi di un singolo set</li></ul></span>`
     },
     update: {
         updateavailable: "Aggiornamento disponibile",

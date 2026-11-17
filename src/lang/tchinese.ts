@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% 完成",
         achievementdesc: "點擊按鈕以顯示測試通知",
         gamecompletedesc: "您已解鎖所有成就！",
+        setname: "組合名稱",
+        setcomplete: "你已完成整套成就！",
         defaultcustomfont: "默認（未選擇字體）",
         defaultsoundfile: "默認（未選擇文件）",
         defaultsounddir: "默認（未選擇文件夾）",
@@ -62,6 +64,7 @@ export const translations = {
         new: "新增...",
         nodata: "無資料",
         webhookunlockmsg: "$user 解鎖了一個成就",
+        webhookunlockmsgset: "$user 已完成一個成就組合",
         webhookunlockmsgplat: "$user 解鎖了所有成就",
         webhookingame: "在 $gamename",
         notconnected: "未連接",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "複製主題",
                 copythemesub: "選擇要將所選主題複製到的通知類型"
             }
+        },
+        platnotifytype: {
+            title: "自訂",
+            content: {
+                platsubtype: "子類型",
+                game: "遊戲",
+                set: "組合"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `切換是否在解鎖 $semi 成就時向 Discord 伺服器發布成就資訊`,
         webhookrare: "切換是否在解鎖 $rare 成就時向 Discord 伺服器發布成就資訊",
         webhookplat: "切換是否在解鎖 $plat 成就時向 Discord 伺服器發布成就資訊",
+        webhookset: "切換是否在成就組合完成時，將成就資訊發佈到 Discord 伺服器",
         webhooktest: "切換是否在觸發任何類型的測試通知時，將測試資訊發佈到Discord伺服器",
         webhookurl: `設置所需 Discord 伺服器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用於代表用戶或應用程序在 Discord 伺服器/頻道上發布。要為 Discord 伺服器設置新的 Webhook，用戶必須在所需伺服器上擁有允許創建 Webhook 的角色<br><br><u>使用此選項時需要 Webhook URL</u><br><br>詳情請參閱 Discord 的官方文檔</span>`,
         webhookspoilers: `在發布到Discord時，為「隱藏」成就添加劇透標籤`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "設定在解鎖 $semi 成就時 webhook 內嵌使用的顏色",
         webhookembedcolorrare: "設定在解鎖 $rare 成就時 webhook 內嵌使用的顏色",
         webhookembedcolorplat: "設定在解鎖 $plat 成就時 webhook 內嵌使用的顏色",
+        webhookembedcolorset: "設定成就組合完成時 Webhook 嵌入訊息所使用的顏色",
         raemus: "當遊戲在支持的模擬器中被偵測到時顯示通知",
         rauser: "設定 RetroAchievements 使用者名稱來追蹤成就",
         rakey: `設定用於與 RetroAchievements API 進行身份驗證的 Web API 密鑰<br><br><span class="ttdesc">Web API 密鑰可以通過登入 RetroAchievements 網站並前往 <span class="hl">設定 > 密鑰 > Web API Key</span> 來複製或重新生成<br><br>🔒 提供的密鑰將在儲存在本地系統之前進行加密（如果當前操作系統支持加密）</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "設定通知中顯示的最大文字行數",
         notifyoverflow: "設定通知中文字溢出時的處理方式",
         scrollrepeat: `設定通知顯示期間溢出文字的捲動次數<br><br><span class="ttdesc">捲動速度取決於顯示時間，但較高的重複次數可能不適用於所有預設設定</span>`,
-        setplat: "在相容的遊戲中完成每個成就集後顯示 100% 完成通知"
+        setplat: "在相容的遊戲中，於每個成就組合完成時顯示通知",
+        platsubtype: `選擇要自訂的 <span class="hl">100%</span> 通知子類型<br><br><span class="ttdesc" nostar><ul><li><span class="hl">遊戲</span>：當遊戲中的所有成就都解鎖時顯示的通知</li><li><span class="hl">組合</span>：當單一成就組合中的所有成就都解鎖時顯示的通知</li></ul></span>`
     },
     update: {
         updateavailable: "有可用更新",

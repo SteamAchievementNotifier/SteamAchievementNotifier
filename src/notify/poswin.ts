@@ -12,6 +12,7 @@ document.getElementById("okbtn")!.onclick = () => {
 
 ipcRenderer.once("poswin",(event,type,bounds: { width: number, height: number }) => {
     document.body.setAttribute(type,"")
+    type === "set" && document.body.setAttribute("plat","")
 
     document.documentElement.style.setProperty("--width",`${bounds.width}px`)
     document.documentElement.style.setProperty("--height",`${bounds.height}px`)

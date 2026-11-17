@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Terminé",
         achievementdesc: "Cliqué sur le bouton Afficher la notification de test",
         gamecompletedesc: "Vous avez débloqué tous les succès !",
+        setname: "Nom de la série",
+        setcomplete: "Vous avez terminé l'ensemble des succès !",
         defaultcustomfont: "Par défaut (Aucune police sélectionnée)",
         defaultsoundfile: "Par défaut (Aucun fichier sélectionné)",
         defaultsounddir: "Par défaut (Aucun dossier sélectionné)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nouveau...",
         nodata: "Aucune donnée",
         webhookunlockmsg: "$user a débloqué un succès",
+        webhookunlockmsgset: "$user a terminé une série de succès",
         webhookunlockmsgplat: "$user a débloqué tous les succès",
         webhookingame: "dans $gamename",
         notconnected: "Non connecté",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Copier le thème",
                 copythemesub: "Sélectionnez le(s) type(s) de notification vers lequel copier le thème sélectionné"
             }
+        },
+        platnotifytype: {
+            title: "Personnaliser",
+            content: {
+                platsubtype: "Sous-type",
+                game: "Jeu",
+                set: "Série"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Activer ou désactiver l’envoi d’informations de succès à un serveur Discord lorsqu’un succès $semi est déverrouillé`,
         webhookrare: "Activer ou désactiver l’envoi d’informations de succès à un serveur Discord lorsqu’un succès $rare est déverrouillé",
         webhookplat: "Activer ou désactiver l’envoi d’informations de succès à un serveur Discord lorsqu’un succès $plat est déverrouillé",
+        webhookset: "Activer ou désactiver la publication des informations sur les succès sur un serveur Discord lorsqu'une série de succès est terminée",
         webhooktest: "Activer ou désactiver l'envoi d'informations de test à un serveur Discord lorsque des notifications de test de tout type sont déclenchées",
         webhookurl: `Définissez la <span class="hl">URL du Webhook</span> pour le serveur Discord souhaité<br><br><span class="ttdesc">Une <span class="hl">URL de Webhook</span> est utilisée pour publier sur un serveur/kanal Discord au nom d'un utilisateur ou d'une application. Pour configurer un nouveau Webhook pour un serveur Discord, l'utilisateur doit avoir un rôle dans le serveur souhaité qui autorise la création de Webhooks<br><br><u>Une URL de Webhook est requise lorsque vous utilisez cette option</u><br><br>Consultez la documentation officielle de Discord pour plus d'informations</span>`,
         webhookspoilers: `Ajouter un tag spoiler aux réalisations "Cachées" lors de leur publication sur Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Définir la couleur utilisée dans l'intégration webhook lorsqu’un succès $semi est déverrouillé",
         webhookembedcolorrare: "Définir la couleur utilisée dans l'intégration webhook lorsqu’un succès $rare est déverrouillé",
         webhookembedcolorplat: "Définir la couleur utilisée dans l'intégration webhook lorsqu’un succès $plat est déverrouillé",
+        webhookembedcolorset: "Définir la couleur utilisée dans l'intégration du webhook lorsqu'une série de succès est terminée",
         raemus: "Afficher des notifications lorsque des jeux sont détectés dans des émulateurs pris en charge",
         rauser: "Définir le nom d'utilisateur RetroAchievements pour suivre les succès",
         rakey: `Définissez la clé Web API à utiliser pour l'authentification à l'API RetroAchievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en vous connectant au site RetroAchievements et en accédant à <span class="hl">Paramètres > Clés > Clé Web API</span><br><br>🔒 La clé fournie sera chiffrée avant d'être stockée localement sur le système (si le système d'exploitation actuel prend en charge le chiffrement)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Définir le nombre maximal de lignes de texte à afficher dans les notifications",
         notifyoverflow: "Définir le comportement du texte qui dépasse l'espace disponible dans les notifications",
         scrollrepeat: `Définir le nombre de fois que le texte excédentaire défile pendant que la notification est affichée à l'écran<br><br><span class="ttdesc">La vitesse de défilement dépend de la durée d'affichage, mais des valeurs de répétition plus élevées peuvent ne pas convenir à tous les préréglages</span>`,
-        setplat: "Afficher la notification de complétion à 100 % après avoir terminé chaque ensemble de succès dans les jeux compatibles"
+        setplat: "Afficher des notifications lorsque chaque série de succès est terminée dans les jeux compatibles",
+        platsubtype: `Sélectionnez le sous-type de notification <span class="hl">100%</span> à personnaliser<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Jeu</span> : La notification affichée lorsque tous les succès du jeu sont débloqués</li><li><span class="hl">Série</span> : La notification affichée lorsque tous les succès d'une seule série sont débloqués</li></ul></span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",

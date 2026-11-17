@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Færdig",
         achievementdesc: "Klikkede på knappen Vis testmeddelelse",
         gamecompletedesc: "Du har låst alle præstationer op!",
+        setname: "Sætnavn",
+        setcomplete: "Du har fuldført hele præstationssættet!",
         defaultcustomfont: "Standard (Ingen skrifttype valgt)",
         defaultsoundfile: "Standard (Ingen fil valgt)",
         defaultsounddir: "Standard (Ingen mappe valgt)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Ny...",
         nodata: "Ingen data",
         webhookunlockmsg: "$user låste op for en præstation",
+        webhookunlockmsgset: "$user har fuldført et achievementsæt",
         webhookunlockmsgplat: "$user låste op for alle præstationer",
         webhookingame: "i $gamename",
         notconnected: "Ikke forbundet",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Kopiér tema",
                 copythemesub: "Vælg den/de notifikationstype(r), som det valgte tema skal kopieres til"
             }
+        },
+        platnotifytype: {
+            title: "Tilpas",
+            content: {
+                platsubtype: "Undertype",
+                game: "Spil",
+                set: "Sæt"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Skift om præstationsoplysninger skal sendes til en Discord-server, når en $semi præstation låses op`,
         webhookrare: "Skift om præstationsoplysninger skal sendes til en Discord-server, når en $rare præstation låses op",
         webhookplat: "Skift om præstationsoplysninger skal sendes til en Discord-server, når en $plat præstation låses op",
+        webhookset: "Slå til eller fra, om oplysninger om achievements skal offentliggøres på en Discord-server, når et achievementsæt er fuldført",
         webhooktest: "Skift om testinformation skal sendes til en Discord-server, når testnotifikationer af enhver type udløses",
         webhookurl: `Indstil <span class="hl">webhook-URL'en</span> for den ønskede Discord-server<br><br><span class="ttdesc">En <span class="hl">webhook-URL</span> bruges til at sende beskeder til en Discord-server/kanal på vegne af en bruger eller applikation. For at opsætte en ny webhook til en Discord-server, skal brugeren have en rolle på den ønskede server, der tillader oprettelse af webhooks<br><br><u>En webhook-URL er påkrævet, når du bruger denne mulighed</u><br><br>Se Discords officielle dokumentation for flere oplysninger</span>`,
         webhookspoilers: `Tilføj et spoiler-mærke til "Skjulte" præstationer, når de bliver delt på Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Angiv den farve, der bruges i webhook-indlejringen, når en $semi præstation låses op",
         webhookembedcolorrare: "Angiv den farve, der bruges i webhook-indlejringen, når en $rare præstation låses op",
         webhookembedcolorplat: "Angiv den farve, der bruges i webhook-indlejringen, når en $plat præstation låses op",
+        webhookembedcolorset: "Indstil farven, der bruges i webhook-indlejringen, når et achievementsæt er fuldført",
         raemus: "Vis notifikationer, når spil registreres i understøttede emulatorer",
         rauser: "Angiv RetroAchievements-brugernavnet for at spore achievements",
         rakey: `Angiv Web API-nøglen, der skal bruges til godkendelse med RetroAchievements API<br><br><span class="ttdesc">En Web API-nøgle kan kopieres eller gendannes ved at logge ind på RetroAchievements-hjemmesiden og navigere til <span class="hl">Indstillinger > Nøgler > Web API-nøgle</span><br><br>🔒 Den angivne nøgle vil blive krypteret, før den gemmes lokalt på systemet (hvis det aktuelle operativsystem understøtter kryptering)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Angiver det maksimale antal tekstlinjer, der skal vises i meddelelser",
         notifyoverflow: "Angiver, hvordan overskydende tekst håndteres i meddelelser",
         scrollrepeat: `Angiver, hvor mange gange overskydende tekst ruller, mens meddelelsen vises på skærmen<br><br><span class="ttdesc">Rullehastigheden afhænger af visningstiden, men højere gentagelsesværdier er muligvis ikke egnede til alle forudindstillinger</span>`,
-        setplat: "Vis 100%-notifikationen efter fuldførelse af hvert achievement-sæt i kompatible spil"
+        setplat: "Vis notifikationer, når hvert achievementsæt fuldføres i kompatible spil",
+        platsubtype: `Vælg den <span class="hl">100%</span>-notifikationstype, der skal tilpasses<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Spil</span>: Notifikationen, der vises, når alle achievements i spillet er låst op</li><li><span class="hl">Sæt</span>: Notifikationen, der vises, når alle achievements i et enkelt achievementsæt er låst op</li></ul></span>`
     },
     update: {
         updateavailable: "Opdatering tilgængelig",

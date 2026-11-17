@@ -62,7 +62,7 @@ const notifyhelper = {
         if (iswebview || skipaudio) return
     
         const audio = document.querySelector("audio")!
-        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${(type !== "main" && type !== "semi") ? `_${type}` : ""}.wav`
+        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${(type !== "main" && type !== "semi") ? `_${type === "set" ? "plat" : type}` : ""}.wav`
         audio.volume = customisation.volume / 100
         audio.play()
     },
@@ -379,6 +379,7 @@ try {
     
         try {
             document.body.setAttribute(type,"")
+            type === "set" && document.body.setAttribute("plat","")
             document.body.toggleAttribute("noiconanim",!!!customisation.iconanim)
     
             const ssdisplay = screenshots === "overlay" && customisation.ssdisplay

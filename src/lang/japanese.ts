@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% 完了",
         achievementdesc: "テスト通知ボタンをクリックしました",
         gamecompletedesc: "すべての実績を解除しました！",
+        setname: "セット名",
+        setcomplete: "実績セットをすべて達成しました！",
         defaultcustomfont: "デフォルト（フォントが選択されていません）",
         defaultsoundfile: "デフォルト（ファイルが選択されていません）",
         defaultsounddir: "デフォルト（フォルダが選択されていません）",
@@ -62,6 +64,7 @@ export const translations = {
         new: "新規...",
         nodata: "データがありません",
         webhookunlockmsg: "$user がアチーブメントを解除しました",
+        webhookunlockmsgset: "$user が実績セットを完了しました",
         webhookunlockmsgplat: "$user がすべての実績を解除しました",
         webhookingame: "$gamename で",
         notconnected: "接続されていません",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "テーマをコピー",
                 copythemesub: "選択したテーマをコピーする通知タイプを選択"
             }
+        },
+        platnotifytype: {
+            title: "カスタマイズ",
+            content: {
+                platsubtype: "サブタイプ",
+                game: "ゲーム",
+                set: "セット"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `$semi 実績がアンロックされたときに、Discordサーバーへ実績情報を投稿するか切り替え`,
         webhookrare: `$rare 実績がアンロックされたときに、Discordサーバーへ実績情報を投稿するか切り替え`,
         webhookplat: `$plat 実績がアンロックされたときに、Discordサーバーへ実績情報を投稿するか切り替え`,
+        webhookset: "実績セットの完了時に、Discordサーバーへ実績情報を投稿するかどうかを切り替えます",
         webhooktest: "任意の種類のテスト通知がトリガーされたときに、テスト情報をDiscordサーバーに投稿するかどうかを切り替え",
         webhookurl: `希望するDiscordサーバーのために<span class="hl">Webhook URL</span>を設定してください<br><br><span class="ttdesc">WebHook URLは、ユーザーまたはアプリケーションの代理でDiscordサーバー/チャンネルに投稿するために使用されます。Discordサーバーの新しいWebhookを設定するには、ユーザーがWebhookの作成を許可された役割を持っている必要があります<br><br><u>このオプションを使用するにはWebhook URLが必要です</u><br><br>詳細はDiscordの公式ドキュメントを参照してください</span>`,
         webhookspoilers: `Discordに投稿する際に「隠し」実績にネタバレタグを追加`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: `$semi 実績がアンロックされたときにWebhookの埋め込みで使用される色を設定`,
         webhookembedcolorrare: `$rare 実績がアンロックされたときにWebhookの埋め込みで使用される色を設定`,
         webhookembedcolorplat: `$plat 実績がアンロックされたときにWebhookの埋め込みで使用される色を設定`,
+        webhookembedcolorset: "実績セットの完了時にWebhookの埋め込みメッセージで使用する色を設定します",
         raemus: "サポートされているエミュレータでゲームが検出されると通知を表示",
         rauser: "達成の追跡に使用するRetroAchievementsのユーザー名を設定",
         rakey: `RetroAchievements API の認証に使用する Web API キーを設定します<br><br><span class="ttdesc">Web API キーは RetroAchievements のウェブサイトにログインし、<span class="hl">設定 > キー > Web API キー</span>に移動することでコピーまたは再生成できます<br><br>🔒 提供されたキーは、システムにローカルで保存される前に暗号化されます（現在の OS が暗号化をサポートしている場合）</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "通知内に表示するテキストの最大行数を設定します",
         notifyoverflow: "通知内でテキストがオーバーフローした場合の動作を設定します",
         scrollrepeat: `通知が画面に表示されている間に、オーバーフローしたテキストをスクロールする回数を設定します<br><br><span class="ttdesc">スクロール速度は表示時間に依存しますが、繰り返し回数を増やすと一部のプリセットに適さない場合があります</span>`,
-        setplat: "対応ゲームで各実績セットを完了した後に100%達成通知を表示する"
+        setplat: "対応ゲームで各実績セットを完了した際の通知を表示します",
+        platsubtype: `カスタマイズする<span class="hl">100%</span>通知のサブタイプを選択してください<br><br><span class="ttdesc" nostar><ul><li><span class="hl">ゲーム</span>: ゲーム内のすべての実績が解除されたときに表示される通知</li><li><span class="hl">セット</span>: 1つの実績セット内のすべての実績が解除されたときに表示される通知</li></ul></span>`
     },
     update: {
         updateavailable: "アップデートが利用可能です",

@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Abgeschlossen",
         achievementdesc: "Auf die Schaltfläche Testbenachrichtigung anzeigen geklickt",
         gamecompletedesc: "Du hast alle Erfolge freigeschaltet!",
+        setname: "Setname",
+        setcomplete: "Du hast das gesamte Erfolgsset abgeschlossen!",
         defaultcustomfont: "Standard (Keine Schriftart ausgewählt)",
         defaultsoundfile: "Standard (Keine Datei ausgewählt)",
         defaultsounddir: "Standard (Kein Ordner ausgewählt)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Neu...",
         nodata: "Keine Daten",
         webhookunlockmsg: "$user hat einen Erfolg freigeschaltet",
+        webhookunlockmsgset: "$user hat ein Achievement-Set abgeschlossen",
         webhookunlockmsgplat: "$user hat alle Erfolge freigeschaltet",
         webhookingame: "in $gamename",
         notconnected: "Nicht verbunden",
@@ -603,7 +606,15 @@ export const translations = {
                 copytheme: "Design kopieren",
                 copythemesub: "Wählen Sie die Benachrichtigungstyp(en), in die das ausgewählte Design kopiert werden soll"
             }
-        }        
+        },
+        platnotifytype: {
+            title: "Anpassen",
+            content: {
+                platsubtype: "Untertyp",
+                game: "Spiel",
+                set: "Set"
+            }
+        }
     },
     logwin: {
         content: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Aktivieren, ob Erfolgsinformationen an einen Discord-Server gesendet werden, wenn ein $semi-Erfolg freigeschaltet wird`,
         webhookrare: "Aktivieren, ob Erfolgsinformationen an einen Discord-Server gesendet werden, wenn ein $rare-Erfolg freigeschaltet wird",
         webhookplat: "Aktivieren, ob Erfolgsinformationen an einen Discord-Server gesendet werden, wenn ein $plat-Erfolg freigeschaltet wird",
+        webhookset: "Festlegen, ob beim Abschluss eines Achievement-Sets Informationen zu Achievements auf einem Discord-Server veröffentlicht werden sollen",
         webhooktest: "Umschalten, ob Testinformationen an einen Discord-Server gesendet werden sollen, wenn Testbenachrichtigungen irgendeines Typs ausgelöst werden",
         webhookurl: `Stellen Sie die <span class="hl">Webhook-URL</span> für den gewünschten Discord-Server ein<br><br><span class="ttdesc">Eine <span class="hl">Webhook-URL</span> wird verwendet, um im Namen eines Benutzers oder einer Anwendung auf einem Discord-Server/Kanal zu posten. Um einen neuen Webhook für einen Discord-Server einzurichten, muss der Benutzer eine Rolle im gewünschten Server haben, die das Erstellen von Webhooks erlaubt<br><br><u>Eine Webhook-URL ist erforderlich, wenn Sie diese Option verwenden</u><br><br>Weitere Informationen finden Sie in der offiziellen Discord-Dokumentation</span>`,
         webhookspoilers: `Füge einen Spoiler-Tag zu "versteckten" Erfolgen hinzu, wenn sie auf Discord gepostet werden`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Lege die Farbe fest, die im Webhook-Embed verwendet wird, wenn ein $semi-Erfolg freigeschaltet wird",
         webhookembedcolorrare: "Lege die Farbe fest, die im Webhook-Embed verwendet wird, wenn ein $rare-Erfolg freigeschaltet wird",
         webhookembedcolorplat: "Lege die Farbe fest, die im Webhook-Embed verwendet wird, wenn ein $plat-Erfolg freigeschaltet wird",
+        webhookembedcolorset: "Die Farbe festlegen, die beim Abschluss eines Achievement-Sets im Webhook-Embed verwendet wird",
         raemus: "Benachrichtigungen anzeigen, wenn Spiele in unterstützten Emulatoren erkannt werden",
         rauser: "Den RetroAchievements-Benutzernamen festlegen, um Erfolge zu verfolgen",
         rakey: `Legen Sie den Web-API-Schlüssel fest, der für die Authentifizierung mit der RetroAchievements API verwendet wird<br><br><span class="ttdesc">Ein Web-API-Schlüssel kann kopiert oder neu generiert werden, indem Sie sich auf der RetroAchievements-Website anmelden und zu <span class="hl">Einstellungen > Schlüssel > Web-API-Schlüssel</span> navigieren<br><br>🔒 Der angegebene Schlüssel wird verschlüsselt, bevor er lokal auf dem System gespeichert wird (sofern das aktuelle Betriebssystem Verschlüsselung unterstützt)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Legt die maximale Anzahl der Textzeilen fest, die in Benachrichtigungen angezeigt werden",
         notifyoverflow: "Legt fest, wie überlaufender Text in Benachrichtigungen behandelt wird",
         scrollrepeat: `Legt fest, wie oft überlaufender Text scrollt, während die Benachrichtigung auf dem Bildschirm angezeigt wird<br><br><span class="ttdesc">Die Scroll-Geschwindigkeit hängt von der Anzeigedauer ab, aber höhere Wiederholungswerte sind möglicherweise nicht für alle Voreinstellungen geeignet</span>`,
-        setplat: "Die 100%-Benachrichtigung anzeigen, nachdem jedes Achievement-Set in kompatiblen Spielen abgeschlossen wurde"
+        setplat: "Benachrichtigungen für den Abschluss jedes Achievement-Sets in kompatiblen Spielen anzeigen",
+        platsubtype: `Wähle den <span class="hl">100%</span>-Benachrichtigungsuntertyp aus, der angepasst werden soll<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Spiel</span>: Die Benachrichtigung, die angezeigt wird, wenn alle Achievements im Spiel freigeschaltet wurden</li><li><span class="hl">Set</span>: Die Benachrichtigung, die angezeigt wird, wenn alle Achievements in einem einzelnen Achievement-Set freigeschaltet wurden</li></ul></span>`
     },
     update: {
         updateavailable: "Update verfügbar",

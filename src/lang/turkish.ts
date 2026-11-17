@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "Oyun Tamamlandı: 100%",
         achievementdesc: "Test Bildirimini Göster düğmesine tıklandı",
         gamecompletedesc: "Tüm başarılarınızı kilidini açtınız!",
+        setname: "Set Adı",
+        setcomplete: "Başarı setini tamamladınız!",
         defaultcustomfont: "Varsayılan (Yazı Tipi Seçilmedi)",
         defaultsoundfile: "Varsayılan (Dosya Seçilmedi)",
         defaultsounddir: "Varsayılan (Klasör Seçilmedi)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Yeni...",
         nodata: "Veri Yok",
         webhookunlockmsg: "$user bir başarıyı kilidini açtı",
+        webhookunlockmsgset: "$user bir başarı setini tamamladı",
         webhookunlockmsgplat: "$user tüm başarıları açtı",
         webhookingame: "$gamename'de",
         notconnected: "Bağlantı yok",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Temayı kopyala",
                 copythemesub: "Seçilen temanın kopyalanacağı bildirim tür(ler)ini seçin"
             }
+        },
+        platnotifytype: {
+            title: "Özelleştir",
+            content: {
+                platsubtype: "Alt Tür",
+                game: "Oyun",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `$semi başarısı kilitlendiğinde Discord sunucusuna başarı bilgisi gönderilip gönderilmeyeceğini değiştir`,
         webhookrare: `$rare başarısı kilitlendiğinde Discord sunucusuna başarı bilgisi gönderilip gönderilmeyeceğini değiştir`,
         webhookplat: `$plat başarısı kilitlendiğinde Discord sunucusuna başarı bilgisi gönderilip gönderilmeyeceğini değiştir`,
+        webhookset: "Bir başarı seti tamamlandığında başarı bilgilerinin bir Discord sunucusunda paylaşılmasını açıp kapat",
         webhooktest: "Herhangi bir türde test bildirimi tetiklendiğinde, test bilgilerini Discord sunucusuna gönderip göndermemeyi geçiş yap",
         webhookurl: `İstenilen Discord sunucusu için <span class="hl">Webhook URL</span> ayarlayın<br><br><span class="ttdesc"><span class="hl">Webhook URL</span>, bir kullanıcı veya uygulama adına Discord sunucusunda/kanalında paylaşım yapmak için kullanılır. Bir Discord sunucusu için yeni bir Webhook ayarlamak için kullanıcı, Webhooks oluşturulmasına izin veren bir role sahip olmalıdır<br><br><u>Bu seçeneği kullanırken Webhook URL gereklidir</u><br><br>Daha fazla bilgi için Discord'un resmi belgelerine başvurun</span>`,
         webhookspoilers: `Discord'a gönderildiğinde "Gizli" başarılarına spoiler etiketi ekle`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: `$semi başarısı kilitlendiğinde webhook gömme içinde kullanılan rengi ayarla`,
         webhookembedcolorrare: `$rare başarısı kilitlendiğinde webhook gömme içinde kullanılan rengi ayarla`,
         webhookembedcolorplat: `$plat başarısı kilitlendiğinde webhook gömme içinde kullanılan rengi ayarla`,
+        webhookembedcolorset: "Bir başarı seti tamamlandığında webhook yerleştirmesinde kullanılan rengi ayarla",
         raemus: "Desteklenen emülatörlerde oyunlar tespit edildiğinde bildirim göster",
         rauser: "Başarıları takip etmek için RetroAchievements kullanıcı adını ayarlayın",
         rakey: `RetroAchievements API'si ile kimlik doğrulama için kullanılacak Web API Anahtarını ayarlayın<br><br><span class="ttdesc">Bir Web API Anahtarı, RetroAchievements web sitesine giriş yaparak ve <span class="hl">Ayarlar > Anahtarlar > Web API Key</span> bölümüne giderek kopyalanabilir veya yeniden oluşturulabilir<br><br>🔒 Verilen anahtar, yerel sisteme kaydedilmeden önce şifrelenir (eğer mevcut işletim sistemi şifrelemeyi destekliyorsa)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Bildirimlerde görüntülenecek maksimum metin satırı sayısını ayarla",
         notifyoverflow: "Bildirimlerde taşan metnin nasıl davranacağını ayarla",
         scrollrepeat: `Bildirim ekrandayken taşan metnin kaç kez kaydırılacağını ayarla<br><br><span class="ttdesc">Kaydırma hızı Görüntüleme Süresine bağlıdır, ancak yüksek tekrar değerleri tüm ön ayarlar için uygun olmayabilir</span>`,
-        setplat: "Desteklenen oyunlarda her başarı seti tamamlandıktan sonra %100 tamamlanma bildirimini göster"
+        setplat: "Uyumlu oyunlarda her başarı seti tamamlandığında bildirimleri göster",
+        platsubtype: `Özelleştirilecek <span class="hl">100%</span> bildirim alt türünü seç<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Oyun</span>: Oyundaki tüm başarımlar açıldığında gösterilen bildirim</li><li><span class="hl">Set</span>: Tek bir başarı setindeki tüm başarımlar açıldığında gösterilen bildirim</li></ul></span>`
     },
     update: {
         updateavailable: "Güncelleme mevcut",

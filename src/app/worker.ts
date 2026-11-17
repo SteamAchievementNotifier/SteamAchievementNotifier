@@ -368,16 +368,17 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                     const setname = sanachievement.getsetname(schema,appid,groupid,lang)
                     
                     const setplatnotify = sannotify.show(appid,{
-                        type: "plat",
+                        type: "set",
                         gamename: gamename ?? "???",
                         steam3id,
                         apiname: `PLAT_SET_${groupid}`,
                         name: "100%",
-                        desc: setname
+                        desc: "",
+                        setname
                     })
 
                     sanhelper.devmode && console.log(setplatnotify)
-                    log.write("INFO",`Completed achievement set: "${setplatnotify.desc}"`)
+                    log.write("INFO",`Completed achievement set: "${setplatnotify.setname}"`)
                 }
             }
 

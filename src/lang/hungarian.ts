@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Befejezve",
         achievementdesc: "Kattintás a Teszt értesítés megjelenítése gombra",
         gamecompletedesc: "Összes teljesítmény feloldva!",
+        setname: "Készlet neve",
+        setcomplete: "Teljesítetted az eredménygyűjteményt!",
         defaultcustomfont: "Alapértelmezett (Nincs kiválasztott betűtípus)",
         defaultsoundfile: "Alapértelmezett (Nincs kiválasztott hangfájl)",
         defaultsounddir: "Alapértelmezett (Nincs kiválasztott mappa)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Új...",
         nodata: "Nincsenek adatok",
         webhookunlockmsg: "$user teljesítményt oldott fel",
+        webhookunlockmsgset: "$user teljesített egy achievement készletet",
         webhookunlockmsgplat: "$user feloldotta az összes teljesítményt",
         webhookingame: "a $gamename játékban",
         notconnected: "Nincs csatlakoztatva",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Téma másolása",
                 copythemesub: "Válaszd ki az értesítés típusát/típusait, ahová a kiválasztott témát másolni szeretnéd"
             }
+        },
+        platnotifytype: {
+            title: "Testreszabás",
+            content: {
+                platsubtype: "Altípus",
+                game: "Játék",
+                set: "Készlet"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Kapcsoló, hogy teljesítményinformációk kerüljenek-e elküldésre egy Discord szerverre, amikor egy $semi teljesítmény feloldódik`,
         webhookrare: "Kapcsoló, hogy teljesítményinformációk kerüljenek-e elküldésre egy Discord szerverre, amikor egy $rare teljesítmény feloldódik",
         webhookplat: "Kapcsoló, hogy teljesítményinformációk kerüljenek-e elküldésre egy Discord szerverre, amikor egy $plat teljesítmény feloldódik",
+        webhookset: "Annak be- vagy kikapcsolása, hogy az achievement készlet teljesítésekor achievement-információk kerüljenek közzétételre egy Discord-szerveren",
         webhooktest: "Váltás, hogy küldjön-e teszt információkat egy Discord szerverre, amikor bármilyen típusú teszt értesítés aktiválódik",
         webhookurl: `Állítsa be a <span class="hl">Webhook URL</span> a kívánt Discord szerverhez<br><br><span class="ttdesc">Egy <span class="hl">Webhook URL</span> arra szolgál, hogy közzétegyen egy üzenetet egy Discord szerveren/csatornán felhasználó vagy alkalmazás nevében. Új Webhook beállításához egy Discord szerveren, a felhasználónak szerepet kell vállalnia a kívánt szerveren, amely engedélyezi a Webhook-ok létrehozását<br><br><u>Webhook URL szükséges ezen opció használatához</u><br><br>További információkért nézze meg a Discord hivatalos dokumentációját</span>`,
         webhookspoilers: `Spoiler címke hozzáadása a "Rejtett" eredményekhez, amikor azok a Discordra kerülnek`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Állítsa be a webhook beágyazásban használt színt, amikor egy $semi teljesítmény feloldódik",
         webhookembedcolorrare: "Állítsa be a webhook beágyazásban használt színt, amikor egy $rare teljesítmény feloldódik",
         webhookembedcolorplat: "Állítsa be a webhook beágyazásban használt színt, amikor egy $plat teljesítmény feloldódik",
+        webhookembedcolorset: "Az achievement készlet teljesítésekor a webhook beágyazott üzenetében használt szín beállítása",
         raemus: "Értesítések megjelenítése, amikor játékokat észlelnek támogatott emulátorokban",
         rauser: "A RetroAchievements felhasználónevet beállítani az elért eredmények nyomon követéséhez",
         rakey: `Állítsa be a Web API kulcsot, amely az autentikációhoz használható a RetroAchievements API-val<br><br><span class="ttdesc">Egy Web API kulcs másolható vagy újragenerálható úgy, hogy bejelentkezik a RetroAchievements weboldalra, és átmegy a <span class="hl">Beállítások > Kulcsok > Web API kulcs</span> menüpontra<br><br>🔒 A megadott kulcs titkosítva lesz, mielőtt helyben tárolódna a rendszeren (ha az aktuális operációs rendszer támogatja a titkosítást)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Az értesítésekben megjelenítendő szövegsorok maximális számának beállítása",
         notifyoverflow: "Az értesítésekben túlcsorduló szöveg viselkedésének beállítása",
         scrollrepeat: `Annak beállítása, hogy a túlcsorduló szöveg hányszor görgessen, amíg az értesítés a képernyőn látható<br><br><span class="ttdesc">A görgetési sebesség a megjelenítési időtől függ, de a magasabb ismétlési értékek nem feltétlenül megfelelőek minden előbeállításhoz</span>`,
-        setplat: "A 100%-os értesítés megjelenítése minden teljesítménykészlet befejezése után a kompatibilis játékokban"
+        setplat: "Értesítések megjelenítése minden achievement készlet teljesítéséről a kompatibilis játékokban",
+        platsubtype: `Válaszd ki a testreszabni kívánt <span class="hl">100%-os</span> értesítés altípusát<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Játék</span>: Az értesítés akkor jelenik meg, amikor a játék összes achievementje feloldásra került</li><li><span class="hl">Készlet</span>: Az értesítés akkor jelenik meg, amikor egy adott achievement készlet összes achievementje feloldásra került</li></ul></span>`
     },
     update: {
         updateavailable: "Frissítés elérhető",

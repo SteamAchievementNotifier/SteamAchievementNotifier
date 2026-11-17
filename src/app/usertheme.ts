@@ -31,9 +31,9 @@ const getkeyvalue = (value: any,key: string,map = new Map<string,any>()): Map<st
     return map
 }
 
-const rewritepath = (themedir: string,value: string | string[]) => {
+const rewritepath = (assetsdir: string,value: string | string[]) => {
     if (!value) return log.write("WARN",`Received ${typeof value} - skipping...`)
-    const valuepath = (value: string) => path.join(themedir,"assets",path.basename(value)).replace(/\\/g,"/")
+    const valuepath = (value: string) => path.join(assetsdir,path.basename(value)).replace(/\\/g,"/")
 
     if (Array.isArray(value)) return value.map(subvalue => subvalue = valuepath(subvalue))
     return valuepath(value)
@@ -62,10 +62,95 @@ const converttoobject = (obj: Record<string,any>) => {
     return res
 }
 
+const assets = {
+    import: (customisation: Customisation,assetsdir: string,type: NotifyType) => {
+        const customfilesmap = new Map<string,any>()
+        
+        for (const key of customfilekeys) {        
+            if (customisation[key] === undefined) {
+                log.write("WARN",`"customisation.${type}.${key}" does not exist`)
+                continue
+            }
+
+            getkeyvalue(customisation[key],key,customfilesmap)
+        }
+
+        if (!customfilesmap.size) throw new Error(`No keys found in "contentmap" for "${type}"`)
+
+        customfilesmap.forEach((value,key) => {
+            if (!value || (typeof value !== "string" && !Array.isArray(value)) || key.endsWith("elems")) return
+            customfilesmap.set(key,rewritepath(assetsdir,value))
+        })
+
+        const newkeys = converttoobject(Object.fromEntries(customfilesmap))
+
+        // Populate all empty, non-exported `customicons` keys with default values
+        for (const [preset,value] of Object.entries(newkeys.customicons)) {
+            if (value === "") {
+                if (sanconfig.defaulticons.has(preset)) {
+                    newkeys.customicons[preset] = sanconfig.defaulticons.get(preset)
+                } else {
+                    log.write("ERROR",`Unable to find "${preset}" in "sanconfig.defaulticons" - skipping...`)
+                }
+            }
+        }
+
+        return { ...customisation, ...newkeys } as Customisation
+    },
+    export: (customisation: Customisation,assetsdir: string,type: NotifyType) => {
+        const contentmap = new Map<string,any>()
+
+        for (const key of customfilekeys) {
+            if (customisation[key] === undefined) {
+                log.write("WARN",`"customisation.${type}.${key}" does not exist`)
+                continue
+            }
+
+            const customicons = customisation[key] as { [key: string]: CustomIcon | string }
+
+            if (key === "customicons") {
+                for (const preset in customicons) {
+                    if (!("plat" in customicons)) customicons.plat = sanhelper.setfilepath("img","ribbon.svg")
+                    if (preset !== customisation.preset && preset !== "plat") (customicons as any)[preset] = ""
+                }
+
+                customisation.customicons = customicons
+            }
+
+            getkeyvalue(customisation[key],key,contentmap)
+        }
+
+        if (!contentmap.size) throw new Error(`No keys found in "contentmap" for "${type}"`)
+
+        fs.mkdirSync(assetsdir,{ recursive: true })
+
+        for (const [key,value] of contentmap) {
+            if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg","title","desc"].every(elem => item !== elem)))) continue
+
+            try {
+                if (Array.isArray(value)) {
+                    value.forEach(subvalue => fsextra.copySync(subvalue,path.join(assetsdir,path.basename(subvalue))))
+                } else if (key === "sounddir") {
+                    const sounddirpath = path.join(assetsdir,path.basename(value)) // `value` is the "sounddir" folder path
+                    fs.mkdirSync(sounddirpath,{ recursive: true })
+
+                    for (const validfile of fs.readdirSync(value).filter(file => sanhelper.audioextensions.includes(path.extname(file)))) {
+                        fsextra.copySync(path.join(value,validfile),path.join(sounddirpath,validfile))
+                    }
+                } else {
+                    fsextra.copySync(value,path.join(assetsdir,path.basename(value)))
+                }
+            } catch (err) {
+                throw new Error(`Error copying asset from "customisation.${type}.${key}": ${(err as Error).message}`)
+            }
+        }
+    }
+}
+
 export const usertheme = {
     data: (newtype?: NotifyType) => {
         const config = sanconfig.get()
-        const type = newtype || sanhelper.type as NotifyType
+        const type = sanhelper.basetype(newtype || sanhelper.type as NotifyType) // `set` has no Theme select list of its own - its Themes are stored in (and selected via) the `plat` Theme select list
         const userthemes = config.get(`customisation.${type}.usertheme`) as UserTheme[]
 
         return { config, type, userthemes }
@@ -170,12 +255,36 @@ export const usertheme = {
             (customisation as any)[key] = config.get(`customisation.${type}.${key}`)
         }
 
-        // Checks all keys in current type on import and adds defaults if missing
+        const linkedtypes: NotifyType[] = type === "plat" ? ["plat","set"] : [type]
+
+        // Checks all keys in current type (and its linked "set" type) on import and adds defaults if missing
         ;(async () => {
             const { sanconfig } = await import("./config")
-            const customobj = sanconfig.defaultobj("customisation",type) as Customisation
-            await sanconfig.validateconfigobj(customobj,type)
+
+            for (const type of linkedtypes) {
+                const customobj = sanconfig.defaultobj("customisation",type) as Customisation
+                await sanconfig.validateconfigobj(customobj,type)
+            }
         })()
+
+        if (type === "plat") {
+            // Load the "set" customisation saved with the selected "plat" Theme into `config.customisation.set`
+            // Themes saved before "set" existed (e.g. imported from V1.9) have none, so a default is created and saved to the Theme here
+            const defaultset = sanconfig.create().customisation.set.usertheme[0].customisation as Customisation
+            const setcustomisation = { ...defaultset, ...selected.set } as Customisation
+            const storedset = { ...setcustomisation }
+
+            for (const key of settingslvlkeys) {
+                delete (storedset as any)[key]
+                ;(setcustomisation as any)[key] = config.get(`customisation.set.${key}`)
+            }
+
+            selected.set = storedset
+            setcustomisation.usertheme = config.get(`customisation.set.usertheme`) as UserTheme[]
+
+            config.set(`customisation.set`,setcustomisation)
+            ;(async () => await sanconfig.validatecustomicons("set"))()
+        }
 
         customisation.usertheme = []
 
@@ -185,6 +294,7 @@ export const usertheme = {
         })
 
         config.set(`customisation.${type}`,customisation)
+        type === "plat" && (async () => await sanconfig.linkset(config))()
 
         ;(async () => {
             if (!event) {
@@ -199,7 +309,7 @@ export const usertheme = {
         dialogelem && dialog.close()
         usertheme.update()
     },
-    create: (label: string,icon: string,customobj?: Customisation,update?: string,userthemedir?: string,usecustomfiles?: boolean,newtype?: NotifyType) => {
+    create: (label: string,icon: string,customobj?: Customisation,update?: string,userthemedir?: string,usecustomfiles?: boolean,newtype?: NotifyType,setcustomobj?: Customisation) => {
         const { config, type, userthemes } = usertheme.data(newtype)
         const ids = userthemes.map(theme => theme.id) as number[]
         const labelmatch = userthemes.find(theme => theme.label === label)
@@ -224,12 +334,28 @@ export const usertheme = {
 
         usecustomfiles && (theme.usecustomfiles = true)
 
+        // "plat" Themes carry their own "set" customisation. When saving/updating (no `customobj`), this is the current "set" config
+        // When importing/copying (`customobj` present), only `setcustomobj` is used - never the current "set" config, as it belongs to a different Theme
+        const settheme = type === "plat" ? (customobj ? setcustomobj : config.get(`customisation.set`) as Customisation | undefined) : undefined
+
+        if (settheme) {
+            const setcopy = { ...settheme } as Customisation
+            delete (setcopy as any).usertheme
+
+            for (const key of settingslvlkeys) {
+                delete (setcopy as any)[key]
+            }
+
+            theme.set = setcopy
+        }
+
         const updated = userthemes.map(exists => ({ ...exists, enabled: false }))
         const i = updated.findIndex(exists => exists.id === newid)
         
         i >= 0 ? (updated[i] = theme) : updated.push(theme)
 
         config.set(`customisation.${type}.usertheme`,updated)
+        type === "plat" && (async () => await sanconfig.linkset(config))()
 
         if (customobj) {
             (async () => await sanconfig.validatecustomicons(type))()
@@ -269,6 +395,10 @@ export const usertheme = {
             if (theme.id !== id) return remaining.push(theme)
             
             try {
+                // A linked "plat"/"set" pair shares one `userthemedir` - only remove it once no other Theme references it
+                const shared = theme.userthemedir && (["main","semi","rare","plat","set"] as NotifyType[]).some(t => ((config.get(`customisation.${t}.usertheme`) ?? []) as UserTheme[]).some(other => other.userthemedir === theme.userthemedir && !(t === type && other.id === theme.id)))
+                if (shared) return log.write("INFO",`"${theme.userthemedir}" is still used by a linked Theme - skipping dir removal`)
+
                 const userthemedir = path.join(sanhelper.appdata,"userthemes")
                 if (!fs.existsSync(userthemedir)) return
 
@@ -309,6 +439,7 @@ export const usertheme = {
         if (!remaining.length) return
       
         config.set(`customisation.${type}.usertheme`,remaining)
+        type === "plat" && (async () => await sanconfig.linkset(config))()
 
         remaining.forEach(theme => document.getElementById(`usertheme${theme.id}`)!.style.setProperty("--icon",`url('${fs.existsSync(theme.icon) ? theme.icon : "../../img/sanlogotrophy.svg"}')`))
 
@@ -358,54 +489,33 @@ export const usertheme = {
 
                 const json = path.join(themedir,"usertheme.json")
                 const importtheme: UserTheme = JSON.parse(fs.readFileSync(json).toString())
-                const { customisation } = importtheme as UserTheme
+                const { customisation, set } = importtheme
 
                 if (!customisation) throw new Error(`Error loading imported usertheme: "customisation" missing from object`)
+                
+                const { type } = sanhelper
+                const basetype = sanhelper.basetype(type)
+                const assetsdir = path.join(themedir,"assets")
+                const config = sanconfig.get()
 
-                importtheme.icon = path.join(themedir,"assets",path.basename(importtheme.icon)).replace(/\\/g,"/")
+                importtheme.icon = path.join(assetsdir,path.basename(importtheme.icon)).replace(/\\/g,"/")
                 importtheme.userthemedir = parsed.name
-    
-                const customfilesmap = new Map<string,any>()
-        
-                customfilekeys.forEach(key => {
-                    if (customisation[key] === undefined) return log.write("WARN",`"customisation.${sanhelper.type}.${key}" does not exist`)
-                    getkeyvalue(customisation[key],key,customfilesmap)
-                })
-
-                if (!customfilesmap.size) throw new Error(`No keys found in "contentmap"`)
 
                 importlog.innerHTML = await language.get("importrewriting",["customiser","theme","content"])
-        
-                customfilesmap.forEach((value,key) => {
-                    if (!value || (typeof value !== "string" && !Array.isArray(value)) || key.endsWith("elems")) return
-                    customfilesmap.set(key,rewritepath(themedir,value))
-                })
 
-                const config = sanconfig.get()
-                const newkeys = converttoobject(Object.fromEntries(customfilesmap))
-
-                // Populate all empty, non-exported `customicons` keys with default values
-                for (const [preset,value] of Object.entries(newkeys.customicons)) {
-                    if (value === "") {
-                        if (sanconfig.defaulticons.has(preset)) {
-                            newkeys.customicons[preset] = sanconfig.defaulticons.get(preset)
-                        } else {
-                            log.write("ERROR",`Unable to find "${preset}" in "sanconfig.defaulticons" - skipping...`)
-                        }
-                    }
-                }
+                const newcustomisation = assets.import(customisation,assetsdir,basetype)
+                const newsetcustomisation = (sanhelper.plattype(type) && set) ? assets.import(set,path.join(assetsdir,"set"),"set") : undefined // V1.9 files have no "set" - `usertheme.set()` creates a default "set" customisation for the Theme
 
                 importlog.innerHTML = await language.get("importconverting",["customiser","theme","content"])
-                
-                const newcustomisation = { ...customisation, ...newkeys }
 
-                // Update `usertheme.json()` with converted values
+                // Update `usertheme.json` with converted values
                 importtheme.customisation = { ...newcustomisation }
+                newsetcustomisation && (importtheme.set = { ...newsetcustomisation })
                 fs.writeFileSync(json,JSON.stringify(importtheme,null,4))
 
                 importlog.innerHTML = await language.get("importcreating",["customiser","theme","content"])
 
-                usertheme.create(importtheme.label,importtheme.icon,newcustomisation,undefined,parsed.name,config.get("usecustomfiles"))
+                usertheme.create(importtheme.label,importtheme.icon,newcustomisation,undefined,parsed.name,config.get("usecustomfiles"),basetype,newsetcustomisation)
             } catch (err) {
                 log.write("ERROR",`Error importing Theme: ${err as Error}`)
                 importlog.parentElement!.setAttribute("error","")
@@ -452,31 +562,10 @@ export const usertheme = {
                 fs.mkdirSync(path.join(src,"assets"),{ recursive: true })
                 log.write("INFO",`"${src}" dir created successfully`)
 
-                const theme = usertheme.data().userthemes.find(theme => theme.enabled) as UserTheme
-                const { customisation } = theme
+                const basetype = sanhelper.basetype(sanhelper.type)
+                const theme = usertheme.data(basetype).userthemes.find(theme => theme.enabled) as UserTheme // The "set" customisation is stored inside the selected "plat" Theme, so exporting a "plat" Theme exports both
 
-                if (!customisation) throw new Error("Error loading current usertheme")
-
-                const contentmap = new Map<string,any>()
-                
-                customfilekeys.forEach(key => {
-                    if (customisation[key] === undefined) return log.write("WARN",`"customisation.${sanhelper.type}.${key}" does not exist`)
-
-                    const customicons = customisation[key] as { [key: string]: CustomIcon | string }
-
-                    if (key === "customicons") {
-                        for (const preset in customicons) {
-                            if (!("plat" in customicons)) customicons.plat = sanhelper.setfilepath("img","ribbon.svg")
-                            if (preset !== customisation.preset && preset !== "plat") (customicons as any)[preset] = ""
-                        }
-
-                        customisation.customicons = customicons
-                    }
-
-                    getkeyvalue(customisation[key],key,contentmap)
-                })
-
-                if (!contentmap.size) throw new Error(`No keys found in "contentmap"`)
+                if (!theme?.customisation) throw new Error("Error loading current usertheme")
 
                 const icondir = fs.existsSync(path.join(__root,"img",path.basename(theme.icon))) ? "img" : "icon"
                 theme.icon = (!path.isAbsolute(theme.icon) ? path.join(__root,icondir,path.basename(theme.icon)) : theme.icon).replace(/\\/g,"/")
@@ -490,29 +579,8 @@ export const usertheme = {
                 theme.version = sanhelper.semver
                 theme.userthemedir = parsed.name
 
-                // Filters by and copies all string-based keys (filepaths) listed in `customfilekeys` from the value's path to "temp/exporttheme/assets"
-                for (const [key,value] of contentmap) {
-                    if (!value || typeof value !== "string" && (!Array.isArray(value) || !value.every(item => typeof item === "string" && ["unlockmsg","title","desc"].every(elem => item !== elem)))) continue
-
-                    try {
-                        if (Array.isArray(value)) {
-                            value.forEach(subvalue => fsextra.copySync(subvalue,path.join(src,"assets",path.basename(subvalue))))
-                        } else {
-                            if (key === "sounddir") {
-                                const sounddirpath = path.join(src,"assets",path.basename(value)) // `value` is the "sounddir" folder path
-                                fs.mkdirSync(sounddirpath,{ recursive: true })
-
-                                for (const validfile of fs.readdirSync(value).filter(file => sanhelper.audioextensions.includes(path.extname(file)))) {
-                                    fsextra.copySync(path.join(value,validfile),path.join(sounddirpath,validfile))
-                                }
-                            } else {
-                                fsextra.copySync(value,path.join(src,"assets",path.basename(value)))
-                            }
-                        }
-                    } catch (err) {
-                        throw new Error(`Error copying asset from "customisation.${sanhelper.type}.${key}": ${(err as Error).message}`)
-                    }
-                }
+                assets.export(theme.customisation,path.join(src,"assets"),basetype)
+                theme.set && assets.export(theme.set,path.join(src,"assets","set"),"set") // Assets for "set" are stored in "assets/set", so they won't collide with "plat" assets of the same filename
 
                 const json = JSON.stringify(theme,null,4)
                 fs.writeFileSync(path.join(src,"usertheme.json"),json)
@@ -591,10 +659,12 @@ export const usertheme = {
         delete (customobj as any).usertheme
 
         if (themeswitch) {
-            const theme = (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === themeswitch[1].themes[type])
+            const basetype = sanhelper.basetype(type)
+            const theme = (config.get(`customisation.${basetype}.usertheme`) as UserTheme[]).find(theme => theme.id === themeswitch[1].themes[basetype])
+            const themecustomisation = type === "set" ? theme?.set : theme?.customisation
 
-            if (theme && "customisation" in theme) {
-                customobj = theme.customisation
+            if (theme && themecustomisation) {
+                customobj = themecustomisation
 
                 for (const key of settingslvlkeys) {
                     (customobj as any)[key] = config.get(`customisation.${type}.${key}`)
@@ -614,7 +684,8 @@ export const usertheme = {
         return entries.find(item => parseInt(item[0]) === appid) ?? (ra ? entries.find(item => item[1].radefault) : undefined)
     },
     gettypecustomisation: (config: Store<Config>,type: NotifyType,themeswitch?: [key: string,ThemeSwitch]) => {
-        const theme = themeswitch && (config.get(`customisation.${type}.usertheme`) as UserTheme[]).find(theme => theme.id === themeswitch[1].themes[type])
-        return (theme?.customisation as Customisation) ?? config.get(`customisation.${type}`) as Customisation
+        const basetype = sanhelper.basetype(type)
+        const theme = themeswitch && (config.get(`customisation.${basetype}.usertheme`) as UserTheme[]).find(theme => theme.id === themeswitch[1].themes[basetype])
+        return ((type === "set" ? theme?.set : theme?.customisation) as Customisation) ?? config.get(`customisation.${type}`) as Customisation
     }
 }

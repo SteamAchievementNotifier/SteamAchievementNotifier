@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% ukończone",
         achievementdesc: "Kliknięto przycisk Pokaż powiadomienie testowe",
         gamecompletedesc: "Odblokowałeś wszystkie osiągnięcia!",
+        setname: "Nazwa zestawu",
+        setcomplete: "Ukończono cały zestaw osiągnięć!",
         defaultcustomfont: "Domyślne (Nie wybrano czcionki)",
         defaultsoundfile: "Domyślne (Nie wybrano pliku dźwiękowego)",
         defaultsounddir: "Domyślne (Nie wybrano folderu)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nowy...",
         nodata: "Brak danych",
         webhookunlockmsg: "$user odblokował osiągnięcie",
+        webhookunlockmsgset: "$user ukończył zestaw osiągnięć",
         webhookunlockmsgplat: "$user odblokował wszystkie osiągnięcia",
         webhookingame: "w $gamename",
         notconnected: "Niepołączony",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Kopiuj motyw",
                 copythemesub: "Wybierz typ(y) powiadomień, do których chcesz skopiować wybrany motyw"
             }
+        },
+        platnotifytype: {
+            title: "Dostosuj",
+            content: {
+                platsubtype: "Podtyp",
+                game: "Gra",
+                set: "Zestaw"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Przełącz, czy informacje o osiągnięciach mają być wysyłane na serwer Discord po odblokowaniu osiągnięcia $semi`,
         webhookrare: "Przełącz, czy informacje o osiągnięciach mają być wysyłane na serwer Discord po odblokowaniu osiągnięcia $rare",
         webhookplat: "Przełącz, czy informacje o osiągnięciach mają być wysyłane na serwer Discord po odblokowaniu osiągnięcia $plat",
+        webhookset: "Przełącz publikowanie informacji o osiągnięciach na serwerze Discord po ukończeniu zestawu osiągnięć",
         webhooktest: "Przełącz, czy informacje testowe mają być wysyłane na serwer Discord, gdy powiadomienia testowe jakiegokolwiek typu zostaną wywołane",
         webhookurl: `Ustaw <span class="hl">URL Webhook</span> dla wybranego serwera Discord<br><br><span class="ttdesc">URL Webhook służy do publikowania na serwerze/kanale Discord w imieniu użytkownika lub aplikacji. Aby skonfigurować nowy Webhook dla serwera Discord, użytkownik musi mieć rolę na wybranym serwerze, która pozwala na tworzenie Webhooków<br><br><u>URL Webhook jest wymagany do korzystania z tej opcji</u><br><br>Więcej informacji znajdziesz w oficjalnej dokumentacji Discorda</span>`,
         webhookspoilers: `Dodaj tag spoiler do "Ukrytych" osiągnięć podczas publikowania na Discordzie`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Ustaw kolor używany w osadzaniu webhooka, gdy odblokowywane jest osiągnięcie $semi",
         webhookembedcolorrare: "Ustaw kolor używany w osadzaniu webhooka, gdy odblokowywane jest osiągnięcie $rare",
         webhookembedcolorplat: "Ustaw kolor używany w osadzaniu webhooka, gdy odblokowywane jest osiągnięcie $plat",
+        webhookembedcolorset: "Ustaw kolor używany w osadzonym komunikacie webhooka po ukończeniu zestawu osiągnięć",
         raemus: "Wyświetlaj powiadomienia, gdy gry są wykrywane w obsługiwanych emulatorach",
         rauser: "Ustaw nazwę użytkownika RetroAchievements do śledzenia osiągnięć",
         rakey: `Ustaw klucz Web API, który będzie używany do autentykacji z API RetroAchievements<br><br><span class="ttdesc">Klucz Web API może zostać skopiowany lub ponownie wygenerowany, logując się na stronie RetroAchievements i przechodząc do <span class="hl">Ustawienia > Klucze > Web API Key</span><br><br>🔒 Podany klucz zostanie zaszyfrowany przed zapisaniem go lokalnie w systemie (jeśli aktualny system operacyjny wspiera szyfrowanie)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Ustaw maksymalną liczbę wierszy tekstu wyświetlanych w powiadomieniach",
         notifyoverflow: "Ustaw sposób obsługi tekstu wykraczającego poza dostępny obszar w powiadomieniach",
         scrollrepeat: `Ustaw, ile razy nadmiarowy tekst będzie przewijany, gdy powiadomienie jest widoczne na ekranie<br><br><span class="ttdesc">Szybkość przewijania zależy od czasu wyświetlania, ale wyższe wartości powtórzeń mogą nie być odpowiednie dla wszystkich presetów</span>`,
-        setplat: "Wyświetlaj powiadomienie o ukończeniu w 100% po zdobyciu wszystkich osiągnięć w danym zestawie w kompatybilnych grach"
+        setplat: "Wyświetlaj powiadomienia o ukończeniu każdego zestawu osiągnięć w kompatybilnych grach",
+        platsubtype: `Wybierz podtyp powiadomienia <span class="hl">100%</span> do dostosowania<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Gra</span>: Powiadomienie wyświetlane po odblokowaniu wszystkich osiągnięć w grze</li><li><span class="hl">Zestaw</span>: Powiadomienie wyświetlane po odblokowaniu wszystkich osiągnięć w pojedynczym zestawie osiągnięć</li></ul></span>`
     },
     update: {
         updateavailable: "Dostępna aktualizacja",

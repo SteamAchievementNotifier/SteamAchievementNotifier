@@ -24,7 +24,7 @@ declare interface Res {
     }
 }
 
-declare type NotifyType = "main" | "semi" | "rare" | "plat"
+declare type NotifyType = "main" | "semi" | "rare" | "plat" | "set"
 declare type TrophyType = "bronze" | "silver" | "gold"
 
 declare interface Config {
@@ -68,9 +68,6 @@ declare interface Config {
     tooltips: boolean,
     notifydebug: boolean,
     pollrate: number,
-    maxretries: number,
-    initdelay: number,
-    releasedelay: number,
     width: number,
     height: number,
     x: number,
@@ -79,7 +76,6 @@ declare interface Config {
     noreleasedialog: boolean,
     norestartdialog: boolean,
     noupdatedialog: boolean,
-    userust: boolean,
     debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
@@ -91,6 +87,7 @@ declare interface Config {
     webhooksemi: boolean,
     webhookrare: boolean,
     webhookplat: boolean,
+    webhookset: boolean,
     webhooktest: boolean,
     webhookurl: string,
     webhooklaststatus: string,
@@ -99,6 +96,7 @@ declare interface Config {
     webhookembedcolorsemi: string,
     webhookembedcolorrare: string,
     webhookembedcolorplat: string,
+    webhookembedcolorset: string,
     webhookappid: boolean,
     // discord: {
     //     [key: string]: string,
@@ -166,8 +164,6 @@ declare interface Config {
     gametimerwinaot: boolean,
     gametimerwinopacity: boolean,
     noshortcuts: boolean,
-    usesanwatcher: boolean,
-    releasewaittime: number,
     workerdebug: boolean,
     logresourceusage: boolean,
     uimode: "basic" | "advanced",
@@ -177,6 +173,7 @@ declare interface Config {
         semi: Customisation,
         rare: Customisation,
         plat: Customisation,
+        set: Customisation
         [key: string]: object
     },
     [key: string]: string | number | boolean | object
@@ -385,7 +382,8 @@ declare interface Notify extends Achievement {
     ra?: boolean,
     emu?: string | null,
     libhero?: string,
-    unlocktime?: string
+    unlocktime?: string,
+    setname?: string
 }
 
 declare interface StatsObj {
@@ -427,7 +425,8 @@ declare interface UserTheme extends Button {
     enabled: boolean,
     version?: string,
     userthemedir?: string,
-    usecustomfiles?: boolean
+    usecustomfiles?: boolean,
+    set?: Customisation
 }
 
 declare interface WinType {
@@ -541,7 +540,8 @@ declare interface ThemeSwitch {
         main: number,
         semi: number,
         rare: number,
-        plat: number
+        plat: number,
+        set?: number
     },
     src: number,
     ra?: boolean,
@@ -741,78 +741,6 @@ declare interface GameDisplayInfo {
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>
-
-declare type TroubleshooterApp = {
-    version: string,
-    beta: boolean,
-    platform: any,
-    osinfo: string,
-    config: {
-        releasewaittime: number,
-        releasedelay: number,
-        pollrate: number,
-        initdelay: number,
-        maxretries: number,
-        userust: boolean,
-        exclusions: number[],
-        inclusionlist: boolean
-    }
-}
-
-declare type TroubleshooterProcess = {
-    appid: number,
-    gamename: string | null,
-    usesanwatcher: boolean,
-    linkedgame: string | null,
-    lastknowngame: LastKnownGame | null,
-    status: "active" | "releasing",
-    releasetimer: boolean,
-    pids: number[],
-    activeprocesses: DebugProcessInfo[],
-    duplicatelinkentries: any,
-    installdir?: string | null,
-    waitingforprocess?: boolean
-}
-
-declare type TroubleshooterExecutable = {
-    islinkedgame?: boolean,
-    path: string | null,
-    installdir: {
-        path: string | null,
-        exists: boolean,
-        dir: {
-            process: string,
-            steamworks: string,
-            match: boolean
-        }
-    } | null,
-    exists: boolean | null,
-    isexecutable?: boolean | null,
-    iswithininstalldir: boolean | null,
-    wrongplatformpath: boolean | null,
-    realpath: string | null
-}
-
-declare interface TroubleshooterData {
-    app: TroubleshooterApp,
-    process: TroubleshooterProcess,
-    executable: TroubleshooterExecutable[]
-}
-
-declare type TroubleshooterRuleId = "noactiveprocesses" | "unknownexecutable" | "missingexecutable" | "notexecutable" | "notwithininstalldir" | "wrongplatformpath" | "duplicatelinkentries" | "releasing"
-declare type TroubleshooterType = "info" | "warning" | "error"
-declare type TroubleshooterMsg = {
-    title: string,
-    issue: string,
-    detail: string,
-    solution: string
-}
-
-declare interface TroubleshooterResult {
-    id: TroubleshooterRuleId,
-    type: TroubleshooterType,
-    msg: TroubleshooterMsg
-}
 
 declare type LogFiles = "san" | "sanhelper" | "sanhelperworker"
 

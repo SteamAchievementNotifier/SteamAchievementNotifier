@@ -4,7 +4,7 @@ import fs from "fs"
 import { __root, sanhelper } from "./sanhelper"
 import { log } from "./log"
 import { dialog } from "./dialog"
-import { sanconfig } from "./config"
+import { sanconfig, settingslvlkeys } from "./config"
 import { usertheme } from "./usertheme"
 import { language } from "./language"
 import { update } from "./update"
@@ -88,6 +88,7 @@ btns.forEach((value,key) => (document.getElementById(key) as HTMLButtonElement)!
 
 sanhelper.noanim(config.get("noanim"))
 sanhelper.trophymode(config.get("trophymode"),config)
+sanhelper.setplat(config.get("setplat"))
 sanhelper.createclosedstate()
 config.set("logtype","san") // Reset App Log to "san.log" on launch
     
@@ -140,7 +141,8 @@ config.onDidAnyChange((newobj: any) => {
 usertheme.update()
 
 document.getElementById("usertheme")!.onclick = async () => {
-    const type = sanhelper.type
+    const type = sanhelper.basetype(sanhelper.type) // "set" shares the "plat" Theme select list
+
     dialog.open({
         type: "selection",
         title: `${await language.get("select")} ${await language.get(`${type}`)} ${await language.get("theme",["customiser","theme","content"])}`,
@@ -185,7 +187,7 @@ const loadwebview = () => {
         pause = false
         document.querySelector("#webviewbtns > #playback")!.toggleAttribute("paused",pause)
     
-        const type = sanhelper.type as NotifyType
+        const { type } = sanhelper
     
         return new Promise<void>(resolve => {
             removeelems([webview,nopreview])
@@ -278,7 +280,7 @@ const handleaudio = (keypath: string,audio: HTMLAudioElement,elem?: HTMLElement)
     const soundmode = config.get(`${keypath}.soundmode`) as "file" | "folder"
     const type = keypath.replace(/^customisation\./,"") as NotifyType
 
-    audio.src = getaudiofile(soundmode,config.get(`${keypath}.sound${soundmode === "file" ? "file" : "dir"}`) as string) || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
+    audio.src = getaudiofile(soundmode,config.get(`${keypath}.sound${soundmode === "file" ? "file" : "dir"}`) as string) || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${sanhelper.basetype(type)}` : ""}.wav`)
     audio.volume = (config.get(`${keypath}.volume`) as number) / 100
 
     // Add transition time when `config.audiosrc` is set to "app" to prevent sound playing before notification appears
@@ -396,7 +398,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         }
 
         sanhelper.trophymode(config.get("trophymode"),config,true)
-        customiser.querySelector("#customisertablbl > span")!.textContent = await language.get((config.get("trophymode") ? "trophy" : "") + type)
+        customiser.querySelector("#customisertablbl > span")!.textContent = await language.get((config.get("trophymode") ? "trophy" : "") + sanhelper.basetype(type))
 
         const scaleelem = customiser.querySelector("#customiser .opt:has(#scale)")!
         scaleelem.querySelector(".lockedlbl")!.textContent = `${(await language.get("lockedby")).replace("$lock",await language.get("notifymax",["settings","notifications","content"]))}`
@@ -404,11 +406,11 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         
         customiser.querySelectorAll(`#customisercontent .opt > input[type="checkbox"]`).forEach(input => sanhelper.getcheckbox(config,input as HTMLInputElement,keypath))
         customiser.querySelectorAll(`#customisercontent .opt:has(input[type="checkbox"]) > span, #customisercontent .opt > input[type="checkbox"]`).forEach(opt => (opt as HTMLElement).onclick = (event: Event) => sanhelper.setcheckbox(config,event,keypath))
-        customiser.querySelectorAll(`#customisercontent .opt > input[type="range"], #customisercontent .opt > input[type="color"], #customisercontent .opt > select, #customisercontent .opt > input[type="text"], #customisercontent .opt > input[type="number"]`).forEach(elem => sanhelper.setvalue(config,elem as HTMLInputElement | HTMLSelectElement,keypath))
+        customiser.querySelectorAll(`#customisercontent .opt > input[type="range"], #customisercontent .opt > input[type="color"], #customisercontent .opt > select:not(#platsubtype), #customisercontent .opt > input[type="text"], #customisercontent .opt > input[type="number"]`).forEach(elem => sanhelper.setvalue(config,elem as HTMLInputElement | HTMLSelectElement,keypath))
         customiser.querySelectorAll(`#customisercontent .opt > .optbtn`).forEach(btn => sanhelper.setbtn(config,btn as HTMLButtonElement,btn.id === "logo" || btn.id.includes("decoration") ? `${keypath}.customicons.${config.get(`${keypath}.preset`)}` : (btn.id === "plat" ? `${keypath}.customicons` : keypath)))
         customiser.querySelectorAll(`#customisercontent .opt > .delbtn`).forEach(btn => (btn as HTMLButtonElement).onclick = async () => {
             const optbtn = btn.parentElement!.querySelector(`.optbtn`) as HTMLButtonElement
-            const preset = config.get(`customisation.${type}.preset`) as string
+            const preset = config.get(`${keypath}.preset`) as string
             const key = `${keypath}.${optbtn.classList.contains("customicon") ? `customicons.${optbtn.id === "plat" ? `plat` : `${config.get(`${keypath}.preset`)}.${(optbtn.id.includes("decoration") && Array.isArray(sanconfig.defaulticons.get(preset)!.decoration)) ? `decoration.${[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1]}` : optbtn.id.replace(/\d/,"")}`}` : optbtn.id}`         
 
             const customiconkey = (): string => Array.isArray(key) ? key[parseInt(optbtn.id.replace(/[^\d]/g,"")) - 1] as string : key as string
@@ -475,7 +477,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         ]
 
         customiser.querySelectorAll(".customopt:has(> #unlockmsgfontsize), .customopt:has(> #titlefontsize), .customopt:has(> #descfontsize)").forEach(async opt => {
-            const { elems, preset } = config.store.customisation[type]
+            const { elems, preset } = config.get(keypath) as Customisation
             const elem = opt.querySelector("input") as HTMLInputElement
             const elemid = elem.id.replace(/fontsize$/,"") as "unlockmsg" | "title" | "desc"
             
@@ -490,7 +492,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
 
                 if (twolinepreset) {
                     const targetelemid = targetelem.querySelector("input")!.id // Gets the id of the actual element that will be displayed in the notification
-                    const value = config.get(`customisation.${type}.${targetelemid}`) // Gets the config value of the actual element
+                    const value = config.get(`${keypath}.${targetelemid}`) // Gets the config value of the actual element
                     
                     elem.value = `${value}` // Assigns the actual element's config value to the relevant slider
                     opt.setAttribute("value",`${value}`) // Sets the "value" attribute to the actual element's config value, instead of the current value
@@ -498,7 +500,7 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
                     // On change of the current slider, override default behaviour of the current slider to update config with the actual element's value
                     // This way, we can keep the correctly labelled slider on screen while updating the relevant visual element's config value instead
                     elem.onchange = event => {
-                        config.set(`customisation.${type}.${targetelemid}`,parseInt((event.target as HTMLInputElement).value))
+                        config.set(`${keypath}.${targetelemid}`,parseInt((event.target as HTMLInputElement).value))
                         sanhelper.updatetabs()
                     }
 
@@ -516,16 +518,16 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
         })
 
         ;(customiser.querySelector("button#copycustompos")! as HTMLButtonElement).onclick = () => {
-            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
+            for (const type of (["main","semi","rare","plat","set"] as NotifyType[])) {
                 if (type === sanhelper.type) continue
                 
                 try {
                     config.set(`customisation.${type}.usecustompos`,true)
                     config.set(`customisation.${type}.custompos`,config.get(`customisation.${sanhelper.type}.custompos`))
     
-                    log.write("INFO",`Custom Position for "${sanhelper.type}" applied to "${type}"`)
+                    log.write("INFO",`Custom position for "${sanhelper.type}" applied to "${type}"`)
                 } catch (err) {
-                    log.write("ERROR",`Unable to apply Custom Position for "${sanhelper.type}" to "${type}": ${err as Error}`)
+                    log.write("ERROR",`Unable to apply custom position for "${sanhelper.type}" to "${type}": ${err as Error}`)
                 }
             }
         }
@@ -558,6 +560,14 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
 
         for (const [selector,value] of toggleelems) {
             customiser.querySelector(selector)?.toggleAttribute("soon",value)
+        }
+
+        const platsubtype = customiser.querySelector(`select#platsubtype`) as HTMLSelectElement
+        platsubtype.value = type === "set" ? "set" : "game"
+        platsubtype.onchange = event => {
+            if (!sanhelper.plattype(sanhelper.type)) return
+            document.body.toggleAttribute("set",(event.target as HTMLSelectElement).value === "set")
+            sanhelper.updatetabs()
         }
     }
 
@@ -707,17 +717,20 @@ const opencustomiser = () => {
                 <button class="rect" id="copythemeplat">
                     <span></span>
                 </button>
+                <button class="rect" id="copythemeset">
+                    <span></span>
+                </button>
             `,
             buttons: [{
                 id: "ok",
                 icon: "",
                 label: await language.get("ok"),
                 click: () => {
-                    const selectedtype = sanhelper.type as NotifyType
-                    const selectedtheme = (config.get(`customisation.${selectedtype}.usertheme`) as UserTheme[]).find(theme => theme.enabled)
+                    const basetype = sanhelper.basetype(sanhelper.type)
+                    const selectedtheme = (config.get(`customisation.${basetype}.usertheme`) as UserTheme[]).find(theme => theme.enabled)
                     
                     if (!selectedtheme) {
-                        log.write("ERROR",`Unable to find enabled Theme for ${selectedtype}`)
+                        log.write("ERROR",`Unable to find enabled Theme for ${basetype}`)
                         return dialog.close()
                     }
                     
@@ -729,10 +742,36 @@ const opencustomiser = () => {
                         }
                     }
                     
-                    if (!types.length) return log.write("WARN",`No types selected to copy Theme to`)
+                    const copytoset = basetype === "plat" && !!document.querySelector(`.addhtml > .rect#copythemeset[selected]`)
+                    if (!types.length && !copytoset) return log.write("WARN",`No types selected to copy Theme to`)
+
+                    // "Game > Set" copies the selected Theme's "plat" customisation into the same Theme's "set" customisation without creating a new Theme
+                    if (copytoset) {
+                        const { userthemes } = usertheme.data("plat")
+                        const theme = userthemes.find(theme => theme.id === selectedtheme.id)
+
+                        if (theme) {
+                            const set = structuredClone(theme.customisation) as Customisation
+                            delete (set as any).usertheme
+
+                            for (const key of settingslvlkeys) {
+                                delete (set as any)[key]
+                            }
+
+                            theme.set = set
+                            selectedtheme.set = set
+
+                            config.set("customisation.plat.usertheme",userthemes)
+                            usertheme.set(theme.id as number,undefined,"plat")
+                            
+                            sanhelper.updatetabs()
+                        } else {
+                            log.write("ERROR",`Unable to find stored Theme "${selectedtheme.label}" to copy Game customisation to Set`)
+                        }
+                    }
 
                     for (const type of types) {
-                        const id = usertheme.create(selectedtheme.label,selectedtheme.icon,selectedtheme.customisation,undefined,selectedtheme.userthemedir,false,type)
+                        const id = usertheme.create(selectedtheme.label,selectedtheme.icon,selectedtheme.customisation,undefined,selectedtheme.userthemedir,false,type,type === "plat" ? selectedtheme.set : undefined)
                         usertheme.set(id,undefined,type)
                     }
                 }
@@ -745,12 +784,13 @@ const opencustomiser = () => {
             }
         }
 
+        const copythemeset = document.querySelector(`.addhtml > .rect#copythemeset > span`)
+        copythemeset && (copythemeset.textContent = (await Promise.all((["game","set"] as const).map(key => language.get(key,["customiser","platnotifytype","content"])))).join(" > "))
+
         const okbtn = document.querySelector(`dialog .contentwrapper:has(.addhtml > .rect[id^="copytheme"]) > .btnwrapper > button#okbtn`) as HTMLButtonElement
         okbtn.tabIndex = -1
 
-        for (const e of document.querySelectorAll(`.addhtml:has(.rect[id^="copytheme"]) > .rect`)) {
-            const elem = e as HTMLElement
-            
+        for (const elem of Array.from(document.querySelectorAll(`.addhtml:has(.rect[id^="copytheme"]) > .rect`)) as HTMLElement[]) {
             elem.onclick = () => {
                 elem.toggleAttribute("selected",!elem.hasAttribute("selected"))
                 okbtn.tabIndex = !document.querySelectorAll(`.addhtml:has(.rect[id^="copytheme"]) > .rect[selected]`).length ? -1 : 0
@@ -784,7 +824,8 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
     const { usegameicon } = config.store.customisation[type]
 
     const { themeswitchcustomisation } = usertheme.themeswitchinfo(config,window.appid,{ customisation, type })
-    const { plat } = (themeswitchcustomisation || config.get(`customisation.plat`) as Customisation).customicons as CustomIcon
+    const isplat = sanhelper.plattype(type)
+    const { plat } = (themeswitchcustomisation || config.get(`customisation.${type}`) as Customisation).customicons as CustomIcon
 
     const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
     const gameicon = (usegameicon && fs.existsSync(gameiconpath)) ? gameiconpath : null
@@ -796,13 +837,14 @@ const notifyinfo = async (type: NotifyType,customobj: Customisation) => {
         steam3id: window.steam3id,
         type,
         apiname: `${type.toUpperCase()}_TEST_NOTIFICATION`,
-        name: type === "plat" ? "" : `Steam Achievement Notifier`,
-        desc:  type === "plat" ? "" : await language.get("achievementdesc"),
+        name: isplat ? "" : `Steam Achievement Notifier`,
+        desc: isplat ? "" : await language.get("achievementdesc"),
         unlocked: true,
         hidden: customisation.previewhiddenicon,
-        percent: type !== "plat" ? (type === "rare" ? rarity : trophymode && type === "semi" ? semirarity : 50.0) : 0,
-        icon: type !== "plat" ? sanhelper.setfilepath("img",`achicon.png`) : plat as string || sanhelper.setfilepath("img","ribbon.svg"),
+        percent: !isplat ? (type === "rare" ? rarity : trophymode && type === "semi" ? semirarity : 50.0) : 0,
+        icon: !isplat ? sanhelper.setfilepath("img",`achicon.png`) : plat as string || sanhelper.setfilepath("img","ribbon.svg"),
         gameicon: gameicon || sanhelper.setfilepath("img","gameicon.png"),
+        setname: type === "set" ? await language.get("setname") : undefined, 
         istestnotification: true,
         unlocktime: new Date(Date.now()).toISOString()
     }
@@ -815,7 +857,8 @@ window.type = null
 // This needs to have no parameters to use in "removeEventListener"
 const sendtestnotify = async () => {
     const type = window.type || sanhelper.type as NotifyType
-    const customobj: Customisation = { ...config.get(`customisation.${type}`) as Customisation }
+    const keypath = `customisation.${type}`
+    const customobj: Customisation = { ...config.get(keypath) as Customisation }
     
     const notify = await notifyinfo(type,customobj)
 
@@ -927,7 +970,7 @@ sanhelper.soundonly(config.get("soundonly"))
 
 ipcRenderer.on("soundonly",(event,type: NotifyType) => {
     const audio = document.querySelector("audio")!
-    audio.src = config.get(`customisation.${type}.soundfile`) as string || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${type}` : ""}.wav`)
+    audio.src = config.get(`customisation.${type}.soundfile`) as string || sanhelper.setfilepath("sound",`notify${type !== "main" ? `_${sanhelper.basetype(type)}` : ""}.wav`)
     audio.play()
 })
 
@@ -1056,21 +1099,22 @@ const getsteamuser = async (): Promise<string | null> => {
     return mostrecentuser
 }
 
-const unlockstr = async (user: string,gamename: string,type: NotifyType) => `${(await language.get(`webhookunlockmsg${type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
+const unlockstr = async (user: string,gamename: string,type: NotifyType,isachievementset = false) => `${(await language.get(`webhookunlockmsg${isachievementset ? "set" : type === "plat" ? "plat" : ""}`)).replace(/\$user/,user)}${gamename ? ` ${(await language.get("webhookingame")).replace(/\$gamename/,gamename)}` : ""}`
 
 const embeds = async (notify: Notify,appid: number) => {
-    const { type, gamename, name, desc, icon, percent, hidden } = notify
+    const { type, gamename, name, desc, icon, percent, hidden, setname } = notify
     const user = notify.ra ? (config.get("rauser") || "???") : await getsteamuser()
     const nospoilers = hidden && config.get("webhookspoilers")
-    const hexcode = (config.get(`webhookembedcolor${type}`) as string).replace(/#/g,"")
+    const hexcode = ((config.get(`webhookembedcolor${type}`) ?? config.get(`webhookembedcolor${sanhelper.basetype(type)}`)) as string).replace(/#/g,"") // "set" has its own embed color, falling back to "plat" color if key is missing
+    const plattype = sanhelper.plattype(type)
 
     return {
         color: parseInt(hexcode,16),
         author: {
-            name: `${await unlockstr(user || "???",gamename || "",notify.type)}${notify.emu ? ` [${notify.emu}]` : ""}`
+            name: `${await unlockstr(user || "???",gamename || "",notify.type,type === "set")}${notify.emu ? ` [${notify.emu}]` : ""}`
         },
-        title: `${nospoilers ? "||" : ""}${type === "plat" && !name ? await language.get("gamecomplete") : name}${nospoilers ? "||" : ""}${type === "plat" ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
-        description: `${nospoilers ? "||" : ""}${type === "plat" ? await language.get("gamecompletedesc") : desc}${nospoilers ? "||" : ""}`,
+        title: `${nospoilers ? "||" : ""}${type === "set" ? setname : plattype && !name ? await language.get("gamecomplete") : name}${nospoilers ? "||" : ""}${plattype ? "" : ` (${Math.max(parseFloat(percent.toFixed(1)),0.1)}%)`}`,
+        description: `${nospoilers ? "||" : ""}${type === "set" ? await language.get("setcomplete") : plattype ? await language.get("gamecompletedesc") : desc}${nospoilers ? "||" : ""}`,
         thumbnail: {
             url: `attachment://${path.basename(icon)}`
         },
@@ -1085,11 +1129,11 @@ const embeds = async (notify: Notify,appid: number) => {
 
 ipcRenderer.on("sendwebhook",async (event,notify: Notify,appid: number) => {
     const config = sanconfig.get()
+    const { type } = notify
 
-    if (notify.type === "plat") {
-        notify.name = await language.get("gamecomplete")
-        // Discord Webhooks only support JPG/JPEG
-        notify.icon = ["jpg","jpeg"].map(ext => `.${ext}`).includes(path.extname(notify.icon)) ? notify.icon : sanhelper.setfilepath("img","ribbon.jpg")
+    if (sanhelper.plattype(type)) {
+        notify.name = await language.get(`${type === "set" ? "set" : "game"}complete`)
+        notify.icon = ["jpg","jpeg"].map(ext => `.${ext}`).includes(path.extname(notify.icon)) ? notify.icon : sanhelper.setfilepath("img","ribbon.jpg") // Discord Webhooks only support JPG/JPEG
     }
 
     config.get("webhooks") && sendwebhook(notify.type,config.get("webhookurl"),await embeds(notify,appid),notify.icon)
@@ -1174,64 +1218,3 @@ const gamedisplayelem = document.getElementById("game") as HTMLElement
 for (const event of events) {
     ipcRenderer.on(event,(_,value: boolean,ra?: boolean) => gamedisplayelem.toggleAttribute(`${ra ? "ra" : ""}${event}`,value))
 }
-
-ipcRenderer.on("activeprocesses",(event,appid: number,activeprocesses: boolean,linkedgame?: string) => {
-    if (!appid) return gamedisplayelem.removeAttribute("waiting")
-    
-    log.write(activeprocesses ? "INFO" : "WARN",activeprocesses ? `Active ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} found for AppID ${appid}` : `Waiting for ${linkedgame ? `linked game process (${linkedgame})` : "game process(es)"} for AppID ${appid} to start...`)
-    gamedisplayelem.toggleAttribute("waiting",!activeprocesses)
-})
-
-ipcRenderer.on("troubleshooter",async (event,data: TroubleshooterData,result: TroubleshooterResult[]) => {
-    dialog.open({
-        type: "default",
-        title: "Troubleshoot",
-        icon: sanhelper.setfilepath("icon","troubleshoot.svg"),
-        addHTML: `<div class="wrapper" id="troubleshooterinfobox"></div><span id="manualreleasereminder">💡 ${await language.get("manualrelease",["troubleshooter","content"])}</span>`,
-        buttons: [{
-            id: "copytroubleshooterdata",
-            label: await language.get("copydata",["troubleshooter","content"]),
-            icon: sanhelper.setfilepath("icon","clipboard.svg"),
-            click: () => ipcRenderer.send("copytroubleshooterdata",{ data, result })
-        }]
-    })
-
-    const troubleshooterinfobox = document.querySelector("dialog .addhtml > .wrapper#troubleshooterinfobox") as HTMLElement
-    const results = Object.values(result)
-
-    if (!results.length) {
-        const html = `<div class="troubleshooterresult" ok>
-            <span>🎉 ${await language.get("noissues",["troubleshooter","content"])}</span>
-            <span>${await language.get("noissuessub",["troubleshooter","content"])}</span>
-        </div>`
-        troubleshooterinfobox.insertAdjacentHTML("beforeend",html)
-
-        return
-    }
-
-    let i = 0
-
-    for (const result of results) {
-        const html = `<button class="troubleshooterresult" id="${result.id}" ${result.type}>${result.msg.issue}</button>`
-        troubleshooterinfobox.insertAdjacentHTML("beforeend",html)
-
-        const btn = troubleshooterinfobox.querySelector(`#${result.id}`) as HTMLSpanElement
-        
-        btn.style.setProperty("--elemdelay",`${i / 4}s`)
-        btn.onclick = async event => {
-            const target = event.target as HTMLButtonElement
-            
-            dialog.open({
-                title: await language.get("title",["troubleshooter","rules",target.id]),
-                type: "default",
-                icon: sanhelper.setfilepath("icon",`${target.hasAttribute("info") ? "info" : (target.hasAttribute("warning") ? "warning" : "error")}.svg`),
-                sub: [
-                    `${target.hasAttribute("info") ? "💡" : "❌"} ${result.msg.detail}`,
-                    `✅ ${result.msg.solution}`
-                ]
-            })
-        }
-        
-        i++
-    }
-})

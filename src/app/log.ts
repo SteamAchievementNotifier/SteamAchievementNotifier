@@ -19,6 +19,11 @@ export const logfiles: LogFiles[] = [
 
 const backupregex = new RegExp(`^(\\d{8}_\\d{6})_(?:${logfiles.join("|")})\\.log$`) // Only matches backup log files, not live (e.g. "san.log"/"san_reset.log")
 
+const invaliddirs = [
+    "NaN",
+    "0.0"
+] as const
+
 export const log = {
     create: (process: "APP" | "MAIN" | "RENDERER" | "WORKER" | "ERROR") => {
         const format = "{d}/{m}/{y} {h}:{i}:{s}"
@@ -35,14 +40,17 @@ export const log = {
 
         if (process === "APP") {
             log.clear()
-        } else if (process === "RENDERER") {
-            const vnan = path.join(sanhelper.appdata,"..","Steam Achievement Notifier (VNaN)")
 
-            try {
-                fs.existsSync(vnan) && fs.rmSync(vnan,{ recursive: true, force: true })
-                log.write("INFO",`"VNaN" dir detected and removed successfully`)
-            } catch (err) {
-                log.write("ERROR",`Error removing "VNaN" dir: ${(err as Error).stack || (err as Error).message}`)
+            for (const dirname of invaliddirs) {
+                const dir = path.join(sanhelper.appdata,"..",`Steam Achievement Notifier (V${dirname})`)
+                if (!fs.existsSync(dir)) continue
+
+                try {
+                    fs.rmSync(dir,{ recursive: true, force: true })
+                    log.write("INFO",`"V${dirname}" dir detected and removed successfully`)
+                } catch (err) {
+                    log.write("ERROR",`Error removing "V${dirname}" dir: ${(err as Error).stack || (err as Error).message}`)
+                }
             }
         }
 

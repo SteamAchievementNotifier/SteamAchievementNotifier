@@ -1082,18 +1082,20 @@ export const listeners = {
                     },10000)
                 } else {
                     queue.push({ ...wintypeobj, order: queue.length } as WinType)
-                
-                    // Sort "plat" notifications to always display last
+
+                    // Sort 100% notifications last. `set` is the author's plat subtype.
                     queue.sort((a,b) => {
-                        if (a.notify.type === "plat" && b.notify.type !== "plat") return 1   // "plat" after "main"/"semi"/"rare"
-                        if (a.notify.type !== "plat" && b.notify.type === "plat") return -1  // "main"/"semi"/"rare" before "plat"
-                        
+                        const aplat = sanhelper.plattype(a.notify.type)
+                        const bplat = sanhelper.plattype(b.notify.type)
+                        if (aplat && !bplat) return 1
+                        if (!aplat && bplat) return -1
+
                         return a.order - b.order // Otherwise, preserve original order
                     }).forEach((obj,i) => obj.order = i) // Normalise to sequential order
 
                     const orders = queue.map(obj => obj.order)
                     const duplicates = orders.some((order,i) => orders.indexOf(order) !== i) // Safeguard to prevent duplicate `order` IDs if found
-                    
+
                     if (duplicates) {
                         log.write("WARN",`Notification queue contains duplicate order IDs - renormalising...`)
                         queue.forEach((obj,i) => obj.order = i)
@@ -1102,7 +1104,7 @@ export const listeners = {
             }
 
             try {
-                // Test notifications do not send `earlycapture`
+                // Test, plat, and set notifications do not send `earlycapture`
                 if (deferssonly && !earlyCaptureStarted.has(notify.id)) {
                     worker && worker.webContents.send("steam3id")
                     await new Promise<void>(resolve => setImmediate(resolve))
@@ -1117,8 +1119,9 @@ export const listeners = {
                 const __temp = sanhelper.temp
                 const steam3id = notify.steam3id
                 const hqicon = sanhelper.gethqicon(appid)
+                const keypath = `customisation.${notify.type}`
 
-                if (config.get(`customisation.${notify.type}.bgstyle`) === "gameart" || config.get(`customisation.${notify.type}.usegameicon`)) {
+                if (config.get(`${keypath}.bgstyle`) === "gameart" || config.get(`${keypath}.usegameicon`)) {
                     if (notify.ra) {
                         for (const [key,value] of Object.entries({
                             icon: notify.gameicon!,
@@ -1226,10 +1229,12 @@ export const listeners = {
             const info = await buildnotify(fullnotify)
             queue.push({ ...pending.wintypeobj, order: queue.length } as WinType)
 
-            // Sort "plat" notifications to always display last
+            // Sort 100% notifications last. `set` is the author's plat subtype.
             queue.sort((a,b) => {
-                if (a.notify.type === "plat" && b.notify.type !== "plat") return 1
-                if (a.notify.type !== "plat" && b.notify.type === "plat") return -1
+                const aplat = sanhelper.plattype(a.notify.type)
+                const bplat = sanhelper.plattype(b.notify.type)
+                if (aplat && !bplat) return 1
+                if (!aplat && bplat) return -1
                 return a.order - b.order
             }).forEach((obj,i) => obj.order = i)
 
@@ -1245,8 +1250,8 @@ export const listeners = {
 
         const buildnotify = async (notify: Notify): Promise<BuildNotifyInfo> => {
             const config = sanconfig.get()
-            const { id, type, customisation, gamename, steam3id, apiname, icon, percent, hidden } = notify
-            
+            const { id, type, customisation, gamename, steam3id, apiname, icon, percent, hidden, setname } = notify
+
             return {
                 id,
                 type,
@@ -1255,9 +1260,9 @@ export const listeners = {
                 steam3id,
                 apiname,
                 name: notify.name,
-                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg)) || (notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
-                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle)) || (type === "plat" ? await language.get("gamecomplete") : notify.name),
-                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc)) || (type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
+                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg)) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
+                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle)) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
+                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc)) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
                 icon,
                 percent: {
                     value: percent,
@@ -1944,12 +1949,11 @@ export const listeners = {
 
         ipcMain.on("betaunsupported",() => {
             if (!sanhelper.beta) return
-            const config = sanconfig.get()
 
             setTimeout(() => {
                 worker && worker.destroy()
                 worker = null
-            },(config.get("initdelay") * 1000) + 1000)
+            },1000)
 
             updatetray(tray)
         })

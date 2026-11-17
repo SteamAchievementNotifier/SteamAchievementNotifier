@@ -61,7 +61,7 @@ export const sannotify = {
             ...info,
             id: info.id ?? Math.round(Date.now() / Math.random() * 1000),
             customisation,
-            icon: info.icon ?? (type === "plat" ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
+            icon: info.icon ?? (sanhelper.plattype(type) ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
             gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg)
         }
  

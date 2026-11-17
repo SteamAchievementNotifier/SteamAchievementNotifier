@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Färdig",
         achievementdesc: "Klickade på knappen för att visa testmeddelande",
         gamecompletedesc: "Du har låst upp alla prestationer!",
+        setname: "Setnamn",
+        setcomplete: "Du har slutfört hela prestationssamlingen!",
         defaultcustomfont: "Standard (Inget typsnitt valt)",
         defaultsoundfile: "Standard (Ingen fil vald)",
         defaultsounddir: "Standard (Ingen mapp vald)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nytt...",
         nodata: "Inga Data",
         webhookunlockmsg: "$user har låst upp en prestation",
+        webhookunlockmsgset: "$user slutförde ett prestationsset",
         webhookunlockmsgplat: "$user har låst upp alla prestationer",
         webhookingame: "i $gamename",
         notconnected: "Inte ansluten",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Kopiera tema",
                 copythemesub: "Välj vilka aviseringstyper som det valda temat ska kopieras till"
             }
+        },
+        platnotifytype: {
+            title: "Anpassa",
+            content: {
+                platsubtype: "Undertyp",
+                game: "Spel",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Växla om prestationinformation ska skickas till en Discord-server när en $semi prestation låses upp`,
         webhookrare: "Växla om prestationinformation ska skickas till en Discord-server när en $rare prestation låses upp",
         webhookplat: "Växla om prestationinformation ska skickas till en Discord-server när en $plat prestation låses upp",
+        webhookset: "Växla om information om prestationer ska publiceras på en Discord-server när ett prestationsset har slutförts",
         webhooktest: "Växla om testinformation ska skickas till en Discord-server när testnotifikationer av något slag utlöses",
         webhookurl: `Ställ in <span class="hl">Webhook-URL</span> för den önskade Discord-servern<br><br><span class="ttdesc">En <span class="hl">Webhook-URL</span> används för att posta på en Discord-server/kanal på uppdrag av en användare eller applikation. För att konfigurera en ny Webhook för en Discord-server måste användaren ha en roll på den önskade servern som tillåter skapande av Webhooks<br><br><u>En Webhook-URL är nödvändig när du använder det här alternativet</u><br><br>Se Dischords officiella dokumentation för mer information</span>`,
         webhookspoilers: `Lägg till en spoiler-tag till "Dolda" prestationer när de postas på Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Ange färgen som används i webhook-embed när en $semi prestation låses upp",
         webhookembedcolorrare: "Ange färgen som används i webhook-embed när en $rare prestation låses upp",
         webhookembedcolorplat: "Ange färgen som används i webhook-embed när en $plat prestation låses upp",
+        webhookembedcolorset: "Ange färgen som används i webhook-inbäddningen när ett prestationsset har slutförts",
         raemus: "Visa meddelanden när spel detekteras i stödda emulatorer",
         rauser: "Ställ in användarnamnet för RetroAchievements för att spåra prestationer",
         rakey: `Ställ in Web API-nyckeln som ska användas för autentisering med RetroAchievements API<br><br><span class="ttdesc">En Web API-nyckel kan kopieras eller regenereras genom att logga in på RetroAchievements-webbplatsen och navigera till <span class="hl">Inställningar > Nycklar > Web API Key</span><br><br>🔒 Den angivna nyckeln kommer att krypteras innan den lagras lokalt på systemet (om det aktuella operativsystemet stöder kryptering)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Ställ in det maximala antalet textrader som ska visas i aviseringar",
         notifyoverflow: "Ställ in hur överflödande text ska hanteras i aviseringar",
         scrollrepeat: `Ställ in hur många gånger överflödande text ska rulla medan aviseringen visas på skärmen<br><br><span class="ttdesc">Rullningshastigheten beror på visningstiden, men högre upprepningsvärden kanske inte passar alla förinställningar</span>`,
-        setplat: "Visa meddelandet om 100 % slutförande efter att varje prestationsuppsättning har slutförts i kompatibla spel"
+        setplat: "Visa aviseringar när varje prestationsset slutförs i kompatibla spel",
+        platsubtype: `Välj vilken <span class="hl">100%</span>-aviseringstyp som ska anpassas<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Spel</span>: Aviseringen som visas när alla prestationer i spelet har låsts upp</li><li><span class="hl">Set</span>: Aviseringen som visas när alla prestationer i ett enskilt prestationsset har låsts upp</li></ul></span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",

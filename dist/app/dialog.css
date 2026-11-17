@@ -1037,6 +1037,30 @@ div#linkgamenewtablewrapper td:first-child {
     user-select: all;
 }
 
+body[main] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #2f5bb5;
+}
+
+body[trophymode][main] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #7f4e1d;
+}
+
+body[semi] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #778285;
+}
+
+body[rare] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #7538ad;
+}
+
+body[trophymode][rare] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #bf8e00;
+}
+
+body[plat] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #658fe9;
+}
+
 dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn,
 dialog .btnwrapper:has(button#betaexitbtn) > button#backbtn {
     display: none;

@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Fullført",
         achievementdesc: "Klikket på knappen for å vise testvarsel",
         gamecompletedesc: "Du har låst opp alle prestasjonene!",
+        setname: "Settnavn",
+        setcomplete: "Du har fullført prestasjonssettet!",
         defaultcustomfont: "Standard (Ingen skrift valgt)",
         defaultsoundfile: "Standard (Ingen fil valgt)",
         defaultsounddir: "Standard (Ingen mappe valgt)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Ny...",
         nodata: "Ingen data",
         webhookunlockmsg: "$user har låst opp en prestasjon",
+        webhookunlockmsgset: "$user fullførte et prestasjonssett",
         webhookunlockmsgplat: "$user låste opp alle prestasjoner",
         webhookingame: "i $gamename",
         notconnected: "Ikke tilkoblet",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Kopier tema",
                 copythemesub: "Velg varslingstype(r) du vil kopiere det valgte temaet til"
             }
+        },
+        platnotifytype: {
+            title: "Tilpass",
+            content: {
+                platsubtype: "Undertype",
+                game: "Spill",
+                set: "Sett"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Bytt om informasjon om prestasjoner skal postes til en Discord-server når en $semi prestasjon låses opp`,
         webhookrare: "Bytt om informasjon om prestasjoner skal postes til en Discord-server når en $rare prestasjon låses opp",
         webhookplat: "Bytt om informasjon om prestasjoner skal postes til en Discord-server når en $plat prestasjon låses opp",
+        webhookset: "Slå av eller på publisering av prestasjonsinformasjon på en Discord-server når et prestasjonssett fullføres",
         webhooktest: "Bytt om testinformasjon skal sendes til en Discord-server når testvarsler av hvilken som helst type utløses",
         webhookurl: `Angi <span class="hl">Webhook URL</span> for den ønskede Discord-serveren<br><br><span class="ttdesc">En <span class="hl">Webhook URL</span> brukes til å poste til en Discord-server/kanal på vegne av en bruker eller applikasjon. For å sette opp en ny Webhook for en Discord-server, må brukeren ha en rolle på den ønskede serveren som tillater opprettelse av Webhooks<br><br><u>En Webhook URL er nødvendig når du bruker dette alternativet</u><br><br>Se Discsd’s offisielle dokumentasjon for mer informasjon</span>`,
         webhookspoilers: `Legg til et spoiler-merke til "Skjulte" prestasjoner når de legges ut på Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Angi fargen som brukes i webhook-embed når en $semi prestasjon låses opp",
         webhookembedcolorrare: "Angi fargen som brukes i webhook-embed når en $rare prestasjon låses opp",
         webhookembedcolorplat: "Angi fargen som brukes i webhook-embed når en $plat prestasjon låses opp",
+        webhookembedcolorset: "Angi fargen som brukes i webhook-innbyggingen når et prestasjonssett fullføres",
         raemus: "Vis varsler når spill blir oppdaget i støttede emulatorer",
         rauser: "Sett RetroAchievements brukernavn for å spore prestasjoner",
         rakey: `Sett Web API-nøkkelen som skal brukes for autentisering med RetroAchievements API<br><br><span class="ttdesc">En Web API-nøkkel kan kopieres eller regenereres ved å logge inn på RetroAchievements-nettstedet og navigere til <span class="hl">Innstillinger > Nøkler > Web API-nøkkel</span><br><br>🔒 Den oppgitte nøkkelen vil bli kryptert før den lagres lokalt på systemet (hvis det nåværende operativsystemet støtter kryptering)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Angi maksimalt antall tekstlinjer som skal vises i varsler",
         notifyoverflow: "Angi hvordan tekst som overskrider tilgjengelig plass, skal håndteres i varsler",
         scrollrepeat: `Angi hvor mange ganger tekst som overskrider tilgjengelig plass, skal rulle mens varslingen vises på skjermen<br><br><span class="ttdesc">Rullehastigheten avhenger av visningstiden, men høyere gjentakelsesverdier passer kanskje ikke for alle forhåndsinnstillinger</span>`,
-        setplat: "Vis 100 %-varselet etter at hvert prestasjonssett er fullført i kompatible spill"
+        setplat: "Vis varsler når hvert prestasjonssett fullføres i kompatible spill",
+        platsubtype: `Velg undertypen for <span class="hl">100 %</span>-varsler som skal tilpasses<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Spill</span>: Varslet som vises når alle prestasjonene i spillet er låst opp</li><li><span class="hl">Sett</span>: Varslet som vises når alle prestasjonene i ett enkelt prestasjonssett er låst opp</li></ul></span>`
     },
     update: {
         updateavailable: "Oppdatering tilgjengelig",

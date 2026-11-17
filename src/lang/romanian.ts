@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Complet",
         achievementdesc: "Ați făcut clic pe butonul pentru a afișa notificarea de test",
         gamecompletedesc: "Ați deblocat toate realizările!",
+        setname: "Numele setului",
+        setcomplete: "Ai completat setul de realizări!",
         defaultcustomfont: "Implicit (Niciun font selectat)",
         defaultsoundfile: "Implicit (Niciun fișier selectat)",
         defaultsounddir: "Implicit (Niciun dosar selectat)",
@@ -62,6 +64,7 @@ export const translations = {
         new: "Nou...",
         nodata: "Fără Date",
         webhookunlockmsg: "$user a deblocat o realizare",
+        webhookunlockmsgset: "$user a completat un set de realizări",
         webhookunlockmsgplat: "$user a deblocat toate realizările",
         webhookingame: "în $gamename",
         notconnected: "Nu este conectat",
@@ -603,6 +606,14 @@ export const translations = {
                 copytheme: "Copiază tema",
                 copythemesub: "Selectează tipul/tipurile de notificare în care dorești să copiezi tema selectată"
             }
+        },
+        platnotifytype: {
+            title: "Personalizare",
+            content: {
+                platsubtype: "Subtip",
+                game: "Joc",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -784,6 +795,7 @@ export const translations = {
         webhooksemi: `Comută dacă să posteze informații despre realizări pe un server Discord când se deblochează o realizare $semi`,
         webhookrare: "Comută dacă să posteze informații despre realizări pe un server Discord când se deblochează o realizare $rare",
         webhookplat: "Comută dacă să posteze informații despre realizări pe un server Discord când se deblochează o realizare $plat",
+        webhookset: "Activează sau dezactivează publicarea informațiilor despre realizări pe un server Discord atunci când un set de realizări este completat",
         webhooktest: "Comută dacă informațiile de test trebuie trimise către un server Discord atunci când sunt declanșate notificări de test de orice tip",
         webhookurl: `Setează <span class="hl">URL Webhook</span> pentru serverul Discord dorit<br><br><span class="ttdesc">Un <span class="hl">URL Webhook</span> este folosit pentru a posta pe un server/canal Discord în numele unui utilizator sau aplicație. Pentru a configura un nou Webhook pentru un server Discord, utilizatorul trebuie să aibă un rol pe serverul dorit care permite crearea de Webhook-uri<br><br><u>Un URL Webhook este necesar atunci când folosești această opțiune</u><br><br>Consultă documentația oficială Discord pentru mai multe informații</span>`,
         webhookspoilers: `Adaugă o etichetă spoiler pentru "Realizări ascunse" atunci când sunt postate pe Discord`,
@@ -858,6 +870,7 @@ export const translations = {
         webhookembedcolorsemi: "Setează culoarea folosită în embed-ul webhook când se deblochează o realizare $semi",
         webhookembedcolorrare: "Setează culoarea folosită în embed-ul webhook când se deblochează o realizare $rare",
         webhookembedcolorplat: "Setează culoarea folosită în embed-ul webhook când se deblochează o realizare $plat",
+        webhookembedcolorset: "Setează culoarea utilizată în mesajul încorporat al webhookului atunci când un set de realizări este completat",
         raemus: "Afișează notificări atunci când jocurile sunt detectate în emulatorii acceptați",
         rauser: "Setează numele de utilizator RetroAchievements pentru a urmări realizările",
         rakey: `Setează cheia Web API care va fi folosită pentru autentificare cu API-ul RetroAchievements<br><br><span class="ttdesc">O cheie Web API poate fi copiată sau regeneratoră prin conectarea la site-ul RetroAchievements și navigând la <span class="hl">Setări > Chei > Web API Key</span><br><br>🔒 Cheia furnizată va fi criptată înainte de a fi salvată local pe sistem (dacă sistemul de operare curent suportă criptarea)</span>`,
@@ -930,7 +943,8 @@ export const translations = {
         notifylinemode: "Setează numărul maxim de linii de text afișate în notificări",
         notifyoverflow: "Setează comportamentul textului care depășește spațiul disponibil în notificări",
         scrollrepeat: `Setează de câte ori va derula textul care depășește spațiul disponibil cât timp notificarea este afișată pe ecran<br><br><span class="ttdesc">Viteza de derulare depinde de timpul de afișare, însă valorile mai mari ale repetării pot să nu fie potrivite pentru toate presetările</span>`,
-        setplat: "Afișează notificarea de completare 100% după finalizarea fiecărui set de realizări în jocurile compatibile"
+        setplat: "Afișează notificări pentru completarea fiecărui set de realizări în jocurile compatibile",
+        platsubtype: `Selectează subtipul notificării de <span class="hl">100%</span> pentru personalizare<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Joc</span>: Notificarea afișată atunci când toate realizările din joc sunt deblocate</li><li><span class="hl">Set</span>: Notificarea afișată atunci când toate realizările dintr-un singur set sunt deblocate</li></ul></span>`
     },
     update: {
         updateavailable: "Actualizare disponibilă",

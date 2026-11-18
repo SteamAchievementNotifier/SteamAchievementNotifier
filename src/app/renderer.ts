@@ -569,6 +569,19 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
             document.body.toggleAttribute("set",(event.target as HTMLSelectElement).value === "set")
             sanhelper.updatetabs()
         }
+
+        ;(customiser.querySelector("button#customtextvars") as HTMLButtonElement).onclick = async () => {
+            const vars = (await language.get("customtextvarsdesc") ?? {}) as Record<string,string>
+            sanhelper.plattype(type) && (vars["title"] = (await language.get(`customtextvars${type}`) as string).replace(/\$gamecomplete/,await language.get("gamecomplete")))
+
+            dialog.open({
+                title: await language.get("customtextvars"),
+                icon: sanhelper.setfilepath("icon","vars.svg"),
+                type: "default",
+                sub: `<div id="customtextvarssub">${await language.get("customtextvarssub")}</div>`,
+                addHTML: Object.entries(vars).map(([key,value]) => `<span class="wrapper"><code class="ttcode">{${key}}</code></span>=<span>${value}`).join("</span>")
+            })
+        }
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")

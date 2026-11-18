@@ -426,7 +426,7 @@ export const screenshot = {
     
                         sswin.win.setResizable(false)
 
-                        const { notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
+                        const { notifylinemode, notifyoverflow } = config.store
 
                         eventinfo = {
                             info: {
@@ -445,8 +445,6 @@ export const screenshot = {
                                 gameartlogo: logo,
                                 notifylinemode,
                                 notifyoverflow,
-                                showpercentstyle,
-                                showpercentpos,
                                 ra: notify.ra
                             } as Info,
                             dims

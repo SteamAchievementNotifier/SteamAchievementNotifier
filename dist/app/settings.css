@@ -69,10 +69,8 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 }
 
 #settingscontent {
-    /* --primary: #203e7a; */
     --primary: #2f5bb5;
-    --primarydark: color-mix(in srgb,var(--primary),black 35%);
-    --primarygradient: radial-gradient(circle,var(--primary),var(--primarydark));
+    --primarygradient: radial-gradient(circle,var(--primary),color-mix(in srgb,var(--primary),black 35%));
     display: block;
     padding-right: 1rem;
     overflow: hidden scroll;
@@ -507,11 +505,11 @@ body[themeswitch] #themeswitch::after {
 
 #showcustomfiles {
     --icon: url("../../icon/customfiles.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #showcustomfiles:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 #checkforupdates {
@@ -556,11 +554,11 @@ body[themeswitch] #themeswitch::after {
 
 #appdatadir {
     --icon: url("../../icon/folder.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #appdatadir:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 #backup {
@@ -943,9 +941,14 @@ body[ragameid] .wrapper#rastatuswrapper > div#ragame > span:nth-child(2):after {
     content: " [" var(--ragameid) "]";
 }
 
-span#raloghelp {
+button#raloghelp {
+    --icon: url("../../icon/ranogame.svg");
     font-size: 0.65rem;
-    text-align: center;
+    background-color: #b90505b5;
+}
+
+button#raloghelp:hover {
+    background-color: #b90505;
 }
 
 .opt:has(input[type="checkbox"]#rauseemudir) {
@@ -1053,11 +1056,11 @@ button.iconbtn:hover {
 
 #cleariconcache {
     --icon: url("../../icon/clearicons.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #cleariconcache:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 @media (orientation: portrait) {

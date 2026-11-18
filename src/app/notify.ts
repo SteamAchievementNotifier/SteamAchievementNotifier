@@ -24,15 +24,15 @@ export const sannotify = {
  
         const notify: Notify = {
             id: Math.round(Date.now() / Math.random() * 1000),
-            desc: "",
-            unlocked: true,
-            hidden: false,
-            percent: 0,
-            unlocktime: new Date().toISOString(),
             ...info,
-            customisation,
+            unlocked: info.unlocked ?? true,
+            hidden: info.hidden ?? false,
+            desc: info.desc ?? "",
+            percent: info.percent ?? 0,
+            unlocktime: new Date().toISOString(),
             icon: info.icon ?? (sanhelper.plattype(type) ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
-            gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg)
+            gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg),
+            customisation
         }
  
         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src ?? monitor))

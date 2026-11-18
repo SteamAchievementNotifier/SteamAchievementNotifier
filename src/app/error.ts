@@ -1,63 +1,41 @@
-import path from "path"
+import { app, dialog, clipboard, shell } from "electron"
 import { log } from "./log"
-import { __root, sanhelper } from "./sanhelper"
+import { sanhelper } from "./sanhelper"
 
 export const error = {
-    createwin: async (err: any) => {
-        log.write("ERROR",err)
+    showdialog: async (err: Error) => {
+        const id = 2
+        const title = "Dang..."
+        const issteamerr = err.message.startsWith("Steam installation path not found")
+        const message = issteamerr ? `Steam installation not found` : `Steam Achievement Notifier (V${sanhelper.version}) was unable to start`
+        const msg = err.stack && !issteamerr ? err.stack : err.message
+        const detail = issteamerr ? msg : `Details of the error are as follows:\n\n${msg}`
         
-        const { app, ipcMain, BrowserWindow, clipboard, ClipboardItem } = await import("electron")
-        const { setexit } = (await import("./listeners")).listeners
-        
-        setexit()
-        log.init("ERROR")
-
-        const errwin = new BrowserWindow({
-            title: `Steam Achievement Notifier (V${sanhelper.version}): Error`,
-            width: 500,
-            height: 400,
-            frame: false,
-            transparent: true,
-            autoHideMenuBar: true,
-            center: true,
-            darkTheme: true,
-            fullscreen: false,
-            fullscreenable: false,
-            minimizable: false,
-            maximizable: false,
-            resizable: false,
-            closable: false,
-            webPreferences: {
-                nodeIntegration: true,
-                contextIsolation: false
-            }
+        const btn = dialog.showMessageBoxSync({
+            title,
+            message,
+            detail,
+            defaultId: id,
+            cancelId: id,
+            noLink: true,
+            type: "error",
+            buttons: [
+                "Copy error details",
+                "Open GitHub issue",
+                "Exit"
+            ]
         })
 
-        errwin.loadFile(path.join(__root,"dist","app","errwin.html"))
-        sanhelper.devmode && sanhelper.setdevtools(errwin)
+        switch (btn) {
+            case 0:
+                await clipboard.writeText(msg)
+                break
+            case 1:
+                await shell.openExternal("https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/issues/new?template=bugreport.yml")
+                break
+        }
 
-        errwin.once("ready-to-show",() => errwin.webContents.send("err",err))
-
-        ipcMain.once("capture",async event => {
-            const capture = await errwin.webContents.capturePage()
-
-            try {
-                const img = new Int8Array(capture.toPNG())
-                const item = new ClipboardItem({ "image/png": new Blob([img],{ type: "image/png" }) })
-
-                clipboard.write([item])
-
-                event.reply("capture")
-            } catch (err) {
-                log.write("ERROR",`Error capturing screenshot: ${err}`)
-                event.reply("capture",err)
-            }
-        })
-
-        ipcMain.on("restart",() => {
-            app.relaunch({ execPath: process.execPath })
-            log.write("EXIT",`Exited for relaunch requested via "Reset" Error Window option`)
-            app.exit()
-        })
+        log.write("EXIT",`App could not start due to an error: ${msg}`)
+        app.exit()
     }
 }

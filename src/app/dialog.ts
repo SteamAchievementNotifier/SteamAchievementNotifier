@@ -702,7 +702,7 @@ export const dialog = {
                 }]
             })
             
-            sanhelper.sethelpdialog(document.querySelector("span#raloghelp")!,"raenablelog")
+            sanhelper.sethelpdialog(document.querySelector("button#raloghelp")!,"raenablelog")
 
             ;[
                 "resetwindow",

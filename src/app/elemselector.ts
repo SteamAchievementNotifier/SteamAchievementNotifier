@@ -9,7 +9,6 @@ export const selectorelems = [
     "unlockmsg",
     "title",
     "desc",
-    "percentpos",
     "hiddeniconpos",
     "decorationpos",
     "percentbadge",
@@ -95,7 +94,6 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
     const elems = config.get(`customisation.${type}.${elemtype}`) as string[]
 
     const posids = [
-        "percent",
         "hiddenicon",
         "decoration"
     ]
@@ -118,8 +116,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
     elemtype === "sselems" && menutype.querySelector("#elemselector > .opt")!.insertAdjacentHTML("beforeend",elemsmatchhtml)
 
-    ;(config.get("showpercent") === "off" || type !== "rare" && config.get("showpercent") === "rareonly") && menutype.querySelector("#elemselector")!.setAttribute("nopercent","")
-    ;!config.get(`customisation.${type}.showhiddenicon`) && menutype.querySelector("#elemselector")!.setAttribute("nohiddenicon","")
+    !config.get(`customisation.${type}.showhiddenicon`) && menutype.querySelector("#elemselector")!.setAttribute("nohiddenicon","")
 
     const title = menutype.querySelector(`#elemselector > span.lbl`)! as HTMLSpanElement
     title.textContent = notificationelems["title"]
@@ -157,7 +154,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
                 }
             }
 
-            if ((sanhelper.plattype(type) && id.includes("hiddeniconpos")) || (config.get(`customisation.${type}.${elemtype === "sselems" ? "ss" : ""}percentbadge`) && id.includes("percentpos"))) return select.parentElement!.remove()
+            if (sanhelper.plattype(type) && id.includes("hiddeniconpos")) return select.parentElement!.remove()
 
             const pos = config.get(`customisation.${type}.${id}`) as number
             select.value = pos > 0 ? pos.toString() : "off"

@@ -266,24 +266,27 @@ export const utils = {
         }
     },
     config: {
-        removelegacykeys: (config: Store<Config>,keys: string[]) => {
-            for (const key of keys) {
-                if (!config.has(key)) continue
+        removelegacykey: (config: Store<Config>,key: string) => {
+            if (!config.has(key)) return
 
-                try {
-                    config.delete(key)
-                    log.write("INFO",`Legacy "${key}" key removed from config successfully`)
-                } catch (err) {
-                    log.write("WARN",`Unable to remove legacy "${key}" key: ${err}`)
-                }
+            try {
+                config.delete(key)
+                log.write("INFO",`Legacy "${key}" key removed from config successfully`)
+            } catch (err) {
+                log.write("WARN",`Unable to remove legacy "${key}" key: ${err}`)
             }
         },
         cleanup: (config: Store<Config>) => {
             // Legacy keys required to be removed if existing in config
-            utils.config.removelegacykeys(config,[
+            for (const key of [
                 "webhooktypes",
-                "uselegacynotifytimer"
-            ])
+                "uselegacynotifytimer",
+                "showpercent",
+                "showpercentpos",
+                "showpercentstyle"
+            ] as const) {
+                utils.config.removelegacykey(config,key)
+            }
 
             // Overwrites old default `customisation` key values with new default values
             for (const [key,values] of new Map<string,[any,any]>([
@@ -292,13 +295,14 @@ export const utils = {
                 utils.customisation.updatekeys(config,key,keypath => utils.customisation.updatedefaultvalue(config,keypath,values))
             }
 
-            // Reset legacy keys for each type, optionally limited to a single `NotifyType`
+            // Reset legacy `customisation` keys for each type, optionally limited to a single `NotifyType`
             for (const [key,type] of new Map<string,NotifyType | undefined>([
                 ["alldetails",undefined],
                 ["showdecoration",undefined],
-                ["previewhiddenicon","plat"]
+                ["previewhiddenicon","plat"],
+                ["bgonly",undefined]
             ])) {
-                utils.customisation.updatekeys(config,key,keypath => config.set(keypath,false),type)
+                utils.customisation.updatekeys(config,key,keypath => config.has(keypath) && config.set(keypath,false),type)
             }
         }
     },

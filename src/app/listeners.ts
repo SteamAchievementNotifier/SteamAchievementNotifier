@@ -1107,7 +1107,7 @@ export const listeners = {
             }
             
             if (iswebview === "customiser") {
-                const { ssalldetails, screenshots, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
+                const { ssalldetails, screenshots, notifylinemode, notifyoverflow } = config.store
                 const { icon, libhero, logo } = gameartobj
 
                 return win.webContents.send("customisernotify",{
@@ -1124,9 +1124,7 @@ export const listeners = {
                     gameartlibhero: libhero,
                     gameartlogo: logo,
                     notifylinemode,
-                    notifyoverflow,
-                    showpercentpos,
-                    showpercentstyle
+                    notifyoverflow
                 } as Info)
             }
 
@@ -1149,15 +1147,15 @@ export const listeners = {
                 steam3id,
                 apiname,
                 name: notify.name,
-                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg)) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
-                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle)) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
-                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc)) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
+                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtextunlockmsg,notify))) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
+                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtexttitle,notify))) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
+                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtextdesc,notify))) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
                 icon,
                 percent: {
-                    value: percent,
+                    value: sanhelper.plattype(type) ? 0 : percent,
                     rarity: config.get("rarity"),
                     semirarity: config.get("semirarity"),
-                    showpercent: config.get("showpercent")
+                    isplat: sanhelper.plattype(type)
                 },
                 hidden
             } as BuildNotifyInfo
@@ -1310,7 +1308,7 @@ export const listeners = {
                 }
 
                 const notifyinfo = async (isextwin?: boolean) => {
-                    const { audiosrc, ssalldetails, screenshots, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
+                    const { audiosrc, ssalldetails, screenshots, notifylinemode, notifyoverflow } = config.store
                     const { appid, steam3id } = info
                     const steampath = sanhelper.steampath
                     const hqicon = notify.ra ? notify.gameicon : sanhelper.gethqicon(appid)
@@ -1332,8 +1330,6 @@ export const listeners = {
                         gameartlogo: logo,
                         notifylinemode,
                         notifyoverflow,
-                        showpercentpos,
-                        showpercentstyle,
                         ra: notify.ra
                     } as Info
                 }

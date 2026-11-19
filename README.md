@@ -19,7 +19,7 @@
 
 Each notification type - **Main** (*for regular achievements*), **Rare** (*for achievements with a rarity below 10%*) and **100%** (*for unlocking all achievements in any game*) - can be personalised to your liking using a wealth of customisation options available via the **Steam Achievement Customiser** menu. Just click the **Customise** button to get started!
 
-<p align="center"><img width="100%" height="100%" src="img/SANUIV1.9.jpg"></p>
+<p align="center"><img width="100%" height="100%" src="img/SANV2.0UI.png"></p>
 
 > [!CAUTION]
 > #### Fullscreen display modes are not supported\*

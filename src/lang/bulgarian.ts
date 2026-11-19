@@ -35,7 +35,7 @@ export const translations = {
         achievementdesc: "Цъкнахте бутона за показване на тестово известие",
         gamecompletedesc: "Отключихте всички постижения!",
         setname: "Име на набора",
-        setcomplete: "Você completou o conjunto de conquistas!",
+        setcomplete: "Завършихте комплекта с постижения!",
         defaultcustomfont: "По подразбиране (Не е избран шрифт)",
         defaultsoundfile: "По подразбиране (Не е избран файл за звук)",
         defaultsounddir: "По подразбиране (Не е избрана папка)",

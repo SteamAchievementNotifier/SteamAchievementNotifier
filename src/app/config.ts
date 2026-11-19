@@ -41,7 +41,6 @@ export const customfilekeys = [
 // Contains non-"shortcut" suffixed key names for all options that are assigned a `globalShortcut`
 // Additionally, passes boolean flag for whether partial combos should be allowed
 export const shortcutkeys = new Map<string,boolean>([
-    ["release",false],
     ["statwin",false],
     ["gametimerwin",false],
     ["replaynotify",false],
@@ -141,7 +140,7 @@ export const sanconfig = {
             }],
             ["xboxone",{
                 logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                decoration: null,
+                decoration: sanhelper.setfilepath("img","s.svg"),
                 index: {
                     percent: 1,
                     hiddenicon: 1,
@@ -272,7 +271,6 @@ export const sanconfig = {
                 x: Math.round((width / 2) - (target.width / 2)),
                 y: Math.round((height / 2) - (target.height / 2)),
                 usecustomfiles: false,
-                noreleasedialog: false,
                 norestartdialog: false,
                 noupdatedialog: false,
                 debug: false,
@@ -314,7 +312,6 @@ export const sanconfig = {
                 steamlang: false,
                 maxsteamlangretries: 10,
                 showsystrayopts: false,
-                releaseshortcut: "CTRL+SHIFT+Q",
                 statwin: false,
                 statwinpos: {
                     width: 250,

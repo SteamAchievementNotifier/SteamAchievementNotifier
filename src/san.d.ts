@@ -70,7 +70,6 @@ declare interface Config {
     x: number,
     y: number,
     usecustomfiles: boolean,
-    noreleasedialog: boolean,
     norestartdialog: boolean,
     noupdatedialog: boolean,
     debug: boolean,
@@ -104,7 +103,6 @@ declare interface Config {
     steamlang: boolean,
     maxsteamlangretries: number,
     showsystrayopts: boolean,
-    releaseshortcut: string,
     statwin: boolean,
     statwinpos: {
         width: number,
@@ -498,12 +496,8 @@ declare interface ProcessInfo {
 
 declare interface AppInfo {
     appid: number,
-    status?: "Active" | "Released",
     gamename?: string | null
     pollrate?: number,
-    // releasedelay?: number,
-    // maxretries?: number,
-    // userust?: boolean,
     debug?: boolean,
     noiconcache?: boolean
 }
@@ -704,13 +698,6 @@ declare interface LastKnownGame {
     installdir: string | null
 }
 
-declare type ErrNotifyType = "noexe" | "addlinkfailed" | "workercrash"
-
-declare interface ErrNotify {
-    channel: ErrNotifyType
-    skipnotify?: boolean
-}
-
 declare interface SystemUsage {
     cpupercent: number,
     mempercent: number,
@@ -731,9 +718,7 @@ declare interface AppUsage {
 
 declare interface GameDisplayInfo {
     gamename: string | null,
-    achnum?: number,
-    releasing?: boolean,
-    issues?: boolean
+    achnum?: number
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>

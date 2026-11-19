@@ -46,10 +46,10 @@ export const language = {
                     const settingscontent = document.getElementById("settingscontent")!
                     const settingsversion = document.getElementById("settingsversion")!
 
-                    langmap.set(settingsheader.querySelector(`span`)!,global.settings)
-                    langmap.set(settingsversion.querySelector(`span:first-child`)!,`${global.appversion}:`)
+                    langmap.set(settingsheader.querySelector("span")!,global.settings)
+                    langmap.set(settingsversion.querySelector("span:first-child")!,`${global.appversion}:`)
 
-                    const settingstitles = Array.from(settingscontent.querySelectorAll(`.cont > .title`)).map(title => title.id)
+                    const settingstitles = Array.from(settingscontent.querySelectorAll(".cont > .title")).map(title => title.id)
 
                     const selectignore = [
                         "lang",

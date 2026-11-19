@@ -123,12 +123,8 @@ body[aot] button#close {
     pointer-events: none;
 }
 
-button#winopacity {
-    --icon: url("../../icon/visibility.svg");
-    transform: scale(0.75);
-}
-
-body[hidden] button#winopacity,
-body[aot] button#winopacity {
-    --icon: url("../../icon/visibility_off.svg");
+#cont > .wrapper:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-bottom: 4vmax;
 }

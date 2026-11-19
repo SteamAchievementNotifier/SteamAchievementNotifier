@@ -320,7 +320,10 @@ export const screenshot = {
     sspathinfo: (config: any,type: "ssonly" | "ss" | "img",notify: Notify,info: BuildNotifyInfo,imgpath: string) => {
         const regex = /[<>:"/\\|?*\x00-\x1F]/g // Removes Windows/Linux illegal filename characters while still supporting non-ASCII characters
         const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
-        const ssbasename = `${(info.name.replace(regex,"").trim() || info.apiname)}${type === "img" ? " - Notification" : ""}`
+
+        const ssname = sanhelper.plattype(notify.type) ? `${!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier"} - ${notify.type === "set" ? (notify.setname || info.name) : info.name}` : info.name // "set": `<game name> - <set name>.png`/"plat": `<game name> - 100%.png`
+        const ssbasename = `${(ssname.replace(regex,"").trim() || info.apiname)}${type === "img" ? " - Notification" : ""}`
+        
         const ssext: ".png" | ".jpg" = `.${config.get("screenshots") === "notifyimg" ? "png" : config.get("ssext") as "png" | "jpg"}`
 
         let sscounter = 0

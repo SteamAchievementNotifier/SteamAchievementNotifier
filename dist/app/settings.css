@@ -59,8 +59,11 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 
 #settingsheader > span {
     justify-self: center;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-transform: uppercase;
+    font-family: "Montserrat", "Roboto";
+    -webkit-text-stroke: var(--primary) 0.075rem;
+    paint-order: stroke fill;
 }
 
 #settingsheader > .menubtn#settingsclose {
@@ -191,9 +194,9 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow,#extwinnotify),
 .cont:has(input[type="checkbox"]#nohwa:checked) ~ .cont:has(.title#streaming) .opt:has(#extwinnotify),
 .opt:has(#statwin:not(:checked)) ~ .wrapper:has(#statwinaot,#statwintype,#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
-.opt:has(#statwin:not(:checked)) > button,
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
 .opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
+.opt:has(input[type="checkbox"][id$="win"]:not(:checked)) > button.iconbtn,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
 .opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace),
 .optcont:has(input#usesanwatcher:checked) > .opt:has(#maxretries),
@@ -1050,7 +1053,7 @@ button.iconbtn:hover {
     opacity: 1;
 }
 
-.opt:has(input#statwin) > button[aot] {
+.opt:has(input[type="checkbox"][id$="win"]) > button[aot] {
     --icon: url("../../icon/lock.svg");
 }
 

@@ -160,6 +160,8 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 if (!logged.binfile) {
                     log.write("INFO",`"${binfile}" not found - retrying...`)
                     logged.binfile = true
+
+                    ipcRenderer.send("nostats",{ appid, gamename, achnum: 0 } as WorkerInfo) // If no stats file for the current AppID exists, set `sanlogo_inactive` icon in `listeners.ts`
                 }
                 
                 setTimeout(() => startsan(user,appinfo),1000)
@@ -365,7 +367,7 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                         gamename: gamename ?? "???",
                         steam3id,
                         apiname: `PLAT_SET_${groupid}`,
-                        name: "100%",
+                        name: setname,
                         setname,
                         achnum: {
                             unlocked: numunlocked,

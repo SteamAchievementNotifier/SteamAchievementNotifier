@@ -4,6 +4,11 @@
 }
 
 @font-face {
+    font-family: "Montserrat";
+    src: url("../../fonts/Montserrat-Bold.ttf");
+}
+
+@font-face {
     font-family: "Roboto";
     src: url("../../fonts/Roboto-Medium.ttf");
 }
@@ -87,6 +92,7 @@ body[trophymode][rare] {
 
 body[plat] {
     --primary: #658fe9;
+    /* --secondary: #425d98; */
 }
 
 html,

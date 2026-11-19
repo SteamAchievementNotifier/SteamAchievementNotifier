@@ -148,7 +148,7 @@ export const elemselector = async (elem: HTMLElement,elemtype: "elems" | "sselem
 
             if (id.includes("decorationpos")) {
                 // Note: `defaulticons.epicgames.decoration` is NOT null in config, hence the equality check
-                if (decoration === null || preset === "epicgames") {
+                if (decoration === null || preset === "epicgames" || preset === "xboxone") {
                     if (!decorationoverride.includes(preset)) return select.parentElement!.remove() // Dynamically removes the `select` element if `defaulticons.<preset>.decoration` is null
                     menutype.querySelectorAll(`#${id} > option:not([value="off"],[value="1"])`).forEach(elem => elem.remove()) // Dynamically removes any `option` elements greater than 1 for any preset in the `usedecoration` array (replaces legacy "Show Decoration" option)
                 }

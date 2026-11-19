@@ -467,14 +467,16 @@ export const dialog = {
                 updatetables("themeswitch")
             }
 
-            ;(document.querySelector(".opt:has(input#statwin) > button.iconbtn") as HTMLButtonElement).onclick = event => {
-                const target = event.target as HTMLButtonElement
-                const value = !(config.store.statwinaot)
+            for (const id of (["stat","gametimer"] as const)) {
+                ;(document.querySelector(`.opt:has(input#${id}win) > button.iconbtn`) as HTMLButtonElement).onclick = event => {
+                    const btn = event.target as HTMLButtonElement
+                    const value = !(config.store[`${id}winaot`])
 
-                config.set("statwinaot",value)
-                target.toggleAttribute("aot",value)
-                
-                ipcRenderer.send("statwinaot",value)
+                    config.set(`${id}winaot`,value)
+                    btn.toggleAttribute("aot",value)
+                    
+                    ipcRenderer.send(`${id}winaot`,value)
+                }
             }
             
             document.getElementById("showcustomfiles")!.onclick = sanhelper.showcustomfiles
@@ -706,7 +708,6 @@ export const dialog = {
 
             ;[
                 "resetwindow",
-                "releasegame",
                 "suspendresume",
                 "restartapp"
             ].forEach(id => document.getElementById(id)!.onclick = () => ipcRenderer.send(id.replace(/window$/,"win")))

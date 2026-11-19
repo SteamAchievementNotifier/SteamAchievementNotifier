@@ -3,9 +3,9 @@
     src: url("../../../fonts/NotoSans-Light.ttf");
 }
 
-:root {
+/* :root {
     --s: url("../../../img/s.svg");
-}
+} */
 
 .wrapper#achcont {
     --start: 16.6%;
@@ -221,7 +221,7 @@ body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title > .sc
     --ssize: 30%;
     content: attr(gs) attr(unit) " - ";
     padding-left: calc(1.25rem * var(--fontsize));
-    background: var(--s) left / var(--ssize) no-repeat;
+    background: var(--decoration) left / var(--ssize) no-repeat;
 }
 
 /* body:not([ss]) .wrapper#achcontent:has(#unlockmsg):has(#decoration) #title[unit="%"]::before, */

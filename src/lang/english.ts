@@ -46,11 +46,6 @@ export const translations = {
         show: "Show",
         exit: "Exit",
         donotshowagain: "Don't show this dialog again",
-        releasegame: "Release Game",
-        releasegamesub: [
-            `Restart the background Worker process and release the current game from being tracked`,
-            `Try this option if you've recently closed a game but Steam still shows it as running, or if Steam Achievement Notifier still shows as tracking a game that's already been closed`
-        ],
         noupdateavailable: "No Update Available",
         latestversion: "Latest version installed",
         missingdeps: "Missing dependency",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Games",
             content: {
-                linkedgames: "Linked Games",
-                autoreleasegames: "Auto-Release Games",
                 themeswitch: "Auto-Switch Themes",
                 exclusionlist: "Exclusion List",
                 inclusionlist: "Inclusion List",
@@ -331,19 +324,20 @@ export const translations = {
                 nvda: "Enable NVDA Support",
                 tooltips: "Show Tooltips",
                 showsystrayopts: "Show System Tray Options",
-                releaseshortcut: "Release Game Shortcut",
                 noshortcuts: "Disable Keyboard Shortcuts"
+            }
+        },
+        plugins: {
+            title: "Plugins",
+            content: {
+                plugins: "Use Plugins",
+                loadplugin: "Load Plugin"
             }
         },
         advanced: {
             title: "Advanced",
             content: {
                 pollrate: "Poll Rate",
-                initdelay: "Tracking Delay",
-                releasedelay: "Release Delay",
-                maxretries: "Max Process Retries",
-                debug: "Debug Panel",
-                userust: "Alt. Process Mode",
                 notifydebug: "Show Notification DevTools",
                 workerdebug: "Show Worker DevTools",
                 exportachdata: "Export Achievement Data",
@@ -368,8 +362,6 @@ export const translations = {
                     "❗ Once confirmed, the app will restart in order to restore the selected backup file"
                 ],
                 restorefailed: "Unable to restore backup.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Release Wait Time",
                 logresourceusage: "Log Resource Usage"
             }
         },
@@ -417,14 +409,11 @@ export const translations = {
             content: {
                 preset: "Notification Preset",
                 iconanim: "Rare Icon Animation",
-                alldetails: "Show All Details",
                 usepercent: "Use Percentage",
                 displaytime: "Display Time",
                 scale: "Scale",
                 customtext: "Custom Text",
-                usegametitle: "Use Game Title",
                 customfont: "Custom Font",
-                platcustomtext: "Custom 100% Text",
                 usecustomtext: "Custom Text",
                 customtextunlockmsg: "Unlock Message",
                 customtexttitle: "Achievement Title",
@@ -632,10 +621,11 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier encountered an issue and needs to close.",
+            steam: "Steam installation not found",
             details: "Here's the error details:",
             sub: "Click the buttons below to report this issue via your preferred platform.",
-            report: "Report",
-            log: "App Log",
+            copy: "Copy error details",
+            issue: "Open GitHub issue",
             exit: "Exit"
         }
     },
@@ -682,11 +672,6 @@ export const translations = {
         tooltips: "Display tooltips when hovering over certain UI elements",
         colorprofile: `Force all app windows to render using the selected color profile<br><br><span class="ttdesc">Requires app restart</span>`,
         pollrate: `Set the update interval for achievement data during gameplay<br><br><span class="ttdesc">Performance may increase/decrease depending on the value or system hardware. Higher values typically result in lower system load, but may cause notifications to be more delayed</span>`,
-        initdelay: `Set the delay between detection of the current <span class="hl">AppID</span> and when process/achievement tracking starts<br><br><span class="ttdesc">Increasing this value can prevent scenarios where Steam is unable to launch the current game (due to the app initialising Steamworks before the game has launched)</span><br><br><span class="ttdesc">Alternatively, increasing this value can also be used to bypass incorrect detection of pre-game launcher processes</span>`,
-        releasedelay: `Set how long the background Worker process waits to restart after the current game has been released. Affects both automatic process tracking and Auto-Release Games<br><br><span class="ttdesc">Allows a longer timeframe for Steamworks to be fully released from the app. Increasing this value can prevent unusual behaviour, such as tracking a previously closed game</span>`,
-        maxretries: `Set the maximum number of retries to link a running process to a detected AppID. Affects both automatic process tracking and Auto-Release Games<br><br><span class="ttdesc">Retries are attempted once every second. If a running process is not linked to the current AppID after this number of retries, an invalid process will be returned. In such cases, the game will need to be manually released via System Tray > Options > Release Game</span>`,
-        debug: "Open the Debug Panel, which displays in-depth Process Tracking info",
-        userust: "Use an alternative Rust-based function to check whether tracked game processes are currently running on the system. When unchecked, the default Node JS-based process check will be used instead",
         notifydebug: "Create a DevTools window for all notifications. Useful for debugging/troubleshooting notification issues",
         workerdebug: "Create a DevTools window for the Worker process. Useful for debugging/troubleshooting game tracking issues",
         usecustomfiles: "Enables notifications to load user-customisable files. Caution is advised for regular users",
@@ -697,12 +682,10 @@ export const translations = {
         replay: "Restart the animation of the notification preview",
         preset: "Select the notification preset to customise",
         iconanim: "Toggle the Rare icon border and animation",
-        alldetails: "Display all text elements within the notification, including those hidden by default for this preset",
         usepercent: "Display the unlock percentage of the achievement, instead of the XP/S value",
         displaytime: "Set the number of seconds the notification will display",
         scale: "Increase or decrease the size of the notification",
         customtext: `Set a custom message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
-        usegametitle: "Show the title of the current game within this element",
         customfont: "Load a custom font to be used within the notification",
         soundmode: "Select either a single audio file, or a randomly selected audio file from within a folder containing multiple audio files, when a notification occurs",
         soundfile: "Select an audio file to play when a notification occurs",
@@ -831,7 +814,6 @@ export const translations = {
         themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`,
         userthemesync: `Sync customisations in the selected <span class="hl">Theme</span> to all other notification types`,
         showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`,
-        releaseshortcut: "Release the currently tracked game using the specified keyboard shortcut",
         themeselect: "Select a previously saved Theme",
         statwin: `Display configurable achievement stats for the current game in an external window<br><br><span class="ttdesc">When used in conjunction with the <span class="hl">Translate Achievements to Steam Language</span> option, some translations may not be available until the specified achievement is unlocked</span>`,
         statwinaot: `Set the Achievement Stats Overlay to "always on top" mode, locking the current position and allowing the overlay to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Achievement Stats Overlay will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
@@ -897,7 +879,6 @@ export const translations = {
         audiocooldown: `Set the amount of time subsequent notifications wait before new audio can be played<br><br><span class="ttdesc">Audio will be unaffected if Max Notifications is set to 1</span>`,
         rauseemudir: "Save Screenshots/Notification Images unlocked via RetroAchievements into a subfolder for the current emulator within the specified Screenshot/Image Path directory",
         ssext: "Set the file format of screenshots generated via the Screenshot with Notification Overlay option",
-        notify1line: `Limit the number of lines of text displayed within all notifications to 1<br><br><span class="ttdesc">Overflowing text strings that cannot fit onto a single line will be truncated with "..."</span>`,
         copytheme: "Copy the selected Theme to another notification type",
         ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam",
         appdatadir: "Open the location of the app's AppData folder",
@@ -910,13 +891,7 @@ export const translations = {
         resetgametimer: "Reset the Game Completion Timer for the current game",
         noshortcuts: `Disable all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
         extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications",
-        usesanwatcher: `Enable SAN's new game process watcher<br><br><span class="ttdesc">Differences between the new SANWatcher/old automatic process tracking methods are as follows:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Actively monitors start/exit events for any process stored inside the game's installation directory</li><li>Does not require game executable to be known to release current game</li><li>Pre-game launcher behaviour can vary, so full compatibility with all Steam games is not guaranteed</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scans game installation directory for any running executables after game launch</li><li>Requires game executable to be known to release current game</li><li>If game process cannot be determined automatically, the user must manually add a new entry to <span class="hl">Auto-Release Games</span> for games to be released automatically</li></ul></div>`,
-        releasewaittime: `Set how long SANWatcher will wait for new game processes to spawn before releasing the current game<br><br><span class="ttdesc">For example, if the current game spawns a pre-game launcher/configuration window before launching the actual game, this setting determines the number of seconds SANWatcher will wait for the actual game window to spawn after the pre-game launcher/configuration window has closed<br><br>If a new active game process is detected within this wait time, the release will be cancelled and the newly active process will then be tracked instead<br><br>💡 The game name will <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">flash</span> in the <span class="hl">Game Display</span> box while the current game is waiting to release</span>`,
-        platcustomtext: `Set a custom 100% game completion message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
         raui: "Display the names of detected RetroAchievements games in the Game Display/system tray UI",
-        testnotifycustomtext: "Override the text displayed in all Test Notifications",
-        testnotifycustomtexttitle: "Override the text displayed for the title element in all Test Notifications",
-        testnotifycustomtextdesc: "Override the text displayed for the description element in all Test Notifications",
         radefault: `Always auto-switch to this entry when any RetroAchievements achievement is unlocked<br><br><span class="ttdesc">Only one Auto-Switch Themes entry can be designated as the default for all RetroAchievements achievements. This default can also be overridden per-game by adding a new Auto-Switch Themes entry for a specific RetroAchievements <span class="hl">GameID</span></span>`,
         statwintype: "Set the layout type of the Achievement Stats Overlay",
         statwinunlockonly: "Keep the Achievement Stats Overlay hidden until an achievement is unlocked",
@@ -933,7 +908,9 @@ export const translations = {
         notifyoverflow: "Set the behaviour of overflowing text within notifications",
         scrollrepeat: `Set how many times overflowing text will scroll while the notification is onscreen<br><br><span class="ttdesc">Scroll speed is dependent on Display Time, but higher repeat values may not be suitable for all presets</span>`,
         setplat: "Display notifications for completing each achievement set in compatible games",
-        platsubtype: `Select the <span class="hl">100%</span> notification subtype to customise<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Game</span>: The notification displayed when all achievements in the game are unlocked</li><li><span class="hl">Set</span>: The notification displayed when all achievements in a single achievement set are unlocked</li></ul></span>`
+        platsubtype: `Select the <span class="hl">100%</span> notification subtype to customise<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Game</span>: The notification displayed when all achievements in the game are unlocked</li><li><span class="hl">Set</span>: The notification displayed when all achievements in a single achievement set are unlocked</li></ul></span>`,
+        plugins: `Enable support for loading in-app plugins<br><br><span class="ttdesc">Plugins extend functionality for other platforms/games to track achievements and display notifications within the app</span>`,
+        loadplugin: "Load a plugin from disk and extract into the app's plugin directory"
     },
     update: {
         updateavailable: "Update available",
@@ -943,64 +920,6 @@ export const translations = {
             `Full Release Notes available on <span id="discordreleasenotes"></span> and <span id="githubreleasenotes"></span>`
         ],
         update: "Update"
-    },
-    linkgame: {
-        content: {
-            exepath: "Executable Path",
-            linkedgame: "Link Game",
-            autoreleasegame: "Auto-Release Game",
-            linkedgamessub: [
-                `Override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, and instead, only check whether the selected <span class="hl">game executable</span> is currently active`,
-                `Link any game's <span class="hl">AppID</span> to a target <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing link`
-            ],
-            autoreleasegamessub: [
-                `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">$linkgame</span>`,
-                `Add a specific game's <span class="hl">AppID</span> along with its expected <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing entry`,
-            ],
-            managesub: [
-                `Once a game has been detected, new entries can also be added via <span class="hl">window focus</span> by <i>right-clicking</i> the <span class="hl">System Tray icon</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
-            ],
-            linknew: "New Entry",
-            linknewsub: [
-                `Link a new game's <span class="hl">AppID</span> to a target <span class="hl">game executable</span>`,
-                `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
-            ],
-            linkedit: "Edit Entry",
-            linkeditsub: [
-                `Edit an existing link between a game's <span class="hl">AppID</span> and the target <span class="hl">game executable</span>`,
-                `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
-            ],
-            link: "Add",
-            findappid: "Find Steam AppID",
-            findappidsub: [
-                `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
-                `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
-                `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
-            ],
-            noexe: "Game EXE not found!",
-            noexesub: "Click here for more information",
-            noexedialogsub: [
-                `Steam Achievement Notifier was unable to locate the executable file for this game automatically. The location of the game's executable file is required in order to "release" the game once closed`,
-                `To manually release the game once closed, <i>right-click</i> the <span class="hl">System Tray icon</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>, or use the <span class="hl">Release Game Shortcut</span>`,
-                `Alternatively, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>`,
-            ],
-            linkedgamefocussub: `To override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, add a new entry to <span class="hl">Linked Games</span>`,
-            autoreleasegamefocussub: `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">Auto-Release Games</span>`,
-            focussub: `To do this for the current game, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>What happens when I click the Add button?</u></span>`,
-            linkgamehelp: "Link via Focus",
-            linkgamehelpsub: [
-                `Clicking the <span class="hl">Add</span> button will automatically add a new entry to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using information from the currently focused window.`,
-                `After clicking the <span class="hl">Add</span> button, a 5-second timer will begin`,
-                `Before the timer ends, focus the game window`,
-                `Once the timer has ended, a new entry for the current <span class="hl">AppID</span> will be added to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using the focused window's associated executable file`,
-                `New attempts will overwrite existing entries, or the entry can be removed via <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span> by clicking the <span id="linkhelpunlink"></span> button`
-            ],
-            addlinkfailed: "Unable to add window",
-            addlinkfailedsub: `Click the <span class="hl">Add</span> button to try again`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1016,13 @@ export const translations = {
             themes: "Themes",
             src: "Screenshot Source",
             themedeleted: "Theme deleted",
+            findappid: "Find Steam AppID",
+            findappidsub: [
+                `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
+                `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
+                `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
+            ],
             rafindgameid: "Find RA GameID",
             rafindgameidsub: [
                 `Each RetroAchievements game has a unique number associated with it - called a <span class="hl">GameID</span>. You can find any RetroAchievements game's associated GameID by checking:`,

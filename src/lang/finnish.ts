@@ -46,11 +46,6 @@ export const translations = {
         show: "Näytä",
         exit: "Poistu",
         donotshowagain: "Älä näytä tätä valintaikkunaa uudelleen",
-        releasegame: "Vapauta peli",
-        releasegamesub: [
-            `Käynnistä taustalla oleva Worker-prosessi uudelleen ja vapauta nykyinen peli seurannasta`,
-            `Kokeile tätä vaihtoehtoa, jos olet äskettäin sulkenut pelin, mutta Steam näyttää sen edelleen käynnissä olevana, tai jos Steam Achievement Notifier näyttää edelleen seuraavan jo suljettua peliä`
-        ],
         noupdateavailable: "Ei päivityksiä saatavilla",
         latestversion: "Uusin versio asennettu",
         missingdeps: "Puuttuva riippuvuus",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Pelit",
             content: {
-                linkedgames: "Linkitetyt pelit",
-                autoreleasegames: "Automaattisesti vapautettavat pelit",
                 themeswitch: "Vaihda teemoja automaattisesti",
                 exclusionlist: "Poissulkemislista",
                 inclusionlist: "Sisällysluettelo",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "Ota NVDA-tuki käyttöön",
                 tooltips: "Näytä työkaluvihjeet",
                 showsystrayopts: "Näytä järjestelmäpalkin asetukset",
-                releaseshortcut: "Pelin vapautuksen pikanäppäin",
                 noshortcuts: "Poista pikanäppäimet käytöstä"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Edistynyt",
             content: {
                 pollrate: "Kyselytaajuus",
-                initdelay: "Seurannan viive",
-                releasedelay: "Julkaisuviive",
-                maxretries: "Maksimi Uudelleenyritysmäärä",
-                debug: "Vianetsintäpaneeli",
-                userust: "Vaihtoehtoinen käsittelytila",
                 notifydebug: "Näytä Ilmoitus Vianmäärityksestä",
                 workerdebug: "Näytä Workerin DevTools",
                 exportachdata: "Vie saavutustiedot",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ Vahvistamisen jälkeen sovellus käynnistyy uudelleen palauttaakseen valitun varmuuskopiotiedoston"
                 ],
                 restorefailed: "Varmuuskopion palautus epäonnistui.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Vapautuksen odotusaika",
                 logresourceusage: "Kirjaa resurssien käyttö"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Ilmoituksen Esiasetus",
                 iconanim: "Harvinainen Ikonianimaatio",
-                alldetails: "Näytä Kaikki Tiedot",
                 usepercent: "Käytä prosenttia",
                 displaytime: "Näyttöaika",
                 scale: "Mittakaava",
                 customtext: "Mukautettu Teksti",
-                usegametitle: "Käytä Pelin Otsikkoa",
                 customfont: "Mukautettu Fontti",
-                platcustomtext: "Mukautettu 100 % -teksti",
                 usecustomtext: "Mukautettu teksti",
                 customtextunlockmsg: "Avausviesti",
                 customtexttitle: "Saavutuksen otsikko",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier törmäsi ongelmaan ja on suljettava.",
+            steam: "Steam-asennusta ei löydy",
             details: "Tässä virheen tiedot:",
             sub: "Napsauta alla olevia painikkeita raportoidaksesi tämän ongelman haluamallasi alustalla.",
             report: "Raportti",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Näytä työkaluvihjeet, kun hiiren kohdistin on tiettyjen käyttöliittymäelementtien päällä",
         colorprofile: `Pakota kaikki sovellusikkunat käyttämään valittua väritilaa<br><br><span class="ttdesc">Vaatii sovelluksen uudelleenkäynnistyksen</span>`,
         pollrate: `Aseta päivitysväli saavutustietojen aikana pelattaessa<br><br><span class="ttdesc">Suorituskyky voi lisääntyä/vähentyä arvon tai järjestelmän laitteiston mukaan. Korkeammat arvot johtavat yleensä pienempään järjestelmän kuormitukseen, mutta voivat viivästyttää ilmoituksia</span>`,
-        initdelay: `Aseta viive nykyisen <span class="hl">AppID</span>-tunnuksen havaitsemisen ja prosessin/saavutusten seurannan aloittamisen välillä<br><br><span class="ttdesc">Tämän arvon suurentaminen voi estää tilanteita, joissa Steam ei pysty käynnistämään nykyistä peliä (koska sovellus käynnistää Steamworksin ennen kuin peli on käynnistynyt)</span><br><br><span class="ttdesc">Vaihtoehtoisesti tämän arvon suurentamista voidaan myös käyttää ohittamaan esipelin käynnistysprosessien virheellinen havaitseminen</span>`,
-        releasedelay: `Määritä, kuinka kauan taustalla toimiva Worker-prosessi odottaa ennen uudelleenkäynnistystä, kun nykyinen peli on vapautettu. Vaikuttaa sekä automaattiseen prosessien seurantaan että Pelien automaattiseen vapautukseen<br><br><span class="ttdesc">Mahdollistaa pidemmän aikavälin, jotta Steamworks voidaan vapauttaa kokonaan sovelluksesta. Tämän arvon kasvattaminen voi estää epätavallista toimintaa, kuten aiemmin suljetun pelin seuraamisen</span>`,
-        maxretries: `Määritä enimmäismäärä yrityksiä käynnissä olevan prosessin yhdistämiseksi havaittuun AppID:hen. Vaikuttaa sekä automaattiseen prosessien seurantaan että Pelien automaattiseen vapautukseen<br><br><span class="ttdesc">Yritykset tehdään kerran sekunnissa. Jos käynnissä olevaa prosessia ei yhdistetä nykyiseen AppID:hen tämän yritysmäärän jälkeen, palautetaan virheellinen prosessi. Tällaisissa tapauksissa peli on vapautettava manuaalisesti System Tray > Asetukset > Vapauta peli</span>`,
-        debug: "Avaa Vianetsintäpaneeli, joka näyttää yksityiskohtaiset prosessiseurantatiedot",
-        userust: "Käytä vaihtoehtoista Rust-pohjaista toimintoa tarkistaaksesi, ovatko seuratut peliprosessit tällä hetkellä käynnissä järjestelmässä. Kun ei ole valittu, oletusarvoinen NodeJS-pohjainen prosessin tarkistus otetaan käyttöön sen sijaan.",
         notifydebug: "Luo DevTools-ikkuna kaikille ilmoituksille. Hyödyllinen vianmääritykseen ja ongelmanratkaisuun ilmoitusongelmien yhteydessä",
         workerdebug: "Luo DevTools-ikkuna Worker-prosessille. Hyödyllinen pelien seurantaongelmien virheenkorjaukseen/vianmääritykseen",
         usecustomfiles: "Mahdollistaa käyttäjän mukautettujen tiedostojen lataamisen ilmoituksiin. Varovaisuutta suositellaan tavallisille käyttäjille",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Käynnistä ilmoituksen esikatselun animaatio uudelleen",
         preset: "Valitse mukautuksen esiasetus",
         iconanim: "Vaihda harvinaisen saavutuksen kuvakkeen kehys ja animaatio",
-        alldetails: "Näytä kaikki ilmoituksessa oletusarvoisesti piilotetut tekstielementit tässä esiasetuksessa",
         usepercent: "Näytä saavutuksen lukitusprosentti XP/S-arvon sijaan",
         displaytime: "Aseta ilmoituksen näyttöaika sekunteina",
         scale: "Kasvata tai pienennä ilmoituksen kokoa",
         customtext: `Aseta mukautettu viesti näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Avausviesti on poistettu käytöstä</span>`,
-        usegametitle: "Näytä nykyisen pelin nimi ilmoituksessa",
         customfont: "Lataa mukautettu fontti ilmoituksessa käytettäväksi",
         soundmode: "Valitse joko yksi äänitiedosto tai satunnaisesti valittu äänitiedosto kansiossa, joka sisältää useita äänitiedostoja, kun ilmoitus tapahtuu",
         soundfile: "Valitse äänitiedosto, joka toistetaan ilmoituksen tapahtuessa",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Vaihda automaattisesti tallennettuun <span class="hl">Teemaan</span> kun tietty peli havaitaan`,
         userthemesync: `Synkronoi mukautukset valitussa <span class="hl">Teemassa</span> kaikkiin muihin ilmoitustyyppeihin`,
         showsystrayopts: `Näytä kaikki vaihtoehdot, jotka sijaitsevat yleensä kohdassa <span class="hl">Järjestelmäpalkki</span> > <span class="hl">Asetukset</span> kohdassa <span class="hl">Asetukset</span> > <span class="hl">Sekalaiset</span>`,
-        releaseshortcut: "Vapauta tällä hetkellä seurattava peli määritetyllä pikanäppäimellä",
         themeselect: "Valitse aiemmin tallennettu Teema",
         statwin: `Näytä mukautettavat saavutustilastot nykyiselle pelille ulkoisessa ikkunassa<br><br><span class="ttdesc">Kun käytetään yhdessä <span class="hl">Käännä saavutukset Steamin kielelle</span> -vaihtoehdon kanssa, jotkin käännökset saattavat olla saatavilla vasta, kun kyseinen saavutus on avattu</span>`,
         statwinaot: `Aseta Saavutustilastot-ikkuna "Aina päällimmäisenä" -tilaan, jolloin ikkuna pysyy pelin ikkunan yläpuolella<br><br><span class="ttdesc">Kun tämä asetus on käytössä, Saavutustilastot-ikkuna ei enää rekisteröi käyttäjän toimintoja, kuten "klikkaus"-tapahtumia. Ottaaksesi vuorovaikutuksen uudelleen käyttöön, tämä asetus on poistettava käytöstä</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Määrittää ajan, jonka seuraavat ilmoitukset odottavat ennen kuin uusi ääni voidaan toistaa<br><br><span class="ttdesc">Ääni ei muutu, jos Ilmoitusten enimmäismäärä on asetettu arvoon 1</span>`,
         rauseemudir: "Tallenna kuvakaappaukset/ilmoituskuvat, jotka on avattu RetroAchievementsin kautta, nykyisen emulaattorin alikansioon määritellyn kuvakaappaus-/kuvapolun hakemiston sisällä",
         ssext: "Määritä tiedostomuoto kuvakaappauksille, jotka luodaan kuvakaappaus ilmoituspeitteellä -asetuksella",
-        notify1line: `Rajoita kaikissa ilmoituksissa näytettävien tekstirivien määrä yhteen<br><br><span class="ttdesc">Yhteen riviin mahtumattomat tekstit katkaistaan merkillä "..."</span>`,
         copytheme: "Kopioi valittu teema toiseen ilmoitustyyppiin",
         ssaddtosteam: "Lisää automaattisesti luotu media nykyisen pelin Tallenteisiin ja Kuvakaappauksiin Steamissa",
         appdatadir: "Avaa sovelluksen AppData-kansion sijainti",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Nollaa nykyisen pelin valmistumisajastimen",
         noshortcuts: `Poistaa kaikki sovelluksen pikanäppäimet käytöstä<br><br><span class="ttdesc">Kun tämä on käytössä, <u>mikään sovelluksen pikanäppäimistä ei enää toimi</u>. Kaikki pikanäppäimiin liittyvät asetukset piilotetaan myös</span>`,
         extwinnotify: "Vaihtaa kaikkien näytöllä näkyvien ilmoitusten näkyvyyttä käytettäessä Stream Notifications -ominaisuutta",
-        usesanwatcher: `Ota käyttöön SAN:n uusi peliprosessien valvonta<br><br><span class="ttdesc">Uuden SANWatcherin ja vanhojen automaattisten prosessienseurantamenetelmien erot ovat seuraavat:<br><br><div class="wrapper sanwatcher"><span class="hl">PÄÄLLÄ</span><ul><li>Valvoo aktiivisesti kaikkien pelin asennushakemistossa olevien prosessien käynnistys- ja lopetustapahtumia</li><li>Ei edellytä pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Peliä edeltävien käynnistysohjelmien toiminta voi vaihdella, joten täyttä yhteensopivuutta kaikkien Steam-pelien kanssa ei voida taata</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">POIS PÄÄLTÄ</span><ul><li>Tarkistaa pelin asennushakemistosta käynnissä olevat suoritettavat tiedostot pelin käynnistyksen jälkeen</li><li>Edellyttää pelin suoritettavan tiedoston tuntemista nykyisen pelin vapauttamiseksi</li><li>Jos peliprosessia ei voida määrittää automaattisesti, käyttäjän on lisättävä manuaalisesti uusi merkintä kohtaan <span class="hl">Pelien automaattinen vapautus</span>, jotta pelit voidaan vapauttaa automaattisesti</li></ul></div>`,
-        releasewaittime: `Määritä, kuinka kauan SANWatcher odottaa uusien peliprosessien käynnistymistä ennen nykyisen pelin vapauttamista<br><br><span class="ttdesc">Jos esimerkiksi nykyinen peli käynnistää ennen varsinaista peliä esikäynnistys- tai asetusikkunan, tämä asetus määrittää, kuinka monta sekuntia SANWatcher odottaa varsinaisen peli-ikkunan ilmestymistä sen jälkeen, kun esikäynnistys- tai asetusikkuna on suljettu<br><br>Jos uusi aktiivinen peliprosessi havaitaan tämän odotusajan kuluessa, vapautus peruutetaan ja uutta aktiivista prosessia seurataan sen sijaan<br><br>💡 Pelin nimi <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">vilkkuu</span> <span class="hl">Pelinäyttö</span>-ruudussa, kun nykyinen peli odottaa vapauttamista</span>`,
-        platcustomtext: `Aseta mukautettu viesti pelin 100 %:n läpäisystä näytettäväksi ilmoituksessa<br><br><span class="ttdesc">Tämä asetus piilotetaan, kun Customiser > Esiasetus > Ilmoituksen elementit > Saavutuksen kuvaus on poistettu käytöstä</span>`,
         raui: "Näytä havaittujen RetroAchievements-pelien nimet pelinäyttö-/järjestelmäalueen käyttöliittymässä",
-        testnotifycustomtext: "Korvaa kaikissa testi-ilmoituksissa näytettävä teksti",
-        testnotifycustomtexttitle: "Korvaa kaikissa testi-ilmoituksissa otsikkoelementissä näytettävä teksti",
-        testnotifycustomtextdesc: "Korvaa kaikissa testi-ilmoituksissa kuvauselementissä näytettävä teksti",
         radefault: `Vaihda aina automaattisesti tähän kohteeseen, kun mikä tahansa RetroAchievements-saavutus avataan<br><br><span class="ttdesc">Vain yksi Vaihda teemoja automaattisesti -kohde voidaan määrittää oletukseksi kaikille RetroAchievements-saavutuksille. Tämä oletusasetus voidaan myös ohittaa pelikohtaisesti lisäämällä uusi Vaihda teemoja automaattisesti -kohde tietylle RetroAchievements <span class="hl">GameID</span>:lle</span>`,
         statwintype: "Aseta Saavutustilastojen ikkuna -asettelun tyyppi",
         statwinunlockonly: "Pidä Saavutustilastojen ikkuna piilotettuna, kunnes saavutus avataan",
@@ -943,64 +911,6 @@ export const translations = {
             `Koko julkaisutiedot saatavilla <span id="discordreleasenotes"></span> ja <span id="githubreleasenotes"></span>`
         ],
         update: "Päivitä"
-    },
-    linkgame: {
-        content: {
-            exepath: "Suoritettavan tiedoston polku",
-            linkedgame: "Linkitä peli",
-            autoreleasegame: "Automaattisesti vapautettava peli",
-            linkedgamessub: [
-                `Ohita kaikki <span class="hl">SANWatcher</span>:n automaattisesti seuraamat käynnissä olevat peliprosessit ja tarkista sen sijaan vain, onko valittu <span class="hl">pelin suoritettava tiedosto</span> tällä hetkellä aktiivinen`,
-                `Linkitä minkä tahansa pelin <span class="hl">AppID</span> kohteena olevaan <span class="hl">pelin suoritettavaan tiedostoon</span> tai <span class="hl">poista</span> olemassa oleva linkitys`
-            ],
-            autoreleasegamessub: [
-                `Jos Steam näyttää pelin edelleen tilassa <i>Käynnissä</i> pelin ikkunan sulkemisen jälkeen, kokeile lisätä uusi merkintä kohtaan <span class="hl">$linkgame</span>`,
-                `Lisää tietyn pelin <span class="hl">AppID</span> yhdessä odotetun <span class="hl">pelin suoritettavan tiedoston</span> kanssa tai <span class="hl">poista</span> olemassa oleva merkintä`,
-            ],
-            managesub: [
-                `Kun peli on havaittu, uusia merkintöjä voidaan lisätä myös <span class="hl">ikkunan kohdistuksen</span> kautta <i>napsauttamalla hiiren oikealla painikkeella</i> <span class="hl">ilmoitusalueen kuvaketta</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Miten löydän Steam-pelin AppID:n?</u></span>`
-            ],
-            linknew: "Uusi merkintä",
-            linknewsub: [
-                `Linkitä uuden pelin <span class="hl">AppID</span> kohteena olevaan <span class="hl">pelin suoritettavaan tiedostoon</span>`,
-                `Lisäämisen jälkeen merkinnät voidaan <span class="hl">poistaa</span> aiemmasta <span class="hl">$linkgame</span>-valikosta`
-            ],
-            linkedit: "Muokkaa merkintää",
-            linkeditsub: [
-                `Muokkaa olemassa olevaa linkitystä pelin <span class="hl">AppID</span>:n ja kohteena olevan <span class="hl">pelin suoritettavan tiedoston</span> välillä`,
-                `Lisäämisen jälkeen merkinnät voidaan <span class="hl">poistaa</span> aiemmasta <span class="hl">$linkgame</span>-valikosta`
-            ],
-            link: "Lisää",
-            findappid: "Etsi Steam AppID",
-            findappidsub: [
-                `Jokaisella Steam-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">AppID</span>:ksi. Voit löytää minkä tahansa Steam-pelin AppID:n jollakin seuraavista tavoista:`,
-                `Napsauta <span class="hl">Steam-asiakasohjelmassa</span> pelin nimeä <i>hiiren oikealla painikkeella</i> <span class="hl">Kirjastossasi</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> – AppID näkyy siellä`,
-                `Pelin <span class="hl">kauppasivun</span> <span class="hl">URL-osoitteesta</span> – se on numero, joka tulee kohdan <span class="hl">app/</span> jälkeen: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Sivustoilta, kuten <span class="hl">SteamDB</span> – <span class="hl">App Info</span> -osio näyttää jokaisen pelin AppID:n`
-            ],
-            noexe: "Pelin EXE-tiedostoa ei löytynyt!",
-            noexesub: "Napsauta tästä saadaksesi lisätietoja",
-            noexedialogsub: [
-                `Steam Achievement Notifier ei pystynyt löytämään tämän pelin suoritettavaa tiedostoa automaattisesti. Pelin suoritettavan tiedoston sijainti tarvitaan, jotta peli voidaan "vapauttaa" sen sulkemisen jälkeen`,
-                `Voit vapauttaa pelin manuaalisesti sen sulkemisen jälkeen napsauttamalla <span class="hl">ilmoitusalueen kuvaketta</span> <i>hiiren oikealla painikkeella</i> > <span class="hl">Asetukset</span> > <span class="hl">Vapauta peli</span> tai käyttämällä <span class="hl">Pelin vapautuksen pikanäppäintä</span>`,
-                `Vaihtoehtoisesti napsauta alla olevaa <span class="hl">Lisää</span>-painiketta lisätäksesi aktiivisen ikkunan suoritettavan tiedoston kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span>`,
-            ],
-            linkedgamefocussub: `Jos haluat ohittaa kaikki <span class="hl">SANWatcher</span>:n automaattisesti seuraamat käynnissä olevat peliprosessit, lisää uusi merkintä kohtaan <span class="hl">Linkitetyt pelit</span>`,
-            autoreleasegamefocussub: `Jos Steam näyttää pelin edelleen tilassa <i>Käynnissä</i> pelin ikkunan sulkemisen jälkeen, kokeile lisätä uusi merkintä kohtaan <span class="hl">Automaattisesti vapautettavat pelit</span>`,
-            focussub: `Voit tehdä tämän nykyiselle pelille napsauttamalla alla olevaa <span class="hl">Lisää</span>-painiketta lisätäksesi aktiivisen ikkunan suoritettavan tiedoston kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Mitä tapahtuu, kun napsautan Lisää-painiketta?</u></span>`,
-            linkgamehelp: "Linkitä kohdistuksen kautta",
-            linkgamehelpsub: [
-                `Kun napsautat <span class="hl">Lisää</span>-painiketta, uusi merkintä lisätään automaattisesti kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span> käyttäen parhaillaan aktiivisen ikkunan tietoja.`,
-                `Kun napsautat <span class="hl">Lisää</span>-painiketta, 5 sekunnin ajastin käynnistyy`,
-                `Kohdista peli-ikkuna ennen kuin ajastin päättyy`,
-                `Kun ajastin päättyy, uusi merkintä nykyiselle <span class="hl">AppID</span>:lle lisätään kohtaan <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span> käyttäen aktiivisen ikkunan suoritettavaa tiedostoa`,
-                `Uudet yritykset korvaavat olemassa olevat merkinnät, tai merkintä voidaan poistaa kohdasta <span class="hl">Asetukset</span> > <span class="hl">Pelit</span> > <span class="hl">Automaattisesti vapautettavat pelit</span> napsauttamalla painiketta <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Ikkunaa ei voitu lisätä",
-            addlinkfailedsub: `Yritä uudelleen napsauttamalla <span class="hl">Lisää</span>-painiketta`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Teemat",
             src: "Kuvakaappauslähde",
             themedeleted: "Teema poistettu",
+            findappid: "Etsi Steam AppID",
+            findappidsub: [
+                `Jokaisella Steam-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">AppID</span>:ksi. Voit löytää minkä tahansa Steam-pelin AppID:n jollakin seuraavista tavoista:`,
+                `Napsauta <span class="hl">Steam-asiakasohjelmassa</span> pelin nimeä <i>hiiren oikealla painikkeella</i> <span class="hl">Kirjastossasi</span> ja valitse <i>Ominaisuudet</i> > <i>Päivitykset</i> – AppID näkyy siellä`,
+                `Pelin <span class="hl">kauppasivun</span> <span class="hl">URL-osoitteesta</span> – se on numero, joka tulee kohdan <span class="hl">app/</span> jälkeen: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Sivustoilta, kuten <span class="hl">SteamDB</span> – <span class="hl">App Info</span> -osio näyttää jokaisen pelin AppID:n`
+            ],
             rafindgameid: "Etsi RA GameID",
             rafindgameidsub: [
                 `Jokaisella RetroAchievements-pelillä on yksilöllinen numero, jota kutsutaan <span class="hl">GameID</span>:ksi. Löydät minkä tahansa RetroAchievements-pelin GameID:n tarkistamalla:`,

@@ -72,7 +72,6 @@ declare interface Config {
     usecustomfiles: boolean,
     norestartdialog: boolean,
     noupdatedialog: boolean,
-    debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
     inclusionlist: boolean,
@@ -163,6 +162,7 @@ declare interface Config {
     logresourceusage: boolean,
     uimode: "basic" | "advanced",
     setplat: boolean,
+    plugins: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,
@@ -244,7 +244,7 @@ declare interface Customisation {
     ovmatch: boolean,
     ovx: number,
     ovy: number,
-    alldetails: boolean,
+    // alldetails: boolean,
     primarycolor: string,
     secondarycolor: string,
     tertiarycolor: string,
@@ -309,11 +309,11 @@ declare interface Customisation {
     decorationshadow: boolean,
     usecustomtext: boolean,
     customtextunlockmsg: string,
-    usegametitleunlockmsg: boolean,
+    // usegametitleunlockmsg: boolean,
     customtexttitle: string,
-    usegametitletitle: boolean,
+    // usegametitletitle: boolean,
     customtextdesc: string,
-    usegametitledesc: boolean,
+    // usegametitledesc: boolean,
     scrollrepeat: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
@@ -498,18 +498,7 @@ declare interface AppInfo {
     appid: number,
     gamename?: string | null
     pollrate?: number,
-    debug?: boolean,
     noiconcache?: boolean
-}
-
-declare interface DebugInfo extends AppInfo {
-    username?: string,
-    steam3id?: number,
-    steam64id?: string
-}
-
-declare interface DebugProcessInfo extends ProcessInfo {
-    active: boolean
 }
 
 declare interface AchievementIcon {

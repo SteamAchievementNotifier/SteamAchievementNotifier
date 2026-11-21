@@ -46,11 +46,6 @@ export const translations = {
         show: "Vis",
         exit: "Afslut",
         donotshowagain: "Vis ikke denne dialog igen",
-        releasegame: "Frigiv Spil",
-        releasegamesub: [
-            `Genstart baggrundsarbejderprocessen og frigiv det nuværende spil fra at blive sporet`,
-            `Prøv denne mulighed, hvis du for nylig har lukket et spil, men Steam viser stadig, at det kører, eller hvis Steam Achievement Notifier stadig viser, at det sporer et spil, der allerede er blevet lukket`
-        ],
         noupdateavailable: "Ingen opdatering tilgængelig",
         latestversion: "Seneste version installeret",
         missingdeps: "Manglende afhængighed",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Spil",
             content: {
-                linkedgames: "Sammenkædede spil",
-                autoreleasegames: "Spil med automatisk frigivelse",
                 themeswitch: "Automatisk skift af tema",
                 exclusionlist: "Udelukkelsesliste",
                 inclusionlist: "Inklusionsliste",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "Aktivér NVDA-support",
                 tooltips: "Vis tooltips",
                 showsystrayopts: "Vis systembakke-indstillinger",
-                releaseshortcut: "Genvej til frigivelse af spil",
                 noshortcuts: "Deaktiver tastaturgenveje"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Avanceret",
             content: {
                 pollrate: "Afstemningshastighed",
-                initdelay: "Forsinkelse på sporing",
-                releasedelay: "Udgivelsesforsinkelse",
-                maxretries: "Maksimalt antal genforsøg",
-                debug: "Fejlfindingspanel",
-                userust: "Alternativ procesbehandlingstilstand",
                 notifydebug: "Vis notifikationer for fejlfinding",
                 workerdebug: "Vis DevTools til Worker",
                 exportachdata: "Eksporter præstationsdata",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ Når bekræftet, genstarter appen for at gendanne den valgte backup-fil"
                 ],
                 restorefailed: "Kunne ikke gendanne backup.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Ventetid før frigivelse",
                 logresourceusage: "Log ressourceforbrug"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Notifikationsforudindstilling",
                 iconanim: "Sjælden ikonanimation",
-                alldetails: "Vis alle detaljer",
                 usepercent: "Brug Procent",
                 displaytime: "Visningstid",
                 scale: "Skala",
                 customtext: "Tilpasset tekst",
-                usegametitle: "Brug spiltitel",
                 customfont: "Tilpasset skrifttype",
-                platcustomtext: "Brugerdefineret 100%-tekst",
                 usecustomtext: "Brugerdefineret tekst",
                 customtextunlockmsg: "Oplåsningsbesked",
                 customtexttitle: "Præstationstitel",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier stødte på et problem og skal lukkes.",
+            steam: "Steam-installation blev ikke fundet",
             details: "Her er fejldetaljerne:",
             sub: "Klik på knapperne nedenfor for at rapportere dette problem via din foretrukne platform.",
             report: "Rapport",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Vis værktøjstip, når du holder markøren over visse brugergrænsefladeelementer",
         colorprofile: `Tving alle app-vinduer til at gengive med den valgte farveprofil<br><br><span class="ttdesc">Kræver genstart af appen</span>`,
         pollrate: `Indstil opdateringsintervallet for præstationsdata under spil<br><br><span class="ttdesc">Ydelsen kan stige/falde afhængigt af værdien eller systemets hardware. Højere værdier resulterer normalt i lavere systembelastning, men kan forsinke meddelelser</span>`,
-        initdelay: `Indstil forsinkelsen mellem detektion af det aktuelle <span class="hl">AppID</span> og når sporing af proces/bedrift starter<br><br><span class="ttdesc">Øgning af denne værdi kan forhindre scenarier, hvor Steam ikke kan starte det aktuelle spil (på grund af at appen initialiserer Steamworks, før spillet er startet)</span><br><br><span class="ttdesc">Alternativt kan øgning af denne værdi også bruges til at omgå forkert detektion af processer før spillet</span>`,
-        releasedelay: `Indstil hvor længe Worker-processen i baggrunden venter på at genstarte, efter at det aktuelle spil er blevet frigivet. Påvirker både automatisk processporing og Automatisk frigivelse af spil<br><br><span class="ttdesc">Tillader et længere tidsrum, så Steamworks kan blive fuldt frigivet fra appen. Forøgelse af denne værdi kan forhindre usædvanlig adfærd, såsom sporing af et tidligere lukket spil</span>`,
-        maxretries: `Indstil det maksimale antal forsøg på at forbinde en kørende proces med et registreret AppID. Påvirker både automatisk processporing og Automatisk frigivelse af spil<br><br><span class="ttdesc">Forsøg udføres én gang i sekundet. Hvis en kørende proces ikke forbindes med det aktuelle AppID efter dette antal forsøg, returneres en ugyldig proces. I sådanne tilfælde skal spillet frigives manuelt via System Tray > Indstillinger > Frigiv spil</span>`,
-        debug: "Åbn fejlfindingspanelet, som viser detaljerede oplysninger om procesovervågning",
-        userust: "Brug en alternativ Rust-baseret funktion til at kontrollere, om de trackede spilprocesser i øjeblikket kører på systemet. Når det ikke er markeret, vil standard NodeJS-baseret proceskontrol blive brugt i stedet.",
         notifydebug: "Opret et DevTools-vindue for alle meddelelser. Nyttigt til fejlfinding af meddelelsesproblemer",
         workerdebug: "Opret et DevTools-vindue til Worker-processen. Nyttigt til fejlfinding/problemhåndtering af problemer med sporing af spil",
         usecustomfiles: "Aktiver indlæsning af brugerdefinerede filer til meddelelser. Forsigtighed anbefales for almindelige brugere",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Genstart animationen af forhåndsvisningen af meddelelsen",
         preset: "Vælg den forudindstillede meddelelse, der skal tilpasses",
         iconanim: "Skift mellem sjælden ikonramme og animation",
-        alldetails: "Vis alle tekstelementer i meddelelsen, herunder dem, der er skjult som standard for denne forudindstilling",
         usepercent: "Vis låseprocenten for præstationen i stedet for XP/S-værdien",
         displaytime: "Indstil antallet af sekunder, som meddelelsen vises",
         scale: "Øg eller formindsk størrelsen af meddelelsen",
         customtext: `Angiv en brugerdefineret besked, der skal vises i notifikationen<br><br><span class="ttdesc">Denne indstilling vil være skjult, når Customiser > Forudindstilling > Notifikationselementer > Oplåsningsbesked er deaktiveret</span>`,
-        usegametitle: "Vis titlen på det aktuelle spil i meddelelsen",
         customfont: "Indlæs en brugerdefineret skrifttype, der skal bruges i meddelelsen",
         soundmode: "Vælg enten en enkelt lydfil eller en tilfældigt valgt lydfil fra en mappe med flere lydfiler, når en meddelelse vises",
         soundfile: "Vælg en lydfil, der skal afspilles, når en meddelelse vises",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Skift automatisk til ethvert gemt <span class="hl">Tema</span>, når et bestemt spil opdages`,
         userthemesync: `Synkroniser tilpasninger i det valgte <span class="hl">Tema</span> til alle andre meddelelsestyper`,
         showsystrayopts: `Vis alle muligheder, der normalt findes under <span class="hl">Systembakke</span> > <span class="hl">Indstillinger</span> i <span class="hl">Indstillinger</span> > <span class="hl">Diverse</span>`,
-        releaseshortcut: "Frigiv det aktuelt overvågede spil ved hjælp af den angivne tastaturgenvej",
         themeselect: "Vælg et tidligere gemt Tema",
         statwin: `Vis konfigurerbare præstationsstatistikker for det aktuelle spil i et eksternt vindue<br><br><span class="ttdesc">Når det bruges sammen med indstillingen <span class="hl">Oversæt Præstationer til Steam-sprog</span>, kan nogle oversættelser være utilgængelige, indtil den specifikke præstation er låst op</span>`,
         statwinaot: `Indstil vinduet for præstationsstatistik til tilstanden "Altid øverst", så vinduet vises over spilvinduet<br><br><span class="ttdesc">Når denne mulighed er aktiveret, vil vinduet for præstationsstatistik ikke længere registrere brugerinteraktioner, såsom "klik"-hændelser. For at genaktivere interaktion med vinduet skal denne mulighed deaktiveres</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Indstil hvor lang tid efterfølgende notifikationer skal vente, før ny lyd kan afspilles<br><br><span class="ttdesc">Lyden påvirkes ikke, hvis Maksimalt antal notifikationer er sat til 1</span>`,
         rauseemudir: "Gem skærmbilleder/notifikationsbilleder, der er låst op via RetroAchievements, i en undermappe for den aktuelle emulator inden for den angivne mappe til skærmbilleder/billeder",
         ssext: "Angiv filformatet for skærmbilleder, der genereres via indstillingen for skærmbillede med notifikationsoverlay",
-        notify1line: `Begræns antallet af tekstlinjer, der vises i alle notifikationer, til 1<br><br><span class="ttdesc">Tekststrenge, der ikke kan være på én linje, vil blive afkortet med "..."</span>`,
         copytheme: "Kopiér det valgte tema til en anden notifikationstype",
         ssaddtosteam: "Tilføj automatisk genereret medie til den aktuelle spils Optagelser og Skærmbilleder i Steam",
         appdatadir: "Åbn placeringen af appens AppData-mappe",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Nulstiller spilafslutningstimeren for det aktuelle spil",
         noshortcuts: `Deaktiverer alle tastaturgenveje i appen<br><br><span class="ttdesc">Når aktiveret, <u>vil alle genveje i appen ikke længere fungere</u>. Alle indstillinger relateret til tastaturgenveje vil også blive skjult</span>`,
         extwinnotify: "Skifter synligheden af alle notifikationer på skærmen ved brug af Stream Notifications",
-        usesanwatcher: `Aktivér SAN's nye overvågning af spilprocesser<br><br><span class="ttdesc">Forskellene mellem den nye SANWatcher og de gamle metoder til automatisk procesovervågning er som følger:<br><br><div class="wrapper sanwatcher"><span class="hl">TIL</span><ul><li>Overvåger aktivt start-/afslutningshændelser for alle processer, der er gemt i spillets installationsmappe</li><li>Kræver ikke, at spillets eksekverbare fil er kendt for at frigive det aktuelle spil</li><li>Adfærden for launchere før spilstart kan variere, så fuld kompatibilitet med alle Steam-spil kan ikke garanteres</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">FRA</span><ul><li>Scanner spillets installationsmappe for kørende eksekverbare filer efter spilstart</li><li>Kræver, at spillets eksekverbare fil er kendt for at frigive det aktuelle spil</li><li>Hvis spilprocessen ikke kan bestemmes automatisk, skal brugeren manuelt tilføje en ny post til <span class="hl">Automatisk frigivelse af spil</span>, for at spillene kan frigives automatisk</li></ul></div>`,
-        releasewaittime: `Angiv, hvor længe SANWatcher skal vente på, at nye spilprocesser starter, før det aktuelle spil frigives<br><br><span class="ttdesc">Hvis det aktuelle spil f.eks. åbner et opstarts-/konfigurationsvindue før selve spillet starter, bestemmer denne indstilling, hvor mange sekunder SANWatcher skal vente på, at det faktiske spilvindue vises, efter at opstarts-/konfigurationsvinduet er blevet lukket<br><br>Hvis en ny aktiv spilproces registreres inden for denne ventetid, annulleres frigivelsen, og den nyligt aktive proces spores i stedet<br><br>💡 Spilnavnet vil <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinke</span> i feltet <span class="hl">Spilvisning</span>, mens det aktuelle spil venter på at blive frigivet</span>`,
-        platcustomtext: `Angiv en brugerdefineret besked om 100% gennemførelse af spillet, der skal vises i notifikationen<br><br><span class="ttdesc">Denne indstilling vil være skjult, når Customiser > Forudindstilling > Notifikationselementer > Præstationsbeskrivelse er deaktiveret</span>`,
         raui: "Vis navnene på registrerede RetroAchievements-spil i spilvisningsgrænsefladen/systembakkegrænsefladen",
-        testnotifycustomtext: "Tilsidesæt teksten, der vises i alle testmeddelelser",
-        testnotifycustomtexttitle: "Tilsidesæt teksten, der vises for tittelelementet i alle testmeddelelser",
-        testnotifycustomtextdesc: "Tilsidesæt teksten, der vises for beskrivelseselementet i alle testmeddelelser",
         radefault: `Skift altid automatisk til denne post, når en RetroAchievements-præstation låses op<br><br><span class="ttdesc">Kun én Automatisk skift af tema-post kan angives som standard for alle RetroAchievements-præstationer. Denne standard kan også tilsidesættes pr. spil ved at tilføje en ny Automatisk skift af tema-post for et specifikt RetroAchievements <span class="hl">GameID</span></span>`,
         statwintype: "Indstil layouttypen for Statistik for Præstationsvindue",
         statwinunlockonly: "Hold Statistik for Præstationsvindue skjult, indtil en præstation låses op",
@@ -943,64 +911,6 @@ export const translations = {
             `Fuld versionsnoter kan findes på <span id="discordreleasenotes"></span> og <span id="githubreleasenotes"></span>`
         ],
         update: "Opdater"
-    },
-    linkgame: {
-        content: {
-            exepath: "Sti til eksekverbar fil",
-            linkedgame: "Sammenkæd spil",
-            autoreleasegame: "Automatisk frigivelse af spil",
-            linkedgamessub: [
-                `Tilsidesæt alle kørende spilprocesser, som automatisk spores af <span class="hl">SANWatcher</span>, og kontrollér i stedet kun, om den valgte <span class="hl">eksekverbare spilfil</span> er aktiv`,
-                `Sammenkæd et spils <span class="hl">AppID</span> med en bestemt <span class="hl">eksekverbar spilfil</span>, eller <span class="hl">fjern</span> en eksisterende sammenkædning`
-            ],
-            autoreleasegamessub: [
-                `Hvis Steam stadig viser et spil som <i>Spiller</i>, efter at spilvinduet er lukket, kan du prøve at tilføje en ny post til <span class="hl">$linkgame</span>`,
-                `Tilføj et bestemt spils <span class="hl">AppID</span> sammen med dets forventede <span class="hl">eksekverbare spilfil</span>, eller <span class="hl">fjern</span> en eksisterende post`,
-            ],
-            managesub: [
-                `Når et spil er blevet registreret, kan nye poster også tilføjes via <span class="hl">vinduesfokus</span> ved at <i>højreklikke</i> på <span class="hl">ikonet i systembakken</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Hvordan finder jeg et Steam-spils AppID?</u></span>`
-            ],
-            linknew: "Ny post",
-            linknewsub: [
-                `Sammenkæd et nyt spils <span class="hl">AppID</span> med en bestemt <span class="hl">eksekverbar spilfil</span>`,
-                `Når poster er tilføjet, kan de <span class="hl">fjernes</span> via den tidligere menu <span class="hl">$linkgame</span>`
-            ],
-            linkedit: "Rediger post",
-            linkeditsub: [
-                `Rediger en eksisterende sammenkædning mellem et spils <span class="hl">AppID</span> og den bestemte <span class="hl">eksekverbare spilfil</span>`,
-                `Når poster er tilføjet, kan de <span class="hl">fjernes</span> via den tidligere menu <span class="hl">$linkgame</span>`
-            ],
-            link: "Tilføj",
-            findappid: "Find Steam AppID",
-            findappidsub: [
-                `Hvert Steam-spil har et unikt nummer tilknyttet, kaldet et <span class="hl">AppID</span>. Du kan finde et Steam-spils AppID på en af følgende måder:`,
-                `I <span class="hl">Steam-klienten</span> skal du <i>højreklikke</i> på et spil i dit <span class="hl">Bibliotek</span> og vælge <i>Egenskaber</i> > <i>Opdateringer</i> – AppID'et vises her`,
-                `I spillets <span class="hl">URL</span> til <span class="hl">Butikssiden</span> – det er nummeret efter <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Websteder som <span class="hl">SteamDB</span> – afsnittet <span class="hl">App Info</span> viser AppID'et for hvert spil`
-            ],
-            noexe: "Spillets EXE blev ikke fundet!",
-            noexesub: "Klik her for flere oplysninger",
-            noexedialogsub: [
-                `Steam Achievement Notifier kunne ikke automatisk finde den eksekverbare fil til dette spil. Placeringen af spillets eksekverbare fil er nødvendig for at kunne "frigive" spillet, når det er lukket`,
-                `Hvis du vil frigive spillet manuelt, når det er lukket, skal du <i>højreklikke</i> på <span class="hl">ikonet i systembakken</span> > <span class="hl">Indstillinger</span> > <span class="hl">Frigiv spil</span> eller bruge <span class="hl">Genvej til frigivelse af spil</span>`,
-                `Alternativt kan du klikke på knappen <span class="hl">Tilføj</span> nedenfor for at tilføje den eksekverbare fil, der er knyttet til det aktive vindue, til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span>`,
-            ],
-            linkedgamefocussub: `Hvis du vil tilsidesætte alle kørende spilprocesser, som automatisk spores af <span class="hl">SANWatcher</span>, skal du tilføje en ny post til <span class="hl">Sammenkædede spil</span>`,
-            autoreleasegamefocussub: `Hvis Steam stadig viser et spil som <i>Spiller</i>, efter at spilvinduet er lukket, kan du prøve at tilføje en ny post til <span class="hl">Spil med automatisk frigivelse</span>`,
-            focussub: `For at gøre dette for det aktuelle spil skal du klikke på knappen <span class="hl">Tilføj</span> nedenfor for at tilføje den eksekverbare fil, der er knyttet til det aktive vindue, til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Hvad sker der, når jeg klikker på knappen Tilføj?</u></span>`,
-            linkgamehelp: "Sammenkæd via fokus",
-            linkgamehelpsub: [
-                `Når du klikker på knappen <span class="hl">Tilføj</span>, tilføjes der automatisk en ny post til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span> ved hjælp af oplysninger fra det aktuelt aktive vindue.`,
-                `Når du har klikket på knappen <span class="hl">Tilføj</span>, starter en nedtælling på 5 sekunder`,
-                `Fokusér spilvinduet, før nedtællingen udløber`,
-                `Når nedtællingen er slut, tilføjes en ny post for det aktuelle <span class="hl">AppID</span> til <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span> ved hjælp af den eksekverbare fil, der er knyttet til det aktive vindue`,
-                `Nye forsøg overskriver eksisterende poster, eller posten kan fjernes via <span class="hl">Indstillinger</span> > <span class="hl">Spil</span> > <span class="hl">Spil med automatisk frigivelse</span> ved at klikke på knappen <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Kunne ikke tilføje vinduet",
-            addlinkfailedsub: `Klik på knappen <span class="hl">Tilføj</span> for at prøve igen`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Temaer",
             src: "Kilde til skærmbillede",
             themedeleted: "Tema slettet",
+            findappid: "Find Steam AppID",
+            findappidsub: [
+                `Hvert Steam-spil har et unikt nummer tilknyttet, kaldet et <span class="hl">AppID</span>. Du kan finde et Steam-spils AppID på en af følgende måder:`,
+                `I <span class="hl">Steam-klienten</span> skal du <i>højreklikke</i> på et spil i dit <span class="hl">Bibliotek</span> og vælge <i>Egenskaber</i> > <i>Opdateringer</i> – AppID'et vises her`,
+                `I spillets <span class="hl">URL</span> til <span class="hl">Butikssiden</span> – det er nummeret efter <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websteder som <span class="hl">SteamDB</span> – afsnittet <span class="hl">App Info</span> viser AppID'et for hvert spil`
+            ],
             rafindgameid: "Find RA GameID",
             rafindgameidsub: [
                 `Hvert RetroAchievements-spil har et unikt nummer tilknyttet – kaldet et <span class="hl">GameID</span>. Du kan finde et hvilket som helst RetroAchievements-spils GameID ved at kontrollere:`,

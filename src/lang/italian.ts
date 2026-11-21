@@ -46,11 +46,6 @@ export const translations = {
         show: "Mostra",
         exit: "Esci",
         donotshowagain: "Non mostrare più questa finestra di dialogo",
-        releasegame: "Rilascia Gioco",
-        releasegamesub: [
-            `Riavvia il processo Worker in background e rilascia il gioco corrente dal tracciamento`,
-            `Prova questa opzione se hai recentemente chiuso un gioco ma Steam lo mostra ancora come in esecuzione, o se Steam Achievement Notifier mostra ancora il tracciamento di un gioco che è già stato chiuso`
-        ],
         noupdateavailable: "Nessun aggiornamento disponibile",
         latestversion: "Ultima versione installata",
         missingdeps: "Dipendenza mancante",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Giochi",
             content: {
-                linkedgames: "Giochi collegati",
-                autoreleasegames: "Giochi con rilascio automatico",
                 themeswitch: "Cambia tema automaticamente",
                 exclusionlist: "Lista di esclusione",
                 inclusionlist: "Lista di inclusione",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "Abilita supporto NVDA",
                 tooltips: "Mostra suggerimenti",
                 showsystrayopts: "Mostra opzioni della barra di sistema",
-                releaseshortcut: "Scorciatoia per Rilasciare il Gioco",
                 noshortcuts: "Disabilita Scorciatoie da Tastiera"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Avanzate",
             content: {
                 pollrate: "Frequenza di interrogazione",
-                initdelay: "Ritardo di tracciamento",
-                releasedelay: "Ritardo di rilascio",
-                maxretries: "Numero massimo di nuovi tentativi",
-                debug: "Pannello di Debug",
-                userust: "Modalità di Elaborazione Alternativa",
                 notifydebug: "Mostra notifiche di debug",
                 workerdebug: "Mostra DevTools del Worker",
                 exportachdata: "Esporta dati di successo",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ Una volta confermato, l'app si riavvierà per ripristinare il file di backup selezionato"
                 ],
                 restorefailed: "Impossibile ripristinare il backup.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Tempo di attesa per il rilascio",
                 logresourceusage: "Registra utilizzo risorse"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Preset Notifica",
                 iconanim: "Animazione Icona Rara",
-                alldetails: "Mostra Tutti i Dettagli",
                 usepercent: "Usa Percentuale",
                 displaytime: "Tempo di Visualizzazione",
                 scale: "Scala",
                 customtext: "Testo Personalizzato",
-                usegametitle: "Usa Titolo Gioco",
                 customfont: "Carattere Personalizzato",
-                platcustomtext: "Testo personalizzato per il 100%",
                 usecustomtext: "Testo personalizzato",
                 customtextunlockmsg: "Messaggio di sblocco",
                 customtexttitle: "Titolo dell'obiettivo",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier ha riscontrato un problema e deve essere chiuso.",
+            steam: "Installazione di Steam non trovata",
             details: "Ecco i dettagli dell'errore:",
             sub: "Fai clic sui pulsanti sottostanti per segnalare questo problema tramite la tua piattaforma preferita.",
             report: "Segnala",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Mostra le descrizioni comandi quando si passa il mouse su determinati elementi dell'interfaccia utente",
         colorprofile: `Forza tutte le finestre dell'applicazione a usare il profilo colore selezionato<br><br><span class="ttdesc">Richiede un riavvio dell'applicazione</span>`,
         pollrate: `Imposta l'intervallo di aggiornamento per i dati sugli obiettivi durante il gioco<br><br><span class="ttdesc">Le prestazioni possono aumentare/diminuire a seconda del valore o dell'hardware del sistema. Valori più alti di solito comportano un carico di sistema inferiore, ma possono ritardare le notifiche</span>`,
-        initdelay: `Imposta il ritardo tra il rilevamento dell'attuale <span class="hl">AppID</span> e l'avvio del tracciamento dei processi/conquiste<br><br><span class="ttdesc">Aumentando questo valore è possibile evitare scenari in cui Steam non riesce a avviare il gioco corrente (a causa dell'inizializzazione dell'applicazione in Steamworks prima del lancio del gioco)</span><br><br><span class="ttdesc">In alternativa, aumentare questo valore può anche essere utilizzato per evitare la rilevazione errata dei processi di avvio pre-gioco</span>`,
-        releasedelay: `Imposta per quanto tempo il processo Worker in background attende prima di riavviarsi dopo che il gioco corrente è stato rilasciato. Influisce sia sul tracciamento automatico dei processi sia sui Giochi con rilascio automatico<br><br><span class="ttdesc">Consente un intervallo di tempo più lungo affinché Steamworks venga completamente rilasciato dall'app. Aumentare questo valore può prevenire comportamenti insoliti, come il tracciamento di un gioco chiuso in precedenza</span>`,
-        maxretries: `Imposta il numero massimo di tentativi per collegare un processo in esecuzione a un AppID rilevato. Influisce sia sul tracciamento automatico dei processi sia sui Giochi con rilascio automatico<br><br><span class="ttdesc">I tentativi vengono effettuati una volta al secondo. Se un processo in esecuzione non viene collegato all'AppID corrente dopo questo numero di tentativi, verrà restituito un processo non valido. In tali casi, il gioco dovrà essere rilasciato manualmente tramite Area di notifica > Opzioni > Rilascia gioco</span>`,
-        debug: "Apri il Pannello di Debug, che mostra informazioni dettagliate sul tracciamento dei processi",
-        userust: "Utilizza una funzione alternativa basata su Rust per verificare se i processi di gioco tracciati sono attualmente in esecuzione sul sistema. Quando non selezionato, verrà utilizzato invece il controllo dei processi predefinito basato su NodeJS.",
         notifydebug: "Crea una finestra DevTools per tutte le notifiche. Utile per il debug/risoluzione dei problemi delle notifiche",
         workerdebug: "Crea una finestra DevTools per il processo Worker. Utile per il debug/la risoluzione dei problemi di tracciamento dei giochi",
         usecustomfiles: "Abilita le notifiche per caricare file personalizzabili dall'utente. Si consiglia cautela per gli utenti comuni",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Riavvia l'animazione dell'anteprima della notifica",
         preset: "Seleziona il preset di notifica da personalizzare",
         iconanim: "Attiva o disattiva il bordo e l'animazione dell'icona rara",
-        alldetails: "Mostra tutti gli elementi di testo all'interno della notifica, inclusi quelli nascosti per impostazione predefinita per questo preset",
         usepercent: "Mostra la percentuale di sblocco dell'obiettivo, invece del valore XP/S",
         displaytime: "Imposta il numero di secondi in cui verrà visualizzata la notifica",
         scale: "Aumenta o diminuisci le dimensioni della notifica",
         customtext: `Imposta un messaggio personalizzato da visualizzare nella notifica<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Predefinito > Elementi della notifica > Messaggio di sblocco è disattivato</span>`,
-        usegametitle: "Mostra il titolo del gioco corrente nella notifica",
         customfont: "Carica un carattere personalizzato da utilizzare nella notifica",
         soundmode: "Seleziona un singolo file audio o un file audio selezionato casualmente da una cartella contenente più file audio quando si verifica una notifica",
         soundfile: "Seleziona un file audio da riprodurre quando si verifica una notifica",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Cambia automaticamente a qualsiasi <span class="hl">Tema</span> salvato quando viene rilevato un gioco specifico`,
         userthemesync: `Sincronizza le personalizzazioni nel <span class="hl">Tema</span> selezionato a tutti gli altri tipi di notifica`,
         showsystrayopts: `Mostra tutte le opzioni di solito situate sotto <span class="hl">Barra di sistema</span> > <span class="hl">Opzioni</span> in <span class="hl">Impostazioni</span> > <span class="hl">Vari</span>`,
-        releaseshortcut: "Rilascia il gioco attualmente tracciato utilizzando la scorciatoia da tastiera specificata",
         themeselect: "Seleziona un tema salvato precedentemente",
         statwin: `Visualizza statistiche configurabili dei successi per il gioco attuale in una finestra esterna<br><br><span class="ttdesc">Quando utilizzato in combinazione con l'opzione <span class="hl">Traduci i successi nella lingua di Steam</span>, alcune traduzioni potrebbero non essere disponibili finché il successo specifico non viene sbloccato</span>`,
         statwinaot: `Imposta la sovrapposizione delle statistiche dei traguardi in modalità "Sempre in primo piano", consentendo alla finestra di essere visualizzata sopra la finestra del gioco<br><br><span class="ttdesc">Quando è attivato, la sovrapposizione delle statistiche dei traguardi non registrerà più le interazioni dell'utente, come gli eventi di "clic". Per riabilitare l'interazione con la finestra, questa opzione deve essere disabilitata</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Imposta il tempo di attesa prima che le notifiche successive possano riprodurre un nuovo suono<br><br><span class="ttdesc">L'audio non sarà influenzato se Notifiche massime è impostato su 1</span>`,
         rauseemudir: "Salva gli screenshot/immagini di notifica sbloccati tramite RetroAchievements in una sottocartella per l'emulatore corrente all'interno della directory del percorso Screenshot/Immagine specificato",
         ssext: "Imposta il formato file degli screenshot generati tramite l'opzione Screenshot con sovrapposizione di notifica",
-        notify1line: `Limita il numero di righe di testo visualizzate in tutte le notifiche a 1<br><br><span class="ttdesc">Le stringhe di testo troppo lunghe per una singola riga verranno troncate con "..."</span>`,
         copytheme: "Copia il tema selezionato in un altro tipo di notifica",
         ssaddtosteam: "Aggiungi automaticamente i contenuti generati alle Registrazioni e agli Screenshot del gioco corrente su Steam",
         appdatadir: "Apri la posizione della cartella AppData dell'app",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Reimposta il Timer Completamento Gioco per il gioco corrente",
         noshortcuts: `Disabilita tutte le scorciatoie da tastiera dell'applicazione<br><br><span class="ttdesc">Quando abilitato, <u>tutte le scorciatoie dell'applicazione non funzioneranno più</u>. Verranno inoltre nascoste tutte le opzioni relative alle scorciatoie da tastiera</span>`,
         extwinnotify: "Attiva/disattiva la visibilità di tutte le notifiche a schermo durante l'utilizzo delle Stream Notifications",
-        usesanwatcher: `Abilita il nuovo monitor dei processi di gioco di SAN<br><br><span class="ttdesc">Le differenze tra il nuovo SANWatcher e i vecchi metodi di tracciamento automatico dei processi sono le seguenti:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Monitora attivamente gli eventi di avvio/chiusura di qualsiasi processo presente nella directory di installazione del gioco</li><li>Non richiede che l'eseguibile del gioco sia noto per rilasciare il gioco corrente</li><li>Il comportamento dei launcher pre-gioco può variare, quindi la piena compatibilità con tutti i giochi Steam non è garantita</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Analizza la directory di installazione del gioco alla ricerca di eventuali eseguibili in esecuzione dopo l'avvio del gioco</li><li>Richiede che l'eseguibile del gioco sia noto per rilasciare il gioco corrente</li><li>Se il processo del gioco non può essere determinato automaticamente, l'utente deve aggiungere manualmente una nuova voce a <span class="hl">Giochi con rilascio automatico</span> affinché i giochi vengano rilasciati automaticamente</li></ul></div>`,
-        releasewaittime: `Imposta per quanto tempo SANWatcher attenderà la comparsa di nuovi processi di gioco prima di rilasciare il gioco corrente<br><br><span class="ttdesc">Ad esempio, se il gioco corrente avvia un launcher/finestra di configurazione prima di avviare il gioco vero e proprio, questa impostazione determina il numero di secondi che SANWatcher attenderà affinché la finestra del gioco effettivo venga visualizzata dopo la chiusura del launcher/della finestra di configurazione<br><br>Se viene rilevato un nuovo processo di gioco attivo entro questo intervallo di attesa, il rilascio verrà annullato e verrà invece monitorato il nuovo processo attivo<br><br>💡 Il nome del gioco <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">lampeggerà</span> nella casella <span class="hl">Visualizzazione Gioco</span> mentre il gioco corrente è in attesa di essere rilasciato</span>`,
-        platcustomtext: `Imposta un messaggio personalizzato per il completamento del gioco al 100% da visualizzare nella notifica<br><br><span class="ttdesc">Questa opzione sarà nascosta quando Personalizzatore > Predefinito > Elementi della notifica > Descrizione dell'obiettivo è disattivata</span>`,
         raui: "Mostra i nomi dei giochi RetroAchievements rilevati nell'interfaccia utente di visualizzazione del gioco/area di notifica",
-        testnotifycustomtext: "Sostituisci il testo visualizzato in tutte le notifiche di prova",
-        testnotifycustomtexttitle: "Sostituisci il testo visualizzato per l'elemento del titolo in tutte le notifiche di prova",
-        testnotifycustomtextdesc: "Sostituisci il testo visualizzato per l'elemento della descrizione in tutte le notifiche di prova",
         radefault: `Passa sempre automaticamente a questa voce quando viene sbloccato un qualsiasi obiettivo di RetroAchievements<br><br><span class="ttdesc">Solo una voce di Cambio Automatico Tema può essere designata come predefinita per tutti gli obiettivi di RetroAchievements. Questa impostazione predefinita può anche essere sostituita per singolo gioco aggiungendo una nuova voce di Cambio Automatico Tema per uno specifico <span class="hl">GameID</span> di RetroAchievements</span>`,
         statwintype: "Imposta il tipo di layout della Finestra delle statistiche dei successi",
         statwinunlockonly: "Mantieni nascosta la Finestra delle statistiche dei successi fino allo sblocco di un successo",
@@ -943,64 +911,6 @@ export const translations = {
             `Note di rilascio complete disponibili su <span id="discordreleasenotes"></span> e <span id="githubreleasenotes"></span>`
         ],
         update: "Aggiorna"
-    },
-    linkgame: {
-        content: {
-            exepath: "Percorso dell'eseguibile",
-            linkedgame: "Collega gioco",
-            autoreleasegame: "Rilascio automatico gioco",
-            linkedgamessub: [
-                `Sostituisci tutti i processi di gioco in esecuzione rilevati automaticamente da <span class="hl">SANWatcher</span> e controlla invece solo se l'<span class="hl">eseguibile del gioco</span> selezionato è attualmente attivo`,
-                `Collega l'<span class="hl">AppID</span> di qualsiasi gioco a un determinato <span class="hl">eseguibile del gioco</span>, oppure <span class="hl">rimuovi</span> un collegamento esistente`
-            ],
-            autoreleasegamessub: [
-                `Se Steam continua a mostrare un gioco come <i>In esecuzione</i> dopo la chiusura della finestra del gioco, prova ad aggiungere una nuova voce in <span class="hl">$linkgame</span>`,
-                `Aggiungi l'<span class="hl">AppID</span> di un gioco specifico insieme al relativo <span class="hl">eseguibile del gioco</span>, oppure <span class="hl">rimuovi</span> una voce esistente`,
-            ],
-            managesub: [
-                `Una volta rilevato un gioco, puoi anche aggiungere nuove voci tramite la <span class="hl">finestra attiva</span> facendo <i>clic destro</i> sull'<span class="hl">icona nell'area di notifica</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Come posso trovare l'AppID di un gioco Steam?</u></span>`
-            ],
-            linknew: "Nuova voce",
-            linknewsub: [
-                `Collega l'<span class="hl">AppID</span> di un nuovo gioco a un determinato <span class="hl">eseguibile del gioco</span>`,
-                `Una volta aggiunte, le voci possono essere <span class="hl">rimosse</span> dal precedente menu <span class="hl">$linkgame</span>`
-            ],
-            linkedit: "Modifica voce",
-            linkeditsub: [
-                `Modifica un collegamento esistente tra l'<span class="hl">AppID</span> di un gioco e il relativo <span class="hl">eseguibile del gioco</span>`,
-                `Una volta aggiunte, le voci possono essere <span class="hl">rimosse</span> dal precedente menu <span class="hl">$linkgame</span>`
-            ],
-            link: "Aggiungi",
-            findappid: "Trova AppID di Steam",
-            findappidsub: [
-                `Ogni gioco Steam ha un numero univoco associato, chiamato <span class="hl">AppID</span>. Puoi trovare l'AppID di qualsiasi gioco Steam in uno dei seguenti modi:`,
-                `Nel <span class="hl">client Steam</span>, fai <i>clic destro</i> su un gioco nella tua <span class="hl">Libreria</span> e seleziona <i>Proprietà</i> > <i>Aggiornamenti</i>: l'AppID sarà elencato qui`,
-                `Nell'<span class="hl">URL</span> della <span class="hl">pagina del Negozio</span> del gioco: sarà il numero riportato dopo <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Su siti web come <span class="hl">SteamDB</span>: la sezione <span class="hl">App Info</span> mostrerà l'AppID di ogni gioco`
-            ],
-            noexe: "Eseguibile del gioco non trovato!",
-            noexesub: "Fai clic qui per ulteriori informazioni",
-            noexedialogsub: [
-                `Steam Achievement Notifier non è riuscito a individuare automaticamente il file eseguibile di questo gioco. La posizione del file eseguibile del gioco è necessaria per poter "rilasciare" il gioco dopo la chiusura`,
-                `Per rilasciare manualmente il gioco dopo la chiusura, fai <i>clic destro</i> sull'<span class="hl">icona nell'area di notifica</span> > <span class="hl">Opzioni</span> > <span class="hl">Rilascia gioco</span>, oppure utilizza la <span class="hl">scorciatoia Rilascia gioco</span>`,
-                `In alternativa, fai clic sul pulsante <span class="hl">Aggiungi</span> qui sotto per aggiungere il file eseguibile associato alla finestra attualmente attiva in <span class="hl">Impostazioni</span> > <span class="hl">Giochi</span> > <span class="hl">Giochi con rilascio automatico</span>`,
-            ],
-            linkedgamefocussub: `Per sostituire tutti i processi di gioco in esecuzione rilevati automaticamente da <span class="hl">SANWatcher</span>, aggiungi una nuova voce in <span class="hl">Giochi collegati</span>`,
-            autoreleasegamefocussub: `Se Steam continua a mostrare un gioco come <i>In esecuzione</i> dopo la chiusura della finestra del gioco, prova ad aggiungere una nuova voce in <span class="hl">Giochi con rilascio automatico</span>`,
-            focussub: `Per eseguire questa operazione per il gioco corrente, fai clic sul pulsante <span class="hl">Aggiungi</span> qui sotto per aggiungere il file eseguibile associato alla finestra attualmente attiva in <span class="hl">Impostazioni</span> > <span class="hl">Giochi</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Cosa succede quando faccio clic sul pulsante Aggiungi?</u></span>`,
-            linkgamehelp: "Collega tramite finestra attiva",
-            linkgamehelpsub: [
-                `Facendo clic sul pulsante <span class="hl">Aggiungi</span>, verrà automaticamente aggiunta una nuova voce in <span class="hl">Impostazioni</span> > <span class="hl">Giochi</span> > <span class="hl">Giochi con rilascio automatico</span>, utilizzando le informazioni della finestra attualmente attiva.`,
-                `Dopo aver fatto clic sul pulsante <span class="hl">Aggiungi</span>, inizierà un conto alla rovescia di 5 secondi`,
-                `Prima che il conto alla rovescia termini, porta in primo piano la finestra del gioco`,
-                `Una volta terminato il conto alla rovescia, verrà aggiunta una nuova voce per l'<span class="hl">AppID</span> corrente in <span class="hl">Impostazioni</span> > <span class="hl">Giochi</span> > <span class="hl">Giochi con rilascio automatico</span>, utilizzando il file eseguibile associato alla finestra attiva`,
-                `I nuovi tentativi sovrascriveranno le voci esistenti, oppure la voce potrà essere rimossa da <span class="hl">Impostazioni</span> > <span class="hl">Giochi</span> > <span class="hl">Giochi con rilascio automatico</span> facendo clic sul pulsante <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Impossibile aggiungere la finestra",
-            addlinkfailedsub: `Fai clic sul pulsante <span class="hl">Aggiungi</span> per riprovare`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Temi",
             src: "Origine dello screenshot",
             themedeleted: "Tema eliminato",
+            findappid: "Trova AppID di Steam",
+            findappidsub: [
+                `Ogni gioco Steam ha un numero univoco associato, chiamato <span class="hl">AppID</span>. Puoi trovare l'AppID di qualsiasi gioco Steam in uno dei seguenti modi:`,
+                `Nel <span class="hl">client Steam</span>, fai <i>clic destro</i> su un gioco nella tua <span class="hl">Libreria</span> e seleziona <i>Proprietà</i> > <i>Aggiornamenti</i>: l'AppID sarà elencato qui`,
+                `Nell'<span class="hl">URL</span> della <span class="hl">pagina del Negozio</span> del gioco: sarà il numero riportato dopo <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Su siti web come <span class="hl">SteamDB</span>: la sezione <span class="hl">App Info</span> mostrerà l'AppID di ogni gioco`
+            ],
             rafindgameid: "Trova GameID RA",
             rafindgameidsub: [
                 `Ogni gioco RetroAchievements ha un numero univoco associato, chiamato <span class="hl">GameID</span>. Puoi trovare il GameID di qualsiasi gioco RetroAchievements controllando:`,

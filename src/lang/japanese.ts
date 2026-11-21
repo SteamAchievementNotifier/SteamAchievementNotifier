@@ -46,11 +46,6 @@ export const translations = {
         show: "表示",
         exit: "終了",
         donotshowagain: "このダイアログを再度表示しない",
-        releasegame: "ゲームのリリース",
-        releasegamesub: [
-            `バックグラウンドのWorkerプロセスを再起動し、現在のゲームの追跡を解除します`,
-            `最近ゲームを閉じたがSteamがまだ実行中と表示されている場合、またはSteam Achievement Notifierがすでに閉じられたゲームの追跡をまだ表示している場合は、このオプションを試してみてください`
-        ],
         noupdateavailable: "利用可能な更新はありません",
         latestversion: "最新バージョンがインストールされています",
         missingdeps: "依存関係が不足しています",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "ゲーム",
             content: {
-                linkedgames: "リンク済みゲーム",
-                autoreleasegames: "自動解放ゲーム",
                 themeswitch: "テーマを自動切替",
                 exclusionlist: "除外リスト",
                 inclusionlist: "インクルージョンリスト",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "NVDAサポートを有効にする",
                 tooltips: "ツールチップを表示",
                 showsystrayopts: "システムトレイオプションを表示",
-                releaseshortcut: "ゲームリリースショートカット",
                 noshortcuts: "キーボードショートカットを無効化"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "高度な設定",
             content: {
                 pollrate: "ポーリングレート",
-                initdelay: "トラッキング遅延",
-                releasedelay: "リリース遅延",
-                maxretries: "最大リトライ回数",
-                debug: "デバッグパネル",
-                userust: "代替処理モード",
                 notifydebug: "デバッグ通知の表示",
                 workerdebug: "Worker DevTools を表示",
                 exportachdata: "実績データをエクスポート",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ 確認後、選択したバックアップファイルを復元するためにアプリが再起動します"
                 ],
                 restorefailed: "バックアップの復元に失敗しました。",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "解放待機時間",
                 logresourceusage: "リソース使用状況を記録"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "通知プリセット",
                 iconanim: "レアアイコンアニメーション",
-                alldetails: "全詳細表示",
                 usepercent: "パーセンテージを使用",
                 displaytime: "表示時間",
                 scale: "スケール",
                 customtext: "カスタムテキスト",
-                usegametitle: "ゲームタイトルを使用",
                 customfont: "カスタムフォント",
-                platcustomtext: "カスタム100%テキスト",
                 usecustomtext: "カスタムテキスト",
                 customtextunlockmsg: "解除メッセージ",
                 customtexttitle: "実績タイトル",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifierに問題が発生し、閉じる必要があります。",
+            steam: "Steamのインストールが見つかりません",
             details: "エラーの詳細は次のとおりです：",
             sub: "お好みのプラットフォームを使用して、この問題を報告するための下のボタンをクリックしてください。",
             report: "レポート",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "特定のUI要素にマウスオーバーしたときにツールチップを表示する",
         colorprofile: `選択したカラープロファイルを使ってすべてのアプリケーションウィンドウをレンダリングするように強制します<br><br><span class="ttdesc">アプリの再起動が必要です</span>`,
         pollrate: `ゲームプレイ中の実績データの更新間隔を設定します<br><br><span class="ttdesc">値やシステムのハードウェアに応じて、パフォーマンスが向上または低下することがあります。通常、高い値はシステム負荷を低減させますが、通知の遅延を引き起こす可能性があります</span>`,
-        initdelay: `現在の <span class="hl">AppID</span> の検出とプロセス/達成のトラッキング開始の間の遅延を設定します<br><br><span class="ttdesc">この値を増やすことで、Steam が現在のゲームを起動できないシナリオを防ぐことができます（ゲームが開始する前に Steamworks がアプリを初期化するため）</span><br><br><span class="ttdesc">また、この値を増やすことで、ゲームの前の起動プロセスの誤検出を回避することもできます</span>`,
-        releasedelay: `現在のゲームがリリースされた後、バックグラウンドの Worker プロセスが再起動するまで待機する時間を設定します。自動プロセストラッキングと自動リリース ゲームの両方に影響します<br><br><span class="ttdesc">Steamworks がアプリから完全に解放されるまでの時間を長く確保できます。この値を増やすことで、以前に終了したゲームを追跡してしまうなどの異常な動作を防ぐことができます</span>`,
-        maxretries: `実行中のプロセスを検出された AppID にリンクする最大試行回数を設定します。自動プロセストラッキングと自動リリース ゲームの両方に影響します<br><br><span class="ttdesc">試行は 1 秒ごとに行われます。この回数以内に実行中のプロセスが現在の AppID にリンクされない場合、無効なプロセスが返されます。その場合、システムトレイ > オプション > ゲームをリリース から手動でゲームをリリースする必要があります</span>`,
-        debug: "デバッグパネルを開きます。これにより、プロセスの詳細なトラッキング情報が表示されます。",
-        userust: "システム上でトラックされたゲームプロセスが現在実行されているかどうかを確認するために、Rustベースの代替機能を使用します。チェックが外れている場合、代わりにデフォルトのNodeJSベースのプロセスチェックが使用されます。",
         notifydebug: "すべての通知に対してDevToolsウィンドウを作成します。通知のデバッグ/トラブルシューティングに便利です",
         workerdebug: "Worker プロセス用の DevTools ウィンドウを作成します。ゲーム追跡の問題のデバッグやトラブルシューティングに役立ちます",
         usecustomfiles: "ユーザーがカスタマイズ可能なファイルを通知に読み込むことを有効にします。通常のユーザーには注意が必要です",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "通知プレビューのアニメーションを再起動する",
         preset: "カスタマイズする通知プリセットを選択",
         iconanim: "レアアイコンの枠とアニメーションを切り替える",
-        alldetails: "このプリセットではデフォルトで非表示になっているすべてのテキスト要素を通知内に表示する",
         usepercent: "XP/S値の代わりに実績の解除パーセンテージを表示",
         displaytime: "通知が表示される秒数を設定する",
         scale: "通知のサイズを拡大または縮小する",
         customtext: `通知内に表示するカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > アンロックメッセージ が無効になっている場合、このオプションは非表示になります</span>`,
-        usegametitle: "通知内に現在のゲームのタイトルを表示する",
         customfont: "通知内で使用するカスタムフォントを読み込む",
         soundmode: "通知が発生したときに、単一のオーディオファイルまたは複数のオーディオファイルが含まれるフォルダからランダムに選択されるオーディオファイルを選択する",
         soundfile: "通知が発生したときに再生するオーディオファイルを選択する",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `特定のゲームが検出されたときに保存された <span class="hl">テーマ</span> に自動的に切り替え`,
         userthemesync: `選択した <span class="hl">テーマ</span> のカスタマイズをすべての他の通知タイプに同期`,
         showsystrayopts: `通常 <span class="hl">システムトレイ</span> > <span class="hl">オプション</span> に位置するすべてのオプションを表示 <span class="hl">設定</span> > <span class="hl">その他</span>`,
-        releaseshortcut: "指定されたキーボードショートカットを使用して、現在追跡中のゲームをリリースします",
         themeselect: "以前に保存したテーマを選択",
         statwin: `現在のゲームの実績統計を外部ウィンドウで表示<br><br><span class="ttdesc">「<span class="hl">Steamの言語に実績を翻訳</span>」オプションと併用すると、特定の実績が解除されるまで一部の翻訳が利用できない場合があります</span>`,
         statwinaot: `「常に最前面」モードに設定することで、実績統計オーバーレイをゲームウィンドウの上に表示できます<br><br><span class="ttdesc">有効にすると、実績統計オーバーレイはユーザーの操作（「クリック」イベントなど）を登録しなくなります。ウィンドウとのインタラクションを再度有効にするには、このオプションを無効にする必要があります</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `次の通知が新しいオーディオを再生できるようになるまでの待機時間を設定します<br><br><span class="ttdesc">最大通知数が 1 に設定されている場合、オーディオには影響しません</span>`,
         rauseemudir: "RetroAchievementsで解除されたスクリーンショット/通知画像を、指定されたスクリーンショット/画像パスディレクトリ内の現在のエミュレーター用サブフォルダに保存します",
         ssext: "通知オーバーレイ付きスクリーンショットオプションで生成されるスクリーンショットのファイル形式を設定します",
-        notify1line: `すべての通知に表示されるテキストの行数を1行に制限します<br><br><span class="ttdesc">1行に収まらないテキストは「...」で切り捨てられます</span>`,
         copytheme: "選択したテーマを別の通知タイプにコピーします",
         ssaddtosteam: "生成されたメディアを現在のゲームのSteamの録画およびスクリーンショットに自動的に追加",
         appdatadir: "アプリのAppDataフォルダーの場所を開く",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "現在のゲームのゲーム完了タイマーをリセットします",
         noshortcuts: `アプリ内のすべてのキーボードショートカットを無効にします<br><br><span class="ttdesc">有効にすると、<u>すべてのアプリ内ショートカットが機能しなくなります</u>。キーボードショートカットに関連するすべてのオプションも非表示になります</span>`,
         extwinnotify: "Stream Notifications 使用中のすべてのオンスクリーン通知の表示を切り替えます",
-        usesanwatcher: `SAN の新しいゲームプロセス監視機能を有効化<br><br><span class="ttdesc">新しい SANWatcher と従来の自動プロセス追跡方式の違いは次のとおりです。<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>ゲームのインストールディレクトリ内に存在するすべてのプロセスの開始／終了イベントを積極的に監視します</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要はありません</li><li>ゲーム起動前ランチャーの動作はゲームごとに異なるため、すべての Steam ゲームとの完全な互換性は保証されません</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>ゲーム起動後、ゲームのインストールディレクトリ内で実行中の実行ファイルをスキャンします</li><li>現在のゲームを解放するためにゲームの実行ファイルを特定しておく必要があります</li><li>ゲームプロセスを自動的に特定できない場合、ゲームを自動的に解放するにはユーザーが <span class="hl">自動リリース ゲーム</span> に新しいエントリを手動で追加する必要があります</li></ul></div>`,
-        releasewaittime: `現在のゲームを解放する前に、新しいゲームプロセスの起動をSANWatcherがどれくらい待機するかを設定します<br><br><span class="ttdesc">例えば、現在のゲームが実際のゲームを起動する前にランチャーや設定ウィンドウを表示する場合、この設定はランチャーや設定ウィンドウが閉じられた後に実際のゲームウィンドウが表示されるまでSANWatcherが待機する秒数を決定します<br><br>この待機時間内に新しいアクティブなゲームプロセスが検出された場合、解放はキャンセルされ、代わりに新たにアクティブになったプロセスが追跡されます<br><br>💡 現在のゲームが解放待機中の間、ゲーム名は<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">点滅</span>し、<span class="hl">ゲーム表示</span>ボックス内で表示されます</span>`,
-        platcustomtext: `通知内に表示するゲーム100%達成時のカスタムメッセージを設定します<br><br><span class="ttdesc">Customiser > プリセット > 通知要素 > 実績の説明 が無効になっている場合、このオプションは非表示になります</span>`,
         raui: "検出されたRetroAchievementsゲームの名前をゲーム表示UI/システムトレイUIに表示します",
-        testnotifycustomtext: "すべてのテスト通知に表示されるテキストを上書きします",
-        testnotifycustomtexttitle: "すべてのテスト通知のタイトル要素に表示されるテキストを上書きします",
-        testnotifycustomtextdesc: "すべてのテスト通知の説明要素に表示されるテキストを上書きします",
         radefault: `RetroAchievements の実績が解除されるたびに、常にこの項目へ自動的に切り替えます<br><br><span class="ttdesc">すべての RetroAchievements 実績に対して既定として設定できる自動テーマ切り替えの項目は 1 つだけです。この既定設定は、特定の RetroAchievements の <span class="hl">GameID</span> 用に新しい自動テーマ切り替え項目を追加することで、ゲームごとに上書きすることもできます</span>`,
         statwintype: "実績統計ウィンドウのレイアウトタイプを設定",
         statwinunlockonly: "実績が解除されるまで実績統計ウィンドウを非表示にする",
@@ -943,64 +911,6 @@ export const translations = {
             `<span id="discordreleasenotes"></span>と<span id="githubreleasenotes"></span>で利用可能な完全なリリースノート`
         ],
         update: "アップデート"
-    },
-    linkgame: {
-        content: {
-            exepath: "実行ファイルのパス",
-            linkedgame: "ゲームをリンク",
-            autoreleasegame: "ゲームを自動解放",
-            linkedgamessub: [
-                `<span class="hl">SANWatcher</span> が自動追跡しているすべての実行中ゲームプロセスを上書きし、代わりに選択した<span class="hl">ゲーム実行ファイル</span>が現在アクティブかどうかのみを確認します`,
-                `ゲームの<span class="hl">AppID</span>を対象の<span class="hl">ゲーム実行ファイル</span>にリンクするか、既存のリンクを<span class="hl">削除</span>します`
-            ],
-            autoreleasegamessub: [
-                `ゲームウィンドウを閉じた後も Steam がゲームを<i>プレイ中</i>と表示し続ける場合は、<span class="hl">$linkgame</span>に新しいエントリを追加してみてください`,
-                `特定のゲームの<span class="hl">AppID</span>と対応する<span class="hl">ゲーム実行ファイル</span>を追加するか、既存のエントリを<span class="hl">削除</span>します`,
-            ],
-            managesub: [
-                `ゲームが検出された後は、<span class="hl">システムトレイアイコン</span>を<i>右クリック</i>して <span class="hl">$linkgame</span> を選択し、<span class="hl">フォーカス中のウィンドウ</span>から新しいエントリを追加することもできます`,
-                `<span class="hl help" id="appidhelp"><u>Steam ゲームの AppID はどのように確認できますか？</u></span>`
-            ],
-            linknew: "新しいエントリ",
-            linknewsub: [
-                `新しいゲームの<span class="hl">AppID</span>を対象の<span class="hl">ゲーム実行ファイル</span>にリンクします`,
-                `追加後は、以前の<span class="hl">$linkgame</span>メニューからエントリを<span class="hl">削除</span>できます`
-            ],
-            linkedit: "エントリを編集",
-            linkeditsub: [
-                `ゲームの<span class="hl">AppID</span>と対象の<span class="hl">ゲーム実行ファイル</span>との既存のリンクを編集します`,
-                `追加後は、以前の<span class="hl">$linkgame</span>メニューからエントリを<span class="hl">削除</span>できます`
-            ],
-            link: "追加",
-            findappid: "Steam AppIDを検索",
-            findappidsub: [
-                `Steam の各ゲームには<span class="hl">AppID</span>と呼ばれる固有の番号が割り当てられています。Steam ゲームの AppID は次のいずれかの方法で確認できます。`,
-                `<span class="hl">Steam クライアント</span>で<span class="hl">ライブラリ</span>内のゲームを<i>右クリック</i>し、<i>プロパティ</i> > <i>アップデート</i>を選択すると、AppID が表示されます`,
-                `ゲームの<span class="hl">ストアページ</span>の<span class="hl">URL</span>では、<span class="hl">app/</span>の後にある数字が AppID です: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `<span class="hl">SteamDB</span>などの Web サイトでは、<span class="hl">App Info</span>セクションに各ゲームの AppID が表示されます`
-            ],
-            noexe: "ゲームの EXE が見つかりません！",
-            noexesub: "詳細についてはここをクリックしてください",
-            noexedialogsub: [
-                `Steam Achievement Notifier はこのゲームの実行ファイルを自動的に見つけることができませんでした。ゲーム終了後にゲームを「解放」するには、ゲーム実行ファイルの場所が必要です`,
-                `ゲーム終了後に手動で解放するには、<span class="hl">システムトレイアイコン</span>を<i>右クリック</i>し、<span class="hl">オプション</span> > <span class="hl">ゲームを解放</span>を選択するか、<span class="hl">ゲーム解放ショートカット</span>を使用してください`,
-                `または、下の<span class="hl">追加</span>ボタンをクリックして、現在フォーカス中のウィンドウに関連付けられた実行ファイルを<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>へ追加してください`,
-            ],
-            linkedgamefocussub: `<span class="hl">SANWatcher</span> が自動追跡しているすべての実行中ゲームプロセスを上書きするには、<span class="hl">リンク済みゲーム</span>に新しいエントリを追加してください`,
-            autoreleasegamefocussub: `ゲームウィンドウを閉じた後も Steam がゲームを<i>プレイ中</i>と表示し続ける場合は、<span class="hl">自動解放ゲーム</span>に新しいエントリを追加してみてください`,
-            focussub: `現在のゲームに対してこれを行うには、下の<span class="hl">追加</span>ボタンをクリックして、現在フォーカス中のウィンドウに関連付けられた実行ファイルを<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">$linkgame</span>へ追加してください`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>追加ボタンをクリックするとどうなりますか？</u></span>`,
-            linkgamehelp: "フォーカスからリンク",
-            linkgamehelpsub: [
-                `<span class="hl">追加</span>ボタンをクリックすると、現在フォーカス中のウィンドウの情報を使用して、<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>に新しいエントリが自動的に追加されます。`,
-                `<span class="hl">追加</span>ボタンをクリックすると、5 秒間のタイマーが開始されます`,
-                `タイマーが終了する前に、ゲームウィンドウをフォーカスしてください`,
-                `タイマーが終了すると、現在の<span class="hl">AppID</span>用の新しいエントリが、フォーカス中のウィンドウに関連付けられた実行ファイルを使用して<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>へ追加されます`,
-                `新しい試行では既存のエントリが上書きされます。または、<span class="hl">設定</span> > <span class="hl">ゲーム</span> > <span class="hl">自動解放ゲーム</span>で<span id="linkhelpunlink"></span>ボタンをクリックしてエントリを削除できます`
-            ],
-            addlinkfailed: "ウィンドウを追加できませんでした",
-            addlinkfailedsub: `<span class="hl">追加</span>ボタンをクリックして再試行してください`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "テーマ",
             src: "スクリーンショットのソース",
             themedeleted: "テーマを削除しました",
+            findappid: "Steam AppIDを検索",
+            findappidsub: [
+                `Steam の各ゲームには<span class="hl">AppID</span>と呼ばれる固有の番号が割り当てられています。Steam ゲームの AppID は次のいずれかの方法で確認できます。`,
+                `<span class="hl">Steam クライアント</span>で<span class="hl">ライブラリ</span>内のゲームを<i>右クリック</i>し、<i>プロパティ</i> > <i>アップデート</i>を選択すると、AppID が表示されます`,
+                `ゲームの<span class="hl">ストアページ</span>の<span class="hl">URL</span>では、<span class="hl">app/</span>の後にある数字が AppID です: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span>などの Web サイトでは、<span class="hl">App Info</span>セクションに各ゲームの AppID が表示されます`
+            ],
             rafindgameid: "RA GameIDを検索",
             rafindgameidsub: [
                 `RetroAchievementsの各ゲームには、<span class="hl">GameID</span>と呼ばれる固有の番号が割り当てられています。RetroAchievementsゲームのGameIDは、次の方法で確認できます。`,

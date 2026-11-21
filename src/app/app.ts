@@ -1,4 +1,4 @@
-import { app, dialog, clipboard, shell } from "electron"
+import { app } from "electron"
 import path from "path"
 
 if (process.platform === "win32" && process.env.npm_lifecycle_event !== "dev") {

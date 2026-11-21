@@ -80,7 +80,7 @@ export const monitors = {
     },
     themeswitch: (themeswitch: { [key: string]: ThemeSwitch },current: Monitor[],previous: Monitor[]) => Object.fromEntries(Object.entries(themeswitch).map(([key,value]) => {
         const src = monitors.getid(current,previous,"themeswitch",value.src,`"src" in "themeswitch" for AppID ${key}`)
-        if (src !== value.src) return [key,{ themes: { ...value.themes }, src } as ThemeSwitch]
+        if (src !== value.src) return [key,{ ...value, themes: { ...value.themes }, src } as ThemeSwitch] // `...value` preserves `ra`/`radefault` flags
         return [key,value]
     })),
     refresh: (config: any,current: Monitor[],previous: Monitor[]) => {

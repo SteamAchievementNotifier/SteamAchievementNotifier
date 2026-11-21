@@ -681,7 +681,7 @@ export const usertheme = {
     themeswitchentries: () => Object.entries(JSON.parse(localStorage.getItem("themeswitch") || "{}")) as [string,ThemeSwitch][],
     hasthemeswitch: (appid: number,ra?: boolean) => {
         const entries = usertheme.themeswitchentries()
-        return entries.find(item => parseInt(item[0]) === appid) ?? (ra ? entries.find(item => item[1].radefault) : undefined)
+        return entries.find(item => parseInt(item[0]) === appid) ?? (ra ? entries.find(item => item[1].radefault || item[0] === "-100") : undefined) // Check if `themeswitch` id is "-100" (`rathemeswitchvalue`) as a fallback if `themeswitch.radefault` cannot be found
     },
     gettypecustomisation: (config: Store<Config>,type: NotifyType,themeswitch?: [key: string,ThemeSwitch]) => {
         const basetype = sanhelper.basetype(type)

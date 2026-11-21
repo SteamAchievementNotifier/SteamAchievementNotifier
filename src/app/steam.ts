@@ -24,7 +24,7 @@ export const steam = {
 
         const vdfdata = steam.parsevdf(loginusers)
 
-        for (const [steam64id,entry] of Object.entries<any>(vdfdata.users ?? {})) {
+        for (const [steam64id,entry] of Object.entries<any>(vdfdata?.users ?? {})) {
             const steam3id = steam.steam64tosteam3id(steam64id)
             ondisk.delete(`${steam3id}`)
 
@@ -98,7 +98,7 @@ export const steam = {
     getplaytime: (user: SteamUser,appid: number,steampath: string) => {
         const localconfig = path.join(steampath,"userdata",`${user.steam3id}`,"config","localconfig.vdf")
         const vdfdata = steam.parsevdf(localconfig)
-        const playtime = parseInt(vdfdata.UserLocalConfigStore?.Software?.valve?.Steam?.apps?.[appid]?.Playtime ?? "-1")
+        const playtime = parseInt(vdfdata?.UserLocalConfigStore?.Software?.valve?.Steam?.apps?.[appid]?.Playtime ?? "-1")
 
         return playtime >= 0 ? Math.round((playtime / 60) * 10) / 10 : -1 // Steam rounds to the nearest .1
     }

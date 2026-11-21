@@ -710,11 +710,6 @@ button#importbtn:focus-visible {
     --dialogicon: url("../../icon/error.svg");
 }
 
-/* Override for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
-.wrapper#contentcontainer:has(#noexeclick)[autorelease] {
-    --dialogicon: url("../../icon/link.svg");
-}
-
 /* Override for preventing primary color being changed on Auto-Switch Themes (i.e. non-type-based) dialog */
 dialog:has(#themeswitchtablewrapper,#themeswitchnewtablewrapper) {
     --primary: #2f5bb5;

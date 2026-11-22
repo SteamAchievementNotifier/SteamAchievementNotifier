@@ -46,10 +46,10 @@ export const language = {
                     const settingscontent = document.getElementById("settingscontent")!
                     const settingsversion = document.getElementById("settingsversion")!
 
-                    langmap.set(settingsheader.querySelector(`span`)!,global.settings)
-                    langmap.set(settingsversion.querySelector(`span:first-child`)!,`${global.appversion}:`)
+                    langmap.set(settingsheader.querySelector("span")!,global.settings)
+                    langmap.set(settingsversion.querySelector("span:first-child")!,`${global.appversion}:`)
 
-                    const settingstitles = Array.from(settingscontent.querySelectorAll(`.cont > .title`)).map(title => title.id)
+                    const settingstitles = Array.from(settingscontent.querySelectorAll(".cont > .title")).map(title => title.id)
 
                     const selectignore = [
                         "lang",
@@ -90,7 +90,7 @@ export const language = {
                     })
 
                     langmap.set(settingscontent.querySelector(".wrapper:has(.lbl#raemus) > .lbl")!,settings.ra.content.raemus)
-                    langmap.set(settingscontent.querySelector("span#raloghelp > u")!,global.raloghelp)
+                    langmap.set(settingscontent.querySelector("button#raloghelp")!,global.raloghelp)
 
                     ;(["status","game","lastachievement"] as const).forEach(id => langmap.set(settingscontent.querySelector(`.wrapper#rastatuswrapper > div#ra${id} > span:nth-child(1)`)!,`${settings.ra.content[id]}:`))
                 }
@@ -151,6 +151,8 @@ export const language = {
                 for (const subopt of subopts) {
                     customisercontent.querySelectorAll(`.sub:has([id^="${subopt}"]) > input[type="checkbox"]`).forEach(input => langmap.set(input.parentElement!.querySelector("span")!,customiser.preset.content[subopt]))
                 }
+
+                langmap.set(customisercontent.querySelector("button#customtextvars > span")!,global.customtextvars)
 
                 const themeselect = customisercontent.querySelector(`#customiseropts > .opt:has(select) > select`)!
                 langmap.set(themeselect.parentElement!.querySelector("span")!,customiser.theme.content[themeselect.id])

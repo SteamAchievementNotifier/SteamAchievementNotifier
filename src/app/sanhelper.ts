@@ -1497,5 +1497,19 @@ export const sanhelper = {
         }
 
         return sanhelper_rs.removeAutostartRegKeys(version)
+    },
+    resolvevars: (text: string,notify: Notify) => {
+        const isplat = sanhelper.plattype(notify.type)
+
+        const vars: Record<string,string> = {
+            game: notify.gamename ?? "Game Title",
+            title: notify.name,
+            desc: notify.desc,
+            percent: `${isplat ? "100" : Math.max(parseFloat(notify.percent.toFixed(1)),0.1)}%`,
+            emulator: notify.emu ?? "Emulator",
+            total: `${notify.achnum?.unlocked ?? (isplat ? 10 : 1)}/${notify.achnum?.total ?? 10}`
+        }
+        
+        return text.replace(/\{(\w+)\}/g,(match,key) => key in vars ? vars[key] : match)
     }
 }

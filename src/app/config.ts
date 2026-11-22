@@ -41,7 +41,6 @@ export const customfilekeys = [
 // Contains non-"shortcut" suffixed key names for all options that are assigned a `globalShortcut`
 // Additionally, passes boolean flag for whether partial combos should be allowed
 export const shortcutkeys = new Map<string,boolean>([
-    ["release",false],
     ["statwin",false],
     ["gametimerwin",false],
     ["replaynotify",false],
@@ -141,7 +140,7 @@ export const sanconfig = {
             }],
             ["xboxone",{
                 logo: sanhelper.setfilepath("img","sanlogotrophy.svg"),
-                decoration: null,
+                decoration: sanhelper.setfilepath("img","s.svg"),
                 index: {
                     percent: 1,
                     hiddenicon: 1,
@@ -239,9 +238,6 @@ export const sanconfig = {
                 rarity: 10,
                 semirarity: 25,
                 soundonly: false,
-                showpercent: "rareonly",
-                showpercentpos: "right",
-                showpercentstyle: "brackets",
                 extwin: false,
                 extwinframerate: 60,
                 extwinshow: true,
@@ -275,7 +271,6 @@ export const sanconfig = {
                 x: Math.round((width / 2) - (target.width / 2)),
                 y: Math.round((height / 2) - (target.height / 2)),
                 usecustomfiles: false,
-                noreleasedialog: false,
                 norestartdialog: false,
                 noupdatedialog: false,
                 debug: false,
@@ -317,7 +312,6 @@ export const sanconfig = {
                 steamlang: false,
                 maxsteamlangretries: 10,
                 showsystrayopts: false,
-                releaseshortcut: "CTRL+SHIFT+Q",
                 statwin: false,
                 statwinpos: {
                     width: 250,
@@ -411,7 +405,6 @@ export const sanconfig = {
                 titlefontsize: 100,
                 descfontsize: 100,
                 opacity: 100,
-                bgonly: false,
                 glow: false,
                 glowcolor: "#8a2be2",
                 glowsize: 50,
@@ -486,8 +479,6 @@ export const sanconfig = {
                 sshiddeniconpos: 2,
                 decorationpos: 1,
                 ssdecorationpos: 1,
-                percentpos: 1,
-                sspercentpos: 1,
                 percentbadge: false,
                 sspercentbadge: false,
                 percentbadgepos: "bottomcenter",

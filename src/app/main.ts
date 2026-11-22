@@ -20,8 +20,8 @@ export const main = async (starttime: string) => {
     
     const createwin = async () => {
         try {
-            const steampath = sanhelper.steampath // Check Steam is installed
-            if (!steampath) throw new Error(`Steam installation path not found. Please install Steam before running Steam Achievement Notifier`)
+            const { steampath } = sanhelper // Check Steam is installed
+            if (!steampath) throw new Error(`Steam installation path not found. Please install Steam before running Steam Achievement Notifier.`)
             log.write("INFO",`Steam installation path: ${steampath}`)
         } catch (err) {
             if (err instanceof Error && err.message) throw err
@@ -105,7 +105,7 @@ export const main = async (starttime: string) => {
     .whenReady()
     .then(createwin)
     .catch(async err => {
-        await error.createwin(err)
+        await error.showdialog(err as Error)
         win && win.destroy()
     })
 }

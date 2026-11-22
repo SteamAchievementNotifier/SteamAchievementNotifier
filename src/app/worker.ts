@@ -160,6 +160,8 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 if (!logged.binfile) {
                     log.write("INFO",`"${binfile}" not found - retrying...`)
                     logged.binfile = true
+
+                    ipcRenderer.send("nostats",{ appid, gamename, achnum: 0 } as WorkerInfo) // If no stats file for the current AppID exists, set `sanlogo_inactive` icon in `listeners.ts`
                 }
                 
                 setTimeout(() => startsan(user,appinfo),1000)
@@ -302,8 +304,13 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             
             const config = sanconfig.get()
             const { rarity, semirarity, trophymode, lang } = config.store
+
+            const liveunlocked = live.filter(achievement => achievement.unlocked).length
+            let numunlocked = liveunlocked - unlocked.filter(a => a.unlocked).length
             
             for (const achievement of unlocked) {
+                achievement.unlocked && numunlocked++
+
                 const unlocktime = Date.now()
                 achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
                 
@@ -337,7 +344,11 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                     unlocked: achievement.unlocked,
                     hidden: achievement.hidden,
                     percent: achievement.percent,
-                    icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg")
+                    icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
+                    achnum: {
+                        unlocked: numunlocked,
+                        total: live.length
+                    }
                 })
 
                 sanhelper.devmode && console.log(notify)
@@ -372,9 +383,12 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                         gamename: gamename ?? "???",
                         steam3id,
                         apiname: `PLAT_SET_${groupid}`,
-                        name: "100%",
-                        desc: "",
-                        setname
+                        name: setname,
+                        setname,
+                        achnum: {
+                            unlocked: numunlocked,
+                            total: live.length
+                        }
                     })
 
                     sanhelper.devmode && console.log(setplatnotify)
@@ -388,7 +402,11 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                     gamename: gamename ?? "???",
                     steam3id,
                     apiname: "PLAT_NOTIFICATION",
-                    name: "100%"
+                    name: "100%",
+                    achnum: {
+                        unlocked: live.length,
+                        total: live.length
+                    }
                 })
 
                 sanhelper.devmode && console.log(platnotify)

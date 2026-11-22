@@ -13,14 +13,6 @@ const hiddenelems = [
     "ps5"
 ]
 
-const styles = {
-    brackets: ["(",")"],
-    sqbrackets: ["[","]"],
-    dash: "-",
-    pipe: "|",
-    none: ""
-}
-
 let notifyid: number = -1
 
 const notifyhelper = {
@@ -96,7 +88,7 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number, semirarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,icon: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
+    setcustomisations: (customisation: Customisation,percent: PercentInfo,iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,icon: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
             const fontloader = document.getElementById("fontloader")
             fontloader && fontloader.remove()
@@ -174,8 +166,8 @@ const notifyhelper = {
                 }
             }
 
-            // Increases font-size value if being used in a screenshot `webview` to better match on-screen font-size
-            const fontsizescalefactor = iswebview && iswebview !== "customiser" ? 1.0075 : 1
+            // // Increases font-size value if being used in a screenshot `webview` to better match on-screen font-size
+            // const fontsizescalefactor = iswebview && iswebview !== "customiser" ? 1.0075 : 1
 
             const properties = new Map<string,string>([
                 ["--displaytime",`${customisation.displaytime}s`],
@@ -185,7 +177,8 @@ const notifyhelper = {
                 ["--bgimgbrightness",`${customisation.bgimgbrightness}%`],
                 ["--brightness",`${customisation.brightness}%`],
                 ["--roundness",`${(customisation.roundness / 4) * (customisation.scale / 100)}px`],
-                ["--fontsize", `${(customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100) * fontsizescalefactor}`],
+                // ["--fontsize", `${(customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100) * fontsizescalefactor}`],
+                ["--fontsize", `${customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100}`],
                 ["--opacity", `${customisation.opacity / 100}`],
                 ["--iconroundness",customisation.iconroundness === 100 ? "50%" : `${(customisation.iconroundness / 6) * (customisation.scale / 100)}px`],
                 ["--fontoutline",customisation.fontoutline ? `${(customisation.scale / 100) * customisation.fontoutlinescale}px ${customisation.fontoutlinecolor}` : "none"],
@@ -193,7 +186,7 @@ const notifyhelper = {
                 ["--logo",getcustomicon("logo")],
                 ["--decoration",getcustomicon("decoration")],
                 ["--decorationdisplaytype","block"],
-                ["--gs",customisation.usepercent ? `${percent.value.toFixed(1)}` : `${getpercent()}`],
+                ["--gs",customisation.usepercent ? (percent.isplat ? "100" : percent.value.toFixed(1)) : `${getpercent()}`],
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" || customisation.preset === "gfwl" ? "G" : ""))],
                 ["--raritycolor",`${percent.value > percent.semirarity ? "#a05526" : (percent.value <= percent.semirarity && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
@@ -219,9 +212,12 @@ const notifyhelper = {
                 ["--iconanimcolor",`${customisation.iconanimcolor}`],
                 ["--logoscale",`${customisation.logoscale / 100}`],
                 ["--decorationscale",`${customisation.decorationscale / 100}`],
-                ["--unlockmsgfontsize",`${((customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
-                ["--titlefontsize",`${((customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
-                ["--descfontsize",`${((customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                // ["--unlockmsgfontsize",`${((customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                // ["--titlefontsize",`${((customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                // ["--descfontsize",`${((customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                ["--unlockmsgfontsize",`${(customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100}`],
+                ["--titlefontsize",`${(customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100}`],
+                ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`],
                 ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
                 ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],
@@ -269,11 +265,6 @@ const notifyhelper = {
     
             return reject(errobj)
         })
-    },
-    setstyle: (str: string,value: string | string[],pos: "left" | "right") => {
-        if (!str) return ""
-        if (Array.isArray(value)) return `${value[0]}${str}${value[1]}`
-        return pos === "left" ? `${str}${value ? ` ${value} ` : ""}` : `${value ? ` ${value} ` : ""}${str}`
     },
     isoverflowing: (elem: HTMLElement): boolean => {
         const clone = elem.cloneNode(true) as HTMLElement
@@ -374,7 +365,7 @@ try {
     document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send(`animend_${notifyid}`,notifyid))
     
     ipcRenderer.on("notify",async (event,obj: Info,id: number) => {
-        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle, ra } = obj
+        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notifylinemode, notifyoverflow, ra } = obj
         notifyid = id // Store globally to access in "notifyfinished" IPC event
     
         try {
@@ -439,11 +430,10 @@ try {
     
                 const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
 
-                const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
-                const percentstr = customisation[`${ss}percentbadge`] ? "" : `${((type === "main" || type === "semi") && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? `${percentvalue}%` : ""}`
+                const percentvalue = percent.isplat ? 0 : Math.max(parseFloat(percent.value.toFixed(1)),0.1)
                 const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue <= percent.semirarity && percentvalue > percent.rarity) ? "silver" : "bronze")
     
-                customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
+                customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : (percent.isplat ? "100%" : `${percentvalue}%`)}</span>`))
     
                 const str = {
                     unlockmsg,
@@ -461,11 +451,10 @@ try {
     
                     const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
     
-                    const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
+                    const addelem = (type: "hiddenicon" | "decoration",pos: number) => {
                         if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] + (ssnodetails ? 1 : 0) !== pos) return ""
                         
                         switch (type) {
-                            case "percent": return notifyhelper.setstyle(percentstr,styles[showpercentstyle],showpercentpos)
                             case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
                             case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
                             default: return ""
@@ -482,10 +471,8 @@ try {
                         const desc = key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""
                         const decoration = addelem("decoration",value[0])
                         const hiddenicon = addelem("hiddenicon",value[0])
-                        const percent = addelem("percent",value[0])
-                        const text = (showpercentpos === "left" ? [percent,desc] : [desc,percent]).filter(text => !!text).join(" ")
 
-                        elem.innerHTML = `${decoration}${hiddenicon}${text}`
+                        elem.innerHTML = `${decoration}${hiddenicon}${desc}`
                         
                         // Once `innerHTML` has been added, see if it has any `textContent`. If not, remove the element's `innerHTML`
                         // Not ideal, but "hiddenicon"/"decoration" elements aren't added until the text is, so checking for `textContent` beforehand added won't work

@@ -286,7 +286,11 @@ const ranotify = async (gameid: number,achid: number,mode: "hard" | "soft") => {
         gamename: achievement.gamename,
         libhero: achievement.gameartlibhero,
         steam3id: 0,
-        percent
+        percent,
+        achnum: {
+            unlocked: racached.filter(achievement => achievement.unlocked).length,
+            total: racached.length
+        }
     }
  
     const platobj: RAPlat = {
@@ -315,7 +319,11 @@ const raplatnotify = (platobj: RAPlat) => {
         gamename: achievement.gamename,
         libhero: achievement.gameartlibhero,
         gameicon: achievement.gameicon,
-        steam3id: 0
+        steam3id: 0,
+        achnum: {
+            unlocked: numachievements,
+            total: numachievements
+        }
     },sanconfig.get().get("monitor"))
  
     sanhelper.devmode && console.log(platnotify)

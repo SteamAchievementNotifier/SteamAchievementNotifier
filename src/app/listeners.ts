@@ -28,7 +28,7 @@ const extwinsstate: ExtWinsState = {
 }
 
 const gamedisplaystate: GameDisplay = {
-    steam: { gamename: null, achnum: undefined, releasing: false },
+    steam: { gamename: null, achnum: undefined },
     ra: { gamename: null, achnum: undefined }
 }
 
@@ -178,7 +178,7 @@ export const listeners = {
             const { raui } = sanconfig.get().store
             const { steam, ra } = gamedisplaystate
             
-            const active = (raui && ra.gamename) ? ra : (steam.gamename ? steam : ra)
+            const active = (raui && ra.gamename) ? ra : (!!steam.gamename || steam.achnum === 0 ? steam : ra)
             updatetray(tray!,active.gamename,active.achnum)
             
             win.webContents.send("gamedisplay",{ gamename: active.gamename, achnum: active.achnum } as GameDisplayInfo)
@@ -226,10 +226,6 @@ export const listeners = {
             worker.loadFile(path.join(__root,"dist","app",`${prefix}worker.html`.toLowerCase()))
             ;(sanhelper.devmode || config.get(`${prefix}workerdebug`)) && sanhelper.setdevtools(worker)
             worker.once("closed",() => log.write("EXIT",`"${prefix}Worker" process #${id} closed`))
-            worker.webContents.once("render-process-gone",(event,{ reason, exitCode }) => {
-                log.write("ERROR",`"${prefix}Worker" process closed unexpectedly: "${reason}" (${exitCode})`)
-                ipcMain.emit("workercrash",null,!!ra)
-            })
 
             return worker
         }
@@ -286,8 +282,6 @@ export const listeners = {
         })
         
         ipcMain.on("rastop",(event,restart?: boolean) => {
-            win.webContents.send("workercrash",false) // Clear "workercrash" Renderer UI attribute
-
             if (!raworker) {
                 log.write("WARN",`"rastop" failed: "RAWorker" not active`)
                 restart && ipcMain.emit("rastart")
@@ -346,8 +340,7 @@ export const listeners = {
             gamedisplaystate[ra ? "ra" : "steam"] = {
                 ...gamedisplaystate[ra ? "ra" : "steam"],
                 gamename: gamename ?? null,
-                achnum,
-                ...(ra ? {} : { releasing: false })
+                achnum
             }
 
             !skipui && refreshgamedisplay()
@@ -357,6 +350,16 @@ export const listeners = {
 
         ipcMain.on("appid",(event,workerinfo: WorkerInfo) => appid = updategameinfo(workerinfo))
         ipcMain.on("gameid",(event,workerinfo: WorkerInfo) => gameid = updategameinfo(workerinfo,!sanconfig.get().store.raui))
+
+        ipcMain.on("nostats",(event,workerinfo: WorkerInfo) => {
+            gamedisplaystate.steam = {
+                ...gamedisplaystate.steam,
+                gamename: workerinfo.gamename || `AppID ${workerinfo.appid}`,
+                achnum: 0
+            }
+
+            refreshgamedisplay()
+        })
         
         // Update Game Display/system tray UI on `raui` option toggle
         ipcMain.on("raui",(event,value: boolean) => {
@@ -947,8 +950,6 @@ export const listeners = {
             const config = sanconfig.get()
             config.get("shortcuts") && (["main",...(config.get("trophymode") ? ["semi"] : []),"rare","plat"] as NotifyType[]).forEach(type => globalShortcut.register(config.get(`customisation.${type}.shortcut`) as string,() => win.webContents.send("shortcut",type)))
 
-            globalShortcut.register(config.get("releaseshortcut") as string,() => ipcMain.emit("releasegame"))
-
             for (const type of (["stat","gametimer"] as const)) {
                 globalShortcut.register(config.get(`${type}winshortcut`) as string,() => {
                     const value = config.get(`${type}win`)
@@ -1144,7 +1145,7 @@ export const listeners = {
                 }
                 
                 if (iswebview === "customiser") {
-                    const { ssalldetails, screenshots, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
+                    const { ssalldetails, screenshots, notifylinemode, notifyoverflow } = config.store
                     const { icon, libhero, logo } = gameartobj
 
                     return win.webContents.send("customisernotify",{
@@ -1161,9 +1162,7 @@ export const listeners = {
                         gameartlibhero: libhero,
                         gameartlogo: logo,
                         notifylinemode,
-                        notifyoverflow,
-                        showpercentpos,
-                        showpercentstyle
+                        notifyoverflow
                     } as Info)
                 }
 
@@ -1260,15 +1259,15 @@ export const listeners = {
                 steam3id,
                 apiname,
                 name: notify.name,
-                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || customisation.customtextunlockmsg)) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
-                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || customisation.customtexttitle)) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
-                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || customisation.customtextdesc)) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
+                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtextunlockmsg,notify))) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
+                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtexttitle,notify))) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
+                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtextdesc,notify))) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
                 icon,
                 percent: {
-                    value: percent,
+                    value: sanhelper.plattype(type) ? 0 : percent,
                     rarity: config.get("rarity"),
                     semirarity: config.get("semirarity"),
-                    showpercent: config.get("showpercent")
+                    isplat: sanhelper.plattype(type)
                 },
                 hidden
             } as BuildNotifyInfo
@@ -1421,7 +1420,7 @@ export const listeners = {
                 }
 
                 const notifyinfo = async (isextwin?: boolean) => {
-                    const { audiosrc, ssalldetails, screenshots, notifylinemode, notifyoverflow, showpercentpos, showpercentstyle } = config.store
+                    const { audiosrc, ssalldetails, screenshots, notifylinemode, notifyoverflow } = config.store
                     const { appid, steam3id } = info
                     const steampath = sanhelper.steampath
                     const hqicon = notify.ra ? notify.gameicon : sanhelper.gethqicon(appid)
@@ -1443,8 +1442,6 @@ export const listeners = {
                         gameartlogo: logo,
                         notifylinemode,
                         notifyoverflow,
-                        showpercentpos,
-                        showpercentstyle,
                         ra: notify.ra
                     } as Info
                 }

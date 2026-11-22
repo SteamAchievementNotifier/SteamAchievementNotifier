@@ -7,45 +7,27 @@ import { log } from "./log"
 import { sanhelper } from "./sanhelper"
 import { lt, valid } from "semver"
 
-const ignore = new Set([
-    "TODO",
-    ".git",
-    ".github",
-    ".vscode",
-    "_backup",
-    "_release",
-    "deps",
-    "node_modules",
-    "src",
-    ".gitattributes",
-    ".gitignore",
-    "beta.json",
-    "DEV.md",
-    "KNOWNISSUES.md",
-    "NOTIFY.md.old",
-    "gh_token.txt",
-    "package-lock.json",
-    "RA.md",
-    "README.md",
-    "san.d.ts",
-    "tsconfig.json",
-    "_template",
-    "_template.html",
-    "afterpack.js",
-    "patches"
-])
-
-const ignoredirs: Record<string,string[]> = {
+const allow: Record<string,string[]> = {
     customfiles: [
-        "temp"
-    ],
-    img: [
-        "dist",
+        "dist/app/global.css",
+        "dist/app/trackwin.html",
+        "dist/app/trackwin.js",
+        "dist/notify/base.js",
         "fonts",
-        "icon",
-        "notify",
+        "icon/lock.svg",
+        "img/achicon.png",
+        "img/base64.png",
+        "img/gameicon.png",
+        "img/s.svg",
+        "img/sanimgbg.png",
+        "img/santextlogobg.png",
+        "img/sanlogosquare.svg",
+        "img/sanlogotrophy.svg",
+        "notify/base.css",
+        "notify/baseanim.css",
+        "notify/base.html",
+        "notify/presets",
         "sound",
-        "temp",
         "package.json"
     ]
 }
@@ -176,13 +158,8 @@ export const utils = {
     },
     app: {
         checksingleinstance: (lock: boolean) => {
-            if (!lock) {
-                log.write("WARN",`Steam Achievement Notifier (V${sanhelper.version}) is already running!`)
-                // return app.exit()
-                return true
-            }
-
-            return false
+            !lock && log.write("WARN",`Steam Achievement Notifier (V${sanhelper.version}) is already running!`)
+            return !lock
         },
         getcustomfilesversion: (packagepath: string) => {
             try {
@@ -191,15 +168,24 @@ export const utils = {
                 return "0.0.0"
             }
         },
-        copyrecursive: (src: string,dest: string,ignore: Set<string>) => {
+        copyrecursive: (src: string,dest: string,allow?: string[],root: string = src) => {
             if (!fs.existsSync(src)) throw new Error(`"${src}" does not exist`)
-            if (ignore.has(path.basename(src))) return
+
+            const relpath = path.relative(root,src).split(path.sep).join("/")
+
+            if (allow && relpath) {
+                const src = allow.some(entry => relpath === entry || relpath.startsWith(`${entry}/`)) // The file itself, or within the dir
+                const nestedsrc = allow.some(entry => entry.startsWith(`${relpath}/`)) // A nested file/dir (e.g. "notify" for "notify/presets")
+
+                if (!src && !nestedsrc) return
+                src && (allow = undefined) // Copy everything within an allowed path
+            }
 
             if (fs.statSync(src).isDirectory()) {
                 !fs.existsSync(dest) && fs.mkdirSync(dest,{ recursive: true })
 
                 for (const file of fs.readdirSync(src)) {
-                    utils.app.copyrecursive(path.join(src,file),path.join(dest,file),ignore)
+                    utils.app.copyrecursive(path.join(src,file),path.join(dest,file),allow,root)
                 }
             } else {
                 fs.copyFileSync(src,dest)
@@ -242,10 +228,7 @@ export const utils = {
             if (!src || !destdir) return log.write("INFO",`No ${!src ? "src" : "destdir"} value specified - copy operation aborted`)
 
             const dest = path.join(dirpath,destdir)
-            const ignorelist = new Set([
-                ...ignore,
-                ...(ignoredirs[destdir] ?? [])
-            ])
+            const allowlist = allow[destdir]
 
             utils.app.checkdir(dest,() => {
                 if (path.extname(src) === ".asar") {
@@ -253,12 +236,12 @@ export const utils = {
 
                     try {
                         asar.extractAll(src,tempasar)
-                        utils.app.copyrecursive(tempasar,dest,ignorelist)
+                        utils.app.copyrecursive(tempasar,dest,allowlist)
                     } finally {
                         fs.rmSync(tempasar,{ recursive: true, force: true })
                     }
                 } else {
-                    utils.app.copyrecursive(src,dest,ignorelist)
+                    utils.app.copyrecursive(src,dest,allowlist)
                 }
             },`"${src}" copied to "${dest}" successfully`)
 
@@ -266,39 +249,44 @@ export const utils = {
         }
     },
     config: {
-        removelegacykeys: (config: Store<Config>,keys: string[]) => {
-            for (const key of keys) {
-                if (!config.has(key)) continue
+        removelegacykey: (config: Store<Config>,key: string) => {
+            if (!config.has(key)) return
 
-                try {
-                    config.delete(key)
-                    log.write("INFO",`Legacy "${key}" key removed from config successfully`)
-                } catch (err) {
-                    log.write("WARN",`Unable to remove legacy "${key}" key: ${err}`)
-                }
+            try {
+                config.delete(key)
+                log.write("INFO",`Legacy "${key}" key removed from config successfully`)
+            } catch (err) {
+                log.write("WARN",`Unable to remove legacy "${key}" key: ${err}`)
             }
         },
         cleanup: (config: Store<Config>) => {
             // Legacy keys required to be removed if existing in config
-            utils.config.removelegacykeys(config,[
+            for (const key of [
                 "webhooktypes",
-                "uselegacynotifytimer"
-            ])
+                "uselegacynotifytimer",
+                "showpercent",
+                "showpercentpos",
+                "showpercentstyle"
+            ] as const) {
+                utils.config.removelegacykey(config,key)
+            }
 
             // Overwrites old default `customisation` key values with new default values
             for (const [key,values] of new Map<string,[any,any]>([
-                ["outline",["off","solid"]]
+                ["outline",["off","solid"]],
+                ["customicons.xboxone.decoration",[null,sanhelper.setfilepath("img","s.svg")]]
             ])) {
                 utils.customisation.updatekeys(config,key,keypath => utils.customisation.updatedefaultvalue(config,keypath,values))
             }
 
-            // Reset legacy keys for each type, optionally limited to a single `NotifyType`
+            // Reset legacy `customisation` keys for each type, optionally limited to a single `NotifyType`
             for (const [key,type] of new Map<string,NotifyType | undefined>([
                 ["alldetails",undefined],
                 ["showdecoration",undefined],
-                ["previewhiddenicon","plat"]
+                ["previewhiddenicon","plat"],
+                ["bgonly",undefined]
             ])) {
-                utils.customisation.updatekeys(config,key,keypath => config.set(keypath,false),type)
+                utils.customisation.updatekeys(config,key,keypath => config.has(keypath) && config.set(keypath,false),type)
             }
         }
     },
@@ -313,6 +301,7 @@ export const utils = {
 
                 for (const i in usertheme) {
                     callback(`customisation.${type}.usertheme.${i}.customisation.${key}`)
+                    type === "plat" && usertheme[i].set && callback(`customisation.plat.usertheme.${i}.set.${key}`)
                 }
             }
         },

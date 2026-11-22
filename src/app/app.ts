@@ -1,4 +1,4 @@
-import { app } from "electron"
+import { app, dialog, clipboard, shell } from "electron"
 import path from "path"
 
 if (process.platform === "win32" && process.env.npm_lifecycle_event !== "dev") {
@@ -61,4 +61,4 @@ app
     utils.app.createdir(sanhelper.appdata,__root,"customfiles")
     main(starttime)
 })
-.catch(async err => await error.createwin(err))
+.catch(async err => await error.showdialog(err as Error))

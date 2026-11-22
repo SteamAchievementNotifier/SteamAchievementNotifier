@@ -569,6 +569,19 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
             document.body.toggleAttribute("set",(event.target as HTMLSelectElement).value === "set")
             sanhelper.updatetabs()
         }
+
+        ;(customiser.querySelector("button#customtextvars") as HTMLButtonElement).onclick = async () => {
+            const vars = (await language.get("customtextvarsdesc") ?? {}) as Record<string,string>
+            sanhelper.plattype(type) && (vars["title"] = (await language.get(`customtextvars${type}`) as string).replace(/\$gamecomplete/,await language.get("gamecomplete")))
+
+            dialog.open({
+                title: await language.get("customtextvars"),
+                icon: sanhelper.setfilepath("icon","vars.svg"),
+                type: "default",
+                sub: `<div id="customtextvarssub">${await language.get("customtextvarssub")}</div>`,
+                addHTML: Object.entries(vars).map(([key,value]) => `<span class="wrapper"><code class="ttcode">{${key}}</code></span>=<span>${value}`).join("</span>")
+            })
+        }
     }
 
     document.body.toggleAttribute("nativeos",config.get(`${keypath}.preset`) === "os")
@@ -987,28 +1000,6 @@ window.addEventListener("lang",async () => {
 
 const checkdialogstatus = (input: HTMLInputElement) => config.set(input.id,input.checked)
 
-ipcRenderer.on("releasegame",async (event,noreleasedialog: boolean) => {
-    if (noreleasedialog) return ipcRenderer.send("validateworker",true)
-
-    dialog.open({
-        title: await language.get("releasegame"),
-        type: "default",
-        sub: await language.get("releasegamesub"),
-        icon: sanhelper.setfilepath("icon","donotdisturb.svg"),
-        addHTML: `<div class="wrapper donotshowagain"><input type="checkbox" id="noreleasedialog"><span>${await language.get("donotshowagain")}</span></div>`,
-        buttons: [{
-            id: "ok",
-            label: await language.get("ok"),
-            icon: sanhelper.setfilepath("icon","tick.svg"),
-            click: () => {
-                checkdialogstatus(document.getElementById("noreleasedialog") as HTMLInputElement)
-                ipcRenderer.send("validateworker",true)
-                dialog.close()
-            }
-        }]
-    })
-})
-
 ipcRenderer.on("notifyprogress",(event,displaytime: number,finish?: boolean) => {
     const progresscircle = document.querySelector(".rect#test > #progresscircle")! as HTMLElement
     progresscircle.style.setProperty("--displaytime",`${displaytime * 1000}ms`)
@@ -1066,12 +1057,7 @@ ipcRenderer.on("updatemenu",(event,id) => {
         input && (input.checked = config.get(id) as boolean)
     }
 
-    config.get("debug") && ipcRenderer.send("debuginfoupdated",{
-        pollrate: config.get("pollrate"),
-        releasedelay: config.get("releasedelay"),
-        maxretries: config.get("maxretries"),
-        userust: config.get("userust")
-    })
+    config.get("debug") && ipcRenderer.send("debuginfoupdated",{ pollrate: config.get("pollrate") })
 })
 
 ipcRenderer.on("workeractive",(event,value: boolean) => document.body.toggleAttribute("active",value))
@@ -1149,14 +1135,6 @@ ipcRenderer.on("suspendresume",async (event,suspended: boolean) => {
     }
 })
 
-ipcRenderer.on("errnotifyclick",async (event,appid: number,{ channel, skipnotify }: ErrNotify,ra?: boolean) => {
-    ipcRenderer.send("errnotifyclose")
-    
-    if (!appid || channel === "workercrash") return ipcRenderer.send(ra ? "rastop" : "validateworker",ra)
-    
-    ipcRenderer.send("troubleshooter")
-})
-
 ipcRenderer.on("ragame",async (event,status: "wait" | "idle" | "start" | "stop" | "achievement",ragame?: RAGame) => {
     window.gameid = ragame?.gameid || 0
 
@@ -1207,14 +1185,3 @@ ipcRenderer.on("creategametimerentry",async (event,appid: number) => {
         log.write("ERROR",(err as Error).message)
     }
 })
-
-const events = [
-    "releasing",
-    "workercrash"
-] as const
-
-const gamedisplayelem = document.getElementById("game") as HTMLElement
-
-for (const event of events) {
-    ipcRenderer.on(event,(_,value: boolean,ra?: boolean) => gamedisplayelem.toggleAttribute(`${ra ? "ra" : ""}${event}`,value))
-}

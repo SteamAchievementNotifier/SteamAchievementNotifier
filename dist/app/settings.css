@@ -59,8 +59,11 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 
 #settingsheader > span {
     justify-self: center;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-transform: uppercase;
+    font-family: "Montserrat", "Roboto";
+    -webkit-text-stroke: var(--primary) 0.075rem;
+    paint-order: stroke fill;
 }
 
 #settingsheader > .menubtn#settingsclose {
@@ -69,10 +72,8 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 }
 
 #settingscontent {
-    /* --primary: #203e7a; */
     --primary: #2f5bb5;
-    --primarydark: color-mix(in srgb,var(--primary),black 35%);
-    --primarygradient: radial-gradient(circle,var(--primary),var(--primarydark));
+    --primarygradient: radial-gradient(circle,var(--primary),color-mix(in srgb,var(--primary),black 35%));
     display: block;
     padding-right: 1rem;
     overflow: hidden scroll;
@@ -193,9 +194,9 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow,#extwinnotify),
 .cont:has(input[type="checkbox"]#nohwa:checked) ~ .cont:has(.title#streaming) .opt:has(#extwinnotify),
 .opt:has(#statwin:not(:checked)) ~ .wrapper:has(#statwinaot,#statwintype,#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
-.opt:has(#statwin:not(:checked)) > button,
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
 .opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
+.opt:has(input[type="checkbox"][id$="win"]:not(:checked)) > button.iconbtn,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
 .opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace),
 .optcont:has(input#usesanwatcher:checked) > .opt:has(#maxretries),
@@ -507,11 +508,11 @@ body[themeswitch] #themeswitch::after {
 
 #showcustomfiles {
     --icon: url("../../icon/customfiles.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #showcustomfiles:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 #checkforupdates {
@@ -556,11 +557,11 @@ body[themeswitch] #themeswitch::after {
 
 #appdatadir {
     --icon: url("../../icon/folder.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #appdatadir:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 #backup {
@@ -943,9 +944,14 @@ body[ragameid] .wrapper#rastatuswrapper > div#ragame > span:nth-child(2):after {
     content: " [" var(--ragameid) "]";
 }
 
-span#raloghelp {
+button#raloghelp {
+    --icon: url("../../icon/ranogame.svg");
     font-size: 0.65rem;
-    text-align: center;
+    background-color: #b90505b5;
+}
+
+button#raloghelp:hover {
+    background-color: #b90505;
 }
 
 .opt:has(input[type="checkbox"]#rauseemudir) {
@@ -1047,17 +1053,17 @@ button.iconbtn:hover {
     opacity: 1;
 }
 
-.opt:has(input#statwin) > button[aot] {
+.opt:has(input[type="checkbox"][id$="win"]) > button[aot] {
     --icon: url("../../icon/lock.svg");
 }
 
 #cleariconcache {
     --icon: url("../../icon/clearicons.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #cleariconcache:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 @media (orientation: portrait) {

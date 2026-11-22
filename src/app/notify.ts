@@ -53,16 +53,17 @@ export const sannotify = {
         const usegameicon = !ra && config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)
  
         const notify: Notify = {
-            desc: "",
-            unlocked: true,
-            hidden: false,
-            percent: 0,
-            unlocktime: new Date().toISOString(),
+            // Generated id stays before `...info` so a caller-supplied early-capture id is kept.
+            id: Math.round(Date.now() / Math.random() * 1000),
             ...info,
-            id: info.id ?? Math.round(Date.now() / Math.random() * 1000),
-            customisation,
+            unlocked: info.unlocked ?? true,
+            hidden: info.hidden ?? false,
+            desc: info.desc ?? "",
+            percent: info.percent ?? 0,
+            unlocktime: new Date().toISOString(),
             icon: info.icon ?? (sanhelper.plattype(type) ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
-            gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg)
+            gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg),
+            customisation
         }
  
         ;["notify","sendwebhook"].forEach(cmd => ipcRenderer.send(cmd,notify,undefined,themeswitch?.[1].src ?? monitor))

@@ -37,9 +37,6 @@ declare interface Config {
     rarity: number,
     semirarity: number,
     soundonly: boolean,
-    showpercent: "rareonly" | "all" | "off",
-    showpercentpos: "left" | "right",
-    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     extwin: boolean,
     extwinframerate: number,
     extwinshow: boolean,
@@ -73,7 +70,6 @@ declare interface Config {
     x: number,
     y: number,
     usecustomfiles: boolean,
-    noreleasedialog: boolean,
     norestartdialog: boolean,
     noupdatedialog: boolean,
     debug: boolean,
@@ -107,7 +103,6 @@ declare interface Config {
     steamlang: boolean,
     maxsteamlangretries: number,
     showsystrayopts: boolean,
-    releaseshortcut: string,
     statwin: boolean,
     statwinpos: {
         width: number,
@@ -201,7 +196,6 @@ declare interface Customisation {
     titlefontsize: number,
     descfontsize: number,
     opacity: number,
-    bgonly: boolean,
     glow: boolean,
     glowcolor: string,
     glowsize: number,
@@ -270,8 +264,6 @@ declare interface Customisation {
     sshiddeniconpos: number,
     decorationpos: number,
     ssdecorationpos: number,
-    percentpos: number,
-    sspercentpos: number,
     percentbadge: boolean,
     sspercentbadge: boolean,
     percentbadgepos: "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",
@@ -367,7 +359,11 @@ declare interface Achievement {
     unlocktime?: number,
     relocked?: boolean,
     raw?: any,
-    progress?: AchievementProgress
+    progress?: AchievementProgress,
+    achnum?: {
+        unlocked: number,
+        total: number
+    }
 }
 
 declare interface Notify extends Achievement {
@@ -452,12 +448,17 @@ declare interface Info {
     gameartlogo: string,
     notifylinemode: "single" | "max",
     notifyoverflow: "ellipsis" | "scroll",
-    showpercentpos: "left" | "right",
-    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     ra?: boolean
 }
 
 declare type NotifyInfo = Pick<Notify,"type" | "apiname" | "name" | "gamename" | "steam3id"> & Partial<Omit<Notify,"customisation">>
+
+declare interface PercentInfo {
+    value: number,
+    rarity: number,
+    semirarity: number,
+    isplat: boolean
+}
 
 declare interface BuildNotifyInfo {
     id: number,
@@ -471,12 +472,7 @@ declare interface BuildNotifyInfo {
     title: string,
     desc: string,
     icon: string,
-    percent: {
-        value: number,
-        rarity: number,
-        semirarity: number,
-        showpercent: "rareonly" | "all" | "off"
-    },
+    percent: PercentInfo,
     hidden: boolean
 }
 
@@ -500,12 +496,8 @@ declare interface ProcessInfo {
 
 declare interface AppInfo {
     appid: number,
-    status?: "Active" | "Released",
     gamename?: string | null
     pollrate?: number,
-    // releasedelay?: number,
-    // maxretries?: number,
-    // userust?: boolean,
     debug?: boolean,
     noiconcache?: boolean
 }
@@ -708,13 +700,6 @@ declare interface LastKnownGame {
     installdir: string | null
 }
 
-declare type ErrNotifyType = "noexe" | "addlinkfailed" | "workercrash"
-
-declare interface ErrNotify {
-    channel: ErrNotifyType
-    skipnotify?: boolean
-}
-
 declare interface SystemUsage {
     cpupercent: number,
     mempercent: number,
@@ -735,9 +720,7 @@ declare interface AppUsage {
 
 declare interface GameDisplayInfo {
     gamename: string | null,
-    achnum?: number,
-    releasing?: boolean,
-    issues?: boolean
+    achnum?: number
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>

@@ -46,11 +46,6 @@ export const translations = {
         show: "Afișare",
         exit: "Ieșire",
         donotshowagain: "Nu mai afișa acest dialog",
-        releasegame: "Eliberează Jocul",
-        releasegamesub: [
-            `Reporniți procesul Worker din fundal și eliberați jocul curent de la urmărire`,
-            `Încercați această opțiune dacă ați închis recent un joc, dar Steam încă îl arată ca fiind în execuție, sau dacă Steam Achievement Notifier încă arată ca urmărind un joc care a fost deja închis`
-        ],
         noupdateavailable: "Nicio actualizare disponibilă",
         latestversion: "Ultima versiune instalată",
         missingdeps: "Dependență lipsă",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Jocuri",
             content: {
-                linkedgames: "Jocuri asociate",
-                autoreleasegames: "Jocuri cu eliberare automată",
                 themeswitch: "Comutare automată a temelor",
                 exclusionlist: "Listă de Excludere",
                 inclusionlist: "Listă de Incluziune",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "Activează Suport NVDA",
                 tooltips: "Afișare Sfaturi Instrumente",
                 showsystrayopts: "Afișează opțiunile din zona de notificare",
-                releaseshortcut: "Scurtătură pentru a lansa jocul",
                 noshortcuts: "Dezactivează Scurtăturile de la Tastatură"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Avansat",
             content: {
                 pollrate: "Rată de interogare",
-                initdelay: "Întârziere de urmărire",
-                releasedelay: "Întârziere Lansare",
-                maxretries: "Număr maxim de reîncercări de procesare",
-                debug: "Panou de Depanare",
-                userust: "Mod Alternativ de Procesare",
                 notifydebug: "Afișare Notificări de Depanare",
                 workerdebug: "Afișează DevTools pentru Worker",
                 exportachdata: "Exportă datele realizărilor",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ După confirmare, aplicația se va reporni pentru a restaura fișierul de backup selectat"
                 ],
                 restorefailed: "Nu s-a putut restaura backup-ul.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Timp de așteptare pentru eliberare",
                 logresourceusage: "Înregistrează utilizarea resurselor"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Preconfigurare Notificare",
                 iconanim: "Animare Iconiță Rară",
-                alldetails: "Afișare Toate Detaliile",
                 usepercent: "Utilizare Procentaj",
                 displaytime: "Timp de Afișare",
                 scale: "Scară",
                 customtext: "Text Personalizat",
-                usegametitle: "Utilizare Titlu Joc",
                 customfont: "Font Personalizat",
-                platcustomtext: "Text personalizat 100%",
                 usecustomtext: "Text personalizat",
                 customtextunlockmsg: "Mesaj de deblocare",
                 customtexttitle: "Titlul realizării",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Notificatorul de Realizări Steam a întâmpinat o problemă și trebuie închis.",
+            steam: "Instalarea Steam nu a fost găsită",
             details: "Iată detaliile erorii:",
             sub: "Faceți clic pe butoanele de mai jos pentru a raporta această problemă prin platforma preferată.",
             report: "Raport",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Afișați sfaturi instrumente atunci când plasați cursorul pe anumite elemente UI",
         colorprofile: `Forțează toate feroneriile aplicației să se redea folosind profilul de culoare selectat<br><br><span class="ttdesc">Este necesar un restart al aplicației</span>`,
         pollrate: `Setați intervalul de actualizare pentru datele de realizare în timpul jocului<br><br><span class="ttdesc">Performanța poate crește/scădea în funcție de valoarea sau de resursele hardware ale sistemului. Valorile mai mari duc de obicei la o încărcare mai mică a sistemului, dar pot întârzia notificările</span>`,
-        initdelay: `Setează întârzierea între detectarea actualului <span class="hl">AppID</span> și începutul urmăririi proceselor/realizărilor<br><br><span class="ttdesc">Creșterea acestei valori poate preveni scenarii în care Steam nu poate porni jocul curent (din cauza inițializării aplicației în Steamworks înainte ca jocul să fie lansat)</span><br><br><span class="ttdesc">Alternativ, creșterea acestei valori poate fi folosită și pentru a evita detectarea incorectă a proceselor de pre-lansare ale jocului</span>`,
-        releasedelay: `Setați cât timp procesul Worker din fundal așteaptă înainte de a reporni după ce jocul curent a fost eliberat. Afectează atât urmărirea automată a proceselor, cât și Jocurile cu eliberare automată<br><br><span class="ttdesc">Permite un interval de timp mai lung pentru ca Steamworks să fie complet eliberat din aplicație. Creșterea acestei valori poate preveni comportamente neobișnuite, cum ar fi urmărirea unui joc închis anterior</span>`,
-        maxretries: `Setați numărul maxim de reîncercări pentru a asocia un proces în execuție cu un AppID detectat. Afectează atât urmărirea automată a proceselor, cât și Jocurile cu eliberare automată<br><br><span class="ttdesc">Reîncercările sunt efectuate o dată pe secundă. Dacă un proces în execuție nu este asociat cu AppID-ul curent după acest număr de reîncercări, va fi returnat un proces invalid. În astfel de cazuri, jocul va trebui eliberat manual prin Zona de notificare > Opțiuni > Eliberează jocul</span>`,
-        debug: "Deschideți Panoul de Depanare, care afișează informații detaliate de urmărire a proceselor",
-        userust: "Utilizați o funcție alternativă bazată pe Rust pentru a verifica dacă procesele de joc urmărite rulează în prezent pe sistem. Atunci când nu este bifat, se va folosi în schimb verificarea procesului implicită bazată pe NodeJS.",
         notifydebug: "Creați o fereastră DevTools pentru toate notificările. Util pentru depanarea problemelor de notificare",
         workerdebug: "Creează o fereastră DevTools pentru procesul Worker. Util pentru depanarea/remedierea problemelor de monitorizare a jocurilor",
         usecustomfiles: "Permite notificărilor să încarce fișiere personalizabile de către utilizator. Se recomandă prudență pentru utilizatorii obișnuiți",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Reîncepeți animația previzualizării notificării",
         preset: "Selectați presetarea de notificare pentru a o personaliza",
         iconanim: "Comutați bordura și animația iconului Rare",
-        alldetails: "Afișați toate elementele de text din notificare, inclusiv cele ascunse în mod implicit pentru această presetare",
         usepercent: "Afișare procentul de deblocare al realizării, în locul valorii XP/S",
         displaytime: "Setați numărul de secunde în care va fi afișată notificarea",
         scale: "Măriți sau micșorați dimensiunea notificării",
         customtext: `Setați un mesaj personalizat care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Mesaj de deblocare este dezactivat</span>`,
-        usegametitle: "Afișați titlul jocului curent în notificare",
         customfont: "Încărcați o fontă personalizată care va fi utilizată în notificare",
         soundmode: "Selectați fie un singur fișier audio, fie un fișier audio selectat aleatoriu dintr-un folder care conține mai multe fișiere audio, atunci când apare o notificare",
         soundfile: "Selectați un fișier audio care va fi redat atunci când apare o notificare",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Comutare automată la orice <span class="hl">Temă</span> salvată atunci când un joc specific este detectat`,
         userthemesync: `Sincronizează personalizările din <span class="hl">Tema</span> selectată pentru toate celelalte tipuri de notificări`,
         showsystrayopts: `Afișează toate opțiunile de obicei localizate sub <span class="hl">Zona de Notificare</span> > <span class="hl">Opțiuni</span> în <span class="hl">Setări</span> > <span class="hl">Diverse</span>`,
-        releaseshortcut: "Lansează jocul activ urmărit folosind scurtătura de tastatură specificată",
         themeselect: "Selectează un Tema salvat anterior",
         statwin: `Afișează statistici configurabile ale realizărilor pentru jocul curent într-o fereastră externă<br><br><span class="ttdesc">Atunci când este folosit împreună cu opțiunea <span class="hl">Tradu realizările în limba Steam</span>, anumite traduceri pot să nu fie disponibile până când realizarea specifică nu este deblocată</span>`,
         statwinaot: `Setează fereastra de Statistici ale Realizărilor în modul "Întotdeauna în față", permițându-i să fie afișată deasupra ferestrei jocului<br><br><span class="ttdesc">Când este activată, fereastra de Statistici ale Realizărilor nu va mai înregistra interacțiuni cu utilizatorul, cum ar fi evenimentele de "click". Pentru a reactiva interacțiunea cu fereastra, această opțiune trebuie dezactivată</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Setează timpul de așteptare înainte ca notificările următoare să poată reda un nou sunet<br><br><span class="ttdesc">Audio nu va fi afectat dacă Notificări Maxime este setat la 1</span>`,
         rauseemudir: "Salvează capturile de ecran/imaginile de notificare deblocate prin RetroAchievements într-un subfolder pentru emulatorul curent, în directorul specificat pentru calea capturilor de ecran/imaginilor",
         ssext: "Setează formatul fișierului pentru capturile de ecran generate prin opțiunea Captură de ecran cu suprapunere de notificare",
-        notify1line: `Limitează numărul de linii de text afișate în toate notificările la 1<br><br><span class="ttdesc">Textele care nu încap pe o singură linie vor fi trunchiate cu "..."</span>`,
         copytheme: "Copiază tema selectată într-un alt tip de notificare",
         ssaddtosteam: "Adaugă automat media generată la Înregistrările și Capturile de ecran ale jocului curent în Steam",
         appdatadir: "Deschideți locația folderului AppData al aplicației",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Resetează Cronometrul de Finalizare a Jocului pentru jocul curent",
         noshortcuts: `Dezactivează toate scurtăturile de la tastatură din aplicație<br><br><span class="ttdesc">Când este activat, <u>toate scurtăturile din aplicație nu vor mai funcționa</u>. Toate opțiunile legate de scurtăturile de la tastatură vor fi, de asemenea, ascunse</span>`,
         extwinnotify: "Comută vizibilitatea tuturor notificărilor pe ecran în timpul utilizării Stream Notifications",
-        usesanwatcher: `Activează noul monitor de procese pentru jocuri al SAN<br><br><span class="ttdesc">Diferențele dintre noul SANWatcher și vechile metode de urmărire automată a proceselor sunt următoarele:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Monitorizează activ evenimentele de pornire/închidere pentru orice proces stocat în directorul de instalare al jocului</li><li>Nu necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Comportamentul lansatoarelor pre-joc poate varia, astfel că nu este garantată compatibilitatea completă cu toate jocurile Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scanează directorul de instalare al jocului pentru orice fișiere executabile aflate în execuție după lansarea jocului</li><li>Necesită cunoașterea fișierului executabil al jocului pentru a elibera jocul curent</li><li>Dacă procesul jocului nu poate fi determinat automat, utilizatorul trebuie să adauge manual o nouă intrare în <span class="hl">Jocuri cu eliberare automată</span> pentru ca jocurile să fie eliberate automat</li></ul></div>`,
-        releasewaittime: `Setați cât timp SANWatcher va aștepta ca noile procese de joc să fie inițializate înainte de a elibera jocul curent<br><br><span class="ttdesc">De exemplu, dacă jocul curent inițializează un lansator/fereastră de configurare înainte de a porni jocul propriu-zis, această setare determină numărul de secunde pe care SANWatcher îl va aștepta pentru ca fereastra jocului propriu-zis să apară după ce lansatorul/fereastra de configurare s-a închis<br><br>Dacă un nou proces de joc activ este detectat în acest interval de așteptare, eliberarea va fi anulată, iar noul proces activ va fi urmărit în schimb<br><br>💡 Numele jocului va <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clipi</span> în caseta <span class="hl">Afișaj Joc</span> în timp ce jocul curent așteaptă să fie eliberat</span>`,
-        platcustomtext: `Setați un mesaj personalizat pentru finalizarea 100% a jocului care va fi afișat în notificare<br><br><span class="ttdesc">Această opțiune va fi ascunsă atunci când Customiser > Presetare > Elementele notificării > Descrierea realizării este dezactivată</span>`,
         raui: "Afișează numele jocurilor RetroAchievements detectate în interfața de afișare a jocului/zona de notificare a sistemului",
-        testnotifycustomtext: "Suprascrie textul afișat în toate notificările de test",
-        testnotifycustomtexttitle: "Suprascrie textul afișat pentru elementul de titlu în toate notificările de test",
-        testnotifycustomtextdesc: "Suprascrie textul afișat pentru elementul de descriere în toate notificările de test",
         radefault: `Comută întotdeauna automat la această intrare atunci când este deblocată orice realizare RetroAchievements<br><br><span class="ttdesc">Doar o singură intrare pentru Comutarea Automată a Temelor poate fi desemnată ca implicită pentru toate realizările RetroAchievements. Această setare implicită poate fi, de asemenea, suprascrisă pentru fiecare joc prin adăugarea unei noi intrări pentru Comutarea Automată a Temelor pentru un anumit <span class="hl">GameID</span> RetroAchievements</span>`,
         statwintype: "Setează tipul de aspect al Ferestrei cu statistici despre realizări",
         statwinunlockonly: "Păstrează Fereastra cu statistici despre realizări ascunsă până când o realizare este deblocată",
@@ -943,64 +911,6 @@ export const translations = {
             `Note complete de lansare disponibile pe <span id="discordreleasenotes"></span> și <span id="githubreleasenotes"></span>`
         ],
         update: "Actualizare"
-    },
-    linkgame: {
-        content: {
-            exepath: "Calea executabilului",
-            linkedgame: "Asociază joc",
-            autoreleasegame: "Eliberare automată joc",
-            linkedgamessub: [
-                `Suprascrie toate procesele jocurilor aflate în execuție monitorizate automat de <span class="hl">SANWatcher</span> și verifică în schimb doar dacă <span class="hl">executabilul jocului</span> selectat este activ`,
-                `Asociază <span class="hl">AppID</span>-ul oricărui joc cu un <span class="hl">executabil al jocului</span> țintă sau <span class="hl">elimină</span> o asociere existentă`
-            ],
-            autoreleasegamessub: [
-                `Dacă Steam continuă să afișeze un joc ca fiind <i>În desfășurare</i> după închiderea ferestrei jocului, încearcă să adaugi o nouă intrare în <span class="hl">$linkgame</span>`,
-                `Adaugă <span class="hl">AppID</span>-ul unui anumit joc împreună cu <span class="hl">executabilul jocului</span> corespunzător sau <span class="hl">elimină</span> o intrare existentă`,
-            ],
-            managesub: [
-                `După ce un joc a fost detectat, poți adăuga noi intrări și prin <span class="hl">fereastra aflată în prim-plan</span>, făcând <i>clic dreapta</i> pe <span class="hl">pictograma din zona de notificare</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Cum găsesc AppID-ul unui joc Steam?</u></span>`
-            ],
-            linknew: "Intrare nouă",
-            linknewsub: [
-                `Asociază <span class="hl">AppID</span>-ul unui joc nou cu un <span class="hl">executabil al jocului</span> țintă`,
-                `După adăugare, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">$linkgame</span>`
-            ],
-            linkedit: "Editează intrarea",
-            linkeditsub: [
-                `Editează o asociere existentă între <span class="hl">AppID</span>-ul unui joc și <span class="hl">executabilul jocului</span> țintă`,
-                `După adăugare, intrările pot fi <span class="hl">eliminate</span> din meniul anterior <span class="hl">$linkgame</span>`
-            ],
-            link: "Adaugă",
-            findappid: "Găsește Steam AppID",
-            findappidsub: [
-                `Fiecare joc Steam are un număr unic asociat, numit <span class="hl">AppID</span>. Poți găsi AppID-ul oricărui joc Steam folosind una dintre următoarele metode:`,
-                `În <span class="hl">clientul Steam</span>, fă <i>clic dreapta</i> pe un joc din <span class="hl">Bibliotecă</span> și selectează <i>Proprietăți</i> > <i>Actualizări</i> — AppID-ul va fi afișat aici`,
-                `<span class="hl">URL-ul</span> <span class="hl">paginii din Magazin</span> a jocului — numărul de după <span class="hl">app/</span> reprezintă AppID-ul: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Site-uri precum <span class="hl">SteamDB</span> — secțiunea <span class="hl">App Info</span> afișează AppID-ul fiecărui joc`
-            ],
-            noexe: "Executabilul jocului nu a fost găsit!",
-            noexesub: "Faceți clic aici pentru mai multe informații",
-            noexedialogsub: [
-                `Steam Achievement Notifier nu a putut localiza automat fișierul executabil al acestui joc. Locația executabilului jocului este necesară pentru a putea „elibera” jocul după închidere`,
-                `Pentru a elibera manual jocul după închidere, fă <i>clic dreapta</i> pe <span class="hl">pictograma din zona de notificare</span> > <span class="hl">Opțiuni</span> > <span class="hl">Eliberează jocul</span> sau folosește <span class="hl">scurtătura Eliberează jocul</span>`,
-                `Alternativ, fă clic pe butonul <span class="hl">Adaugă</span> de mai jos pentru a adăuga fișierul executabil asociat ferestrei aflate în prim-plan în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>`,
-            ],
-            linkedgamefocussub: `Pentru a suprascrie toate procesele jocurilor aflate în execuție monitorizate automat de <span class="hl">SANWatcher</span>, adaugă o nouă intrare în <span class="hl">Jocuri asociate</span>`,
-            autoreleasegamefocussub: `Dacă Steam continuă să afișeze un joc ca fiind <i>În desfășurare</i> după închiderea ferestrei jocului, încearcă să adaugi o nouă intrare în <span class="hl">Jocuri cu eliberare automată</span>`,
-            focussub: `Pentru a face acest lucru pentru jocul curent, fă clic pe butonul <span class="hl">Adaugă</span> de mai jos pentru a adăuga fișierul executabil asociat ferestrei aflate în prim-plan în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Ce se întâmplă când fac clic pe butonul Adaugă?</u></span>`,
-            linkgamehelp: "Asociere prin fereastra activă",
-            linkgamehelpsub: [
-                `Făcând clic pe butonul <span class="hl">Adaugă</span>, va fi adăugată automat o nouă intrare în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>, folosind informațiile din fereastra aflată în prim-plan.`,
-                `După ce faci clic pe butonul <span class="hl">Adaugă</span>, va începe un cronometru de 5 secunde`,
-                `Înainte ca timpul să expire, adu în prim-plan fereastra jocului`,
-                `După expirarea timpului, va fi adăugată o nouă intrare pentru <span class="hl">AppID</span>-ul curent în <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span>, folosind fișierul executabil asociat ferestrei aflate în prim-plan`,
-                `Noile încercări vor suprascrie intrările existente sau intrarea poate fi eliminată din <span class="hl">Setări</span> > <span class="hl">Jocuri</span> > <span class="hl">Jocuri cu eliberare automată</span> făcând clic pe butonul <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Nu s-a putut adăuga fereastra",
-            addlinkfailedsub: `Faceți clic pe butonul <span class="hl">Adaugă</span> pentru a încerca din nou`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Teme",
             src: "Sursă de captură de ecran",
             themedeleted: "Temă ștearsă",
+            findappid: "Găsește Steam AppID",
+            findappidsub: [
+                `Fiecare joc Steam are un număr unic asociat, numit <span class="hl">AppID</span>. Poți găsi AppID-ul oricărui joc Steam folosind una dintre următoarele metode:`,
+                `În <span class="hl">clientul Steam</span>, fă <i>clic dreapta</i> pe un joc din <span class="hl">Bibliotecă</span> și selectează <i>Proprietăți</i> > <i>Actualizări</i> — AppID-ul va fi afișat aici`,
+                `<span class="hl">URL-ul</span> <span class="hl">paginii din Magazin</span> a jocului — numărul de după <span class="hl">app/</span> reprezintă AppID-ul: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Site-uri precum <span class="hl">SteamDB</span> — secțiunea <span class="hl">App Info</span> afișează AppID-ul fiecărui joc`
+            ],
             rafindgameid: "Găsește RA GameID",
             rafindgameidsub: [
                 `Fiecare joc RetroAchievements are un număr unic asociat numit <span class="hl">GameID</span>. Puteți găsi GameID-ul oricărui joc RetroAchievements verificând:`,

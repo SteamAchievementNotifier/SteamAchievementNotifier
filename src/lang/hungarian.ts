@@ -46,11 +46,6 @@ export const translations = {
         show: "Mutat",
         exit: "Kilépés",
         donotshowagain: "Ne jelenjen meg újra ez a párbeszédablak",
-        releasegame: "Játék Felszabadítása",
-        releasegamesub: [
-            `Indítsa újra a háttérben futó Worker folyamatot és szabadítsa fel a jelenleg nyomon követett játékot`,
-            `Próbálja ki ezt az opciót, ha nemrég bezárt egy játékot, de a Steam még mindig futtatja, vagy ha a Steam Achievement Notifier még mindig nyomon követi a már bezárt játékot`
-        ],
         noupdateavailable: "Nincs frissítés elérhető",
         latestversion: "Legújabb verzió telepítve",
         missingdeps: "Hiányzó függőség",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Játékok",
             content: {
-                linkedgames: "Kapcsolt játékok",
-                autoreleasegames: "Automatikusan kiadott játékok",
                 themeswitch: "Automatikus téma váltás",
                 exclusionlist: "Kizárások listája",
                 inclusionlist: "Belefoglalási lista",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "NVDA támogatás engedélyezése",
                 tooltips: "Eszközleírások megjelenítése",
                 showsystrayopts: "Rendszer tálca opciók megjelenítése",
-                releaseshortcut: "Játék felszabadítása billentyűparancs",
                 noshortcuts: "Billentyűparancsok Letiltása"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Haladó",
             content: {
                 pollrate: "Szavazási ráta",
-                initdelay: "Követési késleltetés",
-                releasedelay: "Kiadási késleltetés",
-                maxretries: "Maximális újrapróbálkozások száma",
-                debug: "Hibakereső panel",
-                userust: "Alternatív feldolgozási mód",
                 notifydebug: "Hibakeresési értesítések megjelenítése",
                 workerdebug: "Worker DevTools megjelenítése",
                 exportachdata: "Teljesítményadatok exportálása",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ A megerősítés után az alkalmazás újraindul a kiválasztott biztonsági mentési fájl visszaállításához"
                 ],
                 restorefailed: "A biztonsági mentés visszaállítása sikertelen.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Felszabadítási várakozási idő",
                 logresourceusage: "Erőforrás-használat naplózása"
             }
         },    
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Értesítés előre beállítása",
                 iconanim: "Ritka ikon-animáció",
-                alldetails: "Összes részlet megjelenítése",
                 usepercent: "Százalék használata",
                 displaytime: "Megjelenítési idő",
                 scale: "Méretarány",
                 customtext: "Egyéni szöveg",
-                usegametitle: "Játékcím használata",
                 customfont: "Egyéni betűtípus",
-                platcustomtext: "Egyéni 100%-os szöveg",
                 usecustomtext: "Egyéni szöveg",
                 customtextunlockmsg: "Feloldási üzenet",
                 customtexttitle: "Teljesítmény címe",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "A Steam Achievement Notifier problémát észlelt, és be kell zárni.",
+            steam: "A Steam telepítése nem található",
             details: "Itt vannak a hiba részletei:",
             sub: "Kattintson az alábbi gombokra a probléma jelentéséhez a preferált platformján keresztül.",
             report: "Jelentés",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Eszközleírások megjelenítése bizonyos felhasználói felületi elemek fölé húzva",
         colorprofile: `Kényszeríti az összes alkalmazásablakot, hogy a kiválasztott színprofilt használja<br><br><span class="ttdesc">Újraindítást igényel</span>`,
         pollrate: `Állítsa be a teljesítményadatok frissítési intervallumát játék közben<br><br><span class="ttdesc">A teljesítmény növekedhet/csökkenhet az érték vagy a rendszer hardverének függvényében. A magasabb értékek általában alacsonyabb rendszerterhelést eredményeznek, de késleltethetik az értesítéseket</span>`,
-        initdelay: `Állítsa be a késleltetést a jelenlegi <span class="hl">AppID</span> érzékelése és a folyamat-/teljesítménykövetés kezdete között<br><br><span class="ttdesc">Ennek az értéknek a növelése megakadályozhatja azokat a helyzeteket, amikor a Steam nem tudja elindítani a jelenlegi játékot (a Steamworks alkalmazás inicializálása miatt, mielőtt a játék elindulna)</span><br><br><span class="ttdesc">Alternatívaként ennek az értéknek a növelése használható arra is, hogy kijavítsuk a játék előtti indítófolyamatok hibás érzékelését</span>`,
-        releasedelay: `Állítsa be, mennyi ideig várjon a háttérben futó Worker folyamat az újraindítás előtt, miután az aktuális játék release megtörtént. Hatással van az automatikus folyamatkövetésre és az Automatikus játék release funkcióra is<br><br><span class="ttdesc">Hosszabb időtartamot biztosít ahhoz, hogy a Steamworks teljesen leváljon az alkalmazásról. Az érték növelése megelőzheti a szokatlan viselkedést, például egy korábban bezárt játék követését</span>`,
-        maxretries: `Állítsa be a maximális újrapróbálkozások számát egy futó folyamat észlelt AppID-hez való társításához. Hatással van az automatikus folyamatkövetésre és az Automatikus játék release funkcióra is<br><br><span class="ttdesc">Az újrapróbálkozások másodpercenként történnek. Ha ennyi próbálkozás után sem sikerül a futó folyamatot az aktuális AppID-hez kapcsolni, érvénytelen folyamat kerül visszaadásra. Ilyen esetekben a játékot manuálisan kell felszabadítani a System Tray > Beállítások > Játék felszabadítása útvonalon</span>`,
-        debug: "Nyissa meg a Hibakereső panelt, amely részletes folyamatkövetési információkat jelenít meg",
-        userust: "Használjon alternatív, Rust alapú funkciót annak ellenőrzésére, hogy a követett játékfolyamatok jelenleg futnak-e a rendszeren. Ha nincs bejelölve, akkor a NodeJS alapú alapértelmezett folyamatellenőrzés lesz helyette használva.",
         notifydebug: "DevTools ablak létrehozása minden értesítéshez. Hasznos hibakereséshez/hibaelhárításhoz",
         workerdebug: "DevTools ablak létrehozása a Worker folyamathoz. Hasznos a játékfigyelési problémák hibakereséséhez/elhárításához",
         usecustomfiles: "Engedélyezze az értesítések számára a felhasználó által testreszabható fájlok betöltését. A rendszeres felhasználók számára óvatosság javasolt",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Az értesítés előnézetének animációjának újraindítása",
         preset: "Válassza ki az értesítés előre beállított konfigurációját a testreszabáshoz",
         iconanim: "Ritka ikon keretének és animációjának váltása",
-        alldetails: "Az értesítésben rejtett alapértelmezés szerinti összes szöveges elem megjelenítése",
         usepercent: "A teljesítmény feloldási százalékának megjelenítése az XP/S érték helyett",
         displaytime: "Állítsa be az értesítés megjelenítési idejét másodpercben",
         scale: "Növelje vagy csökkentse az értesítés méretét",
         customtext: `Állítson be egy egyéni üzenetet, amely megjelenik az értesítésben<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Customiser > Előbeállítás > Értesítési elemek > Feloldási üzenet ki van kapcsolva</span>`,
-        usegametitle: "A jelenlegi játék címének megjelenítése az értesítésben",
         customfont: "Egyéni betűtípus betöltése az értesítésben való használathoz",
         soundmode: "Válasszon egyetlen hangfájlt vagy véletlenszerűen kiválasztott hangfájlt egy mappából, amikor egy értesítés történik",
         soundfile: "Válasszon egy hangfájlt, amelyet lejátszanak, amikor egy értesítés történik",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Automatikusan váltson bármely mentett <span class="hl">Témára</span>, amikor egy adott játékot észlel`,
         userthemesync: `Szinkronizálja a testreszabásokat a kiválasztott <span class="hl">Témában</span> minden más figyelmeztetési típushoz`,
         showsystrayopts: `Az összes lehetőség megjelenítése, amely általában a <span class="hl">Rendszer tálca</span> > <span class="hl">Opciók</span> alatt található a <span class="hl">Beállítások</span> > <span class="hl">Vegyesek</span> részen`,
-        releaseshortcut: "A jelenleg nyomon követett játék felszabadítása a megadott billentyűparanccsal",
         themeselect: "Válassz egy korábban mentett témát",
         statwin: `Konfigurálható eredmény statisztikák megjelenítése az aktuális játékhoz egy külön ablakban<br><br><span class="ttdesc">Amikor a <span class="hl">Eredmények fordítása Steam nyelvre</span> opción keresztül használod, egyes fordítások csak akkor lesznek elérhetők, ha a megfelelő eredmény feloldódik</span>`,
         statwinaot: `Állítsa be az Elért statisztikák ablakát "Mindig a tetején" módba, lehetővé téve az ablak megjelenítését a játék ablakán felül<br><br><span class="ttdesc">Ha engedélyezve van, az Elért statisztikák ablak már nem regisztrálja a felhasználói interakciókat, például a "kattintás" eseményeket. Az ablak interakcióinak újbóli engedélyezéséhez ezt az opciót le kell tiltani</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Annak az időnek a beállítása, amennyit a következő értesítéseknek várniuk kell, mielőtt új hang lejátszható<br><br><span class="ttdesc">A hangot nem érinti, ha a Maximális értesítések értéke 1</span>`,
         rauseemudir: "A RetroAchievements által feloldott képernyőképek/értesítési képek mentése egy almappába az aktuális emulátor számára a megadott Képernyőkép/Kép elérési út könyvtárán belül",
         ssext: "Állítsd be a képernyőképek fájlformátumát, amelyeket a Képernyőkép értesítési átfedéssel opció hoz létre",
-        notify1line: `Korlátozza az összes értesítésben megjelenített szövegsorok számát 1-re<br><br><span class="ttdesc">Azok a szövegek, amelyek nem férnek el egy sorban, "..." jellel lesznek levágva</span>`,
         copytheme: "A kiválasztott téma másolása egy másik értesítési típushoz",
         ssaddtosteam: "A generált média automatikus hozzáadása az aktuális játék Felvételeihez és Képernyőképeihez a Steamen",
         appdatadir: "Nyissa meg az alkalmazás AppData mappájának helyét",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Az aktuális játék Játék Befejezési Időzítőjének visszaállítása",
         noshortcuts: `Letiltja az alkalmazáson belüli összes billentyűparancsot<br><br><span class="ttdesc">Ha engedélyezve van, <u>az alkalmazáson belüli összes billentyűparancs többé nem fog működni</u>. A billentyűparancsokhoz kapcsolódó összes opció is el lesz rejtve</span>`,
         extwinnotify: "Az összes képernyőértesítés láthatóságának váltása Stream Notifications használata közben",
-        usesanwatcher: `A SAN új játékfolyamat-figyelőjének engedélyezése<br><br><span class="ttdesc">Az új SANWatcher és a régi automatikus folyamatkövetési módszerek közötti különbségek a következők:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Aktívan figyeli az indítási/kilépési eseményeket minden olyan folyamat esetén, amely a játék telepítési könyvtárában található</li><li>Nem szükséges ismerni a játék futtatható állományát az aktuális játék felszabadításához</li><li>A játék előtti indítók viselkedése eltérő lehet, ezért a teljes kompatibilitás nem garantált minden Steam játék esetén</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>A játék indítása után átvizsgálja a játék telepítési könyvtárát futó végrehajtható fájlok után</li><li>Az aktuális játék felszabadításához ismerni kell a játék futtatható állományát</li><li>Ha a játék folyamata nem határozható meg automatikusan, a felhasználónak manuálisan kell új bejegyzést hozzáadnia az <span class="hl">Kapcsolt játékok</span> listához, hogy a játékok automatikusan felszabaduljanak</li></ul></div>`,
-        releasewaittime: `Állítsa be, hogy a SANWatcher mennyi ideig várjon új játékfolyamatok elindulására, mielőtt elengedné a jelenlegi játékot<br><br><span class="ttdesc">Például, ha a jelenlegi játék a tényleges játék indítása előtt egy indító-/beállítóablakot nyit meg, ez a beállítás határozza meg, hogy a SANWatcher hány másodpercig várjon a tényleges játékablak megjelenésére azután, hogy az indító-/beállítóablak bezárult<br><br>Ha ezen várakozási időn belül új aktív játékfolyamat észlelhető, az elengedés megszakad, és a rendszer ezután az újonnan aktív folyamatot fogja követni<br><br>💡 A játék neve <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">villogni fog</span> a <span class="hl">Játékmegjelenítő</span> mezőben, miközben a jelenlegi játék az elengedésre vár</span>`,
-        platcustomtext: `Állítson be egy egyéni üzenetet a játék 100%-os teljesítéséhez, amely megjelenik az értesítésben<br><br><span class="ttdesc">Ez a beállítás rejtve lesz, ha a Customiser > Előbeállítás > Értesítési elemek > Achievement leírás ki van kapcsolva</span>`,
         raui: "Az észlelt RetroAchievements játékok nevének megjelenítése a Játékkijelző/rendszertálca felhasználói felületén",
-        testnotifycustomtext: "Az összes tesztértesítésben megjelenő szöveg felülbírálása",
-        testnotifycustomtexttitle: "Az összes tesztértesítés címmezőjében megjelenő szöveg felülbírálása",
-        testnotifycustomtextdesc: "Az összes tesztértesítés leírásmezőjében megjelenő szöveg felülbírálása",
         radefault: `Mindig automatikusan váltson erre a bejegyzésre, amikor bármely RetroAchievements teljesítmény feloldásra kerül<br><br><span class="ttdesc">Csak egy Automatikus Témaváltás bejegyzés jelölhető ki alapértelmezettként az összes RetroAchievements teljesítményhez. Ez az alapértelmezett beállítás játékonként is felülbírálható egy új Automatikus Témaváltás bejegyzés hozzáadásával egy adott RetroAchievements <span class="hl">GameID</span> számára</span>`,
         statwintype: "Az Eredménystatisztika ablak elrendezéstípusának beállítása",
         statwinunlockonly: "Az Eredménystatisztika ablak elrejtése egy eredmény feloldásáig",
@@ -943,64 +911,6 @@ export const translations = {
             `Teljes kiadási megjegyzések elérhetők a <span id="discordreleasenotes"></span> és a <span id="githubreleasenotes"></span> oldalon`
         ],
         update: "Frissítés"
-    },
-    linkgame: {
-        content: {
-            exepath: "Végrehajtható fájl elérési útja",
-            linkedgame: "Játék összekapcsolása",
-            autoreleasegame: "Játék automatikus kiadása",
-            linkedgamessub: [
-                `Felülírja a <span class="hl">SANWatcher</span> által automatikusan követett összes futó játékfolyamatot, és ehelyett csak azt ellenőrzi, hogy a kiválasztott <span class="hl">játék futtatható fájlja</span> jelenleg aktív-e`,
-                `Kapcsold össze bármely játék <span class="hl">AppID</span>-jét egy cél <span class="hl">játék futtatható fájllal</span>, vagy <span class="hl">távolíts el</span> egy meglévő kapcsolatot`
-            ],
-            autoreleasegamessub: [
-                `Ha a Steam továbbra is <i>Fut</i> állapotban mutat egy játékot a játékablak bezárása után, próbálj meg új bejegyzést hozzáadni a <span class="hl">$linkgame</span> menüben`,
-                `Adj hozzá egy adott játék <span class="hl">AppID</span>-jét a hozzá tartozó <span class="hl">játék futtatható fájllal</span>, vagy <span class="hl">távolíts el</span> egy meglévő bejegyzést`,
-            ],
-            managesub: [
-                `Miután egy játékot észlelt a rendszer, új bejegyzéseket is hozzáadhatsz az <span class="hl">aktív ablak</span> alapján a <span class="hl">Rendszertálca ikonra</span> történő <i>jobb gombos kattintással</i> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Hogyan találom meg egy Steam játék AppID-jét?</u></span>`
-            ],
-            linknew: "Új bejegyzés",
-            linknewsub: [
-                `Kapcsold össze egy új játék <span class="hl">AppID</span>-jét egy cél <span class="hl">játék futtatható fájllal</span>`,
-                `Hozzáadás után a bejegyzések <span class="hl">eltávolíthatók</span> az előző <span class="hl">$linkgame</span> menüből`
-            ],
-            linkedit: "Bejegyzés szerkesztése",
-            linkeditsub: [
-                `Szerkessz egy meglévő kapcsolatot egy játék <span class="hl">AppID</span>-je és a cél <span class="hl">játék futtatható fájlja</span> között`,
-                `Hozzáadás után a bejegyzések <span class="hl">eltávolíthatók</span> az előző <span class="hl">$linkgame</span> menüből`
-            ],
-            link: "Hozzáadás",
-            findappid: "Steam AppID keresése",
-            findappidsub: [
-                `Minden Steam játékhoz egy egyedi szám tartozik – ezt <span class="hl">AppID</span>-nek nevezik. Bármely Steam játék AppID-jét az alábbi módok egyikével találhatod meg:`,
-                `A <span class="hl">Steam kliensben</span> kattints <i>jobb gombbal</i> a játékra a <span class="hl">Könyvtárban</span>, majd válaszd a <i>Tulajdonságok</i> > <i>Frissítések</i> menüpontot – itt megtalálod az AppID-t`,
-                `A játék <span class="hl">Áruház oldalának</span> <span class="hl">URL</span>-jében – ez az <span class="hl">app/</span> utáni szám: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Olyan weboldalakon, mint a <span class="hl">SteamDB</span> – az <span class="hl">App Info</span> szakaszban minden játék AppID-je megtalálható`
-            ],
-            noexe: "A játék EXE fájlja nem található!",
-            noexesub: "Kattints ide további információkért",
-            noexedialogsub: [
-                `A Steam Achievement Notifier nem tudta automatikusan megtalálni a játék futtatható fájlját. A játék futtatható fájljának helye szükséges ahhoz, hogy bezárás után a játék „kiadható” legyen`,
-                `Ha a játékot bezárás után manuálisan szeretnéd kiadni, kattints <i>jobb gombbal</i> a <span class="hl">Rendszertálca ikonra</span> > <span class="hl">Beállítások</span> > <span class="hl">Játék kiadása</span>, vagy használd a <span class="hl">Játék kiadása gyorsbillentyűt</span>`,
-                `Alternatívaként kattints az alábbi <span class="hl">Hozzáadás</span> gombra, hogy a fókuszban lévő ablakhoz tartozó futtatható fájlt hozzáadd a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menühöz`,
-            ],
-            linkedgamefocussub: `Az összes, a <span class="hl">SANWatcher</span> által automatikusan követett futó játékfolyamat felülírásához adj hozzá egy új bejegyzést a <span class="hl">Kapcsolt játékok</span> menüben`,
-            autoreleasegamefocussub: `Ha a Steam továbbra is <i>Fut</i> állapotban mutat egy játékot a játékablak bezárása után, próbálj meg új bejegyzést hozzáadni az <span class="hl">Automatikusan kiadott játékok</span> menüben`,
-            focussub: `Ehhez az aktuális játék esetén kattints az alábbi <span class="hl">Hozzáadás</span> gombra, hogy a fókuszban lévő ablakhoz tartozó futtatható fájlt hozzáadd a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">$linkgame</span> menühöz`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Mi történik, ha a Hozzáadás gombra kattintok?</u></span>`,
-            linkgamehelp: "Összekapcsolás fókusz alapján",
-            linkgamehelpsub: [
-                `A <span class="hl">Hozzáadás</span> gombra kattintva automatikusan létrejön egy új bejegyzés a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menüben, a jelenleg fókuszban lévő ablak adatai alapján.`,
-                `A <span class="hl">Hozzáadás</span> gombra kattintás után egy 5 másodperces időzítő indul`,
-                `Mielőtt az időzítő lejár, helyezd fókuszba a játék ablakát`,
-                `Miután az időzítő lejárt, az aktuális <span class="hl">AppID</span>-hez egy új bejegyzés kerül a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menübe, a fókuszban lévő ablakhoz tartozó futtatható fájl használatával`,
-                `Az új próbálkozások felülírják a meglévő bejegyzéseket, vagy a bejegyzés eltávolítható a <span class="hl">Beállítások</span> > <span class="hl">Játékok</span> > <span class="hl">Automatikusan kiadott játékok</span> menüben a <span id="linkhelpunlink"></span> gombra kattintva`
-            ],
-            addlinkfailed: "Nem sikerült hozzáadni az ablakot",
-            addlinkfailedsub: `Kattints a <span class="hl">Hozzáadás</span> gombra az újbóli próbálkozáshoz`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Témák",
             src: "Képernyőkép forrás",
             themedeleted: "A téma törölve",
+            findappid: "Steam AppID keresése",
+            findappidsub: [
+                `Minden Steam játékhoz egy egyedi szám tartozik – ezt <span class="hl">AppID</span>-nek nevezik. Bármely Steam játék AppID-jét az alábbi módok egyikével találhatod meg:`,
+                `A <span class="hl">Steam kliensben</span> kattints <i>jobb gombbal</i> a játékra a <span class="hl">Könyvtárban</span>, majd válaszd a <i>Tulajdonságok</i> > <i>Frissítések</i> menüpontot – itt megtalálod az AppID-t`,
+                `A játék <span class="hl">Áruház oldalának</span> <span class="hl">URL</span>-jében – ez az <span class="hl">app/</span> utáni szám: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Olyan weboldalakon, mint a <span class="hl">SteamDB</span> – az <span class="hl">App Info</span> szakaszban minden játék AppID-je megtalálható`
+            ],
             rafindgameid: "RA GameID keresése",
             rafindgameidsub: [
                 `Minden RetroAchievements-játékhoz tartozik egy egyedi szám, amelyet <span class="hl">GameID</span>-nek neveznek. Bármely RetroAchievements-játék GameID azonosítóját az alábbi módon találhatja meg:`,

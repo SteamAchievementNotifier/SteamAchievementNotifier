@@ -72,11 +72,6 @@ const defaultcolors = {
     }
 } as const
 
-// Used to simplify translation lookup in `language.ts`
-export const subopts = [
-    "gametitle",
-].map(id => `use${id}`)
-
 export const sanconfig = {
     get defaultfiles(): { [key: string]: any } {
         const customobj = sanconfig.defaultobj("customisation")
@@ -273,7 +268,6 @@ export const sanconfig = {
                 usecustomfiles: false,
                 norestartdialog: false,
                 noupdatedialog: false,
-                debug: false,
                 noiconcache: false,
                 exclusions: [],
                 inclusionlist: false,
@@ -372,6 +366,7 @@ export const sanconfig = {
                 logresourceusage: false,
                 uimode: "advanced",
                 setplat: false,
+                plugins: false,
                 customisation: {
                     main: {} as Customisation,
                     semi: {} as Customisation,
@@ -453,7 +448,6 @@ export const sanconfig = {
                 ovmatch: false,
                 ovx: 0,
                 ovy: 0,
-                alldetails: false,
                 primarycolor: "",
                 secondarycolor: "",
                 tertiarycolor: "#ffffff",
@@ -525,11 +519,8 @@ export const sanconfig = {
                 decorationshadow: true,
                 usecustomtext: false,
                 customtextunlockmsg: "",
-                usegametitleunlockmsg: false,
                 customtexttitle: "",
-                usegametitletitle: false,
                 customtextdesc: "",
-                usegametitledesc: false,
                 scrollrepeat: 1,
                 usertheme: [] as UserTheme[]
             }

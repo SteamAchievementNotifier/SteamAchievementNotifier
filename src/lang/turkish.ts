@@ -46,11 +46,6 @@ export const translations = {
         show: "Göster",
         exit: "Çıkış",
         donotshowagain: "Bu iletişim kutusunu tekrar gösterme",
-        releasegame: "Oyunu Serbest Bırak",
-        releasegamesub: [
-            `Arka plan Worker sürecini yeniden başlatın ve mevcut oyunun izlenmesini bırakın`,
-            `Son zamanlarda bir oyunu kapattıysanız ancak Steam hala onu çalışıyor olarak gösteriyorsa veya Steam Achievement Notifier hala kapalı bir oyunu izliyor olarak gösteriyorsa, bu seçeneği deneyin`
-        ],
         noupdateavailable: "Güncelleme Yok",
         latestversion: "En Son Sürüm Yüklü",
         missingdeps: "Eksik Bağımlılık",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Oyunlar",
             content: {
-                linkedgames: "Bağlı Oyunlar",
-                autoreleasegames: "Otomatik Serbest Bırakılan Oyunlar",
                 themeswitch: "Tema Değişimini Otomatik Yap",
                 exclusionlist: "Dışlama Listesi",
                 inclusionlist: "Dahil Etme Listesi",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "NVDA Desteğini Etkinleştir",
                 tooltips: "İpuçlarını Göster",
                 showsystrayopts: "Sistem Tepsisi Seçeneklerini Göster",
-                releaseshortcut: "Oyunu Yayınlama Kısayolu",
                 noshortcuts: "Klavye Kısayollarını Devre Dışı Bırak"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Gelişmiş",
             content: {
                 pollrate: "Anket Oranı",
-                initdelay: "İzleme Gecikmesi",
-                releasedelay: "Yayımlama Gecikmesi",
-                maxretries: "Maksimum Yeniden Deneme Sayısı",
-                debug: "Hata Ayıkla Paneli",
-                userust: "Alternatif İşleme Modu",
                 notifydebug: "Hata Ayıklama Bildirimlerini Göster",
                 workerdebug: "Worker DevTools'u Göster",
                 exportachdata: "Başarım Verilerini Dışa Aktar",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ Onaylandıktan sonra, seçilen yedekleme dosyasını geri yüklemek için uygulama yeniden başlatılacaktır"
                 ],
                 restorefailed: "Yedekleme geri yüklenemedi.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Serbest Bırakma Bekleme Süresi",
                 logresourceusage: "Kaynak Kullanımını Günlüğe Kaydet"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Bildirim Ön Ayarı",
                 iconanim: "Nadir İkon Animasyonu",
-                alldetails: "Tüm Detayları Göster",
                 usepercent: "Yüzdeyi Kullan",
                 displaytime: "Görüntüleme Süresi",
                 scale: "Ölçek",
                 customtext: "Özel Metin",
-                usegametitle: "Oyun Başlığını Kullan",
                 customfont: "Özel Font",
-                platcustomtext: "Özel %100 Metni",
                 usecustomtext: "Özel Metin",
                 customtextunlockmsg: "Kilidi Açma Mesajı",
                 customtexttitle: "Başarım Başlığı",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier bir sorunla karşılaştı ve kapanması gerekiyor.",
+            steam: "Steam kurulumu bulunamadı",
             details: "İşte hata detayları:",
             sub: "Sorunu tercih ettiğiniz platform aracılığıyla bildirmek için aşağıdaki düğmelere tıklayın.",
             report: "Raporla",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Belirli UI öğelerinin üzerine gelindiğinde ipuçlarını göster",
         colorprofile: `Tüm uygulama pencerelerinin seçilen renk profiliyle render edilmesini zorla<br><br><span class="ttdesc">Uygulamanın yeniden başlatılması gerekir</span>`,
         pollrate: `Oyun sırasında başarı verileri için güncelleme aralığını ayarlayın<br><br><span class="ttdesc">Performans, değer veya sistem donanımına bağlı olarak artabilir/azalabilir. Daha yüksek değerler genellikle daha düşük sistem yüküne yol açar, ancak bildirimlerin gecikmesine neden olabilir</span>`,
-        initdelay: `Mevcut <span class="hl">AppID</span> tespiti ile işlem/başarı takibinin başlaması arasındaki gecikmeyi ayarlayın<br><br><span class="ttdesc">Bu değeri artırmak, Steam'in mevcut oyunu başlatamama senaryolarını önleyebilir (oyun başlatılmadan önce Steamworks uygulamasını başlatma nedeniyle)</span><br><br><span class="ttdesc">Alternatif olarak, bu değerin artırılması aynı zamanda oyun öncesi başlatıcı işlemlerin yanlış tespitini geçersiz kılma amacıyla da kullanılabilir</span>`,
-        releasedelay: `Geçerli oyun serbest bırakıldıktan sonra arka planda çalışan Worker işleminin yeniden başlatılmadan önce ne kadar süre bekleyeceğini ayarlayın. Hem otomatik işlem izlemeyi hem de Otomatik Serbest Bırakılan Oyunlar'ı etkiler<br><br><span class="ttdesc">Steamworks'ün uygulamadan tamamen serbest bırakılması için daha uzun bir zaman aralığı sağlar. Bu değerin artırılması, daha önce kapatılmış bir oyunun izlenmesi gibi olağan dışı davranışları önleyebilir</span>`,
-        maxretries: `Çalışan bir işlemi algılanan bir AppID ile ilişkilendirmek için maksimum yeniden deneme sayısını ayarlayın. Hem otomatik işlem izlemeyi hem de Otomatik Serbest Bırakılan Oyunlar'ı etkiler<br><br><span class="ttdesc">Yeniden denemeler her saniyede bir yapılır. Bu yeniden deneme sayısından sonra çalışan bir işlem geçerli AppID ile ilişkilendirilemezse, geçersiz bir işlem döndürülür. Bu gibi durumlarda oyun, Sistem Tepsisi > Seçenekler > Oyunu Serbest Bırak yoluyla manuel olarak serbest bırakılmalıdır</span>`,
-        debug: "Hata Ayıkla Panelini açın, bu panel işlem takip bilgilerini detaylı bir şekilde gösterir",
-        userust: "Takip edilen oyun işlemlerinin şu anda sistemde çalışıp çalışmadığını kontrol etmek için Rust tabanlı alternatif bir işlev kullanın. İşaretlenmediğinde, varsayılan NodeJS tabanlı işlem kontrolü kullanılacaktır.",
         notifydebug: "Tüm bildirimler için bir DevTools penceresi oluştur. Bildirim sorunlarını gidermek/çözmek için kullanışlıdır",
         workerdebug: "Worker işlemi için bir DevTools penceresi oluştur. Oyun takibi sorunlarını hata ayıklamak ve gidermek için kullanışlıdır",
         usecustomfiles: "Bildirimlerin kullanıcı tarafından özelleştirilebilir dosyaları yüklemesine izin verir. Düzenli kullanıcılar için dikkatli olunması önerilir",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Bildirim önizleme animasyonunu yeniden başlat",
         preset: "Özelleştirilecek bildirim ön ayarını seçin",
         iconanim: "Nadir ikon kenarını ve animasyonunu aç/kapat",
-        alldetails: "Bu ön ayar için varsayılan olarak gizlenen tüm metin öğelerini bildirimde görüntüle",
         usepercent: "Başarı kilidini açma yüzdesini, XP/S değeri yerine göster",
         displaytime: "Bildirimin görüntüleneceği saniye sayısını ayarlayın",
         scale: "Bildirimin boyutunu artırın veya azaltın",
         customtext: `Bildirim içinde gösterilecek özel bir mesaj ayarlayın<br><br><span class="ttdesc">Customiser > Ön Ayar > Bildirim Öğeleri > Kilit Açma Mesajı devre dışı bırakıldığında bu seçenek gizlenir</span>`,
-        usegametitle: "Bildirim içinde mevcut oyunun başlığını göster",
         customfont: "Bildirim içinde kullanılacak özel bir yazı tipi yükleyin",
         soundmode: "Bir bildirim gerçekleştiğinde tek bir ses dosyası veya birden çok ses dosyası içeren bir klasörden rastgele seçilen bir ses dosyası seçin",
         soundfile: "Bir bildirim gerçekleştiğinde çalınacak bir ses dosyası seçin",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Belirli bir oyun tespit edildiğinde herhangi bir kaydedilmiş <span class="hl">Temaya</span> otomatik olarak geçiş yap`,
         userthemesync: `Seçilen <span class="hl">Tema</span> üzerindeki özelleştirmeleri tüm diğer bildirim türlerine senkronize et`,
         showsystrayopts: `Genellikle <span class="hl">Sistem Tepsisi</span> > <span class="hl">Seçenekler</span> altında yer alan tüm seçenekleri <span class="hl">Ayarlar</span> > <span class="hl">Diğer</span> kısmında göster`,
-        releaseshortcut: "Belirtilen klavye kısayolunu kullanarak şu anda izlenen oyunu yayınlayın",
         themeselect: "Önceden kaydedilmiş bir Tema seçin",
         statwin: `Geçerli oyun için yapılandırılabilir başarı istatistiklerini dış bir pencerede görüntüle<br><br><span class="ttdesc">"<span class="hl">Başarıları Steam diline çevir</span>" seçeneğiyle birlikte kullanıldığında, belirli bir başarı açılana kadar bazı çeviriler kullanılamayabilir</span>`,
         statwinaot: `Başarı İstatistikleri penceresini "Her Zaman Üstte" moduna ayarlayarak, pencerenin oyun penceresinin üzerinde görüntülenmesini sağlar<br><br><span class="ttdesc">Bu seçenek etkinleştirildiğinde, Başarı İstatistikleri penceresi kullanıcı etkileşimlerini, örneğin "tıklama" olaylarını kaydetmeyecek. Pencereyle etkileşimi yeniden etkinleştirmek için bu seçenek devre dışı bırakılmalıdır</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Yeni bir ses çalınmadan önce sonraki bildirimlerin beklemesi gereken süreyi ayarla<br><br><span class="ttdesc">Maksimum Bildirim Sayısı 1 olarak ayarlanmışsa ses etkilenmez</span>`,
         rauseemudir: "RetroAchievements aracılığıyla açılan ekran görüntülerini/bildirim görsellerini, belirtilen Ekran Görüntüsü/Görsel Yolu dizini içinde mevcut emülatör için bir alt klasöre kaydet",
         ssext: "Screenshot with Notification Overlay seçeneği ile oluşturulan ekran görüntülerinin dosya formatını ayarla",
-        notify1line: `Tüm bildirimlerde görüntülenen metin satırı sayısını 1 ile sınırla<br><br><span class="ttdesc">Tek bir satıra sığmayan metinler "..." ile kısaltılacaktır</span>`,
         copytheme: "Seçilen temayı başka bir bildirim türüne kopyala",
         ssaddtosteam: "Oluşturulan medyayı mevcut oyunun Steam'deki Kayıtlar ve Ekran Görüntülerine otomatik olarak ekle",
         appdatadir: "Uygulamanın AppData klasörünün konumunu aç",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Mevcut oyun için Oyun Tamamlama Zamanlayıcısını sıfırla",
         noshortcuts: `Tüm uygulama içi klavye kısayollarını devre dışı bırakır<br><br><span class="ttdesc">Etkinleştirildiğinde, <u>tüm uygulama içi kısayollar artık çalışmayacaktır</u>. Klavye kısayollarıyla ilgili tüm seçenekler de gizlenecektir</span>`,
         extwinnotify: "Stream Notifications kullanılırken tüm ekran bildirimlerinin görünürlüğünü aç/kapat",
-        usesanwatcher: `SAN'ın yeni oyun süreç izleyicisini etkinleştir<br><br><span class="ttdesc">Yeni SANWatcher ile eski otomatik süreç takip yöntemleri arasındaki farklar şunlardır:<br><br><div class="wrapper sanwatcher"><span class="hl">AÇIK</span><ul><li>Oyunun kurulum dizininde bulunan tüm süreçlerin başlatılma ve sonlandırılma olaylarını aktif olarak izler</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirmez</li><li>Oyun öncesi başlatıcıların davranışları farklılık gösterebilir, bu nedenle tüm Steam oyunlarıyla tam uyumluluk garanti edilmez</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">KAPALI</span><ul><li>Oyun başlatıldıktan sonra çalışan yürütülebilir dosyalar için oyunun kurulum dizinini tarar</li><li>Mevcut oyunu serbest bırakmak için oyunun çalıştırılabilir dosyasının bilinmesini gerektirir</li><li>Oyun süreci otomatik olarak belirlenemezse, oyunların otomatik olarak serbest bırakılabilmesi için kullanıcının <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne manuel olarak yeni bir giriş eklemesi gerekir</li></ul></div>`,
-        releasewaittime: `Mevcut oyun serbest bırakılmadan önce SANWatcher'ın yeni oyun süreçlerinin başlatılmasını ne kadar süre bekleyeceğini ayarlayın<br><br><span class="ttdesc">Örneğin, mevcut oyun asıl oyunu başlatmadan önce bir oyun öncesi başlatıcı/yapılandırma penceresi açıyorsa, bu ayar oyun öncesi başlatıcı/yapılandırma penceresi kapandıktan sonra SANWatcher'ın asıl oyun penceresinin açılmasını kaç saniye bekleyeceğini belirler<br><br>Bu bekleme süresi içinde yeni bir etkin oyun süreci algılanırsa, serbest bırakma işlemi iptal edilir ve bunun yerine yeni etkin süreç takip edilir<br><br>💡 Mevcut oyun serbest bırakılmayı beklerken oyun adı <span class="hl">Oyun Görüntüsü</span> kutusunda <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">yanıp sönecektir</span></span>`,
-        platcustomtext: `Bildirimde gösterilecek %100 oyun tamamlama özel mesajını ayarlayın<br><br><span class="ttdesc">Customiser > Ön Ayar > Bildirim Öğeleri > Başarı Açıklaması devre dışı bırakıldığında bu seçenek gizlenir</span>`,
         raui: "Tespit edilen RetroAchievements oyunlarının adlarını Oyun Görüntüleme arayüzü/sistem tepsisi arayüzünde göster",
-        testnotifycustomtext: "Tüm Test Bildirimlerinde görüntülenen metni geçersiz kıl",
-        testnotifycustomtexttitle: "Tüm Test Bildirimlerinde başlık öğesi için görüntülenen metni geçersiz kıl",
-        testnotifycustomtextdesc: "Tüm Test Bildirimlerinde açıklama öğesi için görüntülenen metni geçersiz kıl",
         radefault: `Herhangi bir RetroAchievements başarımı açıldığında her zaman otomatik olarak bu girdiye geç<br><br><span class="ttdesc">Tüm RetroAchievements başarımları için varsayılan olarak yalnızca bir Tema Değişimini Otomatik Yap girdisi belirlenebilir. Bu varsayılan ayar, belirli bir RetroAchievements <span class="hl">GameID</span> için yeni bir Tema Değişimini Otomatik Yap girdisi eklenerek oyun bazında da geçersiz kılınabilir</span>`,
         statwintype: "Başarı İstatistikleri Penceresi düzen türünü ayarla",
         statwinunlockonly: "Bir başarının kilidi açılana kadar Başarı İstatistikleri Penceresini gizli tut",
@@ -943,64 +911,6 @@ export const translations = {
             `<span id="discordreleasenotes"></span> ve <span id="githubreleasenotes"></span> üzerinde Tam Sürüm Notları bulunmaktadır`
         ],
         update: "Güncelle"
-    },
-    linkgame: {
-        content: {
-            exepath: "Çalıştırılabilir Dosya Yolu",
-            linkedgame: "Oyun Bağla",
-            autoreleasegame: "Otomatik Oyun Serbest Bırakma",
-            linkedgamessub: [
-                `<span class="hl">SANWatcher</span> tarafından otomatik olarak izlenen tüm çalışan oyun süreçlerini geçersiz kılar ve bunun yerine yalnızca seçilen <span class="hl">oyun çalıştırılabilir dosyasının</span> aktif olup olmadığını kontrol eder`,
-                `Herhangi bir oyunun <span class="hl">AppID</span>'sini hedef bir <span class="hl">oyun çalıştırılabilir dosyasına</span> bağla veya mevcut bir bağlantıyı <span class="hl">kaldır</span>`
-            ],
-            autoreleasegamessub: [
-                `Oyun penceresi kapandıktan sonra Steam hâlâ oyunu <i>Çalışıyor</i> olarak gösteriyorsa, <span class="hl">$linkgame</span> içine yeni bir giriş eklemeyi deneyin`,
-                `Belirli bir oyunun <span class="hl">AppID</span>'sini beklenen <span class="hl">oyun çalıştırılabilir dosyasıyla</span> birlikte ekleyin veya mevcut bir girişi <span class="hl">kaldırın</span>`,
-            ],
-            managesub: [
-                `Bir oyun algılandıktan sonra, yeni girişler <span class="hl">odaklanmış pencere</span> üzerinden de eklenebilir: <span class="hl">sistem tepsisi simgesine</span> sağ tıklayın > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Steam oyunlarının AppID'si nasıl bulunur?</u></span>`
-            ],
-            linknew: "Yeni Giriş",
-            linknewsub: [
-                `Yeni bir oyunun <span class="hl">AppID</span>'sini hedef bir <span class="hl">oyun çalıştırılabilir dosyasına</span> bağla`,
-                `Eklendikten sonra girişler önceki <span class="hl">$linkgame</span> menüsünden <span class="hl">kaldırılabilir</span>`
-            ],
-            linkedit: "Girişi Düzenle",
-            linkeditsub: [
-                `Bir oyunun <span class="hl">AppID</span>'si ile hedef <span class="hl">oyun çalıştırılabilir dosyası</span> arasındaki mevcut bağlantıyı düzenle`,
-                `Eklendikten sonra girişler önceki <span class="hl">$linkgame</span> menüsünden <span class="hl">kaldırılabilir</span>`
-            ],
-            link: "Ekle",
-            findappid: "Steam AppID Bul",
-            findappidsub: [
-                `Her Steam oyununun <span class="hl">AppID</span> adı verilen benzersiz bir numarası vardır. Herhangi bir Steam oyununun AppID'sini aşağıdaki yöntemlerden biriyle bulabilirsiniz:`,
-                `<span class="hl">Steam istemcisinde</span>, <span class="hl">Kütüphane</span>'de bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> seçeneğini seçin — AppID burada listelenir`,
-                `Oyunun <span class="hl">Mağaza sayfası URL'si</span> — <span class="hl">app/</span> sonrası yer alan sayı AppID'dir: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `<span class="hl">SteamDB</span> gibi web siteleri — <span class="hl">App Info</span> bölümünde her oyunun AppID'si listelenir`
-            ],
-            noexe: "Oyun EXE'si bulunamadı!",
-            noexesub: "Daha fazla bilgi için buraya tıklayın",
-            noexedialogsub: [
-                `Steam Achievement Notifier bu oyunun çalıştırılabilir dosyasını otomatik olarak bulamadı. Oyunu kapattıktan sonra "serbest bırakmak" için çalıştırılabilir dosya konumu gereklidir`,
-                `Oyunu kapattıktan sonra manuel olarak serbest bırakmak için <span class="hl">sistem tepsisi simgesine</span> sağ tıklayın > <span class="hl">Seçenekler</span> > <span class="hl">Oyunu Serbest Bırak</span> veya <span class="hl">Oyunu Serbest Bırak kısayolunu</span> kullanın`,
-                `Alternatif olarak, aşağıdaki <span class="hl">Ekle</span> düğmesine tıklayarak odaklanmış pencerenin çalıştırılabilir dosyasını <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne ekleyin`,
-            ],
-            linkedgamefocussub: `<span class="hl">SANWatcher</span> tarafından otomatik izlenen tüm oyun süreçlerini geçersiz kılmak için <span class="hl">Bağlı Oyunlar</span> içine yeni bir giriş ekleyin`,
-            autoreleasegamefocussub: `Oyun penceresi kapandıktan sonra Steam hâlâ oyunu <i>Çalışıyor</i> olarak gösteriyorsa, <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> içine yeni bir giriş eklemeyi deneyin`,
-            focussub: `Bunu mevcut oyun için yapmak istiyorsanız, aşağıdaki <span class="hl">Ekle</span> düğmesine tıklayarak odaklanmış pencerenin çalıştırılabilir dosyasını <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">$linkgame</span> bölümüne ekleyin`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Ekle düğmesine tıklayınca ne olur?</u></span>`,
-            linkgamehelp: "Odak penceresiyle bağla",
-            linkgamehelpsub: [
-                `<span class="hl">Ekle</span> düğmesine tıklandığında, odaklanmış pencere bilgileri kullanılarak otomatik olarak <span class="hl">Ayarlar</span> > <span class="hl">Oyunlar</span> > <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklenir.`,
-                `<span class="hl">Ekle</span> düğmesine tıkladıktan sonra 5 saniyelik bir geri sayım başlar`,
-                `Geri sayım bitmeden önce oyun penceresine odaklanın`,
-                `Geri sayım sona erdiğinde, mevcut <span class="hl">AppID</span> için odaklanmış pencerenin çalıştırılabilir dosyası kullanılarak <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümüne yeni bir giriş eklenir`,
-                `Yeni denemeler mevcut girişlerin üzerine yazılır veya giriş <span class="hl">Otomatik Serbest Bırakılan Oyunlar</span> bölümünden <span id="linkhelpunlink"></span> düğmesine tıklanarak kaldırılabilir`
-            ],
-            addlinkfailed: "Pencere eklenemedi",
-            addlinkfailedsub: `<span class="hl">Ekle</span> düğmesine tıklayarak tekrar deneyin`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Temalar",
             src: "Ekran görüntüsü kaynağı",
             themedeleted: "Tema silindi",
+            findappid: "Steam AppID Bul",
+            findappidsub: [
+                `Her Steam oyununun <span class="hl">AppID</span> adı verilen benzersiz bir numarası vardır. Herhangi bir Steam oyununun AppID'sini aşağıdaki yöntemlerden biriyle bulabilirsiniz:`,
+                `<span class="hl">Steam istemcisinde</span>, <span class="hl">Kütüphane</span>'de bir oyuna sağ tıklayın ve <i>Özellikler</i> > <i>Güncellemeler</i> seçeneğini seçin — AppID burada listelenir`,
+                `Oyunun <span class="hl">Mağaza sayfası URL'si</span> — <span class="hl">app/</span> sonrası yer alan sayı AppID'dir: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span> gibi web siteleri — <span class="hl">App Info</span> bölümünde her oyunun AppID'si listelenir`
+            ],
             rafindgameid: "RA GameID Bul",
             rafindgameidsub: [
                 `Her RetroAchievements oyununun kendine ait benzersiz bir numarası vardır ve buna <span class="hl">GameID</span> denir. Herhangi bir RetroAchievements oyununun GameID'sini şu şekilde bulabilirsiniz:`,

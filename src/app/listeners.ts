@@ -366,56 +366,12 @@ export const listeners = {
             const workerwin = value ? raworker : worker
             workerwin && workerwin.webContents.send(`${value ? "game" : "app"}id`)
         })
+
+        ipcMain.on("plugins",(event,value: boolean) => {
+            console.log(`Plugin host ${value ? "started" : "stopped"}`)
+        })
         
         ipcMain.on("runningappid",event => event.reply("runningappid",appid || 0))
-
-        let debugwin: BrowserWindow | null = null
-
-        ipcMain.on("debugwinready",() => worker && worker.webContents.send("debugwinready"))
-        ipcMain.on("debuginfoupdated",(event,debuginfo: DebugInfo,reset?: boolean) => debugwin && debugwin.webContents.send("debuginfoupdated",debuginfo,reset))
-
-        ipcMain.on("debugwin",(event,value: boolean) => {
-            if (value && debugwin) return log.write("WARN",`"debugwin" already active`)
-            if (!value && debugwin) return debugwin.close()
-
-            debugwin = new BrowserWindow({
-                title: `Steam Achievement Notifier (V${sanhelper.version}): Debug Panel`,
-                width: 600,
-                height: 400,
-                minWidth: 600,
-                minHeight: 400,
-                autoHideMenuBar: true,
-                resizable: true,
-                maximizable: false,
-                fullscreenable: false,
-                webPreferences: {
-                    nodeIntegration: true,
-                    contextIsolation: false,
-                    backgroundThrottling: false
-                }
-            })
-
-            debugwin.setAspectRatio(6/4)
-
-            debugwin.loadFile(path.join(__root,"dist","app","debugwin.html"))
-            debugwin.once("ready-to-show",() => debugwin && sanhelper.resetdebuginfo(debugwin))
-
-            debugwin.once("closed",() => {
-                const config = sanconfig.get()
-                log.write("INFO",`"debugwin" closed`)
-                debugwin = null
-
-                config.set("debug",false)
-
-                // Catches "Object has been destroyed" error when window is closed via app exit
-                try {
-                    win.webContents.send("updatemenu","debug")
-                } catch (err) {
-                    log.write("ERROR",`Error sending "updatemenu" event to "win": ${err}`)
-                }
-            })
-        })
-
         ipcMain.on("workeractive",(event,value: boolean) => win.webContents.send("workeractive",value))
 
         ipcMain.on("showtrack",(event,gamename: string,ra?: { icon: string, gameartlibhero: string }) => {
@@ -967,7 +923,6 @@ export const listeners = {
                 ["audio",{ name: await language.get("audio"), extensions: ["mp3","wav","ogg","aac"] }],
                 ["dir",{ name: await language.get("folder"), extensions: [] }],
                 ["font",{ name: await language.get("font"), extensions: ["ttf","otf","woff","woff2"] }],
-                ["exe",{ name: await language.get("exepath",["linkgame","content"]), extensions: [ process.platform === "win32" ? "exe" : "*" ] }],
                 ["log",{ name: await language.get("logfile",["settings","ra","content"]), extensions: ["log","txt"] }],
                 ["sanbak",{ name: await language.get("backup",["settings","advanced","content"]), extensions: ["sanbak"] }]
             ])
@@ -1259,9 +1214,9 @@ export const listeners = {
                 steam3id,
                 apiname,
                 name: notify.name,
-                unlockmsg: (customisation.usecustomtext && ((customisation.usegametitleunlockmsg && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtextunlockmsg,notify))) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
-                title: (customisation.usecustomtext && ((customisation.usegametitletitle && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtexttitle,notify))) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
-                desc: (customisation.usecustomtext && ((customisation.usegametitledesc && (gamename || await language.get("gametitle"))) || sanhelper.resolvevars(customisation.customtextdesc,notify))) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
+                unlockmsg: (customisation.usecustomtext && sanhelper.resolvevars(customisation.customtextunlockmsg,notify)) || (type === "set" ? (gamename || await language.get("gametitle")) : notify.type === "plat" ? await language.get("congrats") : await language.get("achievementunlocked")),
+                title: (customisation.usecustomtext && sanhelper.resolvevars(customisation.customtexttitle,notify)) || (type === "set" ? setname : type === "plat" ? await language.get("gamecomplete") : notify.name),
+                desc: (customisation.usecustomtext && sanhelper.resolvevars(customisation.customtextdesc,notify)) || (type === "set" ? await language.get("setcomplete") : type === "plat" ? await language.get("gamecompletedesc") : notify.desc),
                 icon,
                 percent: {
                     value: sanhelper.plattype(type) ? 0 : percent,

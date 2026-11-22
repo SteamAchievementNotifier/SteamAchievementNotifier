@@ -388,12 +388,12 @@ export const sanhelper = {
     statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
+    plugins: (value: boolean) => ipcRenderer.send("plugins",value),
     uimode: (value: "basic" | "advanced") => ipcRenderer.send("uimode",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
-    debug: (value: boolean) => ipcRenderer.send("debugwin",value),
-    workerdebug: () => ipcRenderer.send("releasegame",true),
+    workerdebug: () => ipcRenderer.send("validateworker"),
     logresourceusage: (value: boolean) => ipcRenderer.send("resourceusage",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
@@ -457,7 +457,6 @@ export const sanhelper = {
             typeof sanhelperfn === "function" && sanhelperfn(config.get(elem.id) as boolean, elem.id === "trophymode" ? config : undefined)
 
             sanhelper.updatetabs(noreload(elem) !== undefined)
-            config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         })
     },
     setvalue: (config: Store<Config>,elem: (HTMLInputElement | HTMLSelectElement),keypath?: string) => {
@@ -568,7 +567,6 @@ export const sanhelper = {
 
             elem.id === "preset" && (async () => await sanhelper.resetelemselector(document.querySelector("#customiser")!))()
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
-            config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`)!)
             elem.id === "rauser" && ipcRenderer.emit("ra") // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
             elem.id === "uimode" && sanhelper.uimode(config.get("uimode"))
@@ -834,9 +832,6 @@ export const sanhelper = {
             ["semirarity","%"],
             ["nowtrackingscale","%"],
             ["pollrate","ms"],
-            ["initdelay","s"],
-            ["releasedelay","s"],
-            ["maxretries",""],
             ["maxsteamlangretries",""],
             ["extwinframerate","FPS"],
             ["customtriggerdelay","s"],
@@ -844,7 +839,6 @@ export const sanhelper = {
             ["notifymax",""],
             ["notifyspace","px"],
             ["audiocooldown","ms"],
-            ["releasewaittime","s"],
             ["statwinunlockonlydisplaytime","s"]
         ])
 
@@ -991,7 +985,7 @@ export const sanhelper = {
                 #customisercontent select,
                 #customisercontent .rect
             `)!.forEach(async elem => {
-                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : ((await import("./config")).subopts.find(opt => elem.id.startsWith(opt)) ?? elem.id),["tooltips"])
+                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"])
 
                 for (const id of rarityids) {
                     if (!elem.id.startsWith(id)) continue
@@ -1183,24 +1177,6 @@ export const sanhelper = {
 
         return ""
     },
-    resetdebuginfo: async (debugwin?: Electron.BrowserWindow) => {
-        const config = (await import("./config")).sanconfig.get()
-
-        const debuginfo = {
-            username: "",
-            appid: 0,
-            status: "Released",
-            gamename: "",
-            pollrate: config.get("pollrate"),
-            releasedelay: config.get("releasedelay"),
-            maxretries: config.get("maxretries"),
-            userust: config.get("userust"),
-            processes: []
-        } as DebugInfo
-
-        const wintype = debugwin ? debugwin.webContents : ipcRenderer
-        wintype.send("debuginfoupdated",debuginfo,true)
-    },
     resetelemselector: async (menuelem: HTMLElement) => {
         const { sanconfig } = await import("./config")
         const { type } = sanhelper
@@ -1372,7 +1348,7 @@ export const sanhelper = {
             log.write("ERROR",`Unable to query latest GitHub Release: ${err as Error}`)
         }
     },
-    verifylocalstorage: async (id: "linkgame" | "themeswitch" | "statwin" | "pinned") => {
+    verifylocalstorage: async (id: "themeswitch" | "statwin" | "pinned") => {
         const { log } = await import("./log")
         const lsentry = localStorage.getItem(id)
     

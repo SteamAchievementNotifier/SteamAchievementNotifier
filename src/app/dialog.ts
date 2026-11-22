@@ -443,7 +443,7 @@ export const dialog = {
                     }]
                 })
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["themeswitch","content"])
                 updatetables("exclusionlist")
             }
 
@@ -462,7 +462,7 @@ export const dialog = {
                     }]
                 })
 
-                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["linkgame","content"])
+                sanhelper.sethelpdialog(document.getElementById("appidhelp")!,"findappid",["themeswitch","content"])
                 sanhelper.sethelpdialog(document.getElementById("ragameidhelp")!,"rafindgameid",["themeswitch","content"])
                 updatetables("themeswitch")
             }

@@ -63,11 +63,10 @@ ipcRenderer.on("gametimer",() => ipcRenderer.send("gametimer",workerinfo))
 const startidle = () => {
     try {
         log.write("INFO","Idle loop started")
-        sanhelper.resetdebuginfo()
         ipcRenderer.send("workeractive",false)
 
         const timer = setInterval(() => {
-            const { pollrate, debug, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
+            const { pollrate, noiconcache, exclusions, inclusionlist } = sanconfig.get().store
             const { appid, gamename } = sanhelper.gameinfo as AppInfo
             
             if (!appid) {
@@ -119,7 +118,6 @@ const startidle = () => {
                 appid,
                 gamename,
                 pollrate: typeof pollrate !== "number" ? 250 : (pollrate < 50 ? 50 : pollrate),
-                debug: debug,
                 noiconcache: noiconcache
             }
             
@@ -253,17 +251,6 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 return
             }
 
-            const { debug } = sanconfig.get().store
-
-            debug && ipcRenderer.send("debuginfoupdated",{
-                username: user.personaname ?? "???",
-                steam3id,
-                steam64id,
-                appid: appid,
-                gamename: gamename,
-                status: "Active"
-            })
-
             try {
                 mtime.current = fs.statSync(binfiles.userstats).mtimeMs
             } catch {
@@ -300,8 +287,6 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             cache = live
             window.cachedata = live
             
-            let hasshown = false
-            
             const config = sanconfig.get()
             const { rarity, semirarity, trophymode, lang } = config.store
 
@@ -311,63 +296,67 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
             for (const achievement of unlocked) {
                 achievement.unlocked && numunlocked++
 
-                const unlocktime = Date.now()
-                achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
-                
-                const valid = achievement.percent >= 0 // -1: Percentages unavailable
-                const type = valid && achievement.percent <= rarity ? "rare" : (trophymode && valid && achievement.percent <= semirarity && achievement.percent > rarity ? "semi" : "main")
+                try {
+                    const unlocktime = Date.now()
+                    achievement.unlocktimestamp = achievement.unlocked ? unlocktime : -1
+                    
+                    const valid = achievement.percent >= 0 // -1: Percentages unavailable
+                    const type = valid && achievement.percent <= rarity ? "rare" : (trophymode && valid && achievement.percent <= semirarity && achievement.percent > rarity ? "semi" : "main")
 
-                // Screenshot Only starts here, before localisation and icon fetches.
-                const notifyid = sannotify.earlycapture(appid,{
-                    type,
-                    gamename: gamename ?? "???",
-                    steam3id,
-                    apiname: achievement.apiname,
-                    name: achievement.name,
-                    desc: achievement.desc,
-                    unlocked: achievement.unlocked,
-                    hidden: achievement.hidden,
-                    percent: achievement.percent,
-                    unlocktime: new Date(unlocktime).toISOString()
-                })
+                    // Screenshot Only starts here, before localisation and icon fetches.
+                    const notifyid = sannotify.earlycapture(appid,{
+                        type,
+                        gamename: gamename ?? "???",
+                        steam3id,
+                        apiname: achievement.apiname,
+                        name: achievement.name,
+                        desc: achievement.desc,
+                        unlocked: achievement.unlocked,
+                        hidden: achievement.hidden,
+                        percent: achievement.percent,
+                        unlocktime: new Date(unlocktime).toISOString()
+                    })
 
-                const localised = await utils.localised.obj(steam3id,achievement)
+                    const localised = await utils.localised.obj(steam3id,achievement)
 
-                const notify = sannotify.show(appid,{
-                    ...(notifyid !== undefined ? { id: notifyid } : {}),
-                    type,
-                    gamename: gamename ?? "???",
-                    steam3id,
-                    apiname: achievement.apiname,
-                    name: localised.name ?? achievement.name,
-                    desc: localised.desc ?? achievement.desc,
-                    unlocked: achievement.unlocked,
-                    hidden: achievement.hidden,
-                    percent: achievement.percent,
-                    icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
-                    achnum: {
-                        unlocked: numunlocked,
-                        total: live.length
-                    }
-                })
+                    const notify = sannotify.show(appid,{
+                        ...(notifyid !== undefined ? { id: notifyid } : {}),
+                        type,
+                        gamename: gamename ?? "???",
+                        steam3id,
+                        apiname: achievement.apiname,
+                        name: localised.name ?? achievement.name,
+                        desc: localised.desc ?? achievement.desc,
+                        unlocked: achievement.unlocked,
+                        hidden: achievement.hidden,
+                        percent: achievement.percent,
+                        icon: (noiconcache ? await sanachievement.geticon(appid,achievement.icon) : achievement.icon) ?? sanhelper.setfilepath("img","sanlogosquare.svg"),
+                        achnum: {
+                            unlocked: numunlocked,
+                            total: live.length
+                        }
+                    })
 
-                sanhelper.devmode && console.log(notify)
-                log.write("INFO",`Unlocked "${notify.type}" achievement: "${notify.apiname}"`)
+                    sanhelper.devmode && console.log(notify)
+                    log.write("INFO",`Unlocked "${notify.type}" achievement: "${notify.apiname}"`)
 
-                ;(async () => {
-                    statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
-                        live.map(async achievement => {
-                            const achievementcopy = { ...achievement }
-                            const localised = window.localised.get(achievementcopy.apiname) || await utils.localised.obj(steam3id,achievementcopy)
-    
-                            for (const key of Object.keys(localised)) {
-                                achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
-                            }
-            
-                            return achievementcopy
-                        })
-                    )
-                })()
+                    ;(async () => {
+                        statsobj.achievements = !config.get("steamlang") ? live : await Promise.all(
+                            live.map(async achievement => {
+                                const achievementcopy = { ...achievement }
+                                const localised = window.localised.get(achievementcopy.apiname) || await utils.localised.obj(steam3id,achievementcopy)
+        
+                                for (const key of Object.keys(localised)) {
+                                    achievementcopy[key as "name" | "desc"] = localised[key as "name" | "desc"] || achievementcopy[key as "name" | "desc"]
+                                }
+
+                                return achievementcopy
+                            })
+                        )
+                    })()
+                } catch (err) {
+                    log.write("ERROR",`Unable to show notification for "${achievement.apiname}": ${(err as Error).message}`) // Catch achievement/notification errors here to prevent skipping subsequent "set"/"plat" notifications, or restarting the Worker upon failure
+                }
             }
             
             const allunlocked = live.every(achievement => achievement.unlocked)
@@ -396,7 +385,7 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 }
             }
 
-            if (allunlocked && !hasshown) {
+            if (allunlocked) {
                 const platnotify = sannotify.show(appid,{
                     type: "plat",
                     gamename: gamename ?? "???",
@@ -412,7 +401,6 @@ const startsan = async (user: SteamUser,appinfo: AppInfo) => {
                 sanhelper.devmode && console.log(platnotify)
                 log.write("INFO",`Completed game: "${platnotify.gamename ?? "???"}"`)
 
-                hasshown = true
             }
         }
 

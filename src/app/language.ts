@@ -1,4 +1,4 @@
-import { sanconfig, shortcutkeys, subopts } from "./config"
+import { sanconfig, shortcutkeys } from "./config"
 import { log } from "./log"
 
 // Contains values to replace in options/tooltips via regex, which should always match the setting's name in config
@@ -147,10 +147,6 @@ export const language = {
                         btn.parentElement!.querySelector(`span`) && langmap.set(btn.parentElement!.querySelector(`span`)!,btn.id === "preview" ? global.preview : customiser[title].content[btn.id])
                     })
                 })
-
-                for (const subopt of subopts) {
-                    customisercontent.querySelectorAll(`.sub:has([id^="${subopt}"]) > input[type="checkbox"]`).forEach(input => langmap.set(input.parentElement!.querySelector("span")!,customiser.preset.content[subopt]))
-                }
 
                 langmap.set(customisercontent.querySelector("button#customtextvars > span")!,global.customtextvars)
 

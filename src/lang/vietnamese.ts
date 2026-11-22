@@ -46,11 +46,6 @@ export const translations = {
         show: "Hiển thị",
         exit: "Thoát",
         donotshowagain: "Không hiển thị hộp thoại này nữa",
-        releasegame: "Giải phóng Trò chơi",
-        releasegamesub: [
-            `Khởi động lại quá trình Worker nền và giải phóng trò chơi hiện tại khỏi việc được theo dõi`,
-            `Hãy thử tùy chọn này nếu bạn vừa mới đóng một trò chơi nhưng Steam vẫn hiển thị nó đang chạy, hoặc nếu Steam Achievement Notifier vẫn hiển thị đang theo dõi một trò chơi đã được đóng`
-        ],
         noupdateavailable: "Không có bản cập nhật nào khả dụng",
         latestversion: "Phiên bản mới nhất đã được cài đặt",
         missingdeps: "Thiếu phụ thuộc",
@@ -242,8 +237,6 @@ export const translations = {
         games: {
             title: "Trò chơi",
             content: {
-                linkedgames: "Trò chơi liên kết",
-                autoreleasegames: "Trò chơi tự động giải phóng",
                 themeswitch: "Tự động chuyển đổi chủ đề",
                 exclusionlist: "Danh sách Loại trừ",
                 inclusionlist: "Danh sách bao gồm",
@@ -331,7 +324,6 @@ export const translations = {
                 nvda: "Bật hỗ trợ NVDA",
                 tooltips: "Hiển thị Chú giải Công cụ",
                 showsystrayopts: "Hiện tùy chọn khay hệ thống",
-                releaseshortcut: "Phím tắt phát hành trò chơi",
                 noshortcuts: "Tắt phím tắt bàn phím"
             }
         },
@@ -339,11 +331,6 @@ export const translations = {
             title: "Nâng cao",
             content: {
                 pollrate: "Tần suất thăm dò",
-                initdelay: "Độ trễ theo dõi",
-                releasedelay: "Độ trễ phát hành",
-                maxretries: "Số lần thử lại tối đa",
-                debug: "Bảng Gỡ lỗi",
-                userust: "Chế độ Xử lý Thay thế",
                 notifydebug: "Hiển thị thông báo gỡ lỗi",
                 workerdebug: "Hiển thị DevTools của Worker",
                 exportachdata: "Xuất dữ liệu thành tích",
@@ -368,8 +355,6 @@ export const translations = {
                     "❗ Sau khi xác nhận, ứng dụng sẽ khởi động lại để khôi phục tệp sao lưu đã chọn"
                 ],
                 restorefailed: "Không thể khôi phục bản sao lưu.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Thời gian chờ giải phóng",
                 logresourceusage: "Ghi nhật ký mức sử dụng tài nguyên"
             }
         },
@@ -417,14 +402,11 @@ export const translations = {
             content: {
                 preset: "Cài đặt thông báo",
                 iconanim: "Hoạt ảnh biểu tượng hiếm",
-                alldetails: "Hiển thị tất cả chi tiết",
                 usepercent: "Sử dụng Phần trăm",
                 displaytime: "Thời gian hiển thị",
                 scale: "Tỷ lệ",
                 customtext: "Văn bản tùy chỉnh",
-                usegametitle: "Sử dụng tiêu đề trò chơi",
                 customfont: "Phông chữ tùy chỉnh",
-                platcustomtext: "Văn bản 100% tùy chỉnh",
                 usecustomtext: "Văn bản tùy chỉnh",
                 customtextunlockmsg: "Thông báo mở khóa",
                 customtexttitle: "Tiêu đề thành tích",
@@ -632,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Ứng dụng Steam Achievement Notifier gặp sự cố và cần đóng lại.",
+            steam: "Không tìm thấy bản cài đặt Steam",
             details: "Dưới đây là chi tiết lỗi:",
             sub: "Nhấn vào các nút dưới đây để báo cáo sự cố này thông qua nền tảng ưa thích của bạn.",
             report: "Báo cáo",
@@ -682,11 +665,6 @@ export const translations = {
         tooltips: "Hiển thị gợi ý khi di chuột qua các yếu tố giao diện người dùng cụ thể",
         colorprofile: `Buộc tất cả cửa sổ ứng dụng hiển thị theo hồ sơ màu đã chọn<br><br><span class="ttdesc">Cần khởi động lại ứng dụng</span>`,
         pollrate: `Đặt khoảng thời gian cập nhật cho dữ liệu thành tựu trong khi chơi game<br><br><span class="ttdesc">Hiệu suất có thể tăng/giảm tùy thuộc vào giá trị hoặc phần cứng của hệ thống. Các giá trị cao thường dẫn đến tải hệ thống thấp hơn, nhưng có thể gây trễ trong thông báo</span>`,
-        initdelay: `Đặt thời gian chờ giữa khi phát hiện <span class="hl">AppID</span> hiện tại và khi bắt đầu theo dõi quy trình/thành tựu<br><br><span class="ttdesc">Tăng giá trị này có thể ngăn ngừa những tình huống khi Steam không thể khởi động trò chơi hiện tại (do việc khởi tạo ứng dụng trong Steamworks trước khi trò chơi được khởi động)</span><br><br><span class="ttdesc">Hoặc có thể sử dụng giá trị này để tránh phát hiện không chính xác các quy trình khởi động trước trò chơi</span>`,
-        releasedelay: `Thiết lập thời gian mà tiến trình Worker chạy nền sẽ chờ trước khi khởi động lại sau khi trò chơi hiện tại đã được giải phóng. Ảnh hưởng đến cả việc theo dõi tiến trình tự động và Trò chơi Giải phóng Tự động<br><br><span class="ttdesc">Cho phép khoảng thời gian dài hơn để Steamworks được giải phóng hoàn toàn khỏi ứng dụng. Việc tăng giá trị này có thể ngăn chặn các hành vi bất thường, chẳng hạn như tiếp tục theo dõi một trò chơi đã đóng trước đó</span>`,
-        maxretries: `Thiết lập số lần thử lại tối đa để liên kết một tiến trình đang chạy với AppID được phát hiện. Ảnh hưởng đến cả việc theo dõi tiến trình tự động và Trò chơi Giải phóng Tự động<br><br><span class="ttdesc">Các lần thử lại được thực hiện mỗi giây một lần. Nếu một tiến trình đang chạy không được liên kết với AppID hiện tại sau số lần thử này, một tiến trình không hợp lệ sẽ được trả về. Trong những trường hợp như vậy, trò chơi sẽ cần được giải phóng thủ công thông qua Khay Hệ thống > Tùy chọn > Giải phóng Trò chơi</span>`,
-        debug: "Mở Bảng Gỡ lỗi, hiển thị thông tin theo dõi quy trình chi tiết",
-        userust: "Sử dụng chức năng thay thế dựa trên Rust để kiểm tra xem các quy trình trò chơi đã được theo dõi có đang chạy trên hệ thống không. Khi không được đánh dấu, kiểm tra quy trình mặc định dựa trên NodeJS sẽ được sử dụng thay vào đó.",
         notifydebug: "Tạo một cửa sổ DevTools cho tất cả các thông báo. Hữu ích để gỡ lỗi/viết mã sửa lỗi vấn đề thông báo",
         workerdebug: "Tạo một cửa sổ DevTools cho tiến trình Worker. Hữu ích để gỡ lỗi và khắc phục sự cố theo dõi trò chơi",
         usecustomfiles: "Cho phép thông báo tải tệp tùy chỉnh của người dùng. Cần thận trọng đối với người dùng thông thường",
@@ -697,12 +675,10 @@ export const translations = {
         replay: "Khởi động lại hoạt ảnh của xem trước thông báo",
         preset: "Chọn cài đặt thông báo để tùy chỉnh",
         iconanim: "Chuyển đổi viền và hoạt ảnh biểu tượng Hiếm",
-        alldetails: "Hiển thị tất cả các yếu tố văn bản trong thông báo, bao gồm cả những yếu tố bị ẩn theo mặc định cho cài đặt này",
         usepercent: "Hiển thị phần trăm mở khóa của thành tựu, thay vì giá trị XP/S",
         displaytime: "Đặt số giây thông báo sẽ hiển thị",
         scale: "Tăng hoặc giảm kích thước của thông báo",
         customtext: `Đặt một thông báo tùy chỉnh để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Thông báo mở khóa bị vô hiệu hóa</span>`,
-        usegametitle: "Hiển thị tiêu đề của trò chơi hiện tại trong thông báo",
         customfont: "Tải một phông chữ tùy chỉnh để sử dụng trong thông báo",
         soundmode: "Chọn một tệp âm thanh duy nhất hoặc một tệp âm thanh được chọn ngẫu nhiên từ một thư mục chứa nhiều tệp âm thanh khi có thông báo xảy ra",
         soundfile: "Chọn một tệp âm thanh để phát khi có thông báo xảy ra",
@@ -831,7 +807,6 @@ export const translations = {
         themeswitch: `Tự động chuyển sang bất kỳ <span class="hl">Chủ đề</span> nào đã lưu khi phát hiện một trò chơi cụ thể`,
         userthemesync: `Đồng bộ tùy chỉnh trong <span class="hl">Chủ đề</span> đã chọn với tất cả các loại thông báo khác`,
         showsystrayopts: `Hiển thị tất cả các tùy chọn thường nằm dưới <span class="hl">Khay Hệ thống</span> > <span class="hl">Tùy chọn</span> trong <span class="hl">Cài đặt</span> > <span class="hl">Khác.</span>`,
-        releaseshortcut: "Sử dụng phím tắt đã chỉ định để phát hành trò chơi đang theo dõi",
         themeselect: "Chọn một chủ đề đã lưu trước đó",
         statwin: `Hiển thị thống kê thành tích có thể cấu hình cho trò chơi hiện tại trong cửa sổ ngoài<br><br><span class="ttdesc">Khi sử dụng cùng với tùy chọn <span class="hl">Dịch thành tích sang ngôn ngữ Steam</span>, một số bản dịch có thể không khả dụng cho đến khi thành tích cụ thể được mở khóa</span>`,
         statwinaot: `Đặt cửa sổ Thống kê Thành tích vào chế độ "Luôn ở trên cùng", cho phép cửa sổ hiển thị trên cửa sổ game<br><br><span class="ttdesc">Khi bật, cửa sổ Thống kê Thành tích sẽ không còn ghi nhận các tương tác của người dùng, như các sự kiện "click". Để kích hoạt lại tương tác với cửa sổ, tùy chọn này phải được tắt</span>`,
@@ -897,7 +872,6 @@ export const translations = {
         audiocooldown: `Đặt khoảng thời gian chờ trước khi thông báo tiếp theo có thể phát âm thanh mới<br><br><span class="ttdesc">Âm thanh sẽ không bị ảnh hưởng nếu Số lượng thông báo tối đa được đặt là 1</span>`,
         rauseemudir: "Lưu ảnh chụp màn hình/hình ảnh thông báo mở khóa qua RetroAchievements vào thư mục con cho trình giả lập hiện tại trong thư mục đường dẫn ảnh/chụp màn hình đã chỉ định",
         ssext: "Đặt định dạng tệp của ảnh chụp màn hình được tạo thông qua tùy chọn Screenshot with Notification Overlay",
-        notify1line: `Giới hạn số dòng văn bản hiển thị trong tất cả thông báo xuống 1<br><br><span class="ttdesc">Các chuỗi văn bản không thể vừa trong một dòng sẽ bị cắt ngắn bằng "..."</span>`,
         copytheme: "Sao chép giao diện đã chọn sang loại thông báo khác",
         ssaddtosteam: "Tự động thêm phương tiện đã tạo vào Bản ghi và Ảnh chụp màn hình của trò chơi hiện tại trong Steam",
         appdatadir: "Mở vị trí thư mục AppData của ứng dụng",
@@ -910,13 +884,7 @@ export const translations = {
         resetgametimer: "Đặt lại Bộ đếm thời gian hoàn thành trò chơi cho trò chơi hiện tại",
         noshortcuts: `Tắt tất cả phím tắt bàn phím trong ứng dụng<br><br><span class="ttdesc">Khi được bật, <u>tất cả phím tắt trong ứng dụng sẽ không còn hoạt động</u>. Tất cả các tùy chọn liên quan đến phím tắt bàn phím cũng sẽ bị ẩn</span>`,
         extwinnotify: "Bật/tắt hiển thị tất cả thông báo trên màn hình khi sử dụng Stream Notifications",
-        usesanwatcher: `Bật trình theo dõi tiến trình trò chơi mới của SAN<br><br><span class="ttdesc">Sự khác biệt giữa SANWatcher mới và các phương pháp theo dõi tiến trình tự động cũ như sau:<br><br><div class="wrapper sanwatcher"><span class="hl">BẬT</span><ul><li>Chủ động theo dõi các sự kiện khởi động và kết thúc của mọi tiến trình nằm trong thư mục cài đặt trò chơi</li><li>Không yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Hành vi của các trình khởi chạy trước khi vào trò chơi có thể khác nhau, vì vậy không đảm bảo khả năng tương thích hoàn toàn với tất cả các trò chơi Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">TẮT</span><ul><li>Quét thư mục cài đặt trò chơi để tìm các tệp thực thi đang chạy sau khi trò chơi được khởi động</li><li>Yêu cầu phải biết tệp thực thi của trò chơi để giải phóng trò chơi hiện tại</li><li>Nếu không thể tự động xác định tiến trình trò chơi, người dùng phải tự thêm một mục mới vào <span class="hl">Trò chơi Giải phóng Tự động</span> để trò chơi có thể được giải phóng tự động</li></ul></div>`,
-        releasewaittime: `Đặt khoảng thời gian SANWatcher sẽ chờ các tiến trình trò chơi mới khởi chạy trước khi giải phóng trò chơi hiện tại<br><br><span class="ttdesc">Ví dụ: nếu trò chơi hiện tại khởi chạy một trình khởi chạy/cửa sổ cấu hình trước khi vào trò chơi trước khi khởi chạy trò chơi thực tế, cài đặt này sẽ xác định số giây SANWatcher sẽ chờ cửa sổ trò chơi thực tế xuất hiện sau khi trình khởi chạy/cửa sổ cấu hình trước trò chơi đã đóng<br><br>Nếu một tiến trình trò chơi đang hoạt động mới được phát hiện trong khoảng thời gian chờ này, việc giải phóng sẽ bị hủy và tiến trình mới được kích hoạt sẽ được theo dõi thay thế<br><br>💡 Tên trò chơi sẽ <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">nhấp nháy</span> trong hộp <span class="hl">Hiển thị trò chơi</span> khi trò chơi hiện tại đang chờ được giải phóng</span>`,
-        platcustomtext: `Đặt thông báo tùy chỉnh cho việc hoàn thành 100% trò chơi để hiển thị trong thông báo<br><br><span class="ttdesc">Tùy chọn này sẽ bị ẩn khi Customiser > Cài đặt sẵn > Thành phần thông báo > Mô tả thành tích bị vô hiệu hóa</span>`,
         raui: "Hiển thị tên các trò chơi RetroAchievements được phát hiện trong giao diện hiển thị trò chơi/khu vực khay hệ thống",
-        testnotifycustomtext: "Ghi đè văn bản hiển thị trong tất cả thông báo thử nghiệm",
-        testnotifycustomtexttitle: "Ghi đè văn bản hiển thị cho phần tiêu đề trong tất cả thông báo thử nghiệm",
-        testnotifycustomtextdesc: "Ghi đè văn bản hiển thị cho phần mô tả trong tất cả thông báo thử nghiệm",
         radefault: `Luôn tự động chuyển sang mục này khi bất kỳ thành tựu RetroAchievements nào được mở khóa<br><br><span class="ttdesc">Chỉ một mục Tự động chuyển đổi chủ đề có thể được chỉ định làm mặc định cho tất cả thành tựu RetroAchievements. Thiết lập mặc định này cũng có thể được ghi đè theo từng trò chơi bằng cách thêm một mục Tự động chuyển đổi chủ đề mới cho <span class="hl">GameID</span> RetroAchievements cụ thể</span>`,
         statwintype: "Đặt kiểu bố cục của Cửa sổ thống kê thành tích",
         statwinunlockonly: "Ẩn Cửa sổ thống kê thành tích cho đến khi một thành tích được mở khóa",
@@ -943,64 +911,6 @@ export const translations = {
             `Ghi chú phát hành đầy đủ có sẵn trên <span id="discordreleasenotes"></span> và <span id="githubreleasenotes"></span>`
         ],
         update: "Cập nhật"
-    },
-    linkgame: {
-        content: {
-            exepath: "Đường dẫn tệp thực thi",
-            linkedgame: "Liên kết trò chơi",
-            autoreleasegame: "Tự động giải phóng trò chơi",
-            linkedgamessub: [
-                `Ghi đè tất cả tiến trình trò chơi đang chạy được theo dõi tự động bởi <span class="hl">SANWatcher</span>, và thay vào đó chỉ kiểm tra xem <span class="hl">tệp thực thi của trò chơi</span> đã chọn có đang hoạt động hay không`,
-                `Liên kết <span class="hl">AppID</span> của bất kỳ trò chơi nào với <span class="hl">tệp thực thi trò chơi</span> mục tiêu, hoặc <span class="hl">xóa</span> liên kết hiện có`
-            ],
-            autoreleasegamessub: [
-                `Nếu Steam vẫn hiển thị trò chơi là <i>Đang chơi</i> sau khi cửa sổ trò chơi đã đóng, hãy thử thêm một mục mới vào <span class="hl">$linkgame</span>`,
-                `Thêm <span class="hl">AppID</span> của một trò chơi cụ thể cùng với <span class="hl">tệp thực thi trò chơi</span> dự kiến, hoặc <span class="hl">xóa</span> mục hiện có`,
-            ],
-            managesub: [
-                `Sau khi phát hiện trò chơi, các mục mới cũng có thể được thêm qua <span class="hl">cửa sổ đang được focus</span> bằng cách <i>nhấp chuột phải</i> vào <span class="hl">biểu tượng khay hệ thống</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Làm thế nào để tìm AppID của một trò chơi Steam?</u></span>`
-            ],
-            linknew: "Mục mới",
-            linknewsub: [
-                `Liên kết <span class="hl">AppID</span> của trò chơi mới với <span class="hl">tệp thực thi trò chơi</span> mục tiêu`,
-                `Sau khi thêm, các mục có thể được <span class="hl">xóa</span> thông qua menu <span class="hl">$linkgame</span> trước đó`
-            ],
-            linkedit: "Chỉnh sửa mục",
-            linkeditsub: [
-                `Chỉnh sửa liên kết hiện có giữa <span class="hl">AppID</span> của trò chơi và <span class="hl">tệp thực thi trò chơi</span> mục tiêu`,
-                `Sau khi thêm, các mục có thể được <span class="hl">xóa</span> thông qua menu <span class="hl">$linkgame</span> trước đó`
-            ],
-            link: "Thêm",
-            findappid: "Tìm Steam AppID",
-            findappidsub: [
-                `Mỗi trò chơi Steam đều có một số duy nhất gọi là <span class="hl">AppID</span>. Bạn có thể tìm AppID của bất kỳ trò chơi Steam nào bằng một trong các cách sau:`,
-                `Trong <span class="hl">ứng dụng Steam</span>, <i>nhấp chuột phải</i> vào trò chơi trong <span class="hl">Thư viện</span> và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được hiển thị ở đây`,
-                `URL của <span class="hl">trang cửa hàng</span> trò chơi - đó là số nằm sau <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Các trang web như <span class="hl">SteamDB</span> - mục <span class="hl">App Info</span> sẽ hiển thị AppID của từng trò chơi`
-            ],
-            noexe: "Không tìm thấy file EXE của trò chơi!",
-            noexesub: "Nhấn vào đây để biết thêm thông tin",
-            noexedialogsub: [
-                `Steam Achievement Notifier không thể tự động xác định tệp thực thi của trò chơi này. Vị trí của tệp thực thi là cần thiết để "giải phóng" trò chơi sau khi đóng`,
-                `Để giải phóng trò chơi thủ công sau khi đóng, <i>nhấp chuột phải</i> vào <span class="hl">biểu tượng khay hệ thống</span> > <span class="hl">Tùy chọn</span> > <span class="hl">Giải phóng trò chơi</span>, hoặc sử dụng <span class="hl">phím tắt Giải phóng trò chơi</span>`,
-                `Hoặc nhấn nút <span class="hl">Thêm</span> bên dưới để thêm tệp thực thi của cửa sổ đang focus vào <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi</span> > <span class="hl">Trò chơi tự động giải phóng</span>`,
-            ],
-            linkedgamefocussub: `Để ghi đè tất cả tiến trình trò chơi đang chạy được theo dõi tự động bởi <span class="hl">SANWatcher</span>, hãy thêm một mục mới trong <span class="hl">Trò chơi liên kết</span>`,
-            autoreleasegamefocussub: `Nếu Steam vẫn hiển thị trò chơi là <i>Đang chơi</i> sau khi cửa sổ trò chơi đã đóng, hãy thử thêm một mục mới trong <span class="hl">Trò chơi tự động giải phóng</span>`,
-            focussub: `Để thực hiện điều này cho trò chơi hiện tại, hãy nhấn nút <span class="hl">Thêm</span> bên dưới để thêm tệp thực thi của cửa sổ đang focus vào <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Điều gì xảy ra khi tôi nhấn nút Thêm?</u></span>`,
-            linkgamehelp: "Liên kết qua cửa sổ đang focus",
-            linkgamehelpsub: [
-                `Khi nhấn nút <span class="hl">Thêm</span>, một mục mới sẽ tự động được thêm vào <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi</span> > <span class="hl">Trò chơi tự động giải phóng</span>, sử dụng thông tin từ cửa sổ đang focus.`,
-                `Sau khi nhấn nút <span class="hl">Thêm</span>, sẽ bắt đầu đếm ngược 5 giây`,
-                `Trước khi hết thời gian, hãy chuyển focus sang cửa sổ trò chơi`,
-                `Khi hết thời gian, một mục mới cho <span class="hl">AppID</span> hiện tại sẽ được thêm vào <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi</span> > <span class="hl">Trò chơi tự động giải phóng</span>, sử dụng tệp thực thi của cửa sổ đang focus`,
-                `Các lần thử mới sẽ ghi đè mục hiện có, hoặc mục có thể được xóa trong <span class="hl">Cài đặt</span> > <span class="hl">Trò chơi</span> > <span class="hl">Trò chơi tự động giải phóng</span> bằng cách nhấn nút <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Không thể thêm cửa sổ",
-            addlinkfailedsub: `Nhấn nút <span class="hl">Thêm</span> để thử lại`
-        }
     },
     exclusions: {
         content: {
@@ -1097,6 +1007,13 @@ export const translations = {
             themes: "Chủ đề",
             src: "Nguồn ảnh chụp màn hình",
             themedeleted: "Đã xóa chủ đề",
+            findappid: "Tìm Steam AppID",
+            findappidsub: [
+                `Mỗi trò chơi Steam đều có một số duy nhất gọi là <span class="hl">AppID</span>. Bạn có thể tìm AppID của bất kỳ trò chơi Steam nào bằng một trong các cách sau:`,
+                `Trong <span class="hl">ứng dụng Steam</span>, <i>nhấp chuột phải</i> vào trò chơi trong <span class="hl">Thư viện</span> và chọn <i>Thuộc tính</i> > <i>Cập nhật</i> - AppID sẽ được hiển thị ở đây`,
+                `URL của <span class="hl">trang cửa hàng</span> trò chơi - đó là số nằm sau <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Các trang web như <span class="hl">SteamDB</span> - mục <span class="hl">App Info</span> sẽ hiển thị AppID của từng trò chơi`
+            ],
             rafindgameid: "Tìm RA GameID",
             rafindgameidsub: [
                 `Mỗi trò chơi RetroAchievements có một số duy nhất gọi là <span class="hl">GameID</span>. Bạn có thể tìm GameID của bất kỳ trò chơi RetroAchievements nào bằng cách kiểm tra:`,

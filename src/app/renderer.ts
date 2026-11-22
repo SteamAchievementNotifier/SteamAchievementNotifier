@@ -95,14 +95,13 @@ config.set("logtype","san") // Reset App Log to "san.log" on launch
 // Verifies all required localStorage objects (and creates if missing) on launch
 ;(async () => {
     for (const id of ([
-        "linkgame",
         "themeswitch",
         "statwin",
         "pinned"
     ] as const)) {
         await sanhelper.verifylocalstorage(id)
     }
-})()
+})().catch(err => log.write("WARN",`Unable to verify localStorage: ${(err as Error).message}`))
 
 sanhelper.beta && sanhelper.checkbetastatus()
 
@@ -118,8 +117,8 @@ window.addEventListener("DOMContentLoaded",() => setTimeout(async () => {
     const { noshortcuts } = config.store
     document.body.toggleAttribute("noshortcuts",noshortcuts)
 
-    // Init renderer shortcuts on launch (if enabled)
-    ipcRenderer.send("shortcut",!noshortcuts)
+    ipcRenderer.send("shortcut",!noshortcuts) // Init renderer shortcuts on launch (if enabled)
+    // sanhelper.plugins(config.get("plugins")) // Start plugin server on launch (if enabled)
 },100))
 
 ipcRenderer.on("displaysupdated",async () => {
@@ -1045,19 +1044,6 @@ ipcRenderer.on("clearls",async () => {
     } catch (err) {
         ipcRenderer.send("clearls",err)
     }
-})
-
-ipcRenderer.on("updatemenu",(event,id) => {
-    if (id !== "debug") return
-
-    const settings = document.querySelector("dialog > #content > #settingscontent")
-
-    if (settings) {
-        const input = settings.querySelector(`input#${id}`) as HTMLInputElement
-        input && (input.checked = config.get(id) as boolean)
-    }
-
-    config.get("debug") && ipcRenderer.send("debuginfoupdated",{ pollrate: config.get("pollrate") })
 })
 
 ipcRenderer.on("workeractive",(event,value: boolean) => document.body.toggleAttribute("active",value))

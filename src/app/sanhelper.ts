@@ -17,7 +17,7 @@ const { initLogger, testPanic } = sanhelper_rs.log
 export const __root: string = path.resolve(__dirname,"..","..")
 
 const tippies: Instance<Props>[][] = []
-// const plugintippies: Instance<Props>[][] = []
+const plugintippies: Instance<Props>[][] = []
 
 const defaulttippy = {
     placement: "bottom",
@@ -1102,33 +1102,33 @@ export const sanhelper = {
             tippies.push(tt)
         })
     }),
-    // loadplugintooltips: (settings: HTMLElement,value: boolean) => {
-    //     plugintippies.forEach(tt => tt.forEach(inst => inst.destroy()))
-    //     plugintippies.length = 0
+    loadplugintooltips: (settings: HTMLElement,value: boolean) => {
+        plugintippies.forEach(tt => tt.forEach(inst => inst.destroy()))
+        plugintippies.length = 0
 
-    //     if (!value) return
+        if (!value) return
 
-    //     settings.querySelectorAll<HTMLElement>(`:is(input,button)[plugin][tooltip]`).forEach(elem => {
-    //         const opt = elem.closest<HTMLElement>(".opt") ?? elem
+        settings.querySelectorAll<HTMLElement>(`:is(input,button)[plugin][tooltip]`).forEach(elem => {
+            const opt = elem.closest<HTMLElement>(".opt") ?? elem
 
-    //         const shared = opt !== elem && (!!opt.querySelector(":scope > .opt") || opt.querySelectorAll(`:scope > :is(input,button)[tooltip]`).length > 1)
-    //         const label = elem.previousElementSibling
-    //         const target = shared ? [elem,...(label instanceof HTMLSpanElement ? [label] : [])] : opt
+            const shared = opt !== elem && (!!opt.querySelector(":scope > .opt") || opt.querySelectorAll(`:scope > :is(input,button)[tooltip]`).length > 1)
+            const label = elem.previousElementSibling
+            const target = shared ? [elem,...(label instanceof HTMLSpanElement ? [label] : [])] : opt
 
-    //         const tt = tippy([opt],{
-    //             ...defaulttippy,
-    //             appendTo: settings,
-    //             onTrigger(inst: Instance<Props>) {
-    //                 inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-    //             },
-    //             allowHTML: false,
-    //             triggerTarget: target,
-    //             content: elem.getAttribute("tooltip")!
-    //         }) as Instance<Props>[]
+            const tt = tippy([opt],{
+                ...defaulttippy,
+                appendTo: settings,
+                onTrigger(inst: Instance<Props>) {
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                },
+                allowHTML: false,
+                triggerTarget: target,
+                content: elem.getAttribute("tooltip")!
+            }) as Instance<Props>[]
 
-    //         plugintippies.push(tt)
-    //     })
-    // },
+            plugintippies.push(tt)
+        })
+    },
     getpresetbounds: (preset: string) => {
         const meta = () => {
             try {

@@ -10,6 +10,7 @@
 
 .wrapper#outerwrapper {
     overflow: visible;
+    pointer-events: auto !important;
 }
 
 .wrapper#achcont {
@@ -71,8 +72,60 @@ body[bottomcenter] .wrapper#achcont {
 .wrapper#achcontent {
     --translate: 5% 0;
     translate: var(--translate);
-    column-gap: calc(0.5rem * var(--fontsize));
+    display: grid !important;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+
+    height: calc((var(--notifyheight) - (10px * var(--scale))) * 0.7225) !important;
+    align-self: center;
+    align-content: space-between !important;
+    column-gap: calc(0.55rem * var(--fontsize)) !important;
     animation: textslide calc(var(--transition) * 2) linear forwards;
+}
+
+#title {
+    grid-column: 2 / -1 !important;
+    grid-row: 1 !important;
+    font-family: "customfont", "SST Light", "SST Regular", "Roboto" !important;
+    font-size: calc(1.04rem * var(--titlefontsize)) !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-block: 0 !important;
+    padding-bottom: 0.15rem !important;
+    margin-block: 0 !important;
+    align-self: start !important;
+    overflow: visible !important;
+}
+
+#desc {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    font-family: "customfont", "SST Light", "SST Regular", "Roboto" !important;
+    font-size: calc(0.82rem * var(--descfontsize)) !important;
+    line-height: 1.25 !important;
+    opacity: 0.72;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-block: 0 !important;
+    padding-bottom: 0.15rem !important;
+    margin-block: 0 !important;
+    align-self: end !important;
+    overflow: visible !important;
+    transform: translateY(0.15rem);
+}
+
+.wrapper#achcontent::before {
+    content: "";
+    display: var(--decorationdisplaytype);
+    width: 1.15rem !important;
+    height: 1.15rem !important;
+    scale: calc(1.15 * var(--fontsize)) !important;
+    background: var(--decoration) center / contain no-repeat;
+    grid-column-start: 1 !important;
+    grid-row-start: 1 !important;
+    align-self: start !important;
+    transform: scale(var(--decorationscale));
 }
 
 body[topleft] .wrapper#achcontent,
@@ -85,18 +138,6 @@ body[bottomleft] .wrapper#achcontent {
     to { translate: 0 0; }
 }
 
-.wrapper#achcontent::before {
-    content: "";
-    display: var(--decorationdisplaytype);
-    width: 0.5rem;
-    height: 0.5rem;
-    scale: calc(1.75 * var(--fontsize));
-    background: var(--decoration) center / contain no-repeat;
-    grid-column-start: 1;
-    grid-row-start: var(--decorationindex);
-    transform: scale(var(--decorationscale));
-}
-
 #decoration {
     width: 0;
 }
@@ -104,61 +145,24 @@ body[bottomleft] .wrapper#achcontent {
 .wrapper#logo {
     display: grid;
     grid-column-start: 3;
-    margin-right: 1.5rem;
+
+    margin-right: calc(var(--notifyheight) * 0.06);
     place-self: center;
     opacity: 0;
     isolation: isolate;
     transform: scale(var(--logoscale));
+
 }
 
 .wrapper#logo::before {
     content: "";
-    width: 2rem;
-    height: 2rem;
+
+    width: calc(var(--notifyheight) * 1.15);
+    height: calc(var(--notifyheight) * 1.15);
     background: var(--logo) center / contain no-repeat;
 }
 
-.wrapper#logo::after {
-    content: "";
-    width: 3rem;
-    height: 3rem;
-    scale: 0;
-    background-color: transparent;
-    outline: calc(1px * var(--scale)) solid var(--tertiarycolor);
-    border-radius: 50%;
-    filter: blur(calc(0.65px * var(--scale)));
-    z-index: -1;
-    animation: expandcircle calc(var(--transition) * 5) calc(var(--displaytime) / 4) linear forwards;
-}
-
-@keyframes expandcircle {
-    from {
-        opacity: 1;
-        scale: 0;
-    }
-
-    25% {
-        opacity: 1;
-        scale: 0.5;
-    }
-
-    50% {
-        opacity: 1;
-        scale: 0.75;
-    }
-
-    to {
-        opacity: 0;
-        scale: 1;
-    }
-}
-
 .wrapper#logo::before,
-.wrapper#logo::after {
-    grid-column-start: 1;
-    grid-row-start: 1;
-    place-self: center;
-}
 
 .wrapper#achiconwrapper,
 .wrapper#logo {
@@ -174,8 +178,6 @@ body[alldetails] .wrapper#achcontent > span {
     -webkit-line-clamp: 1;
 }
 
-/* body[alldetails] .wrapper#achcontent > span:not(#unlockmsg),
-body:not([alldetails]) .wrapper#achcontent > span:not(#title) { */
 body .wrapper#achcontent > span {
     grid-column: 1 / -1;
 }
@@ -185,17 +187,49 @@ body .wrapper#achcontent > span {
 }
 
 body:not([alldetails]) #unlockmsg {
-    display: none;
+    display: none !important;
 }
 
-#unlockmsg,
-#title {
-    font-family: "customfont", "Source Sans Pro Light", "Roboto";
+@font-face {
+    font-family: "SST Medium";
+    src: url("../../../fonts/SSTMedium.TTF");
 }
 
-#desc {
-    font-family: "customfont", "Source Sans Pro ExtraLight", "Roboto";
-    font-size: calc(0.9rem * var(--fontsize));
+@font-face {
+    font-family: "SST Regular";
+    src: url("../../../fonts/SSTRg.TTF");
+}
+
+@font-face {
+    font-family: "SST Light";
+    src: url("../../../fonts/SSTLight.TTF");
+}
+
+body[alldetails] .wrapper#achcontent {
+    grid-template-rows: auto auto auto !important;
+    height: auto !important;
+}
+
+body[alldetails] #unlockmsg {
+    grid-column: 2 / -1 !important;
+    grid-row: 1 !important;
+    align-self: start !important;
+}
+
+body[alldetails] #title {
+    grid-column: 2 / -1 !important;
+    grid-row: 2 !important;
+    align-self: center !important;
+    font-size: calc(0.92rem * var(--titlefontsize)) !important;
+    line-height: calc(1.06rem * var(--titlefontsize)) !important;
+}
+
+body[alldetails] #desc {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    align-self: end !important;
+    font-size: calc(0.78rem * var(--descfontsize)) !important;
+    line-height: calc(0.96rem * var(--descfontsize)) !important;
 }
 
 body[ss] .wrapper#achcont,
@@ -208,10 +242,6 @@ body[ss] .wrapper#logo {
     display: grid;
     opacity: 1;
 }
-
-/* body[ss] .wrapper#achcontent > #desc {
-    grid-column: 1 / -1;
-} */
 
 .wrapper#ssdisplay::before {
     animation:
@@ -233,4 +263,357 @@ body:not([ss])[ssdisplay] .wrapper#bg {
     animation:
         var(--ssbrin),
         var(--ssbrout);
+}
+
+body[bgimg] .wrapper#bg,
+body[gameart] .wrapper#bg,
+body[gradient] .wrapper#bg,
+body[solid] .wrapper#bg {
+    background-color: #131e24 !important;
+
+    background-image:
+        linear-gradient(90deg, #232427 0%, #1a1b1f 55%, #15161a 100%) !important;
+    filter: none !important;
+}
+
+body[bgimg] .wrapper#bg::after,
+body[gameart] .wrapper#bg::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+}
+
+.wrapper#achcontent #title {
+    color: #b8c5c6 !important;
+}
+
+.wrapper#achcontent #desc {
+    color: #a2adb1 !important;
+    opacity: 1 !important;
+}
+
+.wrapper#achcontent #unlockmsg {
+    color: #a2adb1 !important;
+}
+
+body:not([expanded]) #ps5card {
+    display: none !important;
+}
+
+body[expanded],
+body[expanded] html {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+body[expanded] .wrapper#outerwrapper {
+
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    display: block !important;
+    pointer-events: auto !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    filter: none !important;
+    overflow: visible !important;
+    transform: none !important;
+}
+
+body[expanded] .wrapper#achcont {
+    display: none !important;
+}
+
+#ps5card {
+
+    position: relative !important;
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+
+    background-color: rgba(19, 30, 36, 0.985) !important;
+    background-image:
+        linear-gradient(90deg, rgba(35,36,39,.985) 0%, rgba(26,27,31,.985) 55%, rgba(21,22,26,.985) 100%) !important;
+    backdrop-filter: blur(30px) saturate(1.05) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(1.05) !important;
+
+    border-radius: calc(12 * calc(var(--notifywidth) / 651)) !important;
+    border: none !important;
+    box-shadow:
+        0 calc(18 * calc(var(--notifywidth) / 651)) calc(44 * calc(var(--notifywidth) / 651)) rgba(0, 0, 0, 0.62),
+        0 calc(2 * calc(var(--notifywidth) / 651)) calc(8 * calc(var(--notifywidth) / 651)) rgba(0, 0, 0, 0.4) !important;
+
+    padding: 0 !important;
+
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    font-family: "Source Sans Pro Light", "customfont", "SST Light", "Roboto", sans-serif !important;
+    user-select: none !important;
+    transform-origin: top left !important;
+}
+
+body[expanded] #ps5card {
+    animation: ps5CardReveal 0.26s cubic-bezier(0.22, 0.68, 0.16, 1) both !important;
+}
+
+@keyframes ps5CardReveal {
+    from {
+        clip-path: inset(0 0 83.5% 0);
+        opacity: 1;
+    }
+    to {
+        clip-path: inset(0 0 0 0);
+        opacity: 1;
+    }
+}
+
+body[expanded] #ps5card > * {
+    animation: ps5CardContentIn 0.20s cubic-bezier(0.22, 0.68, 0.16, 1) 0.04s both;
+}
+
+@keyframes ps5CardContentIn {
+    from {
+        opacity: 0;
+        transform: translateY(calc(6 * calc(var(--notifywidth) / 651)));
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#ps5card_hero_row {
+    position: absolute !important;
+    left: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    top: calc(30 * calc(var(--notifywidth) / 651)) !important;
+    width: calc(603 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(128 * calc(var(--notifywidth) / 651)) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#ps5card_icon_wrapper {
+    position: relative !important;
+    width: calc(128 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(128 * calc(var(--notifywidth) / 651)) !important;
+    flex: 0 0 calc(128 * calc(var(--notifywidth) / 651)) !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+#ps5card_icon {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+#ps5card_title_col {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 0 0 calc(32 * calc(var(--notifywidth) / 651)) !important;
+    padding: 0 !important;
+}
+
+#ps5card_trophy_icon {
+    width: calc(32 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(42 * calc(var(--notifywidth) / 651)) !important;
+    flex: 0 0 calc(32 * calc(var(--notifywidth) / 651)) !important;
+    margin: 0 !important;
+    background: var(--decoration) center / contain no-repeat !important;
+}
+
+#ps5card_title {
+    font-size: calc(30 * calc(var(--notifywidth) / 651)) !important;
+    line-height: 1 !important;
+    font-weight: 300 !important;
+    color: #b8c5c6 !important;
+    letter-spacing: 0.002em !important;
+    word-break: break-word !important;
+    margin: 0 0 0 calc(28 * calc(var(--notifywidth) / 651)) !important;
+    font-family: "Source Pro Light", "Source Sans Pro Light", "customfont", "SST Light", sans-serif !important;
+}
+
+#ps5card_desc {
+    position: absolute !important;
+    left: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    top: calc(196 * calc(var(--notifywidth) / 651)) !important;
+    width: calc(603 * calc(var(--notifywidth) / 651)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    line-height: 1 !important;
+    font-weight: 300 !important;
+    color: #b8c5c6 !important;
+    word-break: break-word !important;
+    font-family: "Source Sans Pro Light", "customfont", "SST Light", sans-serif !important;
+}
+
+#ps5card_progress_section {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+}
+
+#ps5card_progress_label {
+    position: absolute !important;
+    left: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    top: calc(262 * calc(var(--notifywidth) / 651)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    line-height: 1 !important;
+    font-weight: 300 !important;
+    color: #a2adb1 !important;
+    letter-spacing: 0.002em !important;
+    font-family: "Source Sans Pro Light", "customfont", "SST Light", sans-serif !important;
+}
+
+#ps5card_progress_row {
+    position: absolute !important;
+    left: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    top: calc(306 * calc(var(--notifywidth) / 651)) !important;
+    width: calc(603 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(64 * calc(var(--notifywidth) / 651)) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#ps5card_game_box {
+    width: calc(64 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(64 * calc(var(--notifywidth) / 651)) !important;
+    flex: 0 0 calc(64 * calc(var(--notifywidth) / 651)) !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    background-color: #0d1013 !important;
+
+    background-image: var(--gameicon) !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: calc(1 * calc(var(--notifywidth) / 651)) solid rgba(223, 228, 230, 0.34) !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+}
+
+#ps5card_percent_text {
+    margin: 0 0 0 calc(21 * calc(var(--notifywidth) / 651)) !important;
+    font-size: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    line-height: 1 !important;
+    font-weight: 300 !important;
+    color: #b8c5c6 !important;
+    font-family: "Source Sans Pro Light", "customfont", "SST Light", sans-serif !important;
+}
+
+#ps5card_action_btn {
+    position: absolute !important;
+    left: calc(26 * calc(var(--notifywidth) / 651)) !important;
+    top: calc(412 * calc(var(--notifywidth) / 651)) !important;
+    width: calc(599 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(76 * calc(var(--notifywidth) / 651)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 9999px !important;
+    background: #b8c5c4 !important;
+    color: #10141b !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    font-family: "SST Medium", "Roboto", sans-serif !important;
+    font-size: calc(24 * calc(var(--notifywidth) / 651)) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.03em !important;
+
+    cursor: pointer !important;
+    outline: none !important;
+    transition: background 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease !important;
+}
+
+#ps5card_action_btn:hover {
+    background: #dce5e4 !important;
+
+    box-shadow:
+        0 0 0 calc(3 * calc(var(--notifywidth) / 651)) #182329,
+        0 0 0 calc(5.5 * calc(var(--notifywidth) / 651)) rgba(220, 229, 228, 0.92) !important;
+}
+
+#ps5card_action_btn:active {
+    background: #a9b6b5 !important;
+    transform: scale(0.992) !important;
+    box-shadow:
+        0 0 0 calc(2 * calc(var(--notifywidth) / 651)) #182329,
+        0 0 0 calc(4 * calc(var(--notifywidth) / 651)) rgba(220, 229, 228, 0.75) !important;
+}
+
+.wrapper#achcont {
+    animation: slidein calc(var(--transition) * 2) forwards !important;
+}
+
+#ps5card_action_btn .ps5card_key {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: calc(92 * calc(var(--notifywidth) / 651)) !important;
+    height: calc(44 * calc(var(--notifywidth) / 651)) !important;
+    padding: 0 calc(12 * calc(var(--notifywidth) / 651)) !important;
+    border-radius: calc(10 * calc(var(--notifywidth) / 651)) !important;
+    background: rgba(16, 20, 27, 0.10) !important;
+    border: calc(1 * calc(var(--notifywidth) / 651)) solid rgba(16, 20, 27, 0.35) !important;
+    box-shadow: 0 calc(2 * calc(var(--notifywidth) / 651)) 0 rgba(16, 20, 27, 0.28) !important;
+    font-family: "SST Medium", "Roboto", sans-serif !important;
+    font-size: calc(20 * calc(var(--notifywidth) / 651)) !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.08em !important;
+}
+
+#ps5card_action_btn .ps5card_key--tab {
+    min-width: calc(64 * calc(var(--notifywidth) / 651)) !important;
+}
+
+#ps5card_action_btn .ps5card_key_sep {
+    margin: 0 calc(10 * calc(var(--notifywidth) / 651)) !important;
+    font-family: "SST Medium", "Roboto", sans-serif !important;
+    font-size: calc(20 * calc(var(--notifywidth) / 651)) !important;
+    font-weight: 400 !important;
+}
+
+body[expanded] .wrapper#logo,
+body[expanded] .wrapper#logo::before,
+body[expanded] .wrapper#logo::after {
+    display: none !important;
+    opacity: 0 !important;
 }

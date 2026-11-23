@@ -473,7 +473,10 @@ declare interface BuildNotifyInfo {
     desc: string,
     icon: string,
     percent: PercentInfo,
-    hidden: boolean
+    hidden: boolean,
+    total?: number,
+    unlockedcount?: number,
+    globalprogress?: number | null
 }
 
 declare interface Positions {

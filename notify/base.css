@@ -535,6 +535,11 @@ body[notify1line] .wrapper#achcontent span#desc {
         scrollfade var(--scrolllength) calc(var(--scrollstart) + var(--scrolllength) - var(--scrollgap) / 2) linear(0,1 calc(var(--scrollpercent) / 2),0 var(--scrollpercent),0) calc(var(--scrollrepeat) - 1) none;
 }
 
+body[scrollmode]:not([ss]) #achcontent > span {
+    text-wrap: nowrap;
+    text-overflow: clip;
+}
+
 @keyframes scrollfade {
     to { opacity: 0; }
 }

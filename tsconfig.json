@@ -10,7 +10,8 @@
         "rootDirs": [
             "./src/app",
             "./src/notify",
-            "./src/lang"
+            "./src/lang",
+            // "./src/plugins"
         ],
         "outDir": "./dist",
         "paths": {

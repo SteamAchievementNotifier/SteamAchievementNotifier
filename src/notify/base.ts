@@ -320,15 +320,19 @@ const notifyhelper = {
         let scroller = elem.querySelector(".scroller") as HTMLElement | null
 
         if (!scroller) {
+            await document.fonts.ready
+            await notifyhelper.waitforlayout(elem)
+            
+            if (!notifyhelper.isoverflowing(elem)) return
+
             const html = elem.innerHTML
             elem.innerHTML = ""
-
             scroller = document.createElement("span")
             scroller.className = "scroller"
             scroller.innerHTML = html
-
+            
             for (const attr of ["gs","unit"]) {
-                elem.hasAttribute(attr) && scroller!.setAttribute(attr,elem.getAttribute(attr)!)
+                elem.hasAttribute(attr) && scroller.setAttribute(attr,elem.getAttribute(attr)!)
             }
             
             elem.appendChild(scroller)
@@ -338,7 +342,20 @@ const notifyhelper = {
         await notifyhelper.waitforlayout(elem)
 
         const scrolldistance = Math.max(0,scroller.scrollWidth - elem.clientWidth)
+
+        if (!scrolldistance) {
+            elem.innerHTML = scroller.innerHTML
+            return
+        }
+
         scroller.style.setProperty("--scrolldistance",`${scrolldistance}px`)
+
+        const scrollh = scroller.getAnimations().find(a => (a as CSSAnimation).animationName === "scrollh")
+        
+        if (!scrollh || (scrollh.effect!.getComputedTiming().duration as number) <= 0) {
+            elem.innerHTML = scroller.innerHTML
+            return
+        }
 
         await notifyhelper.syncscroller(scroller)
     },
@@ -480,16 +497,26 @@ try {
                     })
     
                     document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
+                    
+                    const scrollmode = notifylinemode === "single" && notifyoverflow === "scroll"
+                    document.body.toggleAttribute("scrollmode",scrollmode)
 
-                    notifylinemode === "single" && notifyoverflow === "scroll" && requestAnimationFrame(async () => {
+                    scrollmode && requestAnimationFrame(async () => {
                         for (const elem of Array.from(document.querySelectorAll("#unlockmsg,#title,#desc")) as HTMLElement[]) {
                             if (!elem.textContent || ss) continue
-    
-                            await notifyhelper.waitforlayout(elem)
-                            notifyhelper.isoverflowing(elem) && await notifyhelper.addscroller(elem)
-                            
-                            elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem)) // Start scrolling when text animation starts
-                            customisation.preset === "default" && document.getElementById("achcont")!.addEventListener("animationend",async ({ animationName }) => animationName === "expand" && await notifyhelper.addscroller(elem)) // Start scrolling when container has fully expanded
+
+                            const container = elem.closest("#achcont") as HTMLElement // `default` has two `#achcont` instances, so find the closest one to the current elem
+
+                            switch (customisation.preset) {
+                                case "default":
+                                    container.addEventListener("animationend",async ({ animationName, target }) => target === container && animationName === "expand" && await notifyhelper.addscroller(elem)) // Start scrolling when elem's container has fully expanded
+                                    break
+                                default:
+                                    elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem)) // Start scrolling when elem's text animation starts
+                                    await notifyhelper.waitforlayout(elem)
+                                    notifyhelper.isoverflowing(elem) && await notifyhelper.addscroller(elem)
+                                    break
+                            }
                         }
                     })
                 }

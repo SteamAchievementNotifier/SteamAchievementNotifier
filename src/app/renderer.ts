@@ -12,6 +12,7 @@ import { sendwebhook } from "./webhook"
 import { rasupported } from "./ra"
 import { monitors } from "./monitors"
 import { steam } from "./steam"
+// import { plugins } from "../plugins/plugins"
 
 declare global {
     interface Window {
@@ -385,6 +386,13 @@ window.addEventListener("tabchanged",async ({ detail }: CustomEventInit) => {
 
         // Adds "soon" attribute to all ids in `nohwa` array when `config.nohwa` is enabled
         requestAnimationFrame(() => nohwa.forEach(id => settingscontent.querySelector(`.opt:has(#${id})`)!.toggleAttribute("soon",config.get("nohwa"))))
+
+        // const section = settingscontent.querySelector(".cont:has(.title#plugins)") as HTMLElement
+        
+        // // `await`ing here causes collapsed UI sections to briefly open upon opening the Settings menu
+        // plugins.createui(config,settingscontent as HTMLElement,section)
+        //     .then(activeplugins => sanhelper.devmode && console.log(activeplugins))
+        //     .catch(err => console.error(`Unable to build plugin sections: ${(err as Error).message}`))
     }
 
     const customiser = document.querySelector("body[customiser]")
@@ -1171,3 +1179,5 @@ ipcRenderer.on("creategametimerentry",async (event,appid: number) => {
         log.write("ERROR",(err as Error).message)
     }
 })
+
+// plugins.listeners.renderer()

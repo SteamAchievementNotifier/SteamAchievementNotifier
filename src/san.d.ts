@@ -741,5 +741,14 @@ declare interface MigrationResult {
     msg: string
 }
 
+// declare interface PluginData {
+//     id: string,
+//     dir: string,
+//     ui: string,
+//     icon?: string
+// }
+
+// declare type PluginValue = string | boolean
+
 declare module "simple-vdf"
 declare module "adm-zip"

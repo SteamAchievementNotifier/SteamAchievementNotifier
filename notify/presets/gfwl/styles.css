@@ -301,7 +301,12 @@ body:not([alldetails]) .wrapper#achcontent > span:not(:empty,:first-child) {
     margin-top: 0.4rem;
 }
 
-.wrapper#achcontent > #unlockmsg:has(> #decoration) + #title:not(:empty)::before {
+/* .wrapper#achcontent > #unlockmsg:has(> #decoration) + #title:not(:empty)::before {
+    content: attr(gs) attr(unit) " - ";
+} */
+
+.wrapper#achcontent > #unlockmsg:has(#decoration) + #title:not(:empty):not(:has(.scroller))::before,
+.wrapper#achcontent > #unlockmsg:has(#decoration) + #title:not(:empty) > .scroller::before {
     content: attr(gs) attr(unit) " - ";
 }
 

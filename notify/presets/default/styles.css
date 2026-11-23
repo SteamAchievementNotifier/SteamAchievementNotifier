@@ -256,3 +256,16 @@ body:not([ss])[ssdisplay][bottomcenter] .wrapper#achcont:has(.wrapper#achcontent
 .wrapper#achcont:has(> .wrapper#achcontent > #desc) #achcontent > span:has(.scroller) > .scroller {
     --anim: min(0px,calc(100cqw - 100%)) 0;
 }
+
+body[scrollmode] .wrapper#achcont:has(> .wrapper#achcontent > #unlockmsg) #achcontent:has(.scroller) {
+    grid-template-columns: calc(var(--notifyheight) - (10px * var(--scale))) auto 1fr calc(10px * var(--scale));
+}
+
+body[scrollmode] .wrapper#achcont:has(> .wrapper#achcontent > #desc) #achcontent {
+    grid-template-columns: calc(10px * var(--scale)) auto auto calc(var(--notifyheight) - (10px * var(--scale)));
+}
+
+/* `calc(var(--fontsize) * 0.6rem)` is declared in `.wrapper#achcontent::before` explicitly, so apply this width to the `::before`'s column to prevent layout issues*/
+body[scrollmode] .wrapper#achcont:has(> .wrapper#achcontent > #desc) #achcontent:has(#decoration) {
+    grid-template-columns: calc(10px * var(--scale)) calc(var(--fontsize) * 0.6rem) auto calc(var(--notifyheight) - (10px * var(--scale)));
+}

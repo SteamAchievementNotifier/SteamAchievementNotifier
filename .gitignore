@@ -27,3 +27,5 @@ TODO
 /dist/app/index_sanlogo.html
 **/*.txt
 *.zip
+src/plugins/
+src/plugin.d.ts

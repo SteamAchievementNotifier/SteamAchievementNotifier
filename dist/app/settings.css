@@ -348,7 +348,7 @@ dialog[menu]:has(#settingscontent) .optcont:has(.wrapper[overlay]) > .opt:last-c
     margin-top: 0.5rem;
 }
 
-dialog[menu] #settingscontent .opt:has(button.rect) {
+dialog[menu] #settingscontent .opt:has(button.rect:not([plugin])) {
     grid-template-columns: 1fr;
     gap: 0;
 }
@@ -690,14 +690,13 @@ input[type="checkbox"][id^="webhook"] {
     background-color: var(--lightgrey);
 }
 
-.multiselect .wrapper:has(> input) > span::before {
-    --trophy: url("../../icon/trophy_gold.svg");
+.multiselect .wrapper:has(> input) > span:not(.lbl)::before {
     content: "";
     display: inline-block;
     width: 0.7rem;
     height: 0.7rem;
     margin-right: 0.25rem;
-    background: var(--trophy) center / contain no-repeat;
+    background: var(--trophy,url("../../icon/trophy_gold.svg")) center / contain no-repeat;
     vertical-align: -0.1rem;
 }
 
@@ -1058,6 +1057,65 @@ button.iconbtn:hover {
 
 #loadplugin:hover {
     background-color: var(--defaultbtnhover);
+}
+
+.optcont > button[id^="sanplugin"] {
+    --bgcolor: var(--color, var(--defaultbtn));
+    --hover: var(--color, var(--defaultbtnhover));
+    grid-column: 1 / -1;
+    background-color: var(--defaultbtn);
+    font-size: 0.65rem;
+}
+
+.optcont > button[id^="sanplugin"][style*="--color"] {
+    background-color: color-mix(in srgb, var(--bgcolor) 50%, transparent);
+}
+
+.optcont > button[id^="sanplugin"]:hover {
+    background-color: var(--hover);
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt:has(> input[type="checkbox"][plugin]) > .opt:has(input[type="text"][plugin]) {
+    grid-template-columns: 1fr auto;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt:has(> input[type="checkbox"][plugin]:not(:checked)) > .opt:has(input[type="text"][plugin]) {
+    display: none;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt:has(> input[type="checkbox"][plugin]:checked) {
+    margin-bottom: 0.5rem;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt > .opt:has(> input[type="text"][plugin]) > input[type="text"][plugin] {
+    grid-column-start: 1;
+    background-color: var(--mediumgrey);
+    border-radius: 0 0 0 var(--elembr);
+    transition: background-color var(--transition);
+    text-overflow: ellipsis;
+    direction: rtl;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt > .opt:has(> input[type="text"][plugin]) > input[type="text"]:hover {
+    background-color: var(--lightgrey);
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt > .opt:has(> input[type="text"][plugin]) > button.rect[plugin] {
+    --icon: url("../../icon/search.svg");
+    grid-template-columns: 1fr;
+    gap: 0;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    width: 2rem;
+    border-radius: 0 var(--elembr) var(--elembr) 0;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt >  .opt:has(> input[type="text"][plugin]) > button.rect[plugin]::before {
+    place-self: center;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt >  .opt:has(> input[type="text"][plugin]) > button.rect[plugin]:hover::before {
+    filter: invert();
 }
 
 @media (orientation: portrait) {

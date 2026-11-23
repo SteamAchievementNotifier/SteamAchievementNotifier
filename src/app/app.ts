@@ -1,3 +1,4 @@
+// import { app, protocol } from "electron"
 import { app } from "electron"
 import path from "path"
 
@@ -14,6 +15,14 @@ import { error } from "./error"
 import { main } from "./main"
 import { update } from "./update"
 import { utils } from "./utils"
+
+// protocol.registerSchemesAsPrivileged([{
+//     scheme: "sanplugin",
+//     privileges: {
+//         standard: true,
+//         secure: true
+//     }
+// }])
 
 const legacydir = update.getlegacydir()
 const result = legacydir && update.migrateappdata(legacydir)

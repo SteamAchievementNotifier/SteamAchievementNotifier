@@ -4,7 +4,7 @@ import path from "path"
 import electronlog, { transports, catchErrors } from "electron-log"
 import { sanhelper } from "./sanhelper"
 
-const iconmap = new Map([
+export const iconmap = new Map([
     ["INFO","🔵"],
     ["WARN","🟡"],
     ["ERROR","🔴"],
@@ -56,8 +56,8 @@ export const log = {
 
         log.write("INFO",`"${process}" process created`)
     },
-    write: (event: "INFO" | "WARN" | "ERROR" | "EXIT", msg: Error | string) => {
-        electronlog.info(`${`${iconmap.get(event) || "❔"} ${event}`}\n${event === "ERROR" && msg instanceof Error ? msg.stack : msg}`)
+    write: (level: "INFO" | "WARN" | "ERROR" | "EXIT", msg: Error | string) => {
+        electronlog.info(`${`${iconmap.get(level) || "❔"} ${level}`}\n${level === "ERROR" && msg instanceof Error ? msg.stack : msg}`)
 
         process.type === "renderer" && (async () => {
             const { sanconfig } = await import("./config")

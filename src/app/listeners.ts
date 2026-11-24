@@ -11,6 +11,7 @@ import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
 import { audio } from "./audio"
 import { resourceusage } from "./resourceusage"
+// import { plugins } from "../plugins/plugins"
 
 let appid: number = 0
 let gameid: number = 0 // RetroAchievements GameID
@@ -359,9 +360,7 @@ export const listeners = {
             workerwin && workerwin.webContents.send(`${value ? "game" : "app"}id`)
         })
 
-        ipcMain.on("plugins",(event,value: boolean) => {
-            console.log(`Plugin host ${value ? "started" : "stopped"}`)
-        })
+        // plugins.listeners.main(win)
         
         ipcMain.on("runningappid",event => event.reply("runningappid",appid || 0))
         ipcMain.on("workeractive",(event,value: boolean) => win.webContents.send("workeractive",value))

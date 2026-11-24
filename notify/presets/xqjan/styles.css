@@ -250,6 +250,12 @@ body[fastanim] .wrapper#achcont > .wrapper#achcontent > span {
     --finish: none;
 }
 
+body[fastanim] .wrapper#achcontent > #title,
+body[fastanim] .wrapper#achcontent > #desc {
+    --scrollstart: calc(var(--transition) * 14);
+    --scrollend: calc(var(--displaytime) - var(--transition) * 4);
+}
+
 @keyframes fadein {
     to { opacity: 1; }
 }

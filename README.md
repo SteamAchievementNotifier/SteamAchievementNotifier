@@ -13,7 +13,7 @@
 
 <p></p>
 
-**Steam Achievement Notifier** shows fully customisable notifications when you unlock any achievement on Steam!
+**Steam Achievement Notifier** shows fully customisable notifications when you unlock any achievement on Steam.
 
 <p align="center"><img width="100%" height="100%" src="img/SANGarryV2.0.gif"></p>
 
@@ -31,9 +31,6 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 
 <div align="center">
 
-<!-- | <a href="#features">Features</a> | <a href="#updates">Updates</a> | <a href="#installation">Installation</a> | <a href="#credits">Credits</a> |
-| --- | --- | --- | --- | -->
-
 | <a href="#features">Features</a> | <a href="#installation">Installation</a> | <a href="#credits">Credits</a> |
 | --- | --- | --- |
 
@@ -43,66 +40,121 @@ Each notification type - **Main** (*for regular achievements*), **Rare** (*for a
 
 <h2 align="center" id="features">Features</h2>
 
-<!--
-<h2 align="center" id="features">Features</h2>
+<h4>🏆 Real-Time Achievement Tracking</h4>
 
-- 🏆 **Realtime Achievement Tracking**: By implementing Steamworks (*provided by custom fork of [steamworks.js](https://github.com/ceifa/steamworks.js/)*), **Steam Achievement Notifier** no longer requires an *API Key*/*Steam64 ID* - just run the app and start unlocking achievements, with no configuration required! This also allows greater functionality to be added in future updates, so stay tuned!
+Just run the app and start unlocking achievements - no configuration required!
 
-- 🖌 **Redesigned UI**: The in-app UI has undergone a complete redesign to enhance user experience, with updated elements, menus, and options for a simplified and modernised look! Once you're done customising, minimise the app window to the system tray to keep it running it in the background. In **V1.9**, the app window is also now resizable!
+<h4>🖌 Redesigned UI</h4>
 
-- 🎨 **Fully Customisable Notifications**: Each notification type provides a wealth of customisation options to truly personalise your Steam achievements! First, choose a **Notification Preset** (*each with bespoke designs and animations*). Then, start designing - change the background, shape, colours, size, display time, icons, position, font, opacity - and much more!
+The app UI has been redesigned to enhance user experience, with updated elements, menus, and options.
 
-- 🎶 **Custom Notification Sounds**: Load custom sounds that play whenever you unlock an achievement! In the **Customiser**, choose the **Sound Mode** for each notification type: **File** (*load a single audio file*) or **Randomised** (*select a folder containing multiple audio files which are then played at random*). Adjust the in-app volume, preview the sound and then unlock achievements to hear it! (*All in-app sounds can also be muted via the new <a href="#audiosrc">**Audio Source**</a> Settings option!*)
+Once you're done customising, minimise the app window to the system tray to keep tracking achievements in the background.
 
-- ✨ **Themes**: Brand new to **V1.9**, all customisations made via the **Customiser** menu can be saved as a custom **Theme**, and reloaded at any time by selecting it via the new **Theme Select** menu on the Home screen. Name your masterpiece, give it an icon (*or load your own using the **+** icon in the **Save Theme** dialog*), and switch between saved **Themes** whenever you like!
+<h4>🎨 Fully Customisable Notifications</h4>
 
-- 💯 **100% Notification Type**: The newest notification type - **100%** - will show a notification when all achievements have been unlocked in any game! Additionally, this notification type is also now fully customisable with all customisation options available for **Main** and **Rare** types (*plus more options exclusive to this type*)!
+Each notification type provides a wealth of customisation options to personalise your Steam achievements.
 
-- 📷 **Additional Media Options**: Includes options to automatically take a Steam screenshot when any achievement is unlocked, as well as generating a **Screenshot with Notification Overlay** (*by selecting the dropdown option under **Settings** > **Additional Media***), which takes a screenshot of your chosen monitor, and overlays an image of the achievement notification - including all customisations! Also new to V1.9, the **Notification Image** option generates an image of the notification itself, which can then be directly shared or added as an overlay elsewhere!
+First, choose a **Notification Preset**, each with bespoke designs and animations.
+
+Then, start designing - change the background, shape, colours, size, display time, icons, position, font, opacity - and much more!
+
+<h4>🎶 Custom Sounds</h4>
+
+Load custom sounds that play whenever you unlock an achievement! In the **Customiser**, choose the **Sound Mode** for each notification type:
+
+- **File**: Load a single audio file
+- **Randomised**: Select a folder containing multiple audio files, which are then played at random
+
+Adjust the in-app volume, preview the sound and then unlock achievements to hear it.
+
+<h4>✨ Themes</h4>
+
+All customisations made via the **Customiser** menu can be saved as a custom **Theme**, and reloaded at any time by selecting it via the new **Theme Select** menu on the Home screen.
+
+Name your masterpiece, give it an icon (*or load your own using the **+** icon in the **Save Theme** dialog*), and switch between saved **Themes** whenever you like.
+
+Additionally, all created **Themes** can be imported/exported, making them easy to share with other users.
+
+<h4>💯 100%/Set Completion Notifications</h4>
+
+The **100%** notification type will show a customisable notification when all achievements have been unlocked in any game.
+
+**Set** notifications will show a separate, customisable notification when all achievements in a Steam achievement set have been completed.
+
+**Set** notifications can also be toggled on/off via **Settings** > **Notifications** > **100% Set Notifications**.
 
 > [!WARNING]
-> 🐧 In order to enable **Take Steam Screenshot** on Linux, `xdotool` must be installed on the system
+> **Set** notifications will only show for compatible Steam games that incorporate achievement sets
+
+<h4>📷 Media</h4>
+
+**Settings** > **Media** > **Additional Media** includes the following options to automatically take a screenshot when any achievement is unlocked:
+
+- **Screenshot Only**: Takes a screenshot of the selected monitor.
+- **Screenshot with Notification Overlay**: Takes a screenshot of the selected monitor, then overlays an image of the achievement notification - including all customisations!
+- **Notification Image**: Generates an PNG image of the notification itself, which can then be directly shared, or added as an overlay elsewhere.
+
+Various additional options - such as **Screenshot Mode**, **HDR Mode**, **Screenshot Format**, **Screenshot Path**, **Screenshot Delay** and more - are available to further configure and customise your screenshots!
+
+<!-- > [!WARNING]
+> 🐧 In order to enable **Take Steam Screenshot** on Linux, `xdotool` must be installed on the system -->
 
 > [!WARNING]
 > 🐧 In order to enable **HDR Mode** on Linux, `libxcb1`, `libxrandr2` and `libdbus-1-3` must be installed on the system
 
-- 🎥 **Stream Notifications**: Building on the foundations of the **Duplicate Notification to Window** option available in previous versions, **Stream Notifications** creates a background window that duplicates all on-screen notifications - including all customisations - which is targetable as a window source within streaming software, such as OBS/Streamlabs/Twitch Studio etc. By setting this window as your source, you can overlay all achievement notifications directly in your streams!
+<h4>🎥 Stream Notifications</h4>
 
-- 📊 **Achievement Stats Overlay**: Display a configurable list of locked achievements and a completion progress bar for the current game in a window targetable by streaming software.  Configure the order of the list, limit the number of displayed achievements, the opacity of the window and more! Additionally, any unlocked achievements will be moved to the top of the list (regardless of the display limit set), play an unlock animation and update the progress bar in real-time!
+**Stream Notifications** creates a background window which duplicates all on-screen notifications, which is targetable as a window source within streaming software - such as OBS/Streamlabs/Twitch Studio etc.
 
-- 💬 **Native OS Preset**: **V1.9** adds a new **Notification Preset** type - **Native OS**\* shows a real OS notification containing the unlock message, achievement title and description, along with the achievement icon!
+By setting this window as your source, you can overlay achievement notifications directly into your streams!
 
-> [!WARNING]
-> \*Some features are not supported and will be made unavailable when this Notification Preset is selected
+<h4>📊 Achievement Stats Overlay</h4>
 
-- 🌍 **Localisation Support**: All UI and notification elements have been translated into most Steam-supported languages - select your preferred language from the **Settings** menu! Additionally, the new **Translate Achievements to Steam Language**\* option displays achievement information in the user's chosen Steam UI language!
+Display a configurable list of achievements for Steam/**RetroAchievements** games in a separate window targetable by streaming software.
 
-> [!WARNING]
-> \*Some translated achievement information will only be locally available after unlocking the achievement.
-> 
-> The **Max Translation Retries** option controls how many times a missing translation will be searched for (repeated once per second) before using the default achievement information provided by Steamworks instead
+Toggle between displaying everything or just the progress bar, then configure the order of the list, the number of displayed achievements, displaying locked/unlocked achievements, the opacity of the window and more!
 
-- 📡 **Auto Updater**: Using [electron-builder's autoUpdater](https://www.electron.build/auto-update.html), users will now be notified if a new update is available - if so, downloading/installation of the new version will all be handled automatically by the app!
+Additionally, any unlocked achievements will be moved to the top of the list, play an unlock animation and update the progress bar in real-time.
 
-- 🕹 **Retro Achievements Support**: Display customised notifications for **Retro Achievements** earned in supported emulators\*! Most existing in-app functionality available for Steam achievements - such as Screenshots/Notification Images/Game Art etc. - is also available for **Retro Achievements** notifications!
+<h4>⌛ Game Completion Timer</h4>
+
+Show a precise timer in a separate window targetable by streaming software, which displays the amount of time taken to unlock all achievements in the current Steam/**RetroAchievements** game.
+
+Once all achievements have been unlocked, the timer will stop to display the total time taken to achieve 100% completion.
+
+The timer will remain stopped at the time of completion for any subsequent launches of completed games, but can be manually reset per-game via the **Reset Timer** button while the completed game is detected.
+
+<h4>🌍 Localisation</h4>
+
+All UI and notification elements have been translated into most Steam-supported languages. Just select your preferred language from the **Settings** menu.
+
+<h4>📡 Auto Updater</h4>
+
+Using [electron-builder's autoUpdater](https://www.electron.build/auto-update.html), users will now be notified if a new update is available - if so, the download/installation of new updates will be handled automatically.
+
+<h4>🕹 RetroAchievements Support</h4>
+
+Display customised notifications for **RetroAchievements** earned in supported emulators\*! Most existing functionality available for Steam achievements - such as **Screenshots**/**Notification Images**/**Game Art** etc. - is also available for **RetroAchievements** notifications!
 
 > [!NOTE]
-> \*For information on currently supported/incompatible emulators, prerequisites and setup, see the [Retro Achievements](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/blob/master/RA.md) section
-
--->
+> \*For information on currently supported/incompatible emulators, prerequisites and setup, see the [RetroAchievements](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/blob/master/RA.md) section
 
 <h2 align="center" id="installation">Installation</h2>
 
 1. Go to the [Releases](https://github.com/SteamAchievementNotifier/SteamAchievementNotifier/releases) page
 2. Expand the **Assets** section at the bottom of the latest release, then download:
-    - Windows: `Steam Achievement Notifier (Vx.x.x).exe`
-    - Linux: `Steam Achievement Notifier (Vx.x.x).AppImage`
-2. Once downloaded, run the executable
-3. Once the app opens, customise your notifications and start unlocking achievements!
 
-<hr>
-<h3 align="center">🏆 Happy Achievement Hunting! 🏆</h3>
-<hr>
+| Platform | Installer |
+| -- | -- |
+| **Windows**  | `Steam Achievement Notifier (V2.0.X).exe` |
+| **Linux** | `Steam Achievement Notifier (V2.0.X).AppImage` |
+
+2. Once downloaded, run the installer
+3. Customise your notifications and start unlocking achievements!
+
+<p align="center">
+<img src="./img/happyachievementhunting.svg">
+</p>
 
 <h2 align="center" id="credits">Credits</h2>
 

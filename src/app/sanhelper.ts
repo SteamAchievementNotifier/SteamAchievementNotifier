@@ -15,7 +15,10 @@ import semver from "semver"
 const { initLogger, testPanic } = sanhelper_rs.log
 
 export const __root: string = path.resolve(__dirname,"..","..")
+
 const tippies: Instance<Props>[][] = []
+const plugintippies: Instance<Props>[][] = []
+
 const defaulttippy = {
     placement: "bottom",
     followCursor: true,
@@ -388,7 +391,7 @@ export const sanhelper = {
     statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
-    plugins: (value: boolean) => ipcRenderer.send("plugins",value),
+    // plugins: (value: boolean) => ipcRenderer.send("plugins",value),
     uimode: (value: "basic" | "advanced") => ipcRenderer.send("uimode",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
@@ -681,150 +684,9 @@ export const sanhelper = {
         }
     },
     updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: sanhelper.type, noreload } })),
-    loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
-        if (!menuelem) return
-
-        const elems = [
-            "#elemselector select",
-            "#elemselector input",
-            "#elemselector button",
-            "#webhookwrapper input",
-            `button[id$="shortcut"]`,
-            `.multiselect#raemuswrapper input[type="checkbox"]`,
-            `.multiselect#raemuswrapper input[type="text"]`,
-            `.opt > input[type="checkbox"]#radefault`
-        ].join(",")
-
-        menuelem.querySelectorAll(elems)!.forEach(async elem => {
-            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement) // Removes previous tooltips from `tippies` array when present
-            prevtt && tippies.splice(tippies.indexOf(prevtt,1)).forEach(tt => tt[0]?.destroy())
-
-            const trophies = [
-                "bronze",
-                "silver",
-                "gold",
-                "plat"
-            ] as TrophyType[] | "plat"
-
-            let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
-
-            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
-                if (elem.id === `webhook${type}` || elem.id === `webhookembedcolor${type}`) {
-                    const config = (await import("./config")).sanconfig.get()
-                    content = (await language.get(elem.id,["tooltips"])).replace(new RegExp(`\\$${type}`,"g"),await language.get((config.get("trophymode") ? "trophy" : "") + type))
-                }
-            }
-
-            for (const id of trophies) {
-                if (elem.id.endsWith(id)) {
-                    const config = (await import("./config")).sanconfig.get()
-                    content = sanhelper.plattype(sanhelper.type) && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
-                }
-            }
-
-            const wideelems = [...rasupported].flatMap(id => rasupported.includes(id) ? [id,`${id}path`] : [id])
-            const elemselectorbtns = [...trophies].map(id => `percentbadgeimg${id}`)
-
-            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})${elem.classList.contains("rect") ? ` > #${elem.id}` : ""}`,{
-                ...defaulttippy,
-                appendTo: "parent",
-                content: content,
-                maxWidth: sanhelper.maxwidth(wideelems,elem.id),
-                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) && ![...elemselectorbtns,"resetpbimgs"].some(id => elem.id === id) ? elem.parentElement : ([...rasupported,...elemselectorbtns].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
-                onTrigger(inst) {
-                    currenttippy && currenttippy !== inst && currenttippy.hide()
-                    currenttippy = inst
-
-                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                }
-            }) as Instance<Props>[]
-
-            tippies.push(tt)
-        })
-
-        const range = new Map<string,string>([
-            ["percentbadgefontsize","%"],
-            ["sspercentbadgefontsize","%"],
-            ["percentbadgeroundness","%"],
-            ["sspercentbadgeroundness","%"],
-            ["percentbadgex","px"],
-            ["sspercentbadgex","px"],
-            ["percentbadgey","px"],
-            ["sspercentbadgey","px"],
-        ])
-
-        range.forEach((value,key) => {
-            const elem = document.getElementById(key)
-
-            if (elem) {
-                const tt = tippy(`#${key}`,{
-                    ...defaulttippy,
-                    content: `${(elem as HTMLInputElement).value}${value}`,
-                    appendTo: "parent",
-                    hideOnClick: false,
-                    placement: "top",
-                    followCursor: false,
-                    offset: [0,5],
-                    delay: [0,10],
-                    theme: "default value",
-                    onTrigger(inst) {
-                        (elem as HTMLInputElement).oninput = () => inst.setProps({ content: `${(elem as HTMLInputElement).value}${value}` })
-                        inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                    }
-                })
-    
-                tippies.push(tt)
-            }
-        })
-
-        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
-
-        menu?.querySelectorAll(`input[type="color"]`)?.forEach(async clr => {
-            const { sanconfig } = await import("./config")
-            const config = sanconfig.get()
-            const dialog = document.querySelector(`dialog[menu]:has(#${menu?.id})`)
-            const color = clr as HTMLInputElement
-
-            color.style.setProperty("--configcolor",config.get(`${!color.id.startsWith("webhookembedcolor") ? `customisation.${sanhelper.type}.` : ""}${color.id}`) as string)
-    
-            const tt = tippy(`#${color.id}`,{
-                allowHTML: true,
-                appendTo: dialog || document.body,
-                interactive: true,
-                maxWidth: "none",
-                trigger: "click",
-                offset: [0,20],
-                placement: menuelem.id === "customiser" ? "left" : "right",
-                onTrigger: inst => {
-                    currenttippy && currenttippy !== inst && currenttippy.hide()
-                    currenttippy = inst
-
-                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                },
-                onMount: inst => {
-                    menu.addEventListener("scroll",() => inst.hide(),{ once: true })
-    
-                    const html = `
-                        <input type="text" spellcheck="false" maxlength="9">
-                        <span id="colorcode"></span>
-                        <div id="picker"></div>
-                    `
-        
-                    inst.setContent(html)
-                    createcolorpicker(inst,color,menuelem)
-                },
-                onHidden: inst => {
-                    inst.setContent("")
-                    currenttippy === inst && (currenttippy = null)
-                }
-            })
-    
-            tippies.push(tt)
-        })
-    }),
     maxwidth: (wideelems: string[],id: string) => wideelems.includes(id) ? 200 : defaulttippy.maxWidth,
     settooltips: (value: boolean) => {
-        tippies.forEach(tt => tt[0]?.destroy())
+        tippies.forEach(tt => tt.forEach(inst => inst.destroy()))
         tippies.length = 0
 
         const range = new Map<string,string>([
@@ -922,7 +784,7 @@ export const sanhelper = {
         })
 
         const settings = document.querySelector(`dialog[menu] #settingscontent`) as HTMLElement
-        const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)
+        const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id && !btn.hasAttribute("plugin")).map(btn => btn.id)
 
         if (settings) {
             const props = {
@@ -933,10 +795,10 @@ export const sanhelper = {
             }
             
             settings.querySelectorAll(`
-                #settingscontent input,
+                #settingscontent input:not([plugin]),
                 #settingscontent .optbtn,
                 #settingscontent select,
-                #settingscontent .rect,
+                #settingscontent .rect:not([plugin]),
                 #settingscontent > .cont:has(button${settingsbtns.map(id => `#${id}`).join(",")}) > .optcont > button
             `)!.forEach(elem => {
                 if (!elem) return
@@ -1094,6 +956,178 @@ export const sanhelper = {
                 })
             })
         }
+    },
+    loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
+        if (!menuelem) return
+
+        const elems = [
+            "#elemselector select",
+            "#elemselector input",
+            "#elemselector button",
+            "#webhookwrapper input",
+            `button[id$="shortcut"]`,
+            `.multiselect#raemuswrapper input[type="checkbox"]`,
+            `.multiselect#raemuswrapper input[type="text"]`,
+            `.opt > input[type="checkbox"]#radefault`
+        ].join(",")
+
+        menuelem.querySelectorAll(elems)!.forEach(async elem => {
+            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement) // Removes previous tooltips from `tippies` array when present
+
+            if (prevtt) {
+                tippies.splice(tippies.indexOf(prevtt),1)
+                prevtt.forEach(tt => tt.destroy())
+            }
+
+            const trophies = [
+                "bronze",
+                "silver",
+                "gold",
+                "plat"
+            ] as TrophyType[] | "plat"
+
+            let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
+
+            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
+                if (elem.id === `webhook${type}` || elem.id === `webhookembedcolor${type}`) {
+                    const config = (await import("./config")).sanconfig.get()
+                    content = (await language.get(elem.id,["tooltips"])).replace(new RegExp(`\\$${type}`,"g"),await language.get((config.get("trophymode") ? "trophy" : "") + type))
+                }
+            }
+
+            for (const id of trophies) {
+                if (elem.id.endsWith(id)) {
+                    const config = (await import("./config")).sanconfig.get()
+                    content = sanhelper.plattype(sanhelper.type) && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
+                }
+            }
+
+            const wideelems = [...rasupported].flatMap(id => rasupported.includes(id) ? [id,`${id}path`] : [id])
+            const elemselectorbtns = [...trophies].map(id => `percentbadgeimg${id}`)
+
+            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})${elem.classList.contains("rect") ? ` > #${elem.id}` : ""}`,{
+                ...defaulttippy,
+                appendTo: "parent",
+                content: content,
+                maxWidth: sanhelper.maxwidth(wideelems,elem.id),
+                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) && ![...elemselectorbtns,"resetpbimgs"].some(id => elem.id === id) ? elem.parentElement : ([...rasupported,...elemselectorbtns].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
+                onTrigger(inst) {
+                    currenttippy && currenttippy !== inst && currenttippy.hide()
+                    currenttippy = inst
+
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                }
+            }) as Instance<Props>[]
+
+            tippies.push(tt)
+        })
+
+        const range = new Map<string,string>([
+            ["percentbadgefontsize","%"],
+            ["sspercentbadgefontsize","%"],
+            ["percentbadgeroundness","%"],
+            ["sspercentbadgeroundness","%"],
+            ["percentbadgex","px"],
+            ["sspercentbadgex","px"],
+            ["percentbadgey","px"],
+            ["sspercentbadgey","px"],
+        ])
+
+        range.forEach((value,key) => {
+            const elem = document.getElementById(key)
+
+            if (elem) {
+                const tt = tippy(`#${key}`,{
+                    ...defaulttippy,
+                    content: `${(elem as HTMLInputElement).value}${value}`,
+                    appendTo: "parent",
+                    hideOnClick: false,
+                    placement: "top",
+                    followCursor: false,
+                    offset: [0,5],
+                    delay: [0,10],
+                    theme: "default value",
+                    onTrigger(inst) {
+                        (elem as HTMLInputElement).oninput = () => inst.setProps({ content: `${(elem as HTMLInputElement).value}${value}` })
+                        inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                    }
+                })
+    
+                tippies.push(tt)
+            }
+        })
+
+        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
+
+        menu?.querySelectorAll(`input[type="color"]`)?.forEach(async clr => {
+            const { sanconfig } = await import("./config")
+            const config = sanconfig.get()
+            const dialog = document.querySelector(`dialog[menu]:has(#${menu?.id})`)
+            const color = clr as HTMLInputElement
+
+            color.style.setProperty("--configcolor",config.get(`${!color.id.startsWith("webhookembedcolor") ? `customisation.${sanhelper.type}.` : ""}${color.id}`) as string)
+    
+            const tt = tippy(`#${color.id}`,{
+                allowHTML: true,
+                appendTo: dialog || document.body,
+                interactive: true,
+                maxWidth: "none",
+                trigger: "click",
+                offset: [0,20],
+                placement: menuelem.id === "customiser" ? "left" : "right",
+                onTrigger: inst => {
+                    currenttippy && currenttippy !== inst && currenttippy.hide()
+                    currenttippy = inst
+
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                },
+                onMount: inst => {
+                    menu.addEventListener("scroll",() => inst.hide(),{ once: true })
+    
+                    const html = `
+                        <input type="text" spellcheck="false" maxlength="9">
+                        <span id="colorcode"></span>
+                        <div id="picker"></div>
+                    `
+        
+                    inst.setContent(html)
+                    createcolorpicker(inst,color,menuelem)
+                },
+                onHidden: inst => {
+                    inst.setContent("")
+                    currenttippy === inst && (currenttippy = null)
+                }
+            })
+    
+            tippies.push(tt)
+        })
+    }),
+    loadplugintooltips: (settings: HTMLElement,value: boolean) => {
+        plugintippies.forEach(tt => tt.forEach(inst => inst.destroy()))
+        plugintippies.length = 0
+
+        if (!value) return
+
+        settings.querySelectorAll<HTMLElement>(`:is(input,button)[plugin][tooltip]`).forEach(elem => {
+            const opt = elem.closest<HTMLElement>(".opt") ?? elem
+
+            const shared = opt !== elem && (!!opt.querySelector(":scope > .opt") || opt.querySelectorAll(`:scope > :is(input,button)[tooltip]`).length > 1)
+            const label = elem.previousElementSibling
+            const target = shared ? [elem,...(label instanceof HTMLSpanElement ? [label] : [])] : opt
+
+            const tt = tippy([opt],{
+                ...defaulttippy,
+                appendTo: settings,
+                onTrigger(inst: Instance<Props>) {
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                },
+                allowHTML: false,
+                triggerTarget: target,
+                content: elem.getAttribute("tooltip")!
+            }) as Instance<Props>[]
+
+            plugintippies.push(tt)
+        })
     },
     getpresetbounds: (preset: string) => {
         const meta = () => {

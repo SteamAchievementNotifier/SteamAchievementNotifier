@@ -32,12 +32,12 @@ The tracked game is shared via a JSON status file: the plugin passes its path to
 Over SSH (or Konsole before switching), with Game Mode active and a game running:
 
 ```sh
-DISPLAY=:0 ~/Applications/SteamAchievementNotifier_V1.9.49.AppImage --ozone-platform=x11 --gamescope
+DISPLAY=:0 ~/Applications/SteamAchievementNotifier_V2.0.0.AppImage --ozone-platform=x11 --gamescope
 # then, from a second shell:
-DISPLAY=:0 ~/Applications/SteamAchievementNotifier_V1.9.49.AppImage --ozone-platform=x11 --gamescope --testnotify
+DISPLAY=:0 ~/Applications/SteamAchievementNotifier_V2.0.0.AppImage --ozone-platform=x11 --gamescope --testnotify
 ```
 
-If the test notification doesn't appear, try `DISPLAY=:1`, and check `~/.local/share/Steam Achievement Notifier (V1.9)/logs` for `GAMESCOPE_EXTERNAL_OVERLAY` warnings.
+If the test notification doesn't appear, try `DISPLAY=:1`, and check `~/.local/share/Steam Achievement Notifier (V2.0)/logs` for `GAMESCOPE_EXTERNAL_OVERLAY` warnings.
 
 ## Build & install
 

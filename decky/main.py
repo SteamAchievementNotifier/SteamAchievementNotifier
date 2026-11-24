@@ -76,7 +76,7 @@ class Plugin:
 
     @staticmethod
     def _is_san_appimage(name: str) -> bool:
-        # Matches "SteamAchievementNotifier_V1.9.49.AppImage", "Steam Achievement Notifier (1).appimage" etc.
+        # Matches "SteamAchievementNotifier_V2.0.0.AppImage", "Steam Achievement Notifier (1).appimage" etc.
         normalised = name.lower().replace(" ", "").replace("_", "").replace("-", "")
         return normalised.endswith(".appimage") and "achievementnotifier" in normalised
 

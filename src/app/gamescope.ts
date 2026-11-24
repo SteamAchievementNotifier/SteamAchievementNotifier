@@ -239,7 +239,7 @@ export const gamescope = {
     addunlock: ({ istestnotification, type, ra, apiname }: Notify) => {
         const src = ra ? "ra" : "steam"
         const status = tracking[src]
-        if (!status || istestnotification || type === "plat" || counted[src].has(apiname)) return
+        if (!status || istestnotification || type === "plat" || type === "set" || counted[src].has(apiname)) return
 
         counted[src].add(apiname)
         status.unlocked = Math.min(status.unlocked + 1,status.total)

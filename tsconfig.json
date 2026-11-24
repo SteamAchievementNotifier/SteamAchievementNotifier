@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es2016",
+        "target": "es2020",
         "module": "commonjs",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
@@ -10,9 +10,13 @@
         "rootDirs": [
             "./src/app",
             "./src/notify",
-            "./src/lang"
+            "./src/lang",
+            // "./src/plugins"
         ],
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "paths": {
+            "@xan105/vdf/binary": ["./node_modules/@xan105/vdf/types/binary.d.ts"]
+        }
     },
     "include": ["./src/**/*.ts"],
     "exclude": ["./node_modules"]

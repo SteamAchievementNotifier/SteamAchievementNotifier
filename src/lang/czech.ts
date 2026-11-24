@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Dokončeno",
         achievementdesc: "Kliknutím na tlačítko Zobrazit testovací oznámení",
         gamecompletedesc: "Odemkli jste všechny úspěchy!",
+        setname: "Název sady",
+        setcomplete: "Dokončil(a) jsi celou sadu úspěchů!",
         defaultcustomfont: "Výchozí (Není vybráno písmo)",
         defaultsoundfile: "Výchozí (Není vybrán zvukový soubor)",
         defaultsounddir: "Výchozí (Není vybraná složka)",
@@ -44,14 +46,9 @@ export const translations = {
         show: "Zobrazit",
         exit: "Ukončit",
         donotshowagain: "Znovu nezobrazovat toto dialogové okno",
-        releasegame: "Uvolnit hru",
         noupdateavailable: "Žádná aktualizace není k dispozici",
         latestversion: "Nejnovější verze je nainstalována",
         missingdeps: "Chybějící závislost",
-        missingdepssub: [
-            `Zdá se, že se snažíte povolit možnost <span class="hl">Vytvořit snímek obrazovky ve Steamu</span>. Nicméně v Linuxu nelze snímky obrazovky automaticky spustit bez předchozí instalace balíčku <code class="dialogcode">xdotool</code>`,
-            `Prosím, spusťte <code class="dialogcode" style="user-select: text;">sudo apt-get install xdotool</code> pro instalaci této závislosti, což zajistí, že na tomto zařízení lze vytvářet snímky obrazovky ve Steamu`
-        ],
         restartapp: "Restartovat Aplikaci",
         restartappsub: [
             `Pokud věci nefungují správně, použijte tuto možnost k uzavření a znovuotevření aplikace`,
@@ -62,6 +59,7 @@ export const translations = {
         new: "Nové...",
         nodata: "Žádná data",
         webhookunlockmsg: "$user odemkl úspěch",
+        webhookunlockmsgset: "$user dokončil sadu achievementů",
         webhookunlockmsgplat: "$user odemkl všechny úspěchy",
         webhookingame: "ve $gamename",
         notconnected: "Nepřipojeno",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "Vydání",
         checkapplog: "Zkontrolujte prosím protokol aplikace pro podrobnosti.",
-        workercrash: "Worker selhal!",
-        workercrashsub: "Klikněte sem pro restartování Worker a opětovné spuštění sledování hry"
+        customtextvars: "Proměnné",
+        customtextvarssub: `<span class="hl">Proměnné</span> lze použít v <span class="hl">Vlastním textu</span> k zobrazení informací o hře/úspěchu v oznámeních:`,
+        customtextvarsdesc: {
+            game: "Název hry",
+            title: "Název úspěchu",
+            desc: "Popis úspěchu",
+            percent: "Procento odemčení úspěchu",
+            total: "Odemčené/celkové úspěchy"
+        },
+        customtextvarsset: "Název sady achievementů",
+        customtextvarsplat: `Zpráva "$gamecomplete"`
     },
     app: {
         content: {
@@ -196,10 +203,6 @@ export const translations = {
             content: {
                 rarity: "Procento vzácnosti",
                 semirarity: "Procento stříbrné",
-                rareonly: "Pouze vzácné",
-                all: "Vše",
-                off: "Vypnuto",
-                showpercent: "Zobrazit procenta",
                 soundonly: "Pouze zvuk",
                 nowtracking: "Zobrazit Oznámení o Sledování",
                 nowtrackingscale: "Měřítko Sledování",
@@ -222,17 +225,18 @@ export const translations = {
                 trophymode: "Režim trofejí",
                 notifymax: "Maximální počet oznámení", 
                 notifyspace: "Rozestup mezi oznámeními",
-                notify1line: "Omezit text na 1 řádek",
-                testnotifycustomtext: "Vlastní text testovacího oznámení",
-                testnotifycustomtexttitle: "Název",
-                testnotifycustomtextdesc: "Popis"
+                notifylinemode: "Režim řádků",
+                single: "Jeden",
+                max: "Maximum",
+                notifyoverflow: "Režim přetečení",
+                ellipsis: "Trojtečka",
+                scroll: "Posouvání",
+                setplat: "Oznámení o 100% dokončení"
             }
         },
         games: {
             title: "Hry",
             content: {
-                linkedgames: "Propojené hry",
-                autoreleasegames: "Hry s automatickým uvolněním",
                 themeswitch: "Automatické přepínání témat",
                 exclusionlist: "Seznam vyloučení",
                 inclusionlist: "Seznam zahrnutí",
@@ -320,7 +324,6 @@ export const translations = {
                 nvda: "Povolit podporu NVDA",
                 tooltips: "Zobrazit tooltipy",
                 showsystrayopts: "Zobrazit možnosti systémové lišty",
-                releaseshortcut: "Klávesová zkratka pro uvolnění hry",
                 noshortcuts: "Zakázat klávesové zkratky"
             }
         },
@@ -328,11 +331,6 @@ export const translations = {
             title: "Pokročilé",
             content: {
                 pollrate: "Frekvence dotazů",
-                initdelay: "Zpoždění sledování",
-                releasedelay: "Zpoždění Vydání",
-                maxretries: "Maximální počet opakování procesu",
-                debug: "Panel Ladění",
-                userust: "Alternativní Režim Zpracování",
                 notifydebug: "Zobrazit oznámení nástrojů pro ladění",
                 workerdebug: "Zobrazit DevTools pro Worker",
                 exportachdata: "Exportovat data o úspěších",
@@ -340,6 +338,7 @@ export const translations = {
                 audiocooldown: "Časový odstup zvuku",
                 usecustomfiles: "Použít vlastní soubory aplikace",
                 showcustomfiles: "Zobrazit vlastní soubory aplikace",
+                cleariconcache: "Vymazat mezipaměť ikon",
                 appdatadir: "Zobrazit složku AppData",
                 backup: "Záloha",
                 backuppath: "Cesta zálohy",
@@ -356,8 +355,6 @@ export const translations = {
                     "❗ Po potvrzení se aplikace restartuje, aby obnovila vybraný záložní soubor"
                 ],
                 restorefailed: "Nepodařilo se obnovit zálohu.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Doba čekání na uvolnění",
                 logresourceusage: "Zaznamenávat využití zdrojů"
             }
         },
@@ -405,18 +402,16 @@ export const translations = {
             content: {
                 preset: "Přednastavení upozornění",
                 iconanim: "Animace vzácné ikony",
-                alldetails: "Zobrazit všechny podrobnosti",
                 usepercent: "Použít procenta",
                 displaytime: "Čas zobrazení",
                 scale: "Měřítko",
                 customtext: "Vlastní text",
-                usegametitle: "Použít název hry",
                 customfont: "Vlastní písmo",
-                platcustomtext: "Vlastní text pro 100%",
                 usecustomtext: "Vlastní text",
                 customtextunlockmsg: "Zpráva o odemčení",
                 customtexttitle: "Název achievementu",
-                customtextdesc: "Popis achievementu"
+                customtextdesc: "Popis achievementu",
+                scrollrepeat: "Opakování posouvání"
             }
         },
         sound: {
@@ -452,7 +447,6 @@ export const translations = {
                 descfontsize: "Popis",
                 textvspace: "Rozestup textu",
                 opacity: "Průhlednost",
-                bgonly: "Pouze pozadí",
                 glow: "Záře",
                 glowcolor: "Barva",
                 glowsize: "Velikost",
@@ -589,6 +583,14 @@ export const translations = {
                 copytheme: "Kopírovat motiv",
                 copythemesub: "Vyberte typ(y) oznámení, do kterých chcete zkopírovat vybraný motiv"
             }
+        },
+        platnotifytype: {
+            title: "Přizpůsobit",
+            content: {
+                platsubtype: "Podtyp",
+                game: "Hra",
+                set: "Sada"
+            }
         }
     },
     logwin: {
@@ -612,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Aplikace Steam Achievement Notifier narazila na problém a musí být uzavřena.",
+            steam: "Instalace služby Steam nebyla nalezena",
             details: "Zde jsou podrobnosti o chybě:",
             sub: "Klikněte na tlačítka níže, abyste tento problém nahlásili prostřednictvím vaší preferované platformy.",
             report: "Nahlásit",
@@ -628,8 +631,8 @@ export const translations = {
         discord: "Připojte se na Discord!",
         github: "Nahlásit problém",
         lang: "Vyberte jazyk uživatelského rozhraní používaný v aplikaci",
-        steamlang: `Pokuste se načíst překlady umístěné v aplikačních souborech Steamu, aby se zobrazily informace o úspěších ve zvoleném jazyce uživatele v klientu Steamu<br><br><span class="ttdesc">Tato možnost se pokusí najít překlady v souboru JSON uloženém v aplikačních datech Steamu. Pokud nelze najít překlad pro aktuální úspěch, místo toho se zobrazí informace o úspěchu získané ze Steamworks.</span>`,
-        maxsteamlangretries: `Počet pokusů (za každých 100 ms) o nalezení platných překladů pro aktuální úspěch<br><br><span class="ttdesc">Steam aktuálně ukládá jen malé množství dat o úspěších do souboru JSON spojeného s každou hrou. Jakékoliv úspěchy, které nejsou v tomto souboru, budou přidány po jejich odemčení.<br><br>Vzhledem k tomu, že přidání nových dat může nějaký čas trvat, zvýšení této hodnoty zvýší pravděpodobnost, že se najdou překlady pro aktuální úspěch, ale může to také zpozdit zobrazení oznámení na obrazovce o čas vypočítaný tímto nastavením.<br><br>Pokud se nepodaří najít platné překlady pro aktuální úspěch, překládání se vrátí na jazyk určený ve Steamworks.</span>`,
+        steamlang: `Pokusit se načíst překlady umístěné v souborech aplikace Steam a zobrazit informace o achievementech v jazyce klienta Steam zvoleném uživatelem<br><br><span class="ttdesc">Tato možnost se pokusí najít překlady v souboru JSON uloženém v datech aplikace Steam. Pokud se nepodaří najít překlad aktuálního achievementu, zobrazí se místo něj informace o achievementu získané z interních binárních souborů Steamu</span>`,
+        maxsteamlangretries: `Počet pokusů o nalezení platných překladů aktuálního achievementu (každých 100ms)<br><br><span class="ttdesc">Steam v současnosti ukládá pouze malé množství dat o achievementech do souboru JSON přidruženého ke každé hře. Všechny achievementy, které v tomto souboru nejsou uvedeny, budou přidány až po jejich odemčení.<br><br>Protože přidání nových dat může nějakou dobu trvat, zvýšení této hodnoty zvýší pravděpodobnost nalezení přeložených údajů pro aktuální achievement, ale může také zpozdit zobrazení oznámení na obrazovce o dobu vypočítanou tímto nastavením.<br><br>Pokud se nepodaří najít platné překladové údaje pro aktuální achievement, budou použity anglické překlady.</span>`,
         desktop: "Přepnout zástupce na ploše pro spuštění aplikace",
         startwin: "Spustit Steam Achievement Notifier automaticky po přihlášení",
         startmin: "Po spuštění skrýt okno aplikace v uživatelském rozhraní, dokud není otevřeno z lišty systému",
@@ -637,7 +640,6 @@ export const translations = {
         litemode: "Vypnout všechny interaktivní prvky uživatelského rozhraní a poskytnout pouze omezenou funkčnost aplikace prostřednictvím ikony v liště systému. Může zlepšit využití prostředků aplikace",
         rarity: `Procento, při kterém budou spuštěna oznámení o vzácných úspěších.<br><br>Jakýkoli úspěch s procentem odemknutí nad touto hodnotou bude zobrazen jako Hlavní oznámení<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Stříbrné oznámení</span>`,
         semirarity: `Procento, při kterém budou zobrazeny prvky oznámení typu "Stříbrné" (např. <span class="hl">Odznaky vzácnosti</span>, <span class="hl">Dekorace</span> atd.).<br><br>Jakýkoli úspěch s procentem odemknutí nižším (nebo rovným) této hodnotě a vyšším než hodnota <span class="hl">Procenta vzácnosti</span> zobrazí prvky oznámení určené pro "Stříbrné" vzácnosti.<br><br>Jakýkoli úspěch s procentem odemknutí vyšším než tato hodnota zobrazí prvky oznámení určené pro "Bronzové" vzácnosti<br><br><span class="ttdesc">Pokud je povolen <span class="hl">Režim trofejí</span>, bude jakýkoli úspěch s procentem odemknutí nad touto hodnotou zobrazen jako Bronzové oznámení</span>`,
-        showpercent: "Zobrazit procento odemknutí achievementu v oznámení pro vybrané typy",
         soundonly: "Vypnout oznámení a pouze přehrát zvuky nastavené pomocí přizpůsobovače",
         extwin: "Vytvořte okno, které duplikuje všechna oznámení momentálně zobrazená na obrazovce. Toto okno může být následně přidáno jako zdroj zachytávání okna pro použití v softwaru pro streamování, jako je OBS",
         extwinframerate: "Nastavit cílovou snímkovou frekvenci pro oznámení streamu",
@@ -663,11 +665,6 @@ export const translations = {
         tooltips: "Zobrazit popisky při najetí myší na určité prvky uživatelského rozhraní",
         colorprofile: `Vynutit vykreslování všech oken aplikace pomocí vybraného barevného profilu<br><br><span class="ttdesc">Vyžaduje restart aplikace</span>`,
         pollrate: `Nastavit interval aktualizace dat o úspěších během hry<br><br><span class="ttdesc">Výkon může stoupat/klesat v závislosti na hodnotě nebo hardwarových zdrojích systému. Vyšší hodnoty obvykle znamenají nižší zátěž systému, ale mohou způsobit zpoždění upozornění</span>`,
-        initdelay: `Nastavte zpoždění mezi detekcí aktuálního <span class="hl">AppID</span> a zahájením sledování procesů/úspěchů<br><br><span class="ttdesc">Zvýšení této hodnoty může zabránit scénářům, kdy Steam není schopen spustit aktuální hru (kvůli inicializaci aplikace ve Steamworks před spuštěním hry)</span><br><br><span class="ttdesc">Alternativně lze zvýšení této hodnoty také použít k obejití nesprávné detekce procesů spouštění před hrou</span>`,
-        releasedelay: `Nastavte, jak dlouho proces Worker běžící na pozadí čeká na restart po uvolnění aktuální hry. Ovlivňuje jak automatické sledování procesů, tak Automatické uvolnění her<br><br><span class="ttdesc">Umožňuje delší časový rámec pro úplné uvolnění Steamworks z aplikace. Zvýšení této hodnoty může zabránit neobvyklému chování, například sledování dříve zavřené hry</span>`,
-        maxretries: `Nastavte maximální počet pokusů o propojení běžícího procesu s detekovaným AppID. Ovlivňuje jak automatické sledování procesů, tak Automatické uvolnění her<br><br><span class="ttdesc">Pokusy probíhají jednou za sekundu. Pokud běžící proces nebude po tomto počtu pokusů propojen s aktuálním AppID, bude vrácen neplatný proces. V takových případech bude nutné hru uvolnit ručně přes System Tray > Možnosti > Uvolnit hru</span>`,
-        debug: "Otevřete Panel Ladění, který zobrazuje podrobné informace o sledování procesů",
-        userust: "Použijte alternativní funkci založenou na Rust k ověření, zda jsou sledované herní procesy aktuálně spuštěny na systému. Když není zaškrtnuto, bude místo toho použita výchozí kontrola procesů založená na NodeJS.",
         notifydebug: "Vytvořit okno DevTools pro všechna oznámení. Užitečné pro ladění/problémování problémů s oznámeními",
         workerdebug: "Vytvořit okno DevTools pro proces Worker. Užitečné pro ladění/řešení problémů se sledováním her",
         usecustomfiles: "Povoluje načítání uživatelsky přizpůsobitelných souborů pro oznámení. Běžným uživatelům se doporučuje opatrnost",
@@ -678,12 +675,10 @@ export const translations = {
         replay: "Restartovat animaci náhledu oznámení",
         preset: "Vyberte přednastavení oznámení pro přizpůsobení",
         iconanim: "Přepnout ohraničení a animaci vzácné ikony",
-        alldetails: "Zobrazit všechny textové prvky v oznámení, včetně těch, které jsou ve výchozím nastavení skryté pro toto přednastavení",
         usepercent: "Zobrazit procento odemknutí úspěchu místo hodnoty XP/S",
         displaytime: "Nastavit počet sekund, po které bude oznámení zobrazeno",
         scale: "Zvětšit nebo zmenšit velikost oznámení",
         customtext: `Nastavte vlastní zprávu, která se zobrazí v oznámení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je vypnuto Customiser > Předvolba > Prvky oznámení > Zpráva o odemknutí</span>`,
-        usegametitle: "Zobrazit název aktuální hry v oznámení",
         customfont: "Načíst vlastní písmo, které se použije v oznámení",
         soundmode: "Vyberte buď jediný zvukový soubor nebo náhodně vybraný zvukový soubor z adresáře obsahujícího více zvukových souborů, když dojde k oznámení",
         soundfile: "Vyberte zvukový soubor, který se přehraje při oznámení",
@@ -700,7 +695,6 @@ export const translations = {
         roundness: "Nastavit zaoblení okrajů oznámení",
         fontsize: "Nastavit velikost písma použitého v oznámení",
         opacity: "Nastavit celkovou průhlednost oznámení",
-        bgonly: "Nastavit průhlednost pouze pro pozadí oznámení a ponechat ostatní prvky na plnou průhlednost",
         glow: "Povolit efekt záření, který obklopuje oznámení",
         glowcolor: "Nastavte barvu efektu záření",
         glowsize: "Nastavte velikost efektu záření",
@@ -768,6 +762,7 @@ export const translations = {
         webhooksemi: `Přepnout, zda se mají odesílat informace o úspěchu na Discord server při odemčení $semi úspěchu`,
         webhookrare: "Přepnout, zda se mají odesílat informace o úspěchu na Discord server při odemčení $rare úspěchu",
         webhookplat: "Přepnout, zda se mají odesílat informace o úspěchu na Discord server při odemčení $plat úspěchu",
+        webhookset: "Přepnout, zda se mají při dokončení sady achievementů zveřejňovat informace o achievementech na serveru Discord",
         webhooktest: "Přepnout, zda se mají odesílat testovací informace na Discord server, když jsou spuštěna testovací oznámení jakéhokoli typu",
         webhookurl: `Nastavte <span class="hl">URL Webhooku</span> pro požadovaný Discord server<br><br><span class="ttdesc"> <span class="hl">URL Webhooku</span> slouží k odesílání na Discord server/kanál jménem uživatele nebo aplikace. Aby bylo možné nastavit nový Webhook pro Discord server, uživatel musí mít v požadovaném serveru roli, která umožňuje vytváření Webhooků<br><br><u>Při použití této možnosti je vyžadována URL Webhooku</u><br><br>Pro více informací se podívejte do oficiální dokumentace Discordu</span>`,
         webhookspoilers: `Přidat označení spoileru ke "Skrytým" úspěchům při zveřejnění na Discordu`,
@@ -777,8 +772,6 @@ export const translations = {
         desc: "Nastavte polohu popisu úspěchu v $type",
         notification: "oznámení",
         screenshot: "snímek obrazovky",
-        percentpos: "Nastavte polohu procenta vzácnosti v $type",
-        sspercentpos: "Nastavte polohu procenta vzácnosti v $type",
         hiddeniconpos: "Nastavte polohu ikony skrytého/tajného úspěchu v $type",
         sshiddeniconpos: "Nastavte polohu ikony skrytého/tajného úspěchu v $type",
         decorationpos: "Nastavte polohu dekorativního prvku v $type",
@@ -814,7 +807,6 @@ export const translations = {
         themeswitch: `Automaticky přepněte na jakékoli uložené <span class="hl">Téma</span>, když je detekována určitá hra`,
         userthemesync: `Synchronizujte přizpůsobení v vybraném <span class="hl">Téma</span> se všemi ostatními typy oznámení`,
         showsystrayopts: `Zobrazit všechny možnosti obvykle umístěné pod <span class="hl">Systémová lišta</span> > <span class="hl">Možnosti</span> v <span class="hl">Nastavení</span> > <span class="hl">Různé</span>`,
-        releaseshortcut: "Uvolnění aktuálně sledované hry pomocí zadané klávesové zkratky",
         themeselect: "Vyberte dříve uložené téma",
         statwin: `Zobrazte přizpůsobitelné statistiky úspěchů pro aktuální hru v externím okně<br><br><span class="ttdesc">Při použití společně s možností <span class="hl">Přeložit úspěchy do jazyka služby Steam</span> nemusí být některé překlady dostupné, dokud nebude daný úspěch odemčen</span>`,
         statwinaot: `Nastavte okno Statistik úspěchů do režimu "Vždy navrchu", což umožní zobrazit okno nad oknem hry<br><br><span class="ttdesc">Když je tato možnost povolena, okno Statistik úspěchů již nebude registrovat uživatelské interakce, jako jsou události "kliknutí". Pro opětovné povolení interakce s oknem musí být tato možnost zakázána</span>`,
@@ -842,6 +834,7 @@ export const translations = {
         webhookembedcolorsemi: "Nastavit barvu použitou ve vložené zprávě webhooku při odemčení $semi úspěchu",
         webhookembedcolorrare: "Nastavit barvu použitou ve vložené zprávě webhooku při odemčení $rare úspěchu",
         webhookembedcolorplat: "Nastavit barvu použitou ve vložené zprávě webhooku při odemčení $plat úspěchu",
+        webhookembedcolorset: "Nastavit barvu použitou ve vložené zprávě webhooku při dokončení sady achievementů",
         raemus: "Zobrazit oznámení, když jsou hry detekovány v podporovaných emulátorech",
         rauser: "Nastavit uživatelské jméno RetroAchievements pro sledování úspěchů",
         rakey: `Nastavte Web API klíč pro ověřování k RetroAchievements API<br><br><span class="ttdesc">Web API klíč lze zkopírovat nebo znovu vygenerovat po přihlášení na web RetroAchievements a přechodu na <span class="hl">Nastavení > Klíče > Web API klíč</span><br><br>🔒 Zadaný klíč bude před uložením na systém místně zašifrován (pokud aktuální OS podporuje šifrování)</span>`,
@@ -860,7 +853,7 @@ export const translations = {
         unlockmsgfontcolor: "Nastavit barvu prvního textového prvku",
         titlefontcolor: "Nastavit barvu druhého textového prvku",
         descfontcolor: "Nastavit barvu třetího textového prvku",
-        exportachdata: `Exportovat data o úspěších do souboru JSON při odemknutí úspěchu<br><br><span class="ttdesc">Pokud je povoleno, <span class="ttcode">achdata.json</span> bude exportován do:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exportovat data o úspěších do souboru JSON při odemknutí úspěchu<br><br><span class="ttdesc">Pokud je povoleno, <span class="ttcode">achdata.json</span> bude exportován do:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Upraví svislý rozestup mezi textovými prvky v oznámení",
         ssmode: `Nastavte, zda mají snímky obrazovky zachycovat celou obrazovku nebo aktuální okno hry<span style="color: red;">*</span><br><br><span class="ttdesc">Pokud nelze najít <span class="hl">spustitelný soubor</span> aktuální hry (<i>ať už prostřednictvím <span class="hl">automatického sledování procesů</span> nebo při přidání jako položky do <span class="hl">Automatické uvolnění her</span></i>), bude tato možnost ve výchozím nastavení nastavena na režim „Obrazovka“</span>`,
         replaynotify: "Zopakovat poslední oznámení o úspěchu",
@@ -879,10 +872,10 @@ export const translations = {
         audiocooldown: `Nastaví dobu, po kterou musí další oznámení čekat, než může být přehrán nový zvuk<br><br><span class="ttdesc">Zvuk nebude ovlivněn, pokud je Maximální počet oznámení nastaven na 1</span>`,
         rauseemudir: "Uložit snímky obrazovky/obrázky oznámení odemčené prostřednictvím RetroAchievements do podsložky aktuálního emulátoru v rámci zadaného adresáře pro snímky/obrázky",
         ssext: "Nastavit formát souboru snímků obrazovky generovaných pomocí možnosti snímku obrazovky s překrytím oznámení",
-        notify1line: `Omezit počet řádků textu zobrazovaných ve všech oznámeních na 1<br><br><span class="ttdesc">Přetékající textové řetězce, které se nevejdou na jeden řádek, budou zkráceny pomocí "..."</span>`,
         copytheme: "Zkopírovat vybraný motiv do jiného typu oznámení",
         ssaddtosteam: "Automaticky přidat vygenerovaná média do záznamů a snímků obrazovky aktuální hry ve Steam",
         appdatadir: "Otevřít umístění složky AppData aplikace",
+        cleariconcache: "Smazat všechny dříve uložené ikony achievementů z mezipaměti",
         backup: "Zálohujte obsah složky AppData aplikace do vybraného umístění, které bude sloužit jako bod obnovení aktuálního stavu aplikace",
         restore: "Obnovte obsah složky AppData aplikace z předchozí zálohy",
         gametimerwin: "Zobrazí časovač na obrazovce ukazující čas potřebný k odemčení všech achievementů pro aktuální hru",
@@ -891,13 +884,7 @@ export const translations = {
         resetgametimer: "Resetuje časovač dokončení aktuální hry",
         noshortcuts: `Zakáže všechny klávesové zkratky v aplikaci<br><br><span class="ttdesc">Pokud je povoleno, <u>všechny klávesové zkratky v aplikaci přestanou fungovat</u>. Všechny možnosti související s klávesovými zkratkami budou také skryty</span>`,
         extwinnotify: "Přepíná viditelnost všech oznámení na obrazovce při používání Stream Notifications",
-        usesanwatcher: `Povolit nový sledovač herních procesů SAN<br><br><span class="ttdesc">Rozdíly mezi novým SANWatcherem a starými metodami automatického sledování procesů jsou následující:<br><br><div class="wrapper sanwatcher"><span class="hl">ZAPNUTO</span><ul><li>Aktivně sleduje události spuštění/ukončení všech procesů uložených v instalačním adresáři hry</li><li>Pro uvolnění aktuální hry není nutné znát spustitelný soubor hry</li><li>Chování spouštěčů před samotnou hrou se může lišit, proto není zaručena úplná kompatibilita se všemi hrami na Steam</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">VYPNUTO</span><ul><li>Po spuštění hry prohledává instalační adresář hry a hledá spuštěné spustitelné soubory</li><li>Pro uvolnění aktuální hry je nutné znát spustitelný soubor hry</li><li>Pokud nelze herní proces určit automaticky, musí uživatel ručně přidat novou položku do <span class="hl">Automatické uvolnění her</span>, aby byly hry uvolňovány automaticky</li></ul></div>`,
-        releasewaittime: `Nastavte, jak dlouho bude SANWatcher čekat na spuštění nových herních procesů, než uvolní aktuální hru<br><br><span class="ttdesc">Například pokud aktuální hra před spuštěním samotné hry otevře spouštěcí nebo konfigurační okno, toto nastavení určuje počet sekund, po které bude SANWatcher čekat na zobrazení skutečného herního okna po zavření spouštěcího nebo konfiguračního okna<br><br>Pokud bude během této čekací doby zjištěn nový aktivní herní proces, uvolnění bude zrušeno a místo toho bude sledován nově aktivní proces<br><br>💡 Název hry bude <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blikat</span> v poli <span class="hl">Zobrazení hry</span>, zatímco aktuální hra čeká na uvolnění</span>`,
-        platcustomtext: `Nastavte vlastní zprávu o 100% dokončení hry, která se zobrazí v oznámení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je vypnuto Customiser > Předvolba > Prvky oznámení > Popis achievementu</span>`,
         raui: "Zobrazuje názvy rozpoznaných her RetroAchievements v rozhraní zobrazení hry / v oznamovací oblasti",
-        testnotifycustomtext: "Přepsat text zobrazený ve všech testovacích oznámeních",
-        testnotifycustomtexttitle: "Přepsat text zobrazený pro prvek názvu ve všech testovacích oznámeních",
-        testnotifycustomtextdesc: "Přepsat text zobrazený pro prvek popisu ve všech testovacích oznámeních",
         radefault: `Vždy automaticky přepnout na tuto položku při odemčení jakéhokoli achievementu RetroAchievements<br><br><span class="ttdesc">Pouze jedna položka Automatické přepínání témat může být nastavena jako výchozí pro všechny achievementy RetroAchievements. Toto výchozí nastavení lze také přepsat pro jednotlivé hry přidáním nové položky Automatické přepínání témat pro konkrétní <span class="hl">GameID</span> RetroAchievements</span>`,
         statwintype: "Nastavit typ rozvržení Přehled statistik úspěchů",
         statwinunlockonly: "Skrýt Přehled statistik úspěchů, dokud není odemknut úspěch",
@@ -909,7 +896,12 @@ export const translations = {
         usecustomtext: "Nastavit vlastní zprávy, které se mají zobrazovat v oznámení",
         customtextunlockmsg: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Zpráva o odemčení<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Zpráva o odemčení zakázána</span>`,
         customtexttitle: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Název achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Název achievementu zakázána</span>`,
-        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`
+        customtextdesc: `Nastavit vlastní zprávu, která se má zobrazovat v prvku Popis achievementu<br><br><span class="ttdesc">Tato možnost bude skryta, pokud je Přizpůsobení > Předvolba > Prvky oznámení > Popis achievementu zakázána</span>`,
+        notifylinemode: "Nastaví maximální počet řádků textu zobrazovaných v oznámeních",
+        notifyoverflow: "Nastaví chování přetékajícího textu v oznámeních",
+        scrollrepeat: `Nastaví, kolikrát se bude přetékající text posouvat, dokud je oznámení na obrazovce<br><br><span class="ttdesc">Rychlost posouvání závisí na době zobrazení, ale vyšší hodnoty opakování nemusí být vhodné pro všechna přednastavení</span>`,
+        setplat: "Zobrazovat oznámení při dokončení každé sady achievementů v kompatibilních hrách",
+        platsubtype: `Vyberte podtyp oznámení <span class="hl">100%</span>, který chcete přizpůsobit<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Hra</span>: Oznámení zobrazené po odemknutí všech achievementů ve hře</li><li><span class="hl">Sada</span>: Oznámení zobrazené po odemknutí všech achievementů v jedné sadě</li></ul></span>`
     },
     update: {
         updateavailable: "Aktualizace je k dispozici",
@@ -919,64 +911,6 @@ export const translations = {
             `Plné poznámky k vydání naleznete na <span id="discordreleasenotes"></span> a <span id="githubreleasenotes"></span>`
         ],
         update: "Aktualizace"
-    },
-    linkgame: {
-        content: {
-            exepath: "Cesta ke spustitelnému souboru",
-            linkedgame: "Propojit hru",
-            autoreleasegame: "Automatické uvolnění hry",
-            linkedgamessub: [
-                `Přepište automatické sledování všech spuštěných herních procesů pomocí <span class="hl">SANWatcher</span> a místo toho kontrolujte pouze, zda je vybraný <span class="hl">spustitelný soubor hry</span> aktuálně aktivní`,
-                `Propojte <span class="hl">AppID</span> libovolné hry s cílovým <span class="hl">spustitelným souborem hry</span> nebo <span class="hl">odstraňte</span> existující propojení`
-            ],
-            autoreleasegamessub: [
-                `Pokud Steam stále zobrazuje hru jako <i>Spuštěnou</i> i po zavření okna hry, zkuste přidat novou položku do <span class="hl">$linkgame</span>`,
-                `Přidejte <span class="hl">AppID</span> konkrétní hry spolu s očekávaným <span class="hl">spustitelným souborem hry</span> nebo <span class="hl">odstraňte</span> existující položku`,
-            ],
-            managesub: [
-                `Jakmile je hra rozpoznána, lze nové položky přidávat také prostřednictvím <span class="hl">zaměření okna</span> kliknutím <i>pravým tlačítkem myši</i> na <span class="hl">ikonu v oznamovací oblasti</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Jak zjistím AppID hry ve službě Steam?</u></span>`
-            ],
-            linknew: "Nová položka",
-            linknewsub: [
-                `Propojte <span class="hl">AppID</span> nové hry s cílovým <span class="hl">spustitelným souborem hry</span>`,
-                `Po přidání lze položky <span class="hl">odstranit</span> prostřednictvím předchozí nabídky <span class="hl">$linkgame</span>`
-            ],
-            linkedit: "Upravit položku",
-            linkeditsub: [
-                `Upravte existující propojení mezi <span class="hl">AppID</span> hry a cílovým <span class="hl">spustitelným souborem hry</span>`,
-                `Po přidání lze položky <span class="hl">odstranit</span> prostřednictvím předchozí nabídky <span class="hl">$linkgame</span>`
-            ],
-            link: "Přidat",
-            findappid: "Najít Steam AppID",
-            findappidsub: [
-                `Každá hra ve službě Steam má jedinečné číslo nazývané <span class="hl">AppID</span>. AppID libovolné hry ve službě Steam můžete zjistit jedním z následujících způsobů:`,
-                `V <span class="hl">klientu Steam</span> klikněte <i>pravým tlačítkem myši</i> na hru ve své <span class="hl">Knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> – zde bude uvedeno AppID`,
-                `V <span class="hl">URL adrese</span> <span class="hl">stránky obchodu</span> hry – jedná se o číslo uvedené za <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Na webových stránkách, jako je <span class="hl">SteamDB</span> – sekce <span class="hl">App Info</span> obsahuje AppID každé hry`
-            ],
-            noexe: "Spustitelný soubor hry nebyl nalezen!",
-            noexesub: "Klikněte sem pro více informací",
-            noexedialogsub: [
-                `Steam Achievement Notifier nedokázal automaticky najít spustitelný soubor této hry. Umístění spustitelného souboru hry je vyžadováno, aby bylo možné hru po jejím ukončení „uvolnit“`,
-                `Chcete-li hru po jejím ukončení uvolnit ručně, klikněte <i>pravým tlačítkem myši</i> na <span class="hl">ikonu v oznamovací oblasti</span> > <span class="hl">Možnosti</span> > <span class="hl">Uvolnit hru</span> nebo použijte <span class="hl">Klávesovou zkratku pro uvolnění hry</span>`,
-                `Případně klikněte na tlačítko <span class="hl">Přidat</span> níže a přidejte spustitelný soubor aktuálně zaměřeného okna do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span>`,
-            ],
-            linkedgamefocussub: `Chcete-li přepsat automatické sledování všech spuštěných herních procesů pomocí <span class="hl">SANWatcher</span>, přidejte novou položku do <span class="hl">Propojených her</span>`,
-            autoreleasegamefocussub: `Pokud Steam stále zobrazuje hru jako <i>Spuštěnou</i> i po zavření okna hry, zkuste přidat novou položku do <span class="hl">Her s automatickým uvolněním</span>`,
-            focussub: `Chcete-li to provést pro aktuální hru, klikněte na tlačítko <span class="hl">Přidat</span> níže a přidejte spustitelný soubor aktuálně zaměřeného okna do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Co se stane, když kliknu na tlačítko Přidat?</u></span>`,
-            linkgamehelp: "Propojit pomocí zaměření",
-            linkgamehelpsub: [
-                `Kliknutím na tlačítko <span class="hl">Přidat</span> se automaticky přidá nová položka do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span> s využitím informací z aktuálně zaměřeného okna.`,
-                `Po kliknutí na tlačítko <span class="hl">Přidat</span> se spustí pětisekundový odpočet`,
-                `Před vypršením odpočtu zaměřte okno hry`,
-                `Po skončení odpočtu bude přidána nová položka pro aktuální <span class="hl">AppID</span> do <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span> s využitím spustitelného souboru aktuálně zaměřeného okna`,
-                `Nové pokusy přepíší existující položky nebo lze položku odstranit v <span class="hl">Nastavení</span> > <span class="hl">Hry</span> > <span class="hl">Hry s automatickým uvolněním</span> kliknutím na tlačítko <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Okno se nepodařilo přidat",
-            addlinkfailedsub: `Klikněte na tlačítko <span class="hl">Přidat</span> a zkuste to znovu`
-        }
     },
     exclusions: {
         content: {
@@ -1022,8 +956,6 @@ export const translations = {
             sshiddeniconpos: "Skrytá ikona",
             decorationpos: "Dekorace",
             ssdecorationpos: "Dekorace",
-            percentpos: "Procento vzácnosti",
-            sspercentpos: "Procento vzácnosti",
             percentbadge: "Procentuální odznak",
             sspercentbadge: "Procentuální odznak",
             percentbadgepos: "Pozice odznaku",
@@ -1075,78 +1007,19 @@ export const translations = {
             themes: "Témata",
             src: "Zdroj snímku obrazovky",
             themedeleted: "Téma bylo odstraněno",
+            findappid: "Najít Steam AppID",
+            findappidsub: [
+                `Každá hra ve službě Steam má jedinečné číslo nazývané <span class="hl">AppID</span>. AppID libovolné hry ve službě Steam můžete zjistit jedním z následujících způsobů:`,
+                `V <span class="hl">klientu Steam</span> klikněte <i>pravým tlačítkem myši</i> na hru ve své <span class="hl">Knihovně</span> a vyberte <i>Vlastnosti</i> > <i>Aktualizace</i> – zde bude uvedeno AppID`,
+                `V <span class="hl">URL adrese</span> <span class="hl">stránky obchodu</span> hry – jedná se o číslo uvedené za <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Na webových stránkách, jako je <span class="hl">SteamDB</span> – sekce <span class="hl">App Info</span> obsahuje AppID každé hry`
+            ],
             rafindgameid: "Najít RA GameID",
             rafindgameidsub: [
                 `Každá hra na RetroAchievements má jedinečné číslo, které je s ní spojeno – nazývá se <span class="hl">GameID</span>. GameID libovolné hry na RetroAchievements najdete zde:`,
                 `V <span class="hl">URL</span> <span class="hl">stránky hry</span> na webu RetroAchievements – jedná se o číslo uvedené za <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Nastavit jako výchozí pro RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Řešení problémů",
-        content: {
-            copydata: "Kopírovat",
-            noissues: "Nebyly nalezeny žádné problémy!",
-            noissuessub: "Tato hra by se měla uvolnit automaticky.",
-            manualrelease: `Jakoukoli hru můžete uvolnit ručně přes <span class="hl">Systémovou lištu</span> > <span class="hl">Možnosti</span> > <span class="hl">Uvolnit hru</span>.`,
-            addedvia: "Přidáno přes"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Žádné aktivní procesy",
-                issue: "Nebyl nalezen žádný aktivní proces hry",
-                detail: "Spustitelný soubor spojený s touto hrou nebyl detekován jako spuštěný proces. Byly zkontrolovány následující spustitelné soubory:",
-                solution: [
-                    `Zkuste přidat spustitelný soubor hry do $linkedgamesmenu.`,
-                    `Ujistěte se, že položka v $linkedgamesmenu odkazuje na správný spustitelný soubor.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Neznámý spustitelný soubor",
-                issue: "Nelze identifikovat spustitelný soubor hry",
-                detail: "Cestu ke spustitelnému souboru hry se nepodařilo automaticky najít, což je obvykle způsobeno spouštěči před spuštěním hry při jejím spuštění přes Steam.",
-                solution: [
-                    `Přidejte pro tuto hru novou položku do $linkedgamesmenu nebo odstraňte všechny položky odkazující na nesprávný spustitelný soubor hry. Jinak zkontrolujte, zda hra podporuje možnost spuštění přes Steam, která obejde spouštěče před spuštěním hry, například <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Zkuste povolit $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Chybějící spustitelný soubor",
-                issue: "Spustitelný soubor hry nebyl nalezen na disku",
-                detail: `Spustitelný soubor spojený s touto hrou nebyl nalezen na disku. Byly zkontrolovány následující spustitelné soubory:`,
-                solution: ["Zkuste ověřit integritu souborů hry prostřednictvím služby Steam nebo hru přeinstalovat."]
-            },
-            notexecutable: {
-                title: "Není spustitelný",
-                issue: `Hře chybí oprávnění ke spuštění`,
-                detail: "Soubor, který Steam používá ke spuštění hry, nelze spustit. Soubor byl nahlášen jako:",
-                solution: ["Chcete-li tento soubor nastavit jako spustitelný, postupujte podle pokynů pro konkrétní distribuci Linuxu."]
-            },
-            notwithininstalldir: {
-                title: "Není v adresáři hry",
-                issue: "Spustitelný soubor není v instalačním adresáři",
-                detail: "V $linkedgamesmenu byla zjištěna položka pro tuto hru, ale propojený spustitelný soubor se nenachází v instalační složce hry, což může znamenat, že není správný.",
-                solution: ["Upravte položku $linkedgamesmenu pro tuto hru a ujistěte se, že odkazuje na správný spustitelný soubor hry."]
-            },
-            wrongplatformpath: {
-                title: "Neplatná cesta ke hře",
-                issue: "Cesta ke hře je neplatná pro aktuální OS",
-                detail: "Zdá se, že cesta ke spustitelnému souboru této hry patří jinému operačnímu systému - možná kvůli konfiguraci zkopírované z jiného počítače nebo nastavení s duálním spouštěním.",
-                solution: [`Nepoužívejte konfiguraci zkopírovanou z jiného počítače/OS, protože pravděpodobně nebude fungovat podle očekávání. Všechna existující <span class="hl">Témata</span> lze mezi platformami importovat/exportovat prostřednictvím nabídky <span class="hl">Přizpůsobení</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Duplicitní položky",
-                issue: "Nalezeny duplicitní položky $linkedgamesmenu",
-                detail: "Tento spustitelný soubor hry je také propojen s $appids v $linkedgamesmenu.",
-                solution: ["Odstraňte jednu z duplicitních položek a ujistěte se, že zbývající položka odkazuje na správný spustitelný soubor hry."]
-            },
-            releasing: {
-                title: "Uvolňování hry",
-                issue: "Hra se uvolňuje",
-                detail: "Tato hra bude brzy uvolněna.",
-                solution: [`Počkejte prosím ještě několik sekund - tečka v ikoně <span class="hl">Systémové lišty</span> se po uvolnění změní z <span class="troubleshooterdialogicon" grey></span> (uvolňování) na <span class="troubleshooterdialogicon" red></span> (neaktivní).`]
-            }
         }
     }
 }

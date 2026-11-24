@@ -6,7 +6,7 @@ body[nativeos] #settingscontent .cont:has(.title#media) .opt:has(select#screensh
 body[nativeos] #settingscontent .cont:has(.title#media) .opt[overlay],
 body[nativeos] #ovtabs,
 body[active] #settingscontent > .cont:has(.title#notifications) > .optcont > .opt:has(#noiconcache),
-body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate,#maxretries,#userust,#releasewaittime),
+body[active] #settingscontent > .cont:has(.title#advanced) > .optcont > .opt:has(#pollrate),
 dialog[menu] #settingscontent > .cont:has(.title#media) > .optcont:has(#ovmatch:checked) > .opt:has(select#ovpos),
 body[beta] button#checkforupdates,
 body[beta] button#joinbetachannel,
@@ -59,8 +59,11 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 
 #settingsheader > span {
     justify-self: center;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-transform: uppercase;
+    font-family: "Montserrat", "Roboto";
+    -webkit-text-stroke: var(--primary) 0.075rem;
+    paint-order: stroke fill;
 }
 
 #settingsheader > .menubtn#settingsclose {
@@ -69,7 +72,8 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 }
 
 #settingscontent {
-    --primary: #203e7a;
+    --primary: #2f5bb5;
+    --primarygradient: radial-gradient(circle,var(--primary),color-mix(in srgb,var(--primary),black 35%));
     display: block;
     padding-right: 1rem;
     overflow: hidden scroll;
@@ -94,6 +98,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     gap: 0.5rem;
     padding: 0.25rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     transition: background-color var(--transition);
     text-transform: uppercase;
 }
@@ -135,6 +140,10 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
     --icon: url("../../icon/accessibility.svg");
 }
 
+.cont:has(#plugins) > .title::before {
+    --icon: url("../../icon/plugin.svg");
+}
+
 .cont:has(#advanced) > .title::before {
     --icon: url("../../icon/build.svg");
 }
@@ -150,6 +159,7 @@ dialog[menu] .contentwrapper > .wrapper#contentcontainer {
 .optcont {
     padding: 0.7rem;
     gap: 0.5rem;
+    background-color: var(--mediumgrey);
 }
 
 .opt {
@@ -188,19 +198,17 @@ body:not([trophymode]) .wrapper#webhooktypeswrapper > .opt:has(#webhooksemi),
 .opt:has(#extwin:not(:checked)) ~ .wrapper:has(#extwinframerate,#extwinshow,#extwinnotify),
 .cont:has(input[type="checkbox"]#nohwa:checked) ~ .cont:has(.title#streaming) .opt:has(#extwinnotify),
 .opt:has(#statwin:not(:checked)) ~ .wrapper:has(#statwinaot,#statwintype,#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
-.opt:has(#statwin:not(:checked)) > button,
 .opt:has(#gametimerwin:not(:checked)) + .wrapper:has(#gametimerwinaot),
 .opt:has(#gametimerwin:not(:checked)) ~ button#resetgametimer,
+.opt:has(input[type="checkbox"][id$="win"]:not(:checked)) > button.iconbtn,
 .opt:has(#customtrigger:not(:checked)) ~ .wrapper:has(#customtriggershortcut,#customtriggerdelay,#customtriggerusedisplaytime),
 .opt:has(#notifymax)[value="1"] + .wrapper:has(#notifyspace),
-.optcont:has(input#usesanwatcher:checked) > .opt:has(#maxretries),
-.optcont:has(input#usesanwatcher:checked) > .opt:has(#initdelay),
-.optcont:has(input#usesanwatcher:not(:checked)) > .opt:has(#releasewaittime),
-#settingscontent:has(input#usesanwatcher:checked) > .cont:has(.title#games) > .optcont > button#autoreleasegames,
-#settingscontent:has(input#usesanwatcher:not(:checked)) > .cont:has(.title#games) > .optcont > button#linkedgames,
 #settingscontent:has(select#statwintype > option[value="default"]:checked) > .cont:has(.title#streaming) .opt:has(#statwinunlockonly,#statwinunlockonlydisplaytime,#statwinunlockonlysync),
 #settingscontent:has(input#statwinunlockonly:not(:checked)) > .cont:has(.title#streaming) .opt:has(#statwinunlockonlydisplaytime,#statwinunlockonlysync),
-.optcont:has(select#showpercent > option[value="off"]:checked) > .opt:has(select#showpercentpos,select#showpercentstyle) {
+.optcont:has(select#showpercent > option[value="off"]:checked) > .opt:has(select#showpercentpos,select#showpercentstyle),
+.optcont:has(select#notifylinemode > option[value="single"]:not(:checked)) > .opt:has(select#notifyoverflow),
+body:not([setplat]) .multiselect .wrapper:has(> input[id$="set"]),
+.opt:has(#plugins:not(:checked)) + button#loadplugin {
     display: none;
 }
 
@@ -340,7 +348,7 @@ dialog[menu]:has(#settingscontent) .optcont:has(.wrapper[overlay]) > .opt:last-c
     margin-top: 0.5rem;
 }
 
-dialog[menu] #settingscontent .opt:has(button.rect) {
+dialog[menu] #settingscontent .opt:has(button.rect:not([plugin])) {
     grid-template-columns: 1fr;
     gap: 0;
 }
@@ -399,17 +407,6 @@ body[plat] .rect#sspreview {
     --icon: url("../../icon/trophy_plat.svg");
 }
 
-#linkedgames,
-#autoreleasegames {
-    --icon: url("../../icon/link.svg");
-    background-color: #1e90ffb5;
-}
-
-#linkedgames:hover,
-#autoreleasegames:hover {
-    background-color: #1e90ff;
-}
-
 #exclusionlist {
     --icon: url("../../icon/exclusion.svg");
     background-color: #000000b5;
@@ -433,11 +430,13 @@ button#listmode {
 }
 
 .cont:has(.title#games) > .optcont > button#exclusionlist {
-    grid-row-start: 3;
+    /* grid-row-start: 3; */
+    grid-row-start: 2;
 }
 
 .cont:has(.title#games) > .optcont > button#listmode {
-    grid-row-start: 3;
+    /* grid-row-start: 3; */
+    grid-row-start: 2;
     grid-column-start: 2;
     gap: 0;
 }
@@ -498,11 +497,11 @@ body[themeswitch] #themeswitch::after {
 
 #showcustomfiles {
     --icon: url("../../icon/customfiles.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #showcustomfiles:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 #checkforupdates {
@@ -547,11 +546,11 @@ body[themeswitch] #themeswitch::after {
 
 #appdatadir {
     --icon: url("../../icon/folder.svg");
-    background-color: #5662f6b5;
+    background-color: var(--defaultbtn);
 }
 
 #appdatadir:hover {
-    background-color: #5662f6;
+    background-color: var(--defaultbtnhover);
 }
 
 #backup {
@@ -586,10 +585,6 @@ button[systray]:hover {
 
 #resetwindow {
     --icon: url("../../icon/resetwin.png");
-}
-
-#releasegame {
-    --icon: url("../../icon/donotdisturb.svg");
 }
 
 #suspendresume {
@@ -695,14 +690,13 @@ input[type="checkbox"][id^="webhook"] {
     background-color: var(--lightgrey);
 }
 
-.multiselect .wrapper:has(> input) > span::before {
-    --trophy: url("../../icon/trophy_gold.svg");
+.multiselect .wrapper:has(> input) > span:not(.lbl)::before {
     content: "";
     display: inline-block;
     width: 0.7rem;
     height: 0.7rem;
     margin-right: 0.25rem;
-    background: var(--trophy) center / contain no-repeat;
+    background: var(--trophy,url("../../icon/trophy_gold.svg")) center / contain no-repeat;
     vertical-align: -0.1rem;
 }
 
@@ -728,6 +722,10 @@ body[trophymode] .multiselect .wrapper:has(> input[id$="rare"]) > span::before {
 
 .multiselect .wrapper:has(> input[id$="plat"]) > span::before {
     --trophy: url("../../icon/trophy_plat.svg");
+}
+
+.multiselect .wrapper:has(> input[id$="set"]) > span::before {
+    --trophy: url("../../icon/trophy_set.svg");
 }
 
 .multiselect .wrapper:has(> input[id$="test"]) > span::before {
@@ -930,9 +928,14 @@ body[ragameid] .wrapper#rastatuswrapper > div#ragame > span:nth-child(2):after {
     content: " [" var(--ragameid) "]";
 }
 
-span#raloghelp {
+button#raloghelp {
+    --icon: url("../../icon/ranogame.svg");
     font-size: 0.65rem;
-    text-align: center;
+    background-color: #b90505b5;
+}
+
+button#raloghelp:hover {
+    background-color: #b90505;
 }
 
 .opt:has(input[type="checkbox"]#rauseemudir) {
@@ -1034,8 +1037,85 @@ button.iconbtn:hover {
     opacity: 1;
 }
 
-.opt:has(input#statwin) > button[aot] {
+.opt:has(input[type="checkbox"][id$="win"]) > button[aot] {
     --icon: url("../../icon/lock.svg");
+}
+
+#cleariconcache {
+    --icon: url("../../icon/clearicons.svg");
+    background-color: var(--defaultbtn);
+}
+
+#cleariconcache:hover {
+    background-color: var(--defaultbtnhover);
+}
+
+#loadplugin {
+    --icon: url("../../icon/plugin.svg");
+    background-color: var(--defaultbtn);
+}
+
+#loadplugin:hover {
+    background-color: var(--defaultbtnhover);
+}
+
+.optcont > button[id^="sanplugin"] {
+    --bgcolor: var(--color, var(--defaultbtn));
+    --hover: var(--color, var(--defaultbtnhover));
+    grid-column: 1 / -1;
+    background-color: var(--defaultbtn);
+    font-size: 0.65rem;
+}
+
+.optcont > button[id^="sanplugin"][style*="--color"] {
+    background-color: color-mix(in srgb, var(--bgcolor) 50%, transparent);
+}
+
+.optcont > button[id^="sanplugin"]:hover {
+    background-color: var(--hover);
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt:has(> input[type="checkbox"][plugin]) > .opt:has(input[type="text"][plugin]) {
+    grid-template-columns: 1fr auto;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt:has(> input[type="checkbox"][plugin]:not(:checked)) > .opt:has(input[type="text"][plugin]) {
+    display: none;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt:has(> input[type="checkbox"][plugin]:checked) {
+    margin-bottom: 0.5rem;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt > .opt:has(> input[type="text"][plugin]) > input[type="text"][plugin] {
+    grid-column-start: 1;
+    background-color: var(--mediumgrey);
+    border-radius: 0 0 0 var(--elembr);
+    transition: background-color var(--transition);
+    text-overflow: ellipsis;
+    direction: rtl;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt > .opt:has(> input[type="text"][plugin]) > input[type="text"]:hover {
+    background-color: var(--lightgrey);
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt > .opt:has(> input[type="text"][plugin]) > button.rect[plugin] {
+    --icon: url("../../icon/search.svg");
+    grid-template-columns: 1fr;
+    gap: 0;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    width: 2rem;
+    border-radius: 0 var(--elembr) var(--elembr) 0;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt >  .opt:has(> input[type="text"][plugin]) > button.rect[plugin]::before {
+    place-self: center;
+}
+
+dialog[menu] #settingscontent .multiselect:has(button.rect[plugin]) > .opt >  .opt:has(> input[type="text"][plugin]) > button.rect[plugin]:hover::before {
+    filter: invert();
 }
 
 @media (orientation: portrait) {

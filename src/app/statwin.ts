@@ -122,24 +122,7 @@ const setmaxachievements = (elem: HTMLSelectElement | HTMLInputElement,order: St
     }
 }
 
-// If `config.noiconcache` is active, the `grey` version of the icon will be cached, so return `null` to re-cache color version
-const isiconcached = (achievement: Achievement,noiconcache?: boolean) => {
-    const cachedicon = path.join(sanhelper.temp,`${achievement.apiname}.jpg`).replace(/\\/g,"/")
-    return fs.existsSync(cachedicon) && !noiconcache ? cachedicon : null
-}
-
-const cacheicon = async (achievement: Achievement) => {
-    return new Promise<string>(resolve => {
-        ipcRenderer.once(`iconpath_${achievement.apiname}`,(event,iconpath: string | null) => {
-            if (iconpath) return resolve(iconpath.replace(/\\/g,"/"))
-
-            log.write("WARN",`Unable to get achievement icon for "${achievement.apiname}"`)
-            resolve(sanhelper.setfilepath("img","sanlogosquare.svg"))
-        })
-
-        ipcRenderer.send("statwinicon",achievement)
-    })
-}
+const geticonpath = (achievement: Achievement) => (achievement.icon ?? sanhelper.setfilepath("img","sanlogosquare.svg")).replace(/\\/g,"/")
 
 const updateprogressbar = (achievements: Achievement[],progressbar: HTMLElement) => {
     const unlocked = achievements.filter(achievement => achievement.unlocked).length
@@ -229,32 +212,24 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
     document.body.toggleAttribute("nospoilers",statwinnospoilers)
     document.getElementById("maxcustom")!.setAttribute("max",`${achievements.length}`)
 
-    let lsentry: Record<string,StatsEntry[]> = JSON.parse(localStorage.getItem("statwin") || "{}")
-
-    if (!lsentry[appid]) {
-        const statwinobj: Record<string,StatsEntry[]> = {
-            ...lsentry,
-            [appid]: achievements.map(achievement => {
-                return {
-                    apiname: `${ra ? (achievement as any).id : achievement.apiname}`,
-                    unlocktimestamp: achievement.unlocktimestamp ?? -1
-                }
-            })
-        }
-
-        localStorage.setItem("statwin",JSON.stringify(statwinobj,null,4))
-        lsentry = JSON.parse(localStorage.getItem("statwin") || "{}")
-    }
+    const lsentry: Record<string,StatsEntry[]> = JSON.parse(localStorage.getItem("statwin") || "{}")
+    const getkey = (achievement: Achievement) => `${ra ? (achievement as any).id : achievement.apiname}`
+    
+    const current = achievements.map(achievement => getkey(achievement))
+    const stored = (lsentry[appid] ?? []).filter(entry => current.includes(entry.apiname))
 
     for (const achievement of achievements) {
-        const apiname = `${ra ? (achievement as any).id : achievement.apiname}`
-        const entry = lsentry[appid].find(entry => entry.apiname === apiname)
+        const key = getkey(achievement)
+        const entry = stored.find(entry => entry.apiname === key)
 
-        if (!entry) continue
-        entry.unlocktimestamp = achievement.unlocktimestamp ?? entry.unlocktimestamp
+        entry ? entry.unlocktimestamp = achievement.unlocktimestamp ?? entry.unlocktimestamp : stored.push({
+            apiname: key,
+            unlocktimestamp: achievement.unlocktimestamp ?? -1
+        })
     }
 
-    localStorage.setItem("statwin",JSON.stringify(lsentry,null,4))
+    lsentry[appid] = stored
+    localStorage.setItem("statwin", JSON.stringify(lsentry,null,4))
 
     const order = lsentry[appid]
 
@@ -284,8 +259,7 @@ const buildachievementlist = (statsobj: StatsObj,translations: StatsObjTranslati
         const achid = `${ra ? (achievement as any).id : achievement.apiname}`
         const achelem = achievementswrapper.querySelector(`.achievement#ACH_${ra ? achid : esc(achid)}`) as HTMLElement
         
-        // If icon does not exist in `temp` dir, cache it
-        achelem.style.setProperty("--icon",`url('${ra ? (achievement as any).icon : esc(isiconcached(achievement) || await cacheicon(achievement),false,true)}')`)
+        achelem.style.setProperty("--icon",`url('${ra ? (achievement as any).icon : esc(geticonpath(achievement),false,true)}')`)
 
         const wasunlocked = unlocked.get(achid) ?? false
         const isunlocked = achievement.unlocked
@@ -378,18 +352,6 @@ window.addEventListener("DOMContentLoaded",() => {
         
         window.statsobj && window.translations && buildachievementlist(window.statsobj,window.translations,true)
     }
-
-    // const winopacity = document.getElementById("winopacity")!
-    // document.body.toggleAttribute("hidden",statwinopacity)
-    
-    // winopacity.onclick = () => {
-    //     const config = sanconfig.get()
-    //     const value = !config.get("statwinopacity")
-
-    //     config.set("statwinopacity",value)
-
-    //     document.body.toggleAttribute("hidden",value)
-    // }
 
     const maxdisplayelem = document.getElementById("maxdisplay") as HTMLSelectElement
     maxdisplayelem.value = `${sanconfig.get().store.statwinmaxdisplay}`

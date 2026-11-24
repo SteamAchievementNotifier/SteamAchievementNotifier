@@ -31,9 +31,11 @@ export const translations = {
         gametitle: "Game Title",
         congrats: "Congratulations!",
         achievementunlocked: "Achievement unlocked",
-        gamecomplete: "100% Complete",
+        gamecomplete: "100% complete",
         achievementdesc: "Clicked the Show Test Notification button",
         gamecompletedesc: "You've unlocked all achievements!",
+        setname: "Set Name",
+        setcomplete: "You've completed the achievement set!",
         defaultcustomfont: "Default (No Font Selected)",
         defaultsoundfile: "Default (No File Selected)",
         defaultsounddir: "Default (No Folder Selected)",
@@ -44,11 +46,6 @@ export const translations = {
         show: "Show",
         exit: "Exit",
         donotshowagain: "Don't show this dialog again",
-        releasegame: "Release Game",
-        releasegamesub: [
-            `Restart the background Worker process and release the current game from being tracked`,
-            `Try this option if you've recently closed a game but Steam still shows it as running, or if Steam Achievement Notifier still shows as tracking a game that's already been closed`
-        ],
         noupdateavailable: "No Update Available",
         latestversion: "Latest version installed",
         missingdeps: "Missing dependency",
@@ -62,6 +59,7 @@ export const translations = {
         new: "New...",
         nodata: "No Data",
         webhookunlockmsg: "$user unlocked an achievement",
+        webhookunlockmsgset: "$user completed an achievement set",
         webhookunlockmsgplat: "$user unlocked all achievements",
         webhookingame: "in $gamename",
         notconnected: "Not connected",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "Releases",
         checkapplog: "Please check the App Log for details.",
-        workercrash: "Worker has crashed!",
-        workercrashsub: "Click here to restart Worker and re-attempt game tracking"
+        customtextvars: "Custom Text Variables",
+        customtextvarssub: `<span class="hl">Variables</span> can be used within <span class="hl">Custom Text</span> to display game/achievement information in notifications:`,
+        customtextvarsdesc: {
+            game: "Game title",
+            title: "Achievement title",
+            desc: "Achievement description",
+            percent: "Achievement unlock percentage",
+            total: "Unlocked/total achievements"
+        },
+        customtextvarsset: "Achievement set name",
+        customtextvarsplat: `"$gamecomplete" message`
     },
     app: {
         content: {
@@ -196,19 +203,6 @@ export const translations = {
             content: {
                 rarity: "Rare Percentage",
                 semirarity: "Silver Percentage",
-                rareonly: "Rare Only",
-                all: "All",
-                off: "Off",
-                showpercent: "Show Percentage",
-                showpercentpos: "Percentage Position",
-                showpercentstyle: "Percentage Style",
-                left: "Left",
-                right: "Right",
-                brackets: "()",
-                sqbrackets: "[]",
-                dash: "-",
-                pipe: "|",
-                none: "None",
                 soundonly: "Sound-Only Mode",
                 nowtracking: "Show Tracking Notification",
                 nowtrackingscale: "Tracking Scale",
@@ -231,17 +225,18 @@ export const translations = {
                 trophymode: "Trophy Mode",
                 notifymax: "Max Notifications",
                 notifyspace: "Notification Spacing",
-                notify1line: "Limit Text to 1 Line",
-                testnotifycustomtext: "Test Notification Custom Text",
-                testnotifycustomtexttitle: "Title",
-                testnotifycustomtextdesc: "Description"
+                notifylinemode: "Line Mode",
+                single: "Single",
+                max: "Max",
+                notifyoverflow: "Overflow Mode",
+                ellipsis: "Ellipsis",
+                scroll: "Scroll",
+                setplat: "100% Set Notifications"
             }
         },
         games: {
             title: "Games",
             content: {
-                linkedgames: "Linked Games",
-                autoreleasegames: "Auto-Release Games",
                 themeswitch: "Auto-Switch Themes",
                 exclusionlist: "Exclusion List",
                 inclusionlist: "Inclusion List",
@@ -329,19 +324,20 @@ export const translations = {
                 nvda: "Enable NVDA Support",
                 tooltips: "Show Tooltips",
                 showsystrayopts: "Show System Tray Options",
-                releaseshortcut: "Release Game Shortcut",
                 noshortcuts: "Disable Keyboard Shortcuts"
+            }
+        },
+        plugins: {
+            title: "Plugins",
+            content: {
+                plugins: "Use Plugins",
+                loadplugin: "Load Plugin"
             }
         },
         advanced: {
             title: "Advanced",
             content: {
                 pollrate: "Poll Rate",
-                initdelay: "Tracking Delay",
-                releasedelay: "Release Delay",
-                maxretries: "Max Process Retries",
-                debug: "Debug Panel",
-                userust: "Alt. Process Mode",
                 notifydebug: "Show Notification DevTools",
                 workerdebug: "Show Worker DevTools",
                 exportachdata: "Export Achievement Data",
@@ -349,6 +345,7 @@ export const translations = {
                 audiocooldown: "Audio Cooldown",
                 usecustomfiles: "Use Custom App Files",
                 showcustomfiles: "Show Custom App Files",
+                cleariconcache: "Clear Icon Cache",
                 appdatadir: "Show AppData Folder",
                 backup: "Backup",
                 backuppath: "Backup Path",
@@ -365,8 +362,6 @@ export const translations = {
                     "❗ Once confirmed, the app will restart in order to restore the selected backup file"
                 ],
                 restorefailed: "Unable to restore backup.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Release Wait Time",
                 logresourceusage: "Log Resource Usage"
             }
         },
@@ -414,18 +409,16 @@ export const translations = {
             content: {
                 preset: "Notification Preset",
                 iconanim: "Rare Icon Animation",
-                alldetails: "Show All Details",
                 usepercent: "Use Percentage",
                 displaytime: "Display Time",
                 scale: "Scale",
                 customtext: "Custom Text",
-                usegametitle: "Use Game Title",
                 customfont: "Custom Font",
-                platcustomtext: "Custom 100% Text",
                 usecustomtext: "Custom Text",
                 customtextunlockmsg: "Unlock Message",
                 customtexttitle: "Achievement Title",
-                customtextdesc: "Achievement Description"
+                customtextdesc: "Achievement Description",
+                scrollrepeat: "Scroll Repeat"
             }
         },
         sound: {
@@ -461,7 +454,6 @@ export const translations = {
                 descfontsize: "Description",
                 textvspace: "Text Spacing",
                 opacity: "Opacity",
-                bgonly: "Background Only",
                 glow: "Glow",
                 glowcolor: "Color",
                 glowsize: "Size",
@@ -598,6 +590,14 @@ export const translations = {
                 copytheme: "Copy Theme",
                 copythemesub: "Select the notification type(s) to copy the selected Theme to"
             }
+        },
+        platnotifytype: {
+            title: "Customise",
+            content: {
+                platsubtype: "Subtype",
+                game: "Game",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -621,10 +621,11 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier encountered an issue and needs to close.",
+            steam: "Steam installation not found",
             details: "Here's the error details:",
             sub: "Click the buttons below to report this issue via your preferred platform.",
-            report: "Report",
-            log: "App Log",
+            copy: "Copy error details",
+            issue: "Open GitHub issue",
             exit: "Exit"
         }
     },
@@ -637,8 +638,8 @@ export const translations = {
         discord: "Join on Discord!",
         github: "Report an issue",
         lang: "Select the UI language used within the app",
-        steamlang: `Attempt to load translations located within Steam's application files to display achievement information in the user's chosen Steam client language<br><br><span class="ttdesc">This option attempts to locate translations in a JSON file stored within Steam's application data. If a translation for the current achievement cannot be located, achievement information retrieved from Steamworks will be displayed instead</span>`,
-        maxsteamlangretries: `The number of times (per 100ms) attempts to locate valid translations for the current achievement will be made<br><br><span class="ttdesc">Steam currently only stores a small amount of achievement data within each game's associated JSON file. Any achievements that are not present within this file will be appended after the achievement is unlocked.<br><br>As appending new data can take time, increasing this value will increase the likelihood that translation data for the current achievement will be located, but may also delay the notification from appearing on-screen by the amount of time calculated by this setting.<br><br>If no valid translation data can be located for the current achievement, translations will fallback to the language specified in Steamworks.</span>`,
+        steamlang: `Attempt to load translations located within Steam's application files to display achievement information in the user's chosen Steam client language<br><br><span class="ttdesc">This option attempts to locate translations in a JSON file stored within Steam's application data. If a translation for the current achievement cannot be located, achievement information retrieved from Steam's internal binary files will be displayed instead</span>`,
+        maxsteamlangretries: `The number of times (per 100ms) attempts to locate valid translations for the current achievement will be made<br><br><span class="ttdesc">Steam currently only stores a small amount of achievement data within each game's associated JSON file. Any achievements that are not present within this file will be appended after the achievement is unlocked.<br><br>As appending new data can take time, increasing this value will increase the likelihood that translation data for the current achievement will be located, but may also delay the notification from appearing on-screen by the amount of time calculated by this setting.<br><br>If no valid translation data can be located for the current achievement, translations will fallback to English.</span>`,
         desktop: "Toggle a shortcut on the Desktop to run the app",
         startwin: "Start Steam Achievement Notifier automatically after logging in",
         startmin: "After launching, hide the app UI window until opened from the System Tray",
@@ -646,9 +647,6 @@ export const translations = {
         litemode: "Disable all interactive UI elements, while only providing limited app functionality via the System Tray icon. May improve resources consumed by the app",
         rarity: `The percentage at which Rare achievement notifications will be triggered.<br><br>Any achievement with an unlock percentage above this value will be displayed as a Main notification<br><br><span class="ttdesc">If <span class="hl">Trophy Mode</span> is enabled, any achievement with an unlock percentage above this value will be displayed as a Silver notification instead</span>`,
         semirarity: `The percentage at which "Silver" notification assets will be displayed (e.g. <span class="hl">Rarity Badges</span>, <span class="hl">Decorations</span> etc.).<br><br>Any achievement with an unlock percentage below (or equal to) this value, and above the value of <span class="hl">Rarity Percentage</span>, will display notification assets configured for "Silver" rarities.<br><br>Any achievement with an unlock percentage above this value will display notification assets configured for "Bronze" rarities<br><br><span class="ttdesc">If <span class="hl">Trophy Mode</span> is enabled, any achievement with an unlock percentage above this value will be displayed as a Bronze notification instead</span>`,
-        showpercent: "Display the unlock percentage of the achievement in the notification for the selected type(s)",
-        showpercentpos: "Set the position of the unlock percentage of the achievement in the notification for the selected type(s)",
-        showpercentstyle: "Set the style of the unlock percentage of the achievement in the notification for the selected type(s)",
         soundonly: "Disable notifications, only playing sounds set via the Customiser",
         extwin: "Create a window that duplicates any notifications currently being displayed on-screen. This window can then be added as a Window Capture source for use in streaming software, such as OBS",
         extwinframerate: "Set the target frame rate for Stream Notifications",
@@ -674,11 +672,6 @@ export const translations = {
         tooltips: "Display tooltips when hovering over certain UI elements",
         colorprofile: `Force all app windows to render using the selected color profile<br><br><span class="ttdesc">Requires app restart</span>`,
         pollrate: `Set the update interval for achievement data during gameplay<br><br><span class="ttdesc">Performance may increase/decrease depending on the value or system hardware. Higher values typically result in lower system load, but may cause notifications to be more delayed</span>`,
-        initdelay: `Set the delay between detection of the current <span class="hl">AppID</span> and when process/achievement tracking starts<br><br><span class="ttdesc">Increasing this value can prevent scenarios where Steam is unable to launch the current game (due to the app initialising Steamworks before the game has launched)</span><br><br><span class="ttdesc">Alternatively, increasing this value can also be used to bypass incorrect detection of pre-game launcher processes</span>`,
-        releasedelay: `Set how long the background Worker process waits to restart after the current game has been released. Affects both automatic process tracking and Auto-Release Games<br><br><span class="ttdesc">Allows a longer timeframe for Steamworks to be fully released from the app. Increasing this value can prevent unusual behaviour, such as tracking a previously closed game</span>`,
-        maxretries: `Set the maximum number of retries to link a running process to a detected AppID. Affects both automatic process tracking and Auto-Release Games<br><br><span class="ttdesc">Retries are attempted once every second. If a running process is not linked to the current AppID after this number of retries, an invalid process will be returned. In such cases, the game will need to be manually released via System Tray > Options > Release Game</span>`,
-        debug: "Open the Debug Panel, which displays in-depth Process Tracking info",
-        userust: "Use an alternative Rust-based function to check whether tracked game processes are currently running on the system. When unchecked, the default Node JS-based process check will be used instead",
         notifydebug: "Create a DevTools window for all notifications. Useful for debugging/troubleshooting notification issues",
         workerdebug: "Create a DevTools window for the Worker process. Useful for debugging/troubleshooting game tracking issues",
         usecustomfiles: "Enables notifications to load user-customisable files. Caution is advised for regular users",
@@ -689,12 +682,10 @@ export const translations = {
         replay: "Restart the animation of the notification preview",
         preset: "Select the notification preset to customise",
         iconanim: "Toggle the Rare icon border and animation",
-        alldetails: "Display all text elements within the notification, including those hidden by default for this preset",
         usepercent: "Display the unlock percentage of the achievement, instead of the XP/S value",
         displaytime: "Set the number of seconds the notification will display",
         scale: "Increase or decrease the size of the notification",
         customtext: `Set a custom message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
-        usegametitle: "Show the title of the current game within this element",
         customfont: "Load a custom font to be used within the notification",
         soundmode: "Select either a single audio file, or a randomly selected audio file from within a folder containing multiple audio files, when a notification occurs",
         soundfile: "Select an audio file to play when a notification occurs",
@@ -711,7 +702,6 @@ export const translations = {
         roundness: "Set the roundness of the notification edges",
         fontsize: "Set the size of the font used in the notification",
         opacity: "Set the overall opacity of the notification",
-        bgonly: "Only set the opacity for the notification background, keeping other elements at full opacity",
         glow: "Enable a glow effect that surrounds the notification",
         glowcolor: "Set the color of the glow effect",
         glowsize: "Set the size of the glow effect",
@@ -779,6 +769,7 @@ export const translations = {
         webhooksemi: `Toggle whether to post achievement information to a Discord server when a $semi achievement is unlocked`,
         webhookrare: "Toggle whether to post achievement information to a Discord server when a $rare achievement is unlocked",
         webhookplat: "Toggle whether to post achievement information to a Discord server when a $plat achievement is unlocked",
+        webhookset: "Toggle whether to post achievement information to a Discord server when an achievement set is completed",
         webhooktest: "Toggle whether to post test information to a Discord server when Test Notifications of any type are triggered",
         webhookurl: `Set the <span class="hl">Webhook URL</span> for the desired Discord server<br><br><span class="ttdesc">A <span class="hl">Webhook URL</span> is used to post to a Discord server/channel on behalf of a user or application. In order to set up a new Webhook for a Discord server, the user must have a role within the desired server that allows the creation of Webhooks<br><br><u>A Webhook URL is required when using this option</u><br><br>Refer to Discord's official documentation for more information</span>`,
         webhookspoilers: `Add a spoiler tag to "Hidden" achievements when posted to Discord`,
@@ -788,8 +779,6 @@ export const translations = {
         desc: "Set the position of the achievement description within the $type",
         notification: "notification",
         screenshot: "screenshot",
-        percentpos: "Set the position of the unlock percentage within the $type",
-        sspercentpos: "Set the position of the unlock percentage within the $type",
         hiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
         sshiddeniconpos: "Set the position of the hidden/secret achievement icon within the $type",
         decorationpos: "Set the position of the decoration element within the $type",
@@ -825,7 +814,6 @@ export const translations = {
         themeswitch: `Automatically switch to any saved <span class="hl">Theme</span> when a specific game is detected`,
         userthemesync: `Sync customisations in the selected <span class="hl">Theme</span> to all other notification types`,
         showsystrayopts: `Display all options usually located under <span class="hl">System Tray</span> > <span class="hl">Options</span> in <span class="hl">Settings</span> > <span class="hl">Misc.</span>`,
-        releaseshortcut: "Release the currently tracked game using the specified keyboard shortcut",
         themeselect: "Select a previously saved Theme",
         statwin: `Display configurable achievement stats for the current game in an external window<br><br><span class="ttdesc">When used in conjunction with the <span class="hl">Translate Achievements to Steam Language</span> option, some translations may not be available until the specified achievement is unlocked</span>`,
         statwinaot: `Set the Achievement Stats Overlay to "always on top" mode, locking the current position and allowing the overlay to be displayed above the game window<br><br><span class="ttdesc">When enabled, the Achievement Stats Overlay will no longer register user interactions, such as "click" events. To re-enable interaction with the window, this option must be disabled</span>`,
@@ -853,6 +841,7 @@ export const translations = {
         webhookembedcolorsemi: "Set the color used in the webhook embed when a $semi achievement is unlocked",
         webhookembedcolorrare: "Set the color used in the webhook embed when a $rare achievement is unlocked",
         webhookembedcolorplat: "Set the color used in the webhook embed when a $plat achievement is unlocked",
+        webhookembedcolorset: "Set the color used in the webhook embed when an achievement set is completed",
         raemus: "Display notifications when games are detected in supported emulators",
         rauser: "Set the RetroAchievements username to track achievements for",
         rakey: `Set the Web API Key to use for authentication to the RetroAchievements API<br><br><span class="ttdesc">A Web API Key can be copied or regenerated by logging into the RetroAchievements website and navigating to <span class="hl">Settings > Keys > Web API Key</span><br><br>🔒 The provided key will be encrypted before being stored locally on the system (if the current OS supports encryption)</span>`,
@@ -871,7 +860,7 @@ export const translations = {
         unlockmsgfontcolor: "Set the color of the first text element",
         titlefontcolor: "Set the color of the second text element",
         descfontcolor: "Set the color of the third text element",
-        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Export achievement data to a JSON file when an achievement is unlocked<br><br><span class="ttdesc">When enabled, <span class="ttcode">achdata.json</span> will be exported to:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Adjust the vertical spacing between text elements within the notification",
         ssmode: `Set whether to capture the entire screen or the current game window<span style="color: red;">*</span> in screenshots<br><br><span class="ttdesc">If the current game's <span class="hl">executable file</span> cannot be located (<i>either via <span class="hl">automatic process tracking</span> or when added as an <span class="hl">Auto-Release Games</span> entry</i>), this option will default to "Screen" mode</span>`,
         replaynotify: "Replay the last achievement notification",
@@ -890,10 +879,10 @@ export const translations = {
         audiocooldown: `Set the amount of time subsequent notifications wait before new audio can be played<br><br><span class="ttdesc">Audio will be unaffected if Max Notifications is set to 1</span>`,
         rauseemudir: "Save Screenshots/Notification Images unlocked via RetroAchievements into a subfolder for the current emulator within the specified Screenshot/Image Path directory",
         ssext: "Set the file format of screenshots generated via the Screenshot with Notification Overlay option",
-        notify1line: `Limit the number of lines of text displayed within all notifications to 1<br><br><span class="ttdesc">Overflowing text strings that cannot fit onto a single line will be truncated with "..."</span>`,
         copytheme: "Copy the selected Theme to another notification type",
         ssaddtosteam: "Automatically add generated media to the current game's Recordings and Screenshots in Steam",
         appdatadir: "Open the location of the app's AppData folder",
+        cleariconcache: "Delete all previously cached achievement icons",
         backup: "Backup the contents of the app's AppData folder to a chosen location, which will act as a restore point for the current state of the app",
         restore: "Restore the contents of the app's AppData folder from a previous backup",
         gametimerwin: "Display an on-screen timer showing the amount of time taken to unlock all achievements for the current game",
@@ -902,13 +891,7 @@ export const translations = {
         resetgametimer: "Reset the Game Completion Timer for the current game",
         noshortcuts: `Disable all in-app keyboard shortcuts<br><br><span class="ttdesc">When enabled, <u>all in-app shortcuts will no longer function</u>. All options related to keyboard shortcuts will also be hidden</span>`,
         extwinnotify: "Toggle visibility of all onscreen notifications while using Stream Notifications",
-        usesanwatcher: `Enable SAN's new game process watcher<br><br><span class="ttdesc">Differences between the new SANWatcher/old automatic process tracking methods are as follows:<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>Actively monitors start/exit events for any process stored inside the game's installation directory</li><li>Does not require game executable to be known to release current game</li><li>Pre-game launcher behaviour can vary, so full compatibility with all Steam games is not guaranteed</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>Scans game installation directory for any running executables after game launch</li><li>Requires game executable to be known to release current game</li><li>If game process cannot be determined automatically, the user must manually add a new entry to <span class="hl">Auto-Release Games</span> for games to be released automatically</li></ul></div>`,
-        releasewaittime: `Set how long SANWatcher will wait for new game processes to spawn before releasing the current game<br><br><span class="ttdesc">For example, if the current game spawns a pre-game launcher/configuration window before launching the actual game, this setting determines the number of seconds SANWatcher will wait for the actual game window to spawn after the pre-game launcher/configuration window has closed<br><br>If a new active game process is detected within this wait time, the release will be cancelled and the newly active process will then be tracked instead<br><br>💡 The game name will <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">flash</span> in the <span class="hl">Game Display</span> box while the current game is waiting to release</span>`,
-        platcustomtext: `Set a custom 100% game completion message to be displayed within the notification<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
         raui: "Display the names of detected RetroAchievements games in the Game Display/system tray UI",
-        testnotifycustomtext: "Override the text displayed in all Test Notifications",
-        testnotifycustomtexttitle: "Override the text displayed for the title element in all Test Notifications",
-        testnotifycustomtextdesc: "Override the text displayed for the description element in all Test Notifications",
         radefault: `Always auto-switch to this entry when any RetroAchievements achievement is unlocked<br><br><span class="ttdesc">Only one Auto-Switch Themes entry can be designated as the default for all RetroAchievements achievements. This default can also be overridden per-game by adding a new Auto-Switch Themes entry for a specific RetroAchievements <span class="hl">GameID</span></span>`,
         statwintype: "Set the layout type of the Achievement Stats Overlay",
         statwinunlockonly: "Keep the Achievement Stats Overlay hidden until an achievement is unlocked",
@@ -920,7 +903,14 @@ export const translations = {
         usecustomtext: "Set custom messages to be displayed within the notification",
         customtextunlockmsg: `Set a custom message to be displayed within the Unlock Message element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Unlock Message is disabled</span>`,
         customtexttitle: `Set a custom message to be displayed within the Achievement Title element<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Title is disabled</span>`,
-        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`
+        customtextdesc: `Set a custom message to be displayed within the Achievement Description<br><br><span class="ttdesc">This option will be hidden when Customiser > Preset > Notification Elements > Achievement Description is disabled</span>`,
+        notifylinemode: "Set the maximum number of lines of text to display within notifications",
+        notifyoverflow: "Set the behaviour of overflowing text within notifications",
+        scrollrepeat: `Set how many times overflowing text will scroll while the notification is onscreen<br><br><span class="ttdesc">Scroll speed is dependent on Display Time, but higher repeat values may not be suitable for all presets</span>`,
+        setplat: "Display notifications for completing each achievement set in compatible games",
+        platsubtype: `Select the <span class="hl">100%</span> notification subtype to customise<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Game</span>: The notification displayed when all achievements in the game are unlocked</li><li><span class="hl">Set</span>: The notification displayed when all achievements in a single achievement set are unlocked</li></ul></span>`,
+        plugins: `Enable support for loading in-app plugins<br><br><span class="ttdesc">Plugins extend functionality for other platforms/games to track achievements and display notifications within the app</span>`,
+        loadplugin: "Load a plugin from disk and extract into the app's plugin directory"
     },
     update: {
         updateavailable: "Update available",
@@ -930,64 +920,6 @@ export const translations = {
             `Full Release Notes available on <span id="discordreleasenotes"></span> and <span id="githubreleasenotes"></span>`
         ],
         update: "Update"
-    },
-    linkgame: {
-        content: {
-            exepath: "Executable Path",
-            linkedgame: "Link Game",
-            autoreleasegame: "Auto-Release Game",
-            linkedgamessub: [
-                `Override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, and instead, only check whether the selected <span class="hl">game executable</span> is currently active`,
-                `Link any game's <span class="hl">AppID</span> to a target <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing link`
-            ],
-            autoreleasegamessub: [
-                `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">$linkgame</span>`,
-                `Add a specific game's <span class="hl">AppID</span> along with its expected <span class="hl">game executable</span>, or <span class="hl">remove</span> an existing entry`,
-            ],
-            managesub: [
-                `Once a game has been detected, new entries can also be added via <span class="hl">window focus</span> by <i>right-clicking</i> the <span class="hl">System Tray icon</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>How do I find a Steam game's AppID?</u></span>`
-            ],
-            linknew: "New Entry",
-            linknewsub: [
-                `Link a new game's <span class="hl">AppID</span> to a target <span class="hl">game executable</span>`,
-                `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
-            ],
-            linkedit: "Edit Entry",
-            linkeditsub: [
-                `Edit an existing link between a game's <span class="hl">AppID</span> and the target <span class="hl">game executable</span>`,
-                `Once added, entries can be <span class="hl">removed</span> via the previous <span class="hl">$linkgame</span> menu`
-            ],
-            link: "Add",
-            findappid: "Find Steam AppID",
-            findappidsub: [
-                `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
-                `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
-                `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
-            ],
-            noexe: "Game EXE not found!",
-            noexesub: "Click here for more information",
-            noexedialogsub: [
-                `Steam Achievement Notifier was unable to locate the executable file for this game automatically. The location of the game's executable file is required in order to "release" the game once closed`,
-                `To manually release the game once closed, <i>right-click</i> the <span class="hl">System Tray icon</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>, or use the <span class="hl">Release Game Shortcut</span>`,
-                `Alternatively, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>`,
-            ],
-            linkedgamefocussub: `To override all running game processes tracked automatically by <span class="hl">SANWatcher</span>, add a new entry to <span class="hl">Linked Games</span>`,
-            autoreleasegamefocussub: `If Steam still shows a game as <i>Playing</i> after the game window has closed, try adding a new entry to <span class="hl">Auto-Release Games</span>`,
-            focussub: `To do this for the current game, click the <span class="hl">Add</span> button below to add any focused window's associated executable file to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>What happens when I click the Add button?</u></span>`,
-            linkgamehelp: "Link via Focus",
-            linkgamehelpsub: [
-                `Clicking the <span class="hl">Add</span> button will automatically add a new entry to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using information from the currently focused window.`,
-                `After clicking the <span class="hl">Add</span> button, a 5-second timer will begin`,
-                `Before the timer ends, focus the game window`,
-                `Once the timer has ended, a new entry for the current <span class="hl">AppID</span> will be added to <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span>, using the focused window's associated executable file`,
-                `New attempts will overwrite existing entries, or the entry can be removed via <span class="hl">Settings</span> > <span class="hl">Games</span> > <span class="hl">Auto-Release Games</span> by clicking the <span id="linkhelpunlink"></span> button`
-            ],
-            addlinkfailed: "Unable to add window",
-            addlinkfailedsub: `Click the <span class="hl">Add</span> button to try again`
-        }
     },
     exclusions: {
         content: {
@@ -1033,8 +965,6 @@ export const translations = {
             sshiddeniconpos: "Hidden Icon",
             decorationpos: "Decoration",
             ssdecorationpos: "Decoration",
-            percentpos: "Rarity Percentage",
-            sspercentpos: "Rarity Percentage",
             percentbadge: "Rarity Badge",
             sspercentbadge: "Rarity Badge",
             percentbadgepos: "Badge Position",
@@ -1086,78 +1016,19 @@ export const translations = {
             themes: "Themes",
             src: "Screenshot Source",
             themedeleted: "Theme deleted",
+            findappid: "Find Steam AppID",
+            findappidsub: [
+                `Each Steam game has a unique number associated with it - called an <span class="hl">AppID</span>. You can find any Steam game's associated AppID by checking one of the following:`,
+                `In the <span class="hl">Steam client</span>, <i>right-click</i> a game in your <span class="hl">Library</span> and select <i>Properties</i> > <i>Updates</i> - the AppID will be listed here`,
+                `The <span class="hl">URL</span> of the game's <span class="hl">Store page</span> - it will be the number listed after <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websites such as <span class="hl">SteamDB</span> - the <span class="hl">App Info</span> section will list the AppID for each game`
+            ],
             rafindgameid: "Find RA GameID",
             rafindgameidsub: [
                 `Each RetroAchievements game has a unique number associated with it - called a <span class="hl">GameID</span>. You can find any RetroAchievements game's associated GameID by checking:`,
                 `The <span class="hl">URL</span> of the <span class="hl">game page</span> on the RetroAchievements site - it will be the number listed after <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Set as default for RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Troubleshoot",
-        content: {
-            copydata: "Copy Data",
-            noissues: "No issues found!",
-            noissuessub: "This game should release automatically.",
-            manualrelease: `You can manually release any game via <span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>.`,
-            addedvia: "Added via"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "No active processes",
-                issue: "No active game process found",
-                detail: "The executable file associated with this game isn't being detected as a running process. The following executables were checked:",
-                solution: [
-                    `Try adding the game's executable to $linkedgamesmenu.`,
-                    `Make sure the entry under $linkedgamesmenu points at the right executable.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Executable unknown",
-                issue: "Unable to identify game executable",
-                detail: "The path to the game's executable could not be located automatically, which is usually caused by pre-game launchers when launching the game via Steam.",
-                solution: [
-                    `Add a new entry for this game to $linkedgamesmenu, or remove any entries pointing to an incorrect game executable. Otherwise, check whether the game supports a Steam launch option to bypass any pre-game launchers, such as <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Try enabling $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Executable missing",
-                issue: "Game executable not found on disk",
-                detail: `The executable associated with this game could not be found on disk. The following executables were checked:`,
-                solution: ["Try verifying integrity of game files via Steam or reinstalling the game."]
-            },
-            notexecutable: {
-                title: "Not executable",
-                issue: `Game missing executable permission`,
-                detail: "The file Steam uses to launch the game is not able to be executed. The file was reported as:",
-                solution: ["To make this file executable, refer to instructions for your specific Linux distro."]
-            },
-            notwithininstalldir: {
-                title: "Not in game directory",
-                issue: "Executable not in installation directory",
-                detail: "An entry for this game has been detected under $linkedgamesmenu, but the linked executable is not located inside the game's installation folder, which may indicate it's not the correct one.",
-                solution: ["Edit the $linkedgamesmenu entry for this game and make sure it points at the right game executable."]
-            },
-            wrongplatformpath: {
-                title: "Game path invalid",
-                issue: "Game path invalid for current OS",
-                detail: "The executable path for this game looks like it belongs to a different OS - possibly due to a config copied from another machine or a dual-boot setup.",
-                solution: [`Do not use a config copied from another machine/OS, as this will probably not work as expected. All existing <span class="hl">Themes</hl> can be imported/exported cross-platform via the <span class="hl">Customiser</span> menu.`]
-            },
-            duplicatelinkentries: {
-                title: "Duplicate entries",
-                issue: "Duplicate $linkedgamesmenu entries found",
-                detail: "This game executable is also linked to $appids under $linkedgamesmenu.",
-                solution: ["Remove one of the duplicate entries and ensure the remaining entry points to the right game executable."]
-            },
-            releasing: {
-                title: "Game releasing",
-                issue: "The game is releasing",
-                detail: "This game is about to be released.",
-                solution: [`Please wait for a few more seconds - the dot in the <span class="hl">System Tray</span> icon will change from <span class="troubleshooterdialogicon" grey></span> (releasing) to <span class="troubleshooterdialogicon" red></span> (idle) once released.`]
-            }
         }
     }
 }

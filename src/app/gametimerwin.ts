@@ -93,18 +93,6 @@ ipcRenderer.on("gametimerwinaot",(event,value: boolean) => document.body.toggleA
 
 window.addEventListener("DOMContentLoaded",() => {
     document.getElementById("close")!.onclick = () => window.close()
-
-    const winopacity = document.getElementById("winopacity")!
-    document.body.toggleAttribute("hidden",sanconfig.get().store.gametimerwinopacity)
-
-    winopacity.onclick = () => {
-        const config = sanconfig.get()
-        const value = !config.get("gametimerwinopacity")
-
-        config.set("gametimerwinopacity",value)
-
-        document.body.toggleAttribute("hidden",value)
-    }
     
     ipcRenderer.send("gametimerwinready")
 })

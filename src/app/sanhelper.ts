@@ -6,15 +6,19 @@ import { usertheme } from "./usertheme"
 import { keycodes } from "./keycodes"
 import { language } from "./language"
 import tippy, { followCursor, Instance, Props } from "tippy.js"
-import { getSteamPath, getAppInfo, pressKeysWin32, pressKeysLinux, depsInstalled, getHqIcon, log as sanhelperrslog, hdrScreenshot, getAllDisplays, getWindowBounds, findElectronDisplay } from "sanhelper.rs"
+import * as sanhelper_rs from "sanhelper.rs"
 import { selectorelems } from "./elemselector"
 import { createcolorpicker } from "./colorpicker"
 import { raelems, rasupported } from "./ra"
+import semver from "semver"
 
-const { initLogger, testPanic } = sanhelperrslog
+const { initLogger, testPanic } = sanhelper_rs.log
 
 export const __root: string = path.resolve(__dirname,"..","..")
+
 const tippies: Instance<Props>[][] = []
+const plugintippies: Instance<Props>[][] = []
+
 const defaulttippy = {
     placement: "bottom",
     followCursor: true,
@@ -64,8 +68,8 @@ export const sanhelper = {
     // In devmode, run `npm run dev -- --beta` to enable Beta environment
     get beta(): boolean { return !sanhelper.devmode ? !!JSON.parse(fs.readFileSync(path.join(__root,"package.json")).toString())?.beta : (process.type === "renderer" ? ipcRenderer.sendSync("beta") : app.commandLine.hasSwitch("beta")) },
     // `process.env.npm_package_version` is not available in the Renderer on build
-    get version(): number { return parseFloat(sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion())) },
     get semver(): string | undefined { return sanhelper.devmode ? process.env.npm_package_version! : (process.type === "renderer" ? ipcRenderer.sendSync("version") : app.getVersion()) },
+    get version(): string { return `${semver.major(sanhelper.semver ?? "0.0.0")}.${semver.minor(sanhelper.semver ?? "0.0.0")}` },
     get appdata(): string { return path.join(process.platform === "linux" ? path.join(process.env.HOME!,".local","share") : process.env.localappdata!,`Steam Achievement Notifier (V${sanhelper.version})${sanhelper.devmode ? " [DEVMODE]" : ""}`) },
     get temp(): string { return sanhelper.devmode ? path.join(__root,"temp") : (process.platform === "linux" ? path.join(sanhelper.appdata,"resources","temp") : path.join(__root,"..","temp")) },
     get icon(): string {
@@ -89,8 +93,9 @@ export const sanhelper = {
         (async () => await copyicon())()
         return localicon
     },
-    get steampath(): string { return getSteamPath() },
-    get gameinfo(): AppInfo { return getAppInfo()[0] },
+    get steampath(): string { return sanhelper_rs.getSteamPath() },
+    get activesteamuser(): number | null { return sanhelper_rs.getSteamActiveUser() },
+    get gameinfo(): AppInfo { return sanhelper_rs.getAppInfo()[0] },
     getgamenamefromappid: async (appid: number) => {
         if (appid < 100) return undefined
         const url = `https://store.steampowered.com/api/appdetails?appids=${appid}`
@@ -134,20 +139,13 @@ export const sanhelper = {
         
         return `Linux kernel (${os.release()})`
     },
-    gethqicon: (appid: number = 0) => getHqIcon(appid),
-    getwindowbounds: (windowtitle: string) => getWindowBounds(windowtitle),
-    initlogger: (appdata: string) => initLogger(appdata),
-    getalldisplayinfo: () => getAllDisplays(),
-    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => hdrScreenshot(monitorid,sspath,area),
+    gethqicon: (appid: number = 0) => sanhelper_rs.getHqIcon(appid),
+    getwindowbounds: (windowtitle: string) => sanhelper_rs.getWindowBounds(windowtitle),
+    get getfocusedwin(): sanhelper_rs.FocusedWin | null { return sanhelper_rs.getFocusedWin() },
+    initlogger: (appdata: string,filename: string,append: boolean = false) => initLogger(appdata,filename,append),
+    getalldisplayinfo: () => sanhelper_rs.getAllDisplays(),
+    hdrscreenshot: (monitorid: number,sspath: string,area?: [number,number,number,number]) => sanhelper_rs.hdrScreenshot(monitorid,sspath,area),
     testpanic: () => testPanic(),
-    isprocessrunning: (pid: number) => {
-        try {
-            process.kill(pid,0)
-            return true
-        } catch (err) {
-            return false
-        }
-    },
     errorhandler: (log: any) => {
         const handleerr = (err: string) => {
             document.body.setAttribute("error","")
@@ -160,7 +158,9 @@ export const sanhelper = {
         process.on("uncaughtException",(err: Error) => handleerr(`${err.stack}`))
         process.on("unhandledRejection",(err: Error) => handleerr(`${err.stack}`))
     },
-    settypevalue: <T>(type: NotifyType,values: { main: T,semi: T,rare: T,plat: T }) => values[type],
+    settypevalue: <T>(type: NotifyType,values: { main: T,semi: T,rare: T,plat: T,set?: T }) => values[type] ?? values.plat,
+    basetype: (type: NotifyType): "main" | "semi" | "rare" | "plat" => type === "set" ? "plat" : type,
+    plattype: (type: NotifyType) => type === "plat" || type === "set",
     // On build, the Notifications API cannot access the `img` files within the asar
     setfilepath: (dir: "img" | "icon" | "sound",filename: string) => path.join((dir === "img" && !sanhelper.devmode) ? (process.platform === "linux" ? path.join(sanhelper.appdata,"resources") : process.resourcesPath) : __root,dir,filename).replace(/\\/g,"/"),
     showtrack: (gamename: string) => ipcRenderer.send("showtrack",gamename),
@@ -192,7 +192,7 @@ export const sanhelper = {
             ipcRenderer.send("displays")
         })
     },
-    findelectrondisplay: (id: number) => findElectronDisplay(id),
+    findelectrondisplay: (id: number) => sanhelper_rs.findElectronDisplay(id),
     setdevtools: async (win: Electron.BrowserWindow) => {
         const { BrowserWindow, screen } = await import("electron")
         const { width, height } = screen.getPrimaryDisplay().bounds
@@ -211,14 +211,15 @@ export const sanhelper = {
 
         return
     },
-    get type(): NotifyType { return (["main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! as NotifyType },
+    get type(): NotifyType { return (["set","main","semi","rare","plat"] as const).find(attr => document.body.hasAttribute(attr))! },
     logcontents: (logtype: LogFiles | "bak",filename?: string) => fs.readFileSync(path.join(sanhelper.appdata,"logs",filename || `${logtype}.log`),"utf-8").replace(/(\r\n|\n|\r)/g,"<br>"),
     createlogwin: () => ipcRenderer.send("logwin",sanhelper.logcontents("san"),"san"),
     updatelogwin: (logtype: LogFiles | "bak",filename?: string) => ipcRenderer && ipcRenderer.send("updatelogwin",sanhelper.logcontents(logtype,filename),logtype,filename),
     showcustomfiles: () => shell.openPath(path.join(sanhelper.appdata,"customfiles")),
     appdatadir: () => shell.openPath(sanhelper.appdata),
+    cleariconcache: () => ipcRenderer.send("cleariconcache"),
     switchtab: ({ target }: Event) => {
-        target instanceof HTMLElement && (["main","semi","rare","plat"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
+        target instanceof HTMLElement && (["main","semi","rare","plat","set"] as const).forEach(attr => document.body.toggleAttribute(attr,target.hasAttribute(attr)))
         usertheme.update()
         sanhelper.reloadelemselector()
     },
@@ -231,6 +232,7 @@ export const sanhelper = {
         switch ((target as HTMLElement)!.id) {
             case "customiserbackbtn":
                 if (i > 0) {
+                    document.body.removeAttribute("set")
                     document.body.setAttribute(attrs[i - 1],"")
                     document.body.removeAttribute(attrs[i])
                     window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: attrs[i - 1] } }))
@@ -238,6 +240,7 @@ export const sanhelper = {
                 break
             case "customisernextbtn":
                 if (i < attrs.length - 1) {
+                    document.body.removeAttribute("set")
                     document.body.setAttribute(attrs[i + 1],"")
                     document.body.removeAttribute(attrs[i])
                     window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: attrs[i + 1] } }))
@@ -257,14 +260,13 @@ export const sanhelper = {
     },
     setshortcut: (config: Store<Config>,event: Event,id?: string,partialcombo: boolean = false) => {
         const target = event.target as HTMLElement
-        const type = sanhelper.type
+        const { type } = sanhelper
         const keys: string[] = []
         const shortcutbtn = document.getElementById(id ? id : "shortcutbtn")! as HTMLButtonElement
         let count: number = 0
         let pressed: string[] = []
 
-        // "false" unregisters all shortcuts then returns
-        ipcRenderer.send("shortcut",false)
+        ipcRenderer.send("shortcut",false) // "false" unregisters all shortcuts then returns
         
         const keydown = (event: KeyboardEvent) => {
             const key = event.code.toUpperCase()
@@ -319,6 +321,7 @@ export const sanhelper = {
         const timer = setTimeout(stop,5000)
     },
     updategamelbl: async (gamename: string | null) => document.querySelector(".rect#game > span")!.textContent = gamename || await language.get("game",["app","content"]),
+    steamlang: () => ipcRenderer.send("steamlang"),
     get linuxshortcut(): string {
         return [
             "[Desktop Entry]",
@@ -331,7 +334,6 @@ export const sanhelper = {
             "Categories=Utility;"
         ].join("\n")
     },
-    steamlang: () => ipcRenderer.send("steamlang"),
     createshortcut: (value: boolean,shortcutpath: string) => {
         if ((!value && !fs.existsSync(shortcutpath)) || (value && fs.existsSync(shortcutpath))) return
 
@@ -352,25 +354,31 @@ export const sanhelper = {
 
         return fs.rmSync(shortcutpath)
     },
-    desktop: (value: boolean) => {
-        const shortcutpath = (platform: string) => {
-            if (platform !== "win32" && platform !== "linux") return ""
+    desktopshortcutpath: (platform: string) => {
+        if (platform !== "win32" && platform !== "linux") return ""
 
-            try {
-                const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
-                if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
-                
-                return xdgdesktopdir
-            } catch (err) {
-                return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
-            }
+        try {
+            const xdgdesktopdir = fs.readFileSync(path.join(process.env.HOME!,".config","user-dirs.dirs")).toString().split("\n").find(item => item.includes("XDG_DESKTOP_DIR"))?.match(/"([^"]+)"/)?.[1]?.replace(/^\$(?:\{)?HOME(?:\})?/,process.env.HOME!)
+            if (!xdgdesktopdir || (xdgdesktopdir && !fs.existsSync(xdgdesktopdir))) throw new Error(`"${xdgdesktopdir}" not found - reverting to default Desktop path...`)
+            
+            return xdgdesktopdir
+        } catch (err) {
+            return path.join(process.env[platform === "linux" ? "HOME" : "USERPROFILE"]!,"Desktop")
         }
-
-        const shortcutdir = shortcutpath(process.platform)
+    },
+    desktop: (value: boolean) => {
+        const shortcutdir = sanhelper.desktopshortcutpath(process.platform)
         shortcutdir && sanhelper.createshortcut(value,path.join(shortcutdir,`Steam Achievement Notifier (V${sanhelper.version}).${process.platform === "linux" ? "desktop" : "lnk"}`))
     },
     startwin: (value: boolean) => ipcRenderer.send("startwin",value),
     nohwa: (value: boolean) => ipcRenderer.send("restart",`"nohwa" Settings option toggled to ${value}.`),
+    setplat: (value: boolean) => {
+        document.body.toggleAttribute("setplat",value)
+        if (value || !document.body.hasAttribute("set")) return
+
+        document.body.removeAttribute("set")
+        window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: "plat" } }))
+    },
     soundonly: (value: boolean) => {
         document.body.toggleAttribute("soundonly",value)
         window.dispatchEvent(new Event("soundonly"))
@@ -383,30 +391,29 @@ export const sanhelper = {
     statwinunlockonly: (value: boolean) => ipcRenderer.send("statwinunlockonly",value),
     gametimerwin: (value: boolean) => ipcRenderer.send("gametimerwin",value),
     gametimerwinaot: (value: boolean) => ipcRenderer.send("gametimerwinaot",value),
+    // plugins: (value: boolean) => ipcRenderer.send("plugins",value),
     uimode: (value: "basic" | "advanced") => ipcRenderer.send("uimode",value),
     noanim: (value: boolean) => document.body.toggleAttribute("noanim",value),
     tooltips: (value: boolean) => sanhelper.settooltips(value),
     noshortcuts: (value: boolean) => ipcRenderer.send("shortcut",!value),
-    usesanwatcher: () => ipcRenderer.send("usesanwatcher"),
-    debug: (value: boolean) => ipcRenderer.send("debugwin",value),
-    workerdebug: () => ipcRenderer.send("releasegame",true),
+    workerdebug: () => ipcRenderer.send("validateworker"),
     logresourceusage: (value: boolean) => ipcRenderer.send("resourceusage",value),
     usecustomfiles: () => ipcRenderer.send("closeextwin"),
     ramode: (value: boolean) => ipcRenderer.send("ra",value),
     raui: (value: boolean) => ipcRenderer.send("raui",value),
     trophymode: (value: boolean,config: Store<Config>,customiser?: boolean) => {
-        // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
-        ;(async () => await sanhelper.verifylocalstorage("themeswitch"))()
+        ;(async () => await sanhelper.verifylocalstorage("themeswitch"))() // Patches `localStorage.themeswitch.<appid>.themes` to add missing keys (e.g. "semi") if missing when Trophy Mode is toggled
         
         document.body.toggleAttribute("trophymode",value)
 
         const { customisation, trophymode } = config.store
 
-        const trophymap: Record<"main" | "semi" | "rare" | "plat",NotifyType | TrophyType | ""> = {
+        const trophymap: Record<NotifyType,NotifyType | TrophyType | ""> = {
             main: trophymode ? "bronze" : "",
             semi: trophymode ? "silver" : "",
             rare: trophymode ? "gold" : "rare",
-            plat: "plat"
+            plat: "plat",
+            set: "plat"
         }
 
         const synced = usertheme.issynced(config)
@@ -425,16 +432,13 @@ export const sanhelper = {
 
         ipcRenderer.send("shortcut",!config.get("noshortcuts"))
 
-        // Below actions should only happen on app load
-        if (customiser) return
+        if (customiser) return // Below actions should only happen on app load
 
         ;(async () => language.load())()
-        // Switch tab back to "Main" if "Semi" is currently selected when toggling Settings > Notifications > Trophy Mode off
-        !value && document.body.hasAttribute("semi") && (document.querySelector(".wrapper#tabs > .tab[main]")! as HTMLButtonElement).click()
+        !value && document.body.hasAttribute("semi") && (document.querySelector(".wrapper#tabs > .tab[main]")! as HTMLButtonElement).click() // Switch tab back to "Main" if "Semi" is currently selected when toggling Settings > Notifications > Trophy Mode off
     },
     getcheckbox: (config: Store<Config>,elem: HTMLInputElement,keypath?: string) => elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean,
     setcheckbox: (config: Store<Config>,event: Event,keypath?: string) => {
-        // event.preventDefault()
         const elem = (event.target instanceof HTMLSpanElement ? event.target.parentElement!.querySelector(`input[type="checkbox"]`)! : event.target!) as HTMLInputElement
         if (raelems.find(id => elem.id === id)) return
 
@@ -452,20 +456,17 @@ export const sanhelper = {
         requestAnimationFrame(() => {
             elem.checked = config.get((keypath ? `${keypath}.` : "") + elem.id) as boolean
             
-            // Call the function matching the id of the element in the `sanhelper` object (ensuring a callable function actually exists beforehand)
-            const sanhelperfn = (sanhelper as Record<string,any>)[elem.id]
+            const sanhelperfn = (sanhelper as Record<string,any>)[elem.id] // Call the function matching the id of the element in the `sanhelper` object (ensuring a callable function actually exists beforehand)
             typeof sanhelperfn === "function" && sanhelperfn(config.get(elem.id) as boolean, elem.id === "trophymode" ? config : undefined)
 
             sanhelper.updatetabs(noreload(elem) !== undefined)
-            config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
         })
     },
     setvalue: (config: Store<Config>,elem: (HTMLInputElement | HTMLSelectElement),keypath?: string) => {
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id)
 
         if (elem.id === "monitors" && elem instanceof HTMLSelectElement) {
-            // Resets `<select>` options to prevent duplicates
-            elem.textContent = ""
+            elem.textContent = "" // Resets `<select>` options to prevent duplicates
 
             const monitors = key as Monitor[]
             
@@ -546,8 +547,7 @@ export const sanhelper = {
             ...raelems
         ]
         
-        // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
-        if (skipelems.find(id => elem.id === id)) return
+        if (skipelems.find(id => elem.id === id)) return // Fixes issue where switching Customiser tabs/setting Screenshots to "off" causes an error on next line
 
         elem.value = elem.id === "scale" && config.get("notifymax") > 1 ? `${config.get(`customisation.main.${elem.id}`)}` : key.toString()
 
@@ -570,7 +570,6 @@ export const sanhelper = {
 
             elem.id === "preset" && (async () => await sanhelper.resetelemselector(document.querySelector("#customiser")!))()
             elem.id === "audiosrc" && sanhelper.audiosrc(config.get("audiosrc"))
-            config.get("debug") && ipcRenderer.emit("updatemenu",null,"debug")
             elem.id === "screenshots" && sanhelper.loadadditionaltooltips(document.querySelector(`dialog[menu] #settingscontent`)!)
             elem.id === "rauser" && ipcRenderer.emit("ra") // If `ra` Settings elements are updated, restart the `startra()` function in `worker.ts` with current settings
             elem.id === "uimode" && sanhelper.uimode(config.get("uimode"))
@@ -623,7 +622,7 @@ export const sanhelper = {
     setbtn: async (config: Store<Config>,elem: HTMLButtonElement,keypath?: string) => {
         elem.removeAttribute("novalue")
 
-        const type = sanhelper.type
+        const { type } = sanhelper
         const key = config.get((keypath ? `${keypath}.` : "") + elem.id.replace(/\d/,""))
         
         elem.onclick = () => {
@@ -655,7 +654,7 @@ export const sanhelper = {
         if (!elem.classList.contains("customicon")) return elem.style.setProperty("--img",`url('${key ? key : sanhelper.setfilepath(elem.id === "hiddenicon" ? "icon" : "img",`${elem.id === "hiddenicon" ? (key || "lock.svg") : "sanimgbg.png"}`)}')`)
 
         const customiconkey = (): string | null => Array.isArray(key) ? key[parseInt(elem.id.replace(/[^\d]/g,"")) - 1] as string : key as string || null
-        if (!customiconkey() || (type !== "plat" && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) return elem.setAttribute("novalue","")
+        if (!customiconkey() || (!sanhelper.plattype(type) && elem.id === "plat") || (elem.id.includes("decoration") && (!Array.isArray(key) && elem.id !== "decoration1"))) return elem.setAttribute("novalue","")
 
         elem.style.setProperty("--img",`url('${customiconkey()}')`)
 
@@ -681,156 +680,13 @@ export const sanhelper = {
                 if (((type === "main" || type === "semi") && (i - 1) > 1) || ((type !== "main" && type !== "semi") && (i - 1) < 2)) return elem.setAttribute("novalue","")
             }
             
-            elem.parentElement!.querySelector("span")!.textContent = type === "plat" ? await language.get("decoration",["customiser","icons","content"]) : `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
+            elem.parentElement!.querySelector("span")!.textContent = sanhelper.plattype(type) ? await language.get("decoration",["customiser","icons","content"]) : `${await language.get(Array.isArray(key) ? "rarity" : "decoration",["customiser","icons","content"])}${Array.isArray(key) ? `: ${raritylbl}` : ""}`
         }
     },
-    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged", { detail: { type: (["main","semi","rare","plat"] as NotifyType[]).find(attr => document.body.hasAttribute(attr)), noreload: noreload } })),
-    loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
-        if (!menuelem) return
-
-        const elems = [
-            "#elemselector select",
-            "#elemselector input",
-            "#elemselector button",
-            "#webhookwrapper input",
-            `button[id$="shortcut"]`,
-            `.multiselect#raemuswrapper input[type="checkbox"]`,
-            `.multiselect#raemuswrapper input[type="text"]`,
-            `.opt > input[type="checkbox"]#radefault`
-        ].join(",")
-
-        menuelem.querySelectorAll(elems)!.forEach(async elem => {
-            // Removes previous tooltips from `tippies` array when present
-            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement)
-            prevtt && tippies.splice(tippies.indexOf(prevtt,1)).forEach(tt => tt[0]?.destroy())
-
-            const trophies = [
-                "bronze",
-                "silver",
-                "gold",
-                "plat"
-            ] as TrophyType[] | "plat"
-
-            let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
-
-            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
-                if (elem.id === `webhook${type}` || elem.id === `webhookembedcolor${type}`) {
-                    const config = (await import("./config")).sanconfig.get()
-                    content = (await language.get(elem.id,["tooltips"])).replace(new RegExp(`\\$${type}`,"g"),await language.get((config.get("trophymode") ? "trophy" : "") + type))
-                }
-            }
-
-            for (const id of trophies) {
-                if (elem.id.endsWith(id)) {
-                    const config = (await import("./config")).sanconfig.get()
-                    content = (sanhelper.type as NotifyType) === "plat" && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
-                }
-            }
-
-            const wideelems = [...rasupported].flatMap(id => rasupported.includes(id) ? [id,`${id}path`] : [id])
-            const elemselectorbtns = [...trophies].map(id => `percentbadgeimg${id}`)
-
-            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})${elem.classList.contains("rect") ? ` > #${elem.id}` : ""}`,{
-                ...defaulttippy,
-                appendTo: "parent",
-                content: content,
-                maxWidth: sanhelper.maxwidth(wideelems,elem.id),
-                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) && ![...elemselectorbtns,"resetpbimgs"].some(id => elem.id === id) ? elem.parentElement : ([...rasupported,...elemselectorbtns].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
-                onTrigger(inst) {
-                    currenttippy && currenttippy !== inst && currenttippy.hide()
-                    currenttippy = inst
-
-                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                }
-            }) as Instance<Props>[]
-
-            tippies.push(tt)
-        })
-
-        const range = new Map<string,string>([
-            ["percentbadgefontsize","%"],
-            ["sspercentbadgefontsize","%"],
-            ["percentbadgeroundness","%"],
-            ["sspercentbadgeroundness","%"],
-            ["percentbadgex","px"],
-            ["sspercentbadgex","px"],
-            ["percentbadgey","px"],
-            ["sspercentbadgey","px"],
-        ])
-
-        range.forEach((value,key) => {
-            const elem = document.getElementById(key)
-
-            if (elem) {
-                const tt = tippy(`#${key}`,{
-                    ...defaulttippy,
-                    content: `${(elem as HTMLInputElement).value}${value}`,
-                    appendTo: "parent",
-                    hideOnClick: false,
-                    placement: "top",
-                    followCursor: false,
-                    offset: [0,5],
-                    delay: [0,10],
-                    theme: "default value",
-                    onTrigger(inst) {
-                        (elem as HTMLInputElement).oninput = () => inst.setProps({ content: `${(elem as HTMLInputElement).value}${value}` })
-                        inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                    }
-                })
-    
-                tippies.push(tt)
-            }
-        })
-
-        // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
-        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`)
-
-        menu?.querySelectorAll(`input[type="color"]`)?.forEach(async clr => {
-            const { sanconfig } = await import("./config")
-            const config = sanconfig.get()
-            const dialog = document.querySelector(`dialog[menu]:has(#${menu?.id})`)
-            const color = clr as HTMLInputElement
-
-            color.style.setProperty("--configcolor",config.get(`${!color.id.startsWith("webhookembedcolor") ? `customisation.${sanhelper.type}.` : ""}${color.id}`) as string)
-    
-            const tt = tippy(`#${color.id}`,{
-                allowHTML: true,
-                appendTo: dialog || document.body,
-                interactive: true,
-                maxWidth: "none",
-                trigger: "click",
-                offset: [0,20],
-                placement: menuelem.id === "customiser" ? "left" : "right",
-                onTrigger: inst => {
-                    currenttippy && currenttippy !== inst && currenttippy.hide()
-                    currenttippy = inst
-
-                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
-                },
-                onMount: inst => {
-                    menu.addEventListener("scroll",() => inst.hide(),{ once: true })
-    
-                    const html = `
-                        <input type="text" spellcheck="false" maxlength="9">
-                        <span id="colorcode"></span>
-                        <div id="picker"></div>
-                    `
-        
-                    inst.setContent(html)
-                    createcolorpicker(inst,color,menuelem)
-                },
-                onHidden: inst => {
-                    inst.setContent("")
-                    currenttippy === inst && (currenttippy = null)
-                }
-            })
-    
-            tippies.push(tt)
-        })
-    }),
+    updatetabs: (noreload?: boolean) => window.dispatchEvent(new CustomEvent("tabchanged",{ detail: { type: sanhelper.type, noreload } })),
     maxwidth: (wideelems: string[],id: string) => wideelems.includes(id) ? 200 : defaulttippy.maxWidth,
     settooltips: (value: boolean) => {
-        tippies.forEach(tt => tt[0]?.destroy())
+        tippies.forEach(tt => tt.forEach(inst => inst.destroy()))
         tippies.length = 0
 
         const range = new Map<string,string>([
@@ -838,9 +694,6 @@ export const sanhelper = {
             ["semirarity","%"],
             ["nowtrackingscale","%"],
             ["pollrate","ms"],
-            ["initdelay","s"],
-            ["releasedelay","s"],
-            ["maxretries",""],
             ["maxsteamlangretries",""],
             ["extwinframerate","FPS"],
             ["customtriggerdelay","s"],
@@ -848,13 +701,11 @@ export const sanhelper = {
             ["notifymax",""],
             ["notifyspace","px"],
             ["audiocooldown","ms"],
-            ["releasewaittime","s"],
             ["statwinunlockonlydisplaytime","s"]
         ])
 
         const wideelems = [
-            "exportachdata",
-            "usesanwatcher"
+            "exportachdata"
         ]
 
         range.forEach((value,key) => {
@@ -933,7 +784,7 @@ export const sanhelper = {
         })
 
         const settings = document.querySelector(`dialog[menu] #settingscontent`) as HTMLElement
-        const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id).map(btn => btn.id)
+        const settingsbtns = Array.from(document.querySelectorAll(`dialog[menu] #settingscontent button`)).filter(btn => btn.id && !btn.hasAttribute("plugin")).map(btn => btn.id)
 
         if (settings) {
             const props = {
@@ -944,10 +795,10 @@ export const sanhelper = {
             }
             
             settings.querySelectorAll(`
-                #settingscontent input,
+                #settingscontent input:not([plugin]),
                 #settingscontent .optbtn,
                 #settingscontent select,
-                #settingscontent .rect,
+                #settingscontent .rect:not([plugin]),
                 #settingscontent > .cont:has(button${settingsbtns.map(id => `#${id}`).join(",")}) > .optcont > button
             `)!.forEach(elem => {
                 if (!elem) return
@@ -960,7 +811,7 @@ export const sanhelper = {
                     `,{
                         ...defaulttippy,
                         maxWidth: sanhelper.maxwidth(wideelems,elem.id),
-                        content: `${await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`.optcont:has(button#listmode[mode="inclusion"]`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"])}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
+                        content: `${(await language.get(`${elem.id === "exclusionlist" && settings.querySelector(`.optcont:has(button#listmode[mode="inclusion"]`) ? elem.id.replace(/^ex/,"in") : elem.id}`,["tooltips"]) as string | undefined)?.replace(/\$version/g,sanhelper.version)}${(elem.id === "replaynotify" && !document.body.hasAttribute("allowreplay") ? await language.get("replaynotifyempty",["tooltips"]) : "")}`,
                         ...props
                     }) as Instance<Props>[]
             
@@ -996,7 +847,7 @@ export const sanhelper = {
                 #customisercontent select,
                 #customisercontent .rect
             `)!.forEach(async elem => {
-                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : (elem.id.startsWith("usegametitle") ? "usegametitle" : elem.id),["tooltips"])
+                let content = await language.get(elem.id.includes("decoration") ? elem.id.replace(/\d/,"") : elem.id,["tooltips"])
 
                 for (const id of rarityids) {
                     if (!elem.id.startsWith(id)) continue
@@ -1106,6 +957,178 @@ export const sanhelper = {
             })
         }
     },
+    loadadditionaltooltips: (menuelem: HTMLElement) => requestAnimationFrame(() => {
+        if (!menuelem) return
+
+        const elems = [
+            "#elemselector select",
+            "#elemselector input",
+            "#elemselector button",
+            "#webhookwrapper input",
+            `button[id$="shortcut"]`,
+            `.multiselect#raemuswrapper input[type="checkbox"]`,
+            `.multiselect#raemuswrapper input[type="text"]`,
+            `.opt > input[type="checkbox"]#radefault`
+        ].join(",")
+
+        menuelem.querySelectorAll(elems)!.forEach(async elem => {
+            const prevtt = tippies.find(tt => tt[0]?.reference === elem.parentElement) // Removes previous tooltips from `tippies` array when present
+
+            if (prevtt) {
+                tippies.splice(tippies.indexOf(prevtt),1)
+                prevtt.forEach(tt => tt.destroy())
+            }
+
+            const trophies = [
+                "bronze",
+                "silver",
+                "gold",
+                "plat"
+            ] as TrophyType[] | "plat"
+
+            let content = (await language.get(elem.id,["tooltips"])).replace(/\$type/,await language.get(menuelem.id === "settingscontent" ? "screenshot" : "notification",["tooltips"]))
+
+            for (const type of (["main","semi","rare","plat"] as NotifyType[])) {
+                if (elem.id === `webhook${type}` || elem.id === `webhookembedcolor${type}`) {
+                    const config = (await import("./config")).sanconfig.get()
+                    content = (await language.get(elem.id,["tooltips"])).replace(new RegExp(`\\$${type}`,"g"),await language.get((config.get("trophymode") ? "trophy" : "") + type))
+                }
+            }
+
+            for (const id of trophies) {
+                if (elem.id.endsWith(id)) {
+                    const config = (await import("./config")).sanconfig.get()
+                    content = sanhelper.plattype(sanhelper.type) && elem.id.endsWith("percentbadgeimggold") ? await language.get("percentbadgeimgplat",["tooltips"])  : language.configregex(config,content,"%")
+                }
+            }
+
+            const wideelems = [...rasupported].flatMap(id => rasupported.includes(id) ? [id,`${id}path`] : [id])
+            const elemselectorbtns = [...trophies].map(id => `percentbadgeimg${id}`)
+
+            const tt = tippy(`#${menuelem.id} .opt:has(> #${elem.id})${elem.classList.contains("rect") ? ` > #${elem.id}` : ""}`,{
+                ...defaulttippy,
+                appendTo: "parent",
+                content: content,
+                maxWidth: sanhelper.maxwidth(wideelems,elem.id),
+                triggerTarget: !elem.id.startsWith("webhookembedcolor") && ![...rasupported].some(id => elem.id === id) && ![...elemselectorbtns,"resetpbimgs"].some(id => elem.id === id) ? elem.parentElement : ([...rasupported,...elemselectorbtns].some(id => elem.id === id) ? [elem,elem.previousElementSibling!] : elem),
+                onTrigger(inst) {
+                    currenttippy && currenttippy !== inst && currenttippy.hide()
+                    currenttippy = inst
+
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                }
+            }) as Instance<Props>[]
+
+            tippies.push(tt)
+        })
+
+        const range = new Map<string,string>([
+            ["percentbadgefontsize","%"],
+            ["sspercentbadgefontsize","%"],
+            ["percentbadgeroundness","%"],
+            ["sspercentbadgeroundness","%"],
+            ["percentbadgex","px"],
+            ["sspercentbadgex","px"],
+            ["percentbadgey","px"],
+            ["sspercentbadgey","px"],
+        ])
+
+        range.forEach((value,key) => {
+            const elem = document.getElementById(key)
+
+            if (elem) {
+                const tt = tippy(`#${key}`,{
+                    ...defaulttippy,
+                    content: `${(elem as HTMLInputElement).value}${value}`,
+                    appendTo: "parent",
+                    hideOnClick: false,
+                    placement: "top",
+                    followCursor: false,
+                    offset: [0,5],
+                    delay: [0,10],
+                    theme: "default value",
+                    onTrigger(inst) {
+                        (elem as HTMLInputElement).oninput = () => inst.setProps({ content: `${(elem as HTMLInputElement).value}${value}` })
+                        inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                    }
+                })
+    
+                tippies.push(tt)
+            }
+        })
+
+        const menu = document.getElementById(menuelem.id.endsWith("content") ? menuelem.id : `${menuelem.id}content`) // Changing `menuelem` to `#customisercontent` would be easier, but stops displaying tooltips when changed for some reason
+
+        menu?.querySelectorAll(`input[type="color"]`)?.forEach(async clr => {
+            const { sanconfig } = await import("./config")
+            const config = sanconfig.get()
+            const dialog = document.querySelector(`dialog[menu]:has(#${menu?.id})`)
+            const color = clr as HTMLInputElement
+
+            color.style.setProperty("--configcolor",config.get(`${!color.id.startsWith("webhookembedcolor") ? `customisation.${sanhelper.type}.` : ""}${color.id}`) as string)
+    
+            const tt = tippy(`#${color.id}`,{
+                allowHTML: true,
+                appendTo: dialog || document.body,
+                interactive: true,
+                maxWidth: "none",
+                trigger: "click",
+                offset: [0,20],
+                placement: menuelem.id === "customiser" ? "left" : "right",
+                onTrigger: inst => {
+                    currenttippy && currenttippy !== inst && currenttippy.hide()
+                    currenttippy = inst
+
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                },
+                onMount: inst => {
+                    menu.addEventListener("scroll",() => inst.hide(),{ once: true })
+    
+                    const html = `
+                        <input type="text" spellcheck="false" maxlength="9">
+                        <span id="colorcode"></span>
+                        <div id="picker"></div>
+                    `
+        
+                    inst.setContent(html)
+                    createcolorpicker(inst,color,menuelem)
+                },
+                onHidden: inst => {
+                    inst.setContent("")
+                    currenttippy === inst && (currenttippy = null)
+                }
+            })
+    
+            tippies.push(tt)
+        })
+    }),
+    loadplugintooltips: (settings: HTMLElement,value: boolean) => {
+        plugintippies.forEach(tt => tt.forEach(inst => inst.destroy()))
+        plugintippies.length = 0
+
+        if (!value) return
+
+        settings.querySelectorAll<HTMLElement>(`:is(input,button)[plugin][tooltip]`).forEach(elem => {
+            const opt = elem.closest<HTMLElement>(".opt") ?? elem
+
+            const shared = opt !== elem && (!!opt.querySelector(":scope > .opt") || opt.querySelectorAll(`:scope > :is(input,button)[tooltip]`).length > 1)
+            const label = elem.previousElementSibling
+            const target = shared ? [elem,...(label instanceof HTMLSpanElement ? [label] : [])] : opt
+
+            const tt = tippy([opt],{
+                ...defaulttippy,
+                appendTo: settings,
+                onTrigger(inst: Instance<Props>) {
+                    inst.setProps({ animation: document.body.hasAttribute("noanim") ? false : "scale" })
+                },
+                allowHTML: false,
+                triggerTarget: target,
+                content: elem.getAttribute("tooltip")!
+            }) as Instance<Props>[]
+
+            plugintippies.push(tt)
+        })
+    },
     getpresetbounds: (preset: string) => {
         const meta = () => {
             try {
@@ -1145,24 +1168,22 @@ export const sanhelper = {
                 doctitles && doctitles.forEach(elem => {
                     elem.toggleAttribute("notransition",elem.hasAttribute("closed"))
                     elem.toggleAttribute("closed",closedstate.includes(elem.id))
-    
-                    // Remove "notransition" attribute after transition duration to prevent elements from playing transition animation when opening menu
-                    setTimeout(() => elem.removeAttribute("notransition"),200)
+                    
+                    setTimeout(() => elem.removeAttribute("notransition"),200) // Remove "notransition" attribute after transition duration to prevent elements from playing transition animation when opening menu
                 })
             })
         })
     },
-    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? pressKeysWin32(keys as number[]) : pressKeysLinux(keys as string[]),100),
+    presskeys: (keys: (string | number)[]) => setTimeout(() => process.platform === "win32" ? sanhelper_rs.pressKeysWin32(keys as number[]) : sanhelper_rs.pressKeysLinux(keys as string[]),100),
     triggerkeypress: async (hotkeys: (string | number)[]) => {
         const { log } = await import("./log")
-        // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
-        if (process.platform === "linux" && sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`)
+        if (process.platform === "linux" && sanhelper.depsinstalled("keypressrs","media")) return log.write("WARN",`Unable to trigger keypress: "xdotool" dependency not installed`) // The required lib is missing if `sanhelper.depsinstalled()` returns a non-empty string, so the value needs to be truthy to trigger the return
         if (!hotkeys?.length) return log.write("WARN",`No valid keys provided to trigger keypress/combo`)
 
         sanhelper.presskeys(hotkeys)
     },
     depsinstalled: (lib: "keypressrs" | "hdr" | "wmctrl",section: string): string => {
-        const missinglib = depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
+        const missinglib = sanhelper_rs.depsInstalled(lib) // `depsInstalled()` returns the string(s) of missing deps (for logging purposes), or "" if installed
         
         if (process.platform === "linux" && missinglib) {
             if (!deps.has(lib)) throw new Error(`"${lib}" not found in "deps" map`)
@@ -1190,32 +1211,13 @@ export const sanhelper = {
 
         return ""
     },
-    resetdebuginfo: async (debugwin?: Electron.BrowserWindow) => {
-        const config = (await import("./config")).sanconfig.get()
-
-        const debuginfo = {
-            username: "",
-            appid: 0,
-            status: "Released",
-            gamename: "",
-            pollrate: config.get("pollrate"),
-            releasedelay: config.get("releasedelay"),
-            maxretries: config.get("maxretries"),
-            userust: config.get("userust"),
-            processes: []
-        } as DebugInfo
-
-        const wintype = debugwin ? debugwin.webContents : ipcRenderer
-        wintype.send("debuginfoupdated",debuginfo,true)
-    },
     resetelemselector: async (menuelem: HTMLElement) => {
         const { sanconfig } = await import("./config")
-        const config = sanconfig.get()
-        const type = sanhelper.type
+        const { type } = sanhelper
         const { defaulticons } = sanconfig
+        const config = sanconfig.get()
 
-        // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
-        ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype]))
+        ;["elems","sselems"].forEach(elemtype => config.set(`customisation.${type}.${elemtype}`,defaulticons.get(config.get(`customisation.${type}.preset`) as string)![elemtype])) // Reset all element indexes to default value (listed in `sanconfig.defaulticons`) when switching presets
         const index = defaulticons.get(config.get(`customisation.${type}.preset`) as string)!.index
         selectorelems.filter(id => ["percent","hiddenicon","decoration"].find(elemid => id === `${elemid}pos`)).forEach(id => [id,`ss${id}`].forEach(key => index && config.set(`customisation.${type}.${key}`,index[`${key.replace(/^ss/,"").replace(/pos$/,"")}`])))
 
@@ -1350,16 +1352,11 @@ export const sanhelper = {
 
         const { dialog } = await import("./dialog")
         const { log } = await import("./log")
-        
-        const { semver } = sanhelper
-        if (!semver) throw new Error("Unable to parse semver")
 
         try {
             const tagname = (await (await fetch("https://api.github.com/repos/steamachievementnotifier/steamachievementnotifier/releases")).json())[0].tag_name
-            const latest = parseInt(tagname.split(".")[2])
-            const beta = parseInt(semver.split(".")[2])
-
-            if (latest >= beta) {
+            
+            if (semver.gte(tagname,sanhelper.semver ?? "0.0.0")) {
                 ipcRenderer.send("betaunsupported")
 
                 dialog.open({
@@ -1377,7 +1374,7 @@ export const sanhelper = {
                         icon: sanhelper.setfilepath("icon","close.svg"),
                         id: "betaexit",
                         label: await language.get("exit"),
-                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V1.9.${beta} | Latest: V1.9.${latest})`)
+                        click: () => ipcRenderer.send("exit",`Unsupported Beta version installed (Beta: V${sanhelper.semver} | Latest: V${tagname})`)
                     }]
                 })
             }
@@ -1385,7 +1382,7 @@ export const sanhelper = {
             log.write("ERROR",`Unable to query latest GitHub Release: ${err as Error}`)
         }
     },
-    verifylocalstorage: async (id: "linkgame" | "themeswitch" | "statwin" | "pinned") => {
+    verifylocalstorage: async (id: "themeswitch" | "statwin" | "pinned") => {
         const { log } = await import("./log")
         const lsentry = localStorage.getItem(id)
     
@@ -1493,5 +1490,36 @@ export const sanhelper = {
                 }
             }
         }
+    },
+    removeautostartentries: (version: string,platform: string) => {
+        if (platform !== "win32" && platform !== "linux") return
+
+        if (platform === "linux") {
+            const autostartpath = path.join(process.env.HOME!,".config","autostart")
+            const shortcutpath = path.join(autostartpath,`Steam Achievement Notifier (V${version}).desktop`)
+            
+            if (fs.existsSync(shortcutpath)) {
+                fs.rmSync(shortcutpath)
+                return true
+            }
+
+            return false
+        }
+
+        return sanhelper_rs.removeAutostartRegKeys(version)
+    },
+    resolvevars: (text: string,notify: Notify) => {
+        const isplat = sanhelper.plattype(notify.type)
+
+        const vars: Record<string,string> = {
+            game: notify.gamename ?? "Game Title",
+            title: notify.name,
+            desc: notify.desc,
+            percent: `${isplat ? "100" : Math.max(parseFloat(notify.percent.toFixed(1)),0.1)}%`,
+            emulator: notify.emu ?? "Emulator",
+            total: `${notify.achnum?.unlocked ?? (isplat ? 10 : 1)}/${notify.achnum?.total ?? 10}`
+        }
+        
+        return text.replace(/\{(\w+)\}/g,(match,key) => key in vars ? vars[key] : match)
     }
 }

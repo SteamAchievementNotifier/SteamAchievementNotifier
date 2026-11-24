@@ -23,7 +23,7 @@ dialog,
 }
 
 dialog {
-    --primary: #203e7a;
+    --primary: #2f5bb5;
     border: none;
     background-color: #000000d7;
     opacity: 0;
@@ -49,7 +49,7 @@ dialog > #content {
     place-self: center;
     flex-direction: column;
     scale: 0;
-    background-color: #1b1b1b;
+    background-color: var(--bggrey);
     color: white;
     border-radius: var(--winbr);
     width: 50%;
@@ -94,6 +94,7 @@ dialog[selection] .contentwrapper {
     width: 100%;
     padding: 0.35rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     border-radius: var(--elembr) var(--elembr) 0 0;
     text-align: center;
     text-transform: uppercase;
@@ -351,7 +352,7 @@ dialog .wrapper:has(> #progressbar)::before {
     justify-self: start;
     width: var(--progress);
     height: 100%;
-    background-color: #203e7a;
+    background-color: #2f5bb5;
     transition: var(--transition);
     grid-column-start: 1;
     grid-row-start: 1;
@@ -376,7 +377,7 @@ dialog #progressbar {
 }
 
 body[main] dialog:has([id*="theme"]) {
-    --primary: #203e7a;
+    --primary: #2f5bb5;
 }
 
 body[trophymode][main] dialog:has([id*="theme"]) {
@@ -401,6 +402,7 @@ body[plat] dialog:has([id*="theme"]) {
 
 dialog[selection] .rect[enabled] {
     background-color: var(--primary);
+    background: var(--primarygradient);
     pointer-events: none;
 }
 
@@ -708,14 +710,9 @@ button#importbtn:focus-visible {
     --dialogicon: url("../../icon/error.svg");
 }
 
-/* Override for preventing layout reset when opening a dialog on top of another dialog (for #help window) */
-.wrapper#contentcontainer:has(#noexeclick)[autorelease] {
-    --dialogicon: url("../../icon/link.svg");
-}
-
 /* Override for preventing primary color being changed on Auto-Switch Themes (i.e. non-type-based) dialog */
 dialog:has(#themeswitchtablewrapper,#themeswitchnewtablewrapper) {
-    --primary: #203e7a;
+    --primary: #2f5bb5;
 }
 
 .nodata > td {
@@ -1035,6 +1032,30 @@ div#linkgamenewtablewrapper td:first-child {
     user-select: all;
 }
 
+body[main] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #2f5bb5;
+}
+
+body[trophymode][main] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #7f4e1d;
+}
+
+body[semi] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #778285;
+}
+
+body[rare] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #7538ad;
+}
+
+body[trophymode][rare] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #bf8e00;
+}
+
+body[plat] .btnwrapper:has(#importbtn,#exportbtn) {
+    --primary: #658fe9;
+}
+
 dialog[selection] .btnwrapper:has(button#userthemesync) > button#backbtn,
 dialog .btnwrapper:has(button#betaexitbtn) > button#backbtn {
     display: none;
@@ -1050,6 +1071,7 @@ button#userthemesync {
     text-transform: none;
     border-radius: 0 0 var(--elembr) var(--elembr);
     background-color: var(--primary);
+    background: var(--primarygradient);
 }
 
 button#userthemesync::before {
@@ -1436,172 +1458,15 @@ button.optbtn#restorepath:empty {
     margin-top: 1rem;
 }
 
-.sanwatcher {
-    justify-items: start;
-}
-
-.sanwatcher > .hl,
-.sanwatcher > ul > li:not(:last-child) {
-    margin-bottom: 0.1rem;
-}
-
-.contentsub:has(.addhtml > .wrapper#troubleshooterinfobox)::before {
-    content: none;
-}
-
-.contentsub:has(.addhtml > .wrapper#troubleshooterinfobox) > .addhtml {
-    margin-top: 0;
-}
-
-.contentwrapper:has(.addhtml > .wrapper#troubleshooterinfobox) .btnwrapper > button:first-child:hover {
-    filter: none;
-    background-color: limegreen;
-}
-
-.addhtml:has(.wrapper#troubleshooterinfobox) {
+.contentsub:has(#customtextvarssub) > .addhtml {
     display: grid;
-    row-gap: 0.5rem;
-}
-
-.wrapper#troubleshooterinfobox {
-    --delay: 0s;
-    position: relative;
-    grid-template-rows: min-content;
-    height: 7.5rem;
-    overflow: overlay;
-    align-items: start;
-}
-
-/* Override for preventing layout reset when opening a dialog on top of another dialog (for troubleshooter results window) */
-.wrapper#contentcontainer:has(.wrapper#troubleshooterinfobox) {
-    --dialogicon: url("../../icon/troubleshoot.svg");
-}
-
-.addhtml > span#manualreleasereminder {
-    background-color: var(--primary);
-    border-radius: var(--elembr);
-    font-size: 0.55rem;
-    text-align: center;
-    padding: 0.3rem 0.2rem;
-}
-
-div#troubleshooterinfobox > .troubleshooterresult {
-    --elemdelay: 0s;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.25rem 0.75rem;
-    margin-right: 0.75rem;
-    padding: 0.5rem;
-    border-radius: var(--elembr);
-    align-items: center;
-    translate: 0 -20%;
-    opacity: 0;
-    animation: slidein calc(var(--transition) * 2) calc(var(--transition) + var(--delay) + var(--elemdelay)) forwards;
-}
-
-@keyframes slidein {
-    to {
-        translate: 0 0;
-        opacity: 1;
-    }
-}
-
-div#troubleshooterinfobox > .troubleshooterresult[ok] {
-    grid-template-columns: 1fr;
-    place-self: center;
-    margin: 0;
-    background-color: transparent;
-    text-align: center;
-}
-
-.troubleshooterresult[ok] > span:first-child {
-    font-size: 1.25rem;
-}
-
-.troubleshooterresult[ok] > span:last-child {
-    font-size: 0.75rem;
-}
-
-div#troubleshooterinfobox > .troubleshooterresult[ok]::before {
-    content: none;
-}
-
-div#troubleshooterinfobox:has(.troubleshooterresult[ok]) {
-    --delay: 1s;
-    height: auto;
-    overflow: hidden;
-}
-
-div#troubleshooterinfobox:has(.troubleshooterresult[ok])::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    width: 3rem;
-    height: 3rem;
-    background: url("../../icon/thumbsup.svg") center / 55% no-repeat;
-    background-color: limegreen;
-    border-radius: 50%;
-    scale: 0;
-    animation: popin var(--delay) var(--transition) forwards;
-}
-
-@keyframes popin {
-    10% { scale: 1.2; }
-    15% { scale: 1; }
-    85% { scale: 1; }
-    90% { scale: 1.2; }
-    to { scale: 0; }
-}
-
-div#troubleshooterinfobox > .troubleshooterresult[info] {
-    --icon: url("../../icon/info.svg");
-}
-
-div#troubleshooterinfobox > .troubleshooterresult[warning] {
-    --icon: url("../../icon/warning.svg");
-}
-
-div#troubleshooterinfobox > .troubleshooterresult[error] {
-    --icon: url("../../icon/error.svg");
-}
-
-div#troubleshooterinfobox > ::before {
-    content: "";
-    display: block;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: var(--icon) center / contain no-repeat;
+    grid-template-columns: auto auto 1fr;
+    gap: 0.15rem 0.25rem;
     place-self: center;
 }
 
-button.troubleshooterresult {
-    background-color: transparent;
-    border-radius: var(--elembr);
-    font-size: 0.75rem;
-    text-align: start;
-    transition: background-color var(--transition);
-}
-
-button.troubleshooterresult:hover {
-    background-color: var(--mediumgrey);
-}
-
-.troubleshooterdialogicon {
-    display: inline-block;
-    width: 0.75rem;
-    height: 0.75rem;
-    background: var(--icon) center / contain no-repeat;
-    vertical-align: sub;
-}
-
-.troubleshooterdialogicon[grey] {
-    --icon: url("../../icon/dot_grey.png");
-}
-
-.troubleshooterdialogicon[red] {
-    --icon: url("../../icon/dot_red.png");
+.contentsub:has(#customtextvarssub) > .addhtml > span:has(> code.ttcode) {
+    justify-items: right;
 }
 
 @media (orientation: portrait) {

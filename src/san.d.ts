@@ -24,7 +24,7 @@ declare interface Res {
     }
 }
 
-declare type NotifyType = "main" | "semi" | "rare" | "plat"
+declare type NotifyType = "main" | "semi" | "rare" | "plat" | "set"
 declare type TrophyType = "bronze" | "silver" | "gold"
 
 declare interface Config {
@@ -37,9 +37,6 @@ declare interface Config {
     rarity: number,
     semirarity: number,
     soundonly: boolean,
-    showpercent: "rareonly" | "all" | "off",
-    showpercentpos: "left" | "right",
-    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
     extwin: boolean,
     extwinframerate: number,
     extwinshow: boolean,
@@ -68,19 +65,13 @@ declare interface Config {
     tooltips: boolean,
     notifydebug: boolean,
     pollrate: number,
-    maxretries: number,
-    initdelay: number,
-    releasedelay: number,
     width: number,
     height: number,
     x: number,
     y: number,
     usecustomfiles: boolean,
-    noreleasedialog: boolean,
     norestartdialog: boolean,
     noupdatedialog: boolean,
-    userust: boolean,
-    debug: boolean,
     noiconcache: boolean,
     exclusions: number[],
     inclusionlist: boolean,
@@ -91,6 +82,7 @@ declare interface Config {
     webhooksemi: boolean,
     webhookrare: boolean,
     webhookplat: boolean,
+    webhookset: boolean,
     webhooktest: boolean,
     webhookurl: string,
     webhooklaststatus: string,
@@ -99,6 +91,7 @@ declare interface Config {
     webhookembedcolorsemi: string,
     webhookembedcolorrare: string,
     webhookembedcolorplat: string,
+    webhookembedcolorset: string,
     webhookappid: boolean,
     // discord: {
     //     [key: string]: string,
@@ -109,7 +102,6 @@ declare interface Config {
     steamlang: boolean,
     maxsteamlangretries: number,
     showsystrayopts: boolean,
-    releaseshortcut: string,
     statwin: boolean,
     statwinpos: {
         width: number,
@@ -151,7 +143,8 @@ declare interface Config {
     notifyspace: number,
     audiocooldown: number,
     ssext: "png" | "jpg",
-    notify1line: boolean,
+    notifylinemode: "single" | "max",
+    notifyoverflow: "ellipsis" | "scroll",
     ssaddtosteam: boolean,
     backuppath: string,
     gametimerwin: boolean,
@@ -165,16 +158,17 @@ declare interface Config {
     gametimerwinaot: boolean,
     gametimerwinopacity: boolean,
     noshortcuts: boolean,
-    usesanwatcher: boolean,
-    releasewaittime: number,
     workerdebug: boolean,
     logresourceusage: boolean,
     uimode: "basic" | "advanced",
+    setplat: boolean,
+    plugins: boolean,
     customisation: {
         main: Customisation,
         semi: Customisation,
         rare: Customisation,
         plat: Customisation,
+        set: Customisation
         [key: string]: object
     },
     [key: string]: string | number | boolean | object
@@ -202,7 +196,6 @@ declare interface Customisation {
     titlefontsize: number,
     descfontsize: number,
     opacity: number,
-    bgonly: boolean,
     glow: boolean,
     glowcolor: string,
     glowsize: number,
@@ -251,7 +244,7 @@ declare interface Customisation {
     ovmatch: boolean,
     ovx: number,
     ovy: number,
-    alldetails: boolean,
+    // alldetails: boolean,
     primarycolor: string,
     secondarycolor: string,
     tertiarycolor: string,
@@ -271,8 +264,6 @@ declare interface Customisation {
     sshiddeniconpos: number,
     decorationpos: number,
     ssdecorationpos: number,
-    percentpos: number,
-    sspercentpos: number,
     percentbadge: boolean,
     sspercentbadge: boolean,
     percentbadgepos: "topleft" | "topcenter" | "topright" | "bottomleft" | "bottomcenter" | "bottomright",
@@ -318,11 +309,12 @@ declare interface Customisation {
     decorationshadow: boolean,
     usecustomtext: boolean,
     customtextunlockmsg: string,
-    usegametitleunlockmsg: boolean,
+    // usegametitleunlockmsg: boolean,
     customtexttitle: string,
-    usegametitletitle: boolean,
+    // usegametitletitle: boolean,
     customtextdesc: string,
-    usegametitledesc: boolean,
+    // usegametitledesc: boolean,
+    scrollrepeat: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
 }
@@ -360,7 +352,18 @@ declare interface Achievement {
     percent: number,
     hidden: boolean,
     icon?: string,
-    unlocktimestamp?: number
+    unlocktimestamp?: number,
+    statid?: number,
+    setid?: number,
+    bit?: number,
+    unlocktime?: number,
+    relocked?: boolean,
+    raw?: any,
+    progress?: AchievementProgress,
+    achnum?: {
+        unlocked: number,
+        total: number
+    }
 }
 
 declare interface Notify extends Achievement {
@@ -375,7 +378,8 @@ declare interface Notify extends Achievement {
     ra?: boolean,
     emu?: string | null,
     libhero?: string,
-    unlocktime?: string
+    unlocktime?: string,
+    setname?: string
 }
 
 declare interface StatsObj {
@@ -384,6 +388,11 @@ declare interface StatsObj {
     achievements?: Achievement[],
     ra?: boolean,
     mode?: "hard" | "soft"
+}
+
+declare interface LocalisedObj {
+    name: string | null,
+    desc: string | null
 }
 
 declare interface StatsEntry {
@@ -412,7 +421,8 @@ declare interface UserTheme extends Button {
     enabled: boolean,
     version?: string,
     userthemedir?: string,
-    usecustomfiles?: boolean
+    usecustomfiles?: boolean,
+    set?: Customisation
 }
 
 declare interface WinType {
@@ -436,10 +446,18 @@ declare interface Info {
     gamearticon: string,
     gameartlibhero: string,
     gameartlogo: string,
-    notify1line: boolean,
-    showpercentpos: "left" | "right",
-    showpercentstyle: "brackets" | "sqbrackets" | "dash" | "pipe" | "none",
+    notifylinemode: "single" | "max",
+    notifyoverflow: "ellipsis" | "scroll",
     ra?: boolean
+}
+
+declare type NotifyInfo = Pick<Notify,"type" | "apiname" | "name" | "gamename" | "steam3id"> & Partial<Omit<Notify,"customisation">>
+
+declare interface PercentInfo {
+    value: number,
+    rarity: number,
+    semirarity: number,
+    isplat: boolean
 }
 
 declare interface BuildNotifyInfo {
@@ -454,12 +472,7 @@ declare interface BuildNotifyInfo {
     title: string,
     desc: string,
     icon: string,
-    percent: {
-        value: number,
-        rarity: number,
-        semirarity: number,
-        showpercent: "rareonly" | "all" | "off"
-    },
+    percent: PercentInfo,
     hidden: boolean
 }
 
@@ -483,27 +496,9 @@ declare interface ProcessInfo {
 
 declare interface AppInfo {
     appid: number,
-    status?: "Active" | "Released",
     gamename?: string | null
     pollrate?: number,
-    releasedelay?: number,
-    maxretries?: number,
-    userust?: boolean,
-    debug?: boolean,
     noiconcache?: boolean
-}
-
-declare interface DebugInfo extends AppInfo {
-    username?: string,
-    steam3id?: number,
-    steam64id?: string,
-    releasedelay?: number,
-    lastknowngame?: LastKnownGame,
-    processes: ProcessInfo[] | DebugProcessInfo[]
-}
-
-declare interface DebugProcessInfo extends ProcessInfo {
-    active: boolean
 }
 
 declare interface AchievementIcon {
@@ -526,7 +521,8 @@ declare interface ThemeSwitch {
         main: number,
         semi: number,
         rare: number,
-        plat: number
+        plat: number,
+        set?: number
     },
     src: number,
     ra?: boolean,
@@ -599,11 +595,8 @@ declare interface RAAchievement {
     unlocktimestamp?: number
 }
 
-declare interface RAAPlatObj {
+declare interface RAPlat {
     achievement: RAAchievement,
-    customisation: Customisation,
-    platicon: string,
-    monitor: number,
     username: string,
     numawarded: number,
     numachievements: number
@@ -647,7 +640,8 @@ declare interface SSWin {
     timer: NodeJS.Timeout | null,
     windowtitle: string | null,
     haswarned: boolean,
-    display?: Electron.Display
+    capturing: boolean,
+    display?: Electron.Display,
 }
 
 declare type ExtWins = "ext" | "stat" | "gametimer"
@@ -693,13 +687,6 @@ declare interface LastKnownGame {
     installdir: string | null
 }
 
-declare type ErrNotifyType = "noexe" | "addlinkfailed" | "workercrash"
-
-declare interface ErrNotify {
-    channel: ErrNotifyType
-    skipnotify?: boolean
-}
-
 declare interface SystemUsage {
     cpupercent: number,
     mempercent: number,
@@ -720,88 +707,48 @@ declare interface AppUsage {
 
 declare interface GameDisplayInfo {
     gamename: string | null,
-    achnum?: number,
-    releasing?: boolean,
-    issues?: boolean
+    achnum?: number
 }
 
 declare type GameDisplay = Record<Platform,GameDisplayInfo>
 
-declare type TroubleshooterApp = {
-    version: string,
-    beta: boolean,
-    platform: any,
-    osinfo: string,
-    config: {
-        releasewaittime: number,
-        releasedelay: number,
-        pollrate: number,
-        initdelay: number,
-        maxretries: number,
-        userust: boolean,
-        exclusions: number[],
-        inclusionlist: boolean
-    }
+declare type LogFiles = "san" | "sanhelper" | "sanhelperworker"
+
+declare interface SteamUser {
+    steam3id: number,
+    steam64id: string,
+    timestamp: number,
+    personaname?: string,
+    mostrecent?: boolean | null,
 }
 
-declare type TroubleshooterProcess = {
-    appid: number,
-    gamename: string | null,
-    usesanwatcher: boolean,
-    linkedgame: string | null,
-    lastknowngame: LastKnownGame | null,
-    status: "active" | "releasing",
-    releasetimer: boolean,
-    pids: number[],
-    activeprocesses: DebugProcessInfo[],
-    duplicatelinkentries: any,
-    installdir?: string | null,
-    waitingforprocess?: boolean
+declare interface SteamStat {
+    statid: string,
+    type: string,
+    default: number
 }
 
-declare type TroubleshooterExecutable = {
-    islinkedgame?: boolean,
-    path: string | null,
-    installdir: {
-        path: string | null,
-        exists: boolean,
-        dir: {
-            process: string,
-            steamworks: string,
-            match: boolean
-        }
-    } | null,
-    exists: boolean | null,
-    isexecutable?: boolean | null,
-    iswithininstalldir: boolean | null,
-    wrongplatformpath: boolean | null,
-    realpath: string | null
+declare interface AchievementProgress {
+    stat: string,
+    value: number,
+    min: number,
+    max: number,
+    percent: number
 }
 
-declare interface TroubleshooterData {
-    app: TroubleshooterApp,
-    process: TroubleshooterProcess,
-    executable: TroubleshooterExecutable[]
+declare interface MigrationResult {
+    level: "INFO" | "ERROR",
+    msg: string
 }
 
-declare type TroubleshooterRuleId = "noactiveprocesses" | "unknownexecutable" | "missingexecutable" | "notexecutable" | "notwithininstalldir" | "wrongplatformpath" | "duplicatelinkentries" | "releasing"
-declare type TroubleshooterType = "info" | "warning" | "error"
-declare type TroubleshooterMsg = {
-    title: string,
-    issue: string,
-    detail: string,
-    solution: string
+declare interface PluginData {
+    id: string,
+    dir: string,
+    ui: string,
+    icon?: string
 }
 
-declare interface TroubleshooterResult {
-    id: TroubleshooterRuleId,
-    type: TroubleshooterType,
-    msg: TroubleshooterMsg
-}
-
-declare type RustLogFiles = "steamworks" | "sanwatcher"
-declare type ElectronLogFiles = "san" | "sanhelper"
-declare type LogFiles = ElectronLogFiles | RustLogFiles
+declare type PluginValue = string | boolean
 
 declare module "simple-vdf"
 declare module "adm-zip"

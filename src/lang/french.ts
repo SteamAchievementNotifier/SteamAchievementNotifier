@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Terminé",
         achievementdesc: "Cliqué sur le bouton Afficher la notification de test",
         gamecompletedesc: "Vous avez débloqué tous les succès !",
+        setname: "Nom de la série",
+        setcomplete: "Vous avez terminé l'ensemble des succès !",
         defaultcustomfont: "Par défaut (Aucune police sélectionnée)",
         defaultsoundfile: "Par défaut (Aucun fichier sélectionné)",
         defaultsounddir: "Par défaut (Aucun dossier sélectionné)",
@@ -44,11 +46,6 @@ export const translations = {
         show: "Afficher",
         exit: "Quitter",
         donotshowagain: "Ne plus afficher cette boîte de dialogue",
-        releasegame: "Libérer le Jeu",
-        releasegamesub: [
-            `Redémarrez le processus Worker en arrière-plan et libérez le jeu actuel du suivi`,
-            `Essayez cette option si vous avez récemment fermé un jeu mais que Steam l'affiche toujours comme en cours d'exécution, ou si Steam Achievement Notifier indique toujours le suivi d'un jeu qui a déjà été fermé`
-        ],
         noupdateavailable: "Aucune mise à jour disponible",
         latestversion: "Dernière version installée",
         missingdeps: "Dépendance manquante",
@@ -62,6 +59,7 @@ export const translations = {
         new: "Nouveau...",
         nodata: "Aucune donnée",
         webhookunlockmsg: "$user a débloqué un succès",
+        webhookunlockmsgset: "$user a terminé une série de succès",
         webhookunlockmsgplat: "$user a débloqué tous les succès",
         webhookingame: "dans $gamename",
         notconnected: "Non connecté",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "Releases",
         checkapplog: "Veuillez consulter le journal de l'application pour plus de détails.",
-        workercrash: "Worker a planté!",
-        workercrashsub: "Cliquez ici pour redémarrer Worker et relancer le suivi du jeu"
+        customtextvars: "Variables",
+        customtextvarssub: `<span class="hl">Les variables</span> peuvent être utilisées dans le <span class="hl">Texte personnalisé</span> pour afficher des informations sur le jeu/les succès dans les notifications :`,
+        customtextvarsdesc: {
+            game: "Titre du jeu",
+            title: "Titre du succès",
+            desc: "Description du succès",
+            percent: "Pourcentage de déblocage du succès",
+            total: "Succès débloqués/total"
+        },
+        customtextvarsset: "Nom de l'ensemble de succès",
+        customtextvarsplat: `Message "$gamecomplete"`
     },
     app: {
         content: {
@@ -196,10 +203,6 @@ export const translations = {
             content: {
                 rarity: "Pourcentage de rareté",
                 semirarity: "Pourcentage d'argent",
-                rareonly: "Rares seulement",
-                all: "Tout",
-                off: "Désactivé",
-                showpercent: "Afficher le pourcentage",
                 soundonly: "Mode son uniquement",
                 nowtracking: "Afficher la notification de suivi",
                 nowtrackingscale: "Échelle de suivi",
@@ -222,17 +225,18 @@ export const translations = {
                 trophymode: "Mode Trophée",
                 notifymax: "Notifications maximales", 
                 notifyspace: "Espacement des notifications",
-                notify1line: "Limiter le texte à 1 ligne",
-                testnotifycustomtext: "Texte personnalisé de la notification de test",
-                testnotifycustomtexttitle: "Titre",
-                testnotifycustomtextdesc: "Description"
+                notifylinemode: "Mode des lignes",
+                single: "Unique",
+                max: "Maximum",
+                notifyoverflow: "Mode de débordement",
+                ellipsis: "Points de suspension",
+                scroll: "Défilement",
+                setplat: "Notifications de complétion à 100 %"
             }
         },
         games: {
             title: "Jeux",
             content: {
-                linkedgames: "Jeux liés",
-                autoreleasegames: "Jeux à libération automatique",
                 themeswitch: "Changement automatique de thème",
                 exclusionlist: "Liste d'exclusion",
                 inclusionlist: "Liste d'inclusion",
@@ -320,7 +324,6 @@ export const translations = {
                 nvda: "Activer le support NVDA",
                 tooltips: "Afficher les info-bulles",
                 showsystrayopts: "Afficher les options de la barre système",
-                releaseshortcut: "Raccourci Libérer le Jeu",
                 noshortcuts: "Désactiver les raccourcis clavier"
             }
         },
@@ -328,11 +331,6 @@ export const translations = {
             title: "Avancé",
             content: {
                 pollrate: "Taux de Sondage",
-                initdelay: "Délai de Suivi",
-                releasedelay: "Délai de Sortie",
-                maxretries: "Nombre maximal de tentatives de traitement",
-                debug: "Panneau de débogage",
-                userust: "Mode de traitement alternatif",
                 notifydebug: "Afficher les notifications de débogage",
                 workerdebug: "Afficher les DevTools du Worker",
                 exportachdata: "Exporter les données de succès",
@@ -340,6 +338,7 @@ export const translations = {
                 audiocooldown: "Délai du son",
                 usecustomfiles: "Utiliser des fichiers d'application personnalisés",
                 showcustomfiles: "Afficher les fichiers d'application personnalisés",
+                cleariconcache: "Vider le cache des icônes",
                 appdatadir: "Afficher le dossier AppData",
                 backup: "Sauvegarde",
                 backuppath: "Chemin de la sauvegarde",
@@ -356,8 +355,6 @@ export const translations = {
                     "❗ Une fois confirmé, l'application redémarrera pour restaurer le fichier de sauvegarde sélectionné"
                 ],
                 restorefailed: "Impossible de restaurer la sauvegarde.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Délai d'attente avant libération",
                 logresourceusage: "Journaliser l’utilisation des ressources"
             }
         },
@@ -405,18 +402,16 @@ export const translations = {
             content: {
                 preset: "Préréglage de Notification",
                 iconanim: "Animation d'Icône Rare",
-                alldetails: "Afficher Tous les Détails",
                 usepercent: "Utiliser le Pourcentage",
                 displaytime: "Temps d'Affichage",
                 scale: "Échelle",
                 customtext: "Texte Personnalisé",
-                usegametitle: "Utiliser le Titre du Jeu",
                 customfont: "Police Personnalisée",
-                platcustomtext: "Texte personnalisé pour les 100 %",
                 usecustomtext: "Texte personnalisé",
                 customtextunlockmsg: "Message de déverrouillage",
                 customtexttitle: "Titre du succès",
-                customtextdesc: "Description du succès"
+                customtextdesc: "Description du succès",
+                scrollrepeat: "Répétition du défilement"
             }
         },
         sound: {
@@ -452,7 +447,6 @@ export const translations = {
                 descfontsize: "Description",
                 textvspace: "Espacement du texte",
                 opacity: "Opacité",
-                bgonly: "Fond Seulement",
                 glow: "Lueur",
                 glowcolor: "Couleur",
                 glowsize: "Taille",
@@ -589,6 +583,14 @@ export const translations = {
                 copytheme: "Copier le thème",
                 copythemesub: "Sélectionnez le(s) type(s) de notification vers lequel copier le thème sélectionné"
             }
+        },
+        platnotifytype: {
+            title: "Personnaliser",
+            content: {
+                platsubtype: "Sous-type",
+                game: "Jeu",
+                set: "Série"
+            }
         }
     },
     logwin: {
@@ -612,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier a rencontré un problème et doit être fermé.",
+            steam: "Installation de Steam introuvable",
             details: "Voici les détails de l'erreur :",
             sub: "Cliquez sur les boutons ci-dessous pour signaler ce problème via votre plateforme préférée.",
             report: "Signaler",
@@ -628,8 +631,8 @@ export const translations = {
         discord: "Rejoindre sur Discord !",
         github: "Signaler un problème",
         lang: "Sélectionnez la langue de l'interface utilisateur utilisée dans l'application",
-        steamlang: `Tenter de charger les traductions situées dans les fichiers de l'application Steam afin d'afficher les informations des succès dans la langue choisie par l'utilisateur dans le client Steam<br><br><span class="ttdesc">Cette option tente de localiser les traductions dans un fichier JSON stocké dans les données de l'application Steam. Si une traduction pour le succès actuel ne peut pas être trouvée, les informations du succès récupérées depuis Steamworks seront affichées à la place.</span>`,
-        maxsteamlangretries: `Le nombre de tentatives (toutes les 100 ms) pour trouver des traductions valides pour le succès actuel<br><br><span class="ttdesc">Actuellement, Steam ne stocke qu'une petite quantité de données sur les succès dans le fichier JSON associé à chaque jeu. Tous les succès qui ne sont pas présents dans ce fichier seront ajoutés après le déverrouillage du succès.<br><br>Étant donné que l'ajout de nouvelles données peut prendre du temps, augmenter cette valeur augmentera la probabilité de trouver des données de traduction pour le succès actuel, mais cela peut également retarder l'apparition de la notification à l'écran du temps calculé par ce paramètre.<br><br>Si aucune donnée de traduction valide ne peut être trouvée pour le succès actuel, la traduction reviendra à la langue spécifiée dans Steamworks.</span>`,
+        steamlang: `Tenter de charger les traductions présentes dans les fichiers de l'application Steam afin d'afficher les informations des succès dans la langue choisie par l'utilisateur dans son client Steam<br><br><span class="ttdesc">Cette option tente de localiser les traductions dans un fichier JSON stocké dans les données de l'application Steam. Si aucune traduction ne peut être trouvée pour le succès actuel, les informations du succès récupérées à partir des fichiers binaires internes de Steam seront affichées à la place</span>`,
+        maxsteamlangretries: `Nombre de tentatives (toutes les 100ms) pour trouver des traductions valides pour le succès actuel<br><br><span class="ttdesc">Steam ne stocke actuellement qu'une petite quantité de données sur les succès dans le fichier JSON associé à chaque jeu. Tous les succès absents de ce fichier seront ajoutés après leur déverrouillage.<br><br>Comme l'ajout de nouvelles données peut prendre du temps, augmenter cette valeur accroît les chances de trouver les données de traduction du succès actuel, mais peut également retarder l'affichage de la notification à l'écran du temps calculé par ce paramètre.<br><br>Si aucune donnée de traduction valide ne peut être trouvée pour le succès actuel, les traductions anglaises seront utilisées.</span>`,
         desktop: "Activez un raccourci sur le bureau pour exécuter l'application",
         startwin: "Démarrer Steam Achievement Notifier automatiquement après la connexion",
         startmin: "Après le lancement, masquez la fenêtre de l'interface utilisateur de l'application jusqu'à son ouverture depuis la barre d'état système",
@@ -637,7 +640,6 @@ export const translations = {
         litemode: "Désactiver tous les éléments interactifs de l'interface utilisateur, tout en fournissant uniquement une fonctionnalité limitée de l'application via l'icône de la barre d'état système. Peut améliorer les ressources consommées par l'application",
         rarity: `Le pourcentage à partir duquel les notifications de succès rares seront déclenchées.<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Principale<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Argent à la place</span>`,
         semirarity: `Le pourcentage à partir duquel les éléments de notification "Argent" seront affichés (par ex. <span class="hl">Badges de rareté</span>, <span class="hl">Décorations</span>, etc.).<br><br>Tout succès avec un pourcentage de déverrouillage inférieur ou égal à cette valeur, et supérieur à la valeur du <span class="hl">Pourcentage de rareté</span>, affichera les éléments de notification configurés pour les raretés "Argent".<br><br>Tout succès avec un pourcentage de déverrouillage supérieur à cette valeur affichera les éléments de notification configurés pour les raretés "Bronze"<br><br><span class="ttdesc">Si le <span class="hl">Mode Trophée</span> est activé, tout succès avec un pourcentage de déverrouillage supérieur à cette valeur sera affiché comme une notification Bronze à la place</span>`,
-        showpercent: "Affiche le pourcentage de déverrouillage du succès dans la notification pour le(s) type(s) sélectionné(s)",
         soundonly: "Désactive les notifications, en jouant uniquement les sons définis via le Personnaliseur",
         extwin: "Créez une fenêtre qui duplique toutes les notifications actuellement affichées à l'écran. Cette fenêtre peut ensuite être ajoutée comme source de capture de fenêtre pour être utilisée dans un logiciel de streaming, comme OBS",
         extwinframerate: "Définir le taux de trame cible pour les notifications de diffusion",
@@ -663,11 +665,6 @@ export const translations = {
         tooltips: "Affiche des info-bulles lors du survol de certains éléments de l'interface utilisateur",
         colorprofile: `Forcer toutes les fenêtres de l'application à s'afficher avec le profil de couleur sélectionné<br><br><span class="ttdesc">Nécessite un redémarrage de l'application</span>`,
         pollrate: `Définir l'intervalle de mise à jour des données de réalisation pendant le jeu<br><br><span class="ttdesc">Les performances peuvent augmenter/diminuer en fonction de la valeur ou du matériel du système. Les valeurs plus élevées entraînent généralement une charge système plus faible, mais peuvent retarder les notifications</span>`,
-        initdelay: `Définissez le délai entre la détection de l'<span class="hl">AppID</span> actuel et le début du suivi des processus/réalisations<br><br><span class="ttdesc">Augmenter cette valeur peut empêcher des scénarios où Steam ne peut pas lancer le jeu actuel (en raison de l'initialisation de l'application dans Steamworks avant le lancement du jeu)</span><br><br><span class="ttdesc">Alternativement, augmenter cette valeur peut également être utilisé pour contourner la détection incorrecte des processus de pré-lancement du jeu</span>`,
-        releasedelay: `Définissez la durée pendant laquelle le processus Worker en arrière-plan attend avant de redémarrer après la libération du jeu actuel. Affecte à la fois le suivi automatique des processus et la Libération automatique des jeux<br><br><span class="ttdesc">Permet un délai plus long pour que Steamworks soit complètement libéré de l’application. L’augmentation de cette valeur peut empêcher des comportements inhabituels, comme le suivi d’un jeu précédemment fermé</span>`,
-        maxretries: `Définissez le nombre maximal de tentatives pour lier un processus en cours d’exécution à un AppID détecté. Affecte à la fois le suivi automatique des processus et la Libération automatique des jeux<br><br><span class="ttdesc">Les tentatives sont effectuées une fois par seconde. Si un processus en cours d’exécution n’est pas lié à l’AppID actuel après ce nombre de tentatives, un processus invalide sera renvoyé. Dans ce cas, le jeu devra être libéré manuellement via System Tray > Options > Libérer le jeu</span>`,
-        debug: "Ouvrez le panneau de débogage, qui affiche des informations détaillées de suivi des processus",
-        userust: "Utilisez une fonction alternative basée sur Rust pour vérifier si les processus de jeu suivis sont actuellement en cours d'exécution sur le système. Lorsque non cochée, le contrôle de processus par défaut basé sur NodeJS sera utilisé à la place.",
         notifydebug: "Crée une fenêtre DevTools pour toutes les notifications. Utile pour le débogage/le dépannage des problèmes de notification",
         workerdebug: "Créer une fenêtre DevTools pour le processus Worker. Utile pour le débogage/la résolution des problèmes de suivi des jeux",
         usecustomfiles: "Permet aux notifications de charger des fichiers personnalisables par l'utilisateur. La prudence est recommandée pour les utilisateurs réguliers",
@@ -678,12 +675,10 @@ export const translations = {
         replay: "Redémarrer l'animation de l'aperçu de la notification",
         preset: "Sélectionnez le préréglage de notification à personnaliser",
         iconanim: "Activer/désactiver la bordure et l'animation de l'icône Rare",
-        alldetails: "Affiche tous les éléments de texte dans la notification, y compris ceux masqués par défaut pour ce préréglage",
         usepercent: "Afficher le pourcentage de déblocage de l'exploit, au lieu de la valeur XP/S",
         displaytime: "Définir le nombre de secondes pendant lesquelles la notification sera affichée",
         scale: "Augmenter ou diminuer la taille de la notification",
         customtext: `Définissez un message personnalisé à afficher dans la notification<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnaliseur > Préréglage > Éléments de notification > Message de déverrouillage est désactivé</span>`,
-        usegametitle: "Afficher le titre du jeu en cours dans la notification",
         customfont: "Charger une police personnalisée à utiliser dans la notification",
         soundmode: "Sélectionnez soit un seul fichier audio, soit un fichier audio sélectionné au hasard dans un dossier contenant plusieurs fichiers audio, lorsqu'une notification se produit",
         soundfile: "Sélectionnez un fichier audio à lire lorsqu'une notification se produit",
@@ -700,7 +695,6 @@ export const translations = {
         roundness: "Définir l'arrondi des bords de la notification",
         fontsize: "Définir la taille de la police utilisée dans la notification",
         opacity: "Définir l'opacité globale de la notification",
-        bgonly: "Définir uniquement l'opacité de l'arrière-plan de la notification, en maintenant les autres éléments à une opacité maximale",
         glow: "Activer un effet de lueur qui entoure la notification",
         glowcolor: "Définir la couleur de l'effet de lueur",
         glowsize: "Définir la taille de l'effet de lueur",
@@ -768,6 +762,7 @@ export const translations = {
         webhooksemi: `Activer ou désactiver l’envoi d’informations de succès à un serveur Discord lorsqu’un succès $semi est déverrouillé`,
         webhookrare: "Activer ou désactiver l’envoi d’informations de succès à un serveur Discord lorsqu’un succès $rare est déverrouillé",
         webhookplat: "Activer ou désactiver l’envoi d’informations de succès à un serveur Discord lorsqu’un succès $plat est déverrouillé",
+        webhookset: "Activer ou désactiver la publication des informations sur les succès sur un serveur Discord lorsqu'une série de succès est terminée",
         webhooktest: "Activer ou désactiver l'envoi d'informations de test à un serveur Discord lorsque des notifications de test de tout type sont déclenchées",
         webhookurl: `Définissez la <span class="hl">URL du Webhook</span> pour le serveur Discord souhaité<br><br><span class="ttdesc">Une <span class="hl">URL de Webhook</span> est utilisée pour publier sur un serveur/kanal Discord au nom d'un utilisateur ou d'une application. Pour configurer un nouveau Webhook pour un serveur Discord, l'utilisateur doit avoir un rôle dans le serveur souhaité qui autorise la création de Webhooks<br><br><u>Une URL de Webhook est requise lorsque vous utilisez cette option</u><br><br>Consultez la documentation officielle de Discord pour plus d'informations</span>`,
         webhookspoilers: `Ajouter un tag spoiler aux réalisations "Cachées" lors de leur publication sur Discord`,
@@ -777,8 +772,6 @@ export const translations = {
         desc: "Définissez la position de la description du succès dans le $type",
         notification: "notification",
         screenshot: "capture d'écran",
-        percentpos: "Définissez la position du pourcentage de rareté dans le $type",
-        sspercentpos: "Définissez la position du pourcentage de rareté dans le $type",
         hiddeniconpos: "Définissez la position de l'icône de succès caché/secrète dans le $type",
         sshiddeniconpos: "Définissez la position de l'icône de succès caché/secrète dans le $type",
         decorationpos: "Définissez la position de l'élément de décoration dans le $type",
@@ -814,7 +807,6 @@ export const translations = {
         themeswitch: `Changer automatiquement pour tout <span class="hl">Thème</span> enregistré lorsqu'un jeu spécifique est détecté`,
         userthemesync: `Synchroniser les personnalisations du <span class="hl">Thème</span> sélectionné avec tous les autres types de notification`,
         showsystrayopts: `Afficher toutes les options généralement situées sous <span class="hl">Barre système</span> > <span class="hl">Options</span> dans <span class="hl">Paramètres</span> > <span class="hl">Divers</span>`,
-        releaseshortcut: "Libérer le jeu actuellement suivi à l'aide du raccourci clavier spécifié",
         themeselect: "Sélectionnez un Thème enregistré précédemment",
         statwin: `Affichez des statistiques de succès configurables pour le jeu en cours dans une fenêtre externe<br><br><span class="ttdesc">Lorsqu'elle est utilisée avec l'option <span class="hl">Traduire les succès dans la langue de Steam</span>, certaines traductions peuvent ne pas être disponibles tant que le succès spécifié n'est pas débloqué</span>`,
         statwinaot: `Activez le mode "Toujours au premier plan" pour la fenêtre des statistiques de succès, permettant à la fenêtre d'apparaître au-dessus de la fenêtre du jeu<br><br><span class="ttdesc">Lorsqu'elle est activée, la fenêtre des statistiques de succès ne prendra plus en compte les interactions de l'utilisateur, telles que les événements de "clic". Pour réactiver les interactions avec la fenêtre, cette option doit être désactivée</span>`,
@@ -842,6 +834,7 @@ export const translations = {
         webhookembedcolorsemi: "Définir la couleur utilisée dans l'intégration webhook lorsqu’un succès $semi est déverrouillé",
         webhookembedcolorrare: "Définir la couleur utilisée dans l'intégration webhook lorsqu’un succès $rare est déverrouillé",
         webhookembedcolorplat: "Définir la couleur utilisée dans l'intégration webhook lorsqu’un succès $plat est déverrouillé",
+        webhookembedcolorset: "Définir la couleur utilisée dans l'intégration du webhook lorsqu'une série de succès est terminée",
         raemus: "Afficher des notifications lorsque des jeux sont détectés dans des émulateurs pris en charge",
         rauser: "Définir le nom d'utilisateur RetroAchievements pour suivre les succès",
         rakey: `Définissez la clé Web API à utiliser pour l'authentification à l'API RetroAchievements<br><br><span class="ttdesc">Une clé Web API peut être copiée ou régénérée en vous connectant au site RetroAchievements et en accédant à <span class="hl">Paramètres > Clés > Clé Web API</span><br><br>🔒 La clé fournie sera chiffrée avant d'être stockée localement sur le système (si le système d'exploitation actuel prend en charge le chiffrement)</span>`,
@@ -860,7 +853,7 @@ export const translations = {
         unlockmsgfontcolor: "Définir la couleur du premier élément de texte",
         titlefontcolor: "Définir la couleur du deuxième élément de texte",
         descfontcolor: "Définir la couleur du troisième élément de texte",
-        exportachdata: `Exporter les données de succès vers un fichier JSON lorsqu'un succès est débloqué<br><br><span class="ttdesc">Lorsqu'il est activé, <span class="ttcode">achdata.json</span> sera exporté vers :<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exporter les données de succès vers un fichier JSON lorsqu'un succès est débloqué<br><br><span class="ttdesc">Lorsqu'il est activé, <span class="ttcode">achdata.json</span> sera exporté vers :<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Ajuste l’espacement vertical entre les éléments de texte dans la notification",
         ssmode: `Définissez si les captures d’écran doivent inclure l’écran entier ou la fenêtre du jeu actuelle<span style="color: red;">*</span><br><br><span class="ttdesc">Si le <span class="hl">fichier exécutable</span> du jeu actuel ne peut pas être localisé (<i>que ce soit via le <span class="hl">suivi automatique des processus</span> ou lorsqu’il est ajouté comme entrée dans <span class="hl">Libération automatique des jeux</span></i>), cette option sera définie par défaut sur le mode « Écran »</span>`,
         replaynotify: "Répéter la dernière notification de réussite",
@@ -879,10 +872,10 @@ export const translations = {
         audiocooldown: `Définir le délai avant que les notifications suivantes puissent rejouer un son<br><br><span class="ttdesc">Le son ne sera pas affecté si Notifications maximales est défini sur 1</span>`,
         rauseemudir: "Enregistrer les captures d'écran/images de notification débloquées via RetroAchievements dans un sous-dossier pour l'émulateur actuel dans le répertoire de chemin des captures/images spécifié",
         ssext: "Définir le format de fichier des captures d'écran générées via l'option de capture d'écran avec superposition de notification",
-        notify1line: `Limiter le nombre de lignes de texte affichées dans toutes les notifications à 1<br><br><span class="ttdesc">Les chaînes de texte dépassant la longueur d'une ligne seront tronquées avec "..."</span>`,
         copytheme: "Copier le thème sélectionné vers un autre type de notification",
         ssaddtosteam: "Ajouter automatiquement les médias générés aux Enregistrements et Captures d’écran du jeu actuel dans Steam",
         appdatadir: "Ouvrir l'emplacement du dossier AppData de l'application",
+        cleariconcache: "Supprimer toutes les icônes de succès précédemment mises en cache",
         backup: "Sauvegardez le contenu du dossier AppData de l'application vers un emplacement choisi, qui servira de point de restauration pour l'état actuel de l'application",
         restore: "Restaurez le contenu du dossier AppData de l'application à partir d'une sauvegarde précédente",
         gametimerwin: "Affiche un minuteur à l'écran indiquant le temps nécessaire pour débloquer tous les succès du jeu actuel",
@@ -891,13 +884,7 @@ export const translations = {
         resetgametimer: "Réinitialise le minuteur de fin de jeu du jeu actuel",
         noshortcuts: `Désactive tous les raccourcis clavier de l'application<br><br><span class="ttdesc">Lorsqu'il est activé, <u>tous les raccourcis de l'application ne fonctionneront plus</u>. Toutes les options liées aux raccourcis clavier seront également masquées</span>`,
         extwinnotify: "Active ou désactive la visibilité de toutes les notifications à l'écran lors de l'utilisation de Stream Notifications",
-        usesanwatcher: `Activer le nouveau surveillant de processus de jeu de SAN<br><br><span class="ttdesc">Les différences entre le nouveau SANWatcher et les anciennes méthodes de suivi automatique des processus sont les suivantes :<br><br><div class="wrapper sanwatcher"><span class="hl">ACTIVÉ</span><ul><li>Surveille activement les événements de démarrage/arrêt de tout processus stocké dans le répertoire d'installation du jeu</li><li>Il n'est pas nécessaire de connaître l'exécutable du jeu pour libérer le jeu actuel</li><li>Le comportement des lanceurs préalables au jeu peut varier, la compatibilité complète avec tous les jeux Steam n'est donc pas garantie</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">DÉSACTIVÉ</span><ul><li>Analyse le répertoire d'installation du jeu à la recherche d'exécutables en cours d'exécution après le lancement du jeu</li><li>Nécessite que l'exécutable du jeu soit connu pour libérer le jeu actuel</li><li>Si le processus du jeu ne peut pas être déterminé automatiquement, l'utilisateur doit ajouter manuellement une nouvelle entrée à <span class="hl">Libération automatique des jeux</span> afin que les jeux puissent être libérés automatiquement</li></ul></div>`,
-        releasewaittime: `Définissez combien de temps SANWatcher attendra l’apparition de nouveaux processus de jeu avant de libérer le jeu actuel<br><br><span class="ttdesc">Par exemple, si le jeu actuel lance une fenêtre de lancement/configuration avant de démarrer le jeu lui-même, ce paramètre détermine le nombre de secondes pendant lesquelles SANWatcher attendra l’apparition de la fenêtre du jeu réel après la fermeture de la fenêtre de lancement/configuration<br><br>Si un nouveau processus de jeu actif est détecté pendant ce délai d’attente, la libération sera annulée et le nouveau processus actif sera suivi à la place<br><br>💡 Le nom du jeu <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">clignotera</span> dans la zone <span class="hl">Affichage du jeu</span> pendant que le jeu actuel attend d’être libéré</span>`,
-        platcustomtext: `Définissez un message personnalisé de progression à 100 % du jeu à afficher dans la notification<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnaliseur > Préréglage > Éléments de notification > Description du succès est désactivé</span>`,
         raui: "Afficher les noms des jeux RetroAchievements détectés dans l'interface d'affichage des jeux/de la zone de notification",
-        testnotifycustomtext: "Remplacer le texte affiché dans toutes les notifications de test",
-        testnotifycustomtexttitle: "Remplacer le texte affiché pour l'élément de titre dans toutes les notifications de test",
-        testnotifycustomtextdesc: "Remplacer le texte affiché pour l'élément de description dans toutes les notifications de test",
         radefault: `Toujours basculer automatiquement vers cette entrée lorsqu'un succès RetroAchievements est débloqué<br><br><span class="ttdesc">Une seule entrée Changement automatique de thème peut être définie par défaut pour tous les succès RetroAchievements. Cette valeur par défaut peut également être remplacée pour chaque jeu en ajoutant une nouvelle entrée Changement automatique de thème pour un <span class="hl">GameID</span> RetroAchievements spécifique</span>`,
         statwintype: "Définir le type de disposition de la Fenêtre des Statistiques de Succès",
         statwinunlockonly: "Garder la Fenêtre des Statistiques de Succès masquée jusqu'à ce qu'un succès soit déverrouillé",
@@ -909,7 +896,12 @@ export const translations = {
         usecustomtext: "Définir les messages personnalisés à afficher dans la notification",
         customtextunlockmsg: `Définir un message personnalisé à afficher dans l’élément Message de déverrouillage<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Message de déverrouillage est désactivé</span>`,
         customtexttitle: `Définir un message personnalisé à afficher dans l’élément Titre du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Titre du succès est désactivé</span>`,
-        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`
+        customtextdesc: `Définir un message personnalisé à afficher dans l’élément Description du succès<br><br><span class="ttdesc">Cette option sera masquée lorsque Personnalisation > Préréglage > Éléments de notification > Description du succès est désactivé</span>`,
+        notifylinemode: "Définir le nombre maximal de lignes de texte à afficher dans les notifications",
+        notifyoverflow: "Définir le comportement du texte qui dépasse l'espace disponible dans les notifications",
+        scrollrepeat: `Définir le nombre de fois que le texte excédentaire défile pendant que la notification est affichée à l'écran<br><br><span class="ttdesc">La vitesse de défilement dépend de la durée d'affichage, mais des valeurs de répétition plus élevées peuvent ne pas convenir à tous les préréglages</span>`,
+        setplat: "Afficher des notifications lorsque chaque série de succès est terminée dans les jeux compatibles",
+        platsubtype: `Sélectionnez le sous-type de notification <span class="hl">100%</span> à personnaliser<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Jeu</span> : La notification affichée lorsque tous les succès du jeu sont débloqués</li><li><span class="hl">Série</span> : La notification affichée lorsque tous les succès d'une seule série sont débloqués</li></ul></span>`
     },
     update: {
         updateavailable: "Mise à jour disponible",
@@ -919,64 +911,6 @@ export const translations = {
             `Notes de version complètes disponibles sur <span id="discordreleasenotes"></span> et <span id="githubreleasenotes"></span>`
         ],
         update: "Mise à jour"
-    },
-    linkgame: {
-        content: {
-            exepath: "Chemin de l'exécutable",
-            linkedgame: "Lier un jeu",
-            autoreleasegame: "Libération automatique du jeu",
-            linkedgamessub: [
-                `Remplacez le suivi automatique de tous les processus de jeu en cours effectué par <span class="hl">SANWatcher</span>, et vérifiez uniquement si <span class="hl">l'exécutable du jeu</span> sélectionné est actuellement actif`,
-                `Liez l'<span class="hl">AppID</span> de n'importe quel jeu à un <span class="hl">exécutable de jeu</span> cible, ou <span class="hl">supprimez</span> un lien existant`
-            ],
-            autoreleasegamessub: [
-                `Si Steam affiche toujours un jeu comme étant <i>En cours</i> après la fermeture de sa fenêtre, essayez d'ajouter une nouvelle entrée à <span class="hl">$linkgame</span>`,
-                `Ajoutez l'<span class="hl">AppID</span> d'un jeu spécifique avec son <span class="hl">exécutable de jeu</span> attendu, ou <span class="hl">supprimez</span> une entrée existante`,
-            ],
-            managesub: [
-                `Une fois qu'un jeu a été détecté, de nouvelles entrées peuvent également être ajoutées via le <span class="hl">focus de la fenêtre</span> en <i>cliquant avec le bouton droit</i> sur <span class="hl">l'icône de la zone de notification</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Comment trouver l'AppID d'un jeu Steam ?</u></span>`
-            ],
-            linknew: "Nouvelle entrée",
-            linknewsub: [
-                `Liez l'<span class="hl">AppID</span> d'un nouveau jeu à un <span class="hl">exécutable de jeu</span> cible`,
-                `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu <span class="hl">$linkgame</span> précédent`
-            ],
-            linkedit: "Modifier l'entrée",
-            linkeditsub: [
-                `Modifiez un lien existant entre l'<span class="hl">AppID</span> d'un jeu et <span class="hl">l'exécutable de jeu</span> cible`,
-                `Une fois ajoutées, les entrées peuvent être <span class="hl">supprimées</span> via le menu <span class="hl">$linkgame</span> précédent`
-            ],
-            link: "Ajouter",
-            findappid: "Trouver l'AppID Steam",
-            findappidsub: [
-                `Chaque jeu Steam possède un numéro unique appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID de n'importe quel jeu Steam de l'une des façons suivantes :`,
-                `Dans le <span class="hl">client Steam</span>, <i>cliquez avec le bouton droit</i> sur un jeu de votre <span class="hl">Bibliothèque</span>, puis sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID y sera affiché`,
-                `L'<span class="hl">URL</span> de la <span class="hl">page de la boutique</span> du jeu - il s'agit du numéro situé après <span class="hl">app/</span> : <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Des sites tels que <span class="hl">SteamDB</span> - la section <span class="hl">App Info</span> affiche l'AppID de chaque jeu`
-            ],
-            noexe: "EXE du jeu introuvable!",
-            noexesub: "Cliquez ici pour plus d'informations",
-            noexedialogsub: [
-                `Steam Achievement Notifier n'a pas pu localiser automatiquement le fichier exécutable de ce jeu. L'emplacement du fichier exécutable du jeu est nécessaire afin de pouvoir « libérer » le jeu une fois fermé`,
-                `Pour libérer manuellement le jeu après sa fermeture, <i>cliquez avec le bouton droit</i> sur <span class="hl">l'icône de la zone de notification</span> > <span class="hl">Options</span> > <span class="hl">Libérer le jeu</span>, ou utilisez le <span class="hl">Raccourci de libération du jeu</span>`,
-                `Vous pouvez également cliquer sur le bouton <span class="hl">Ajouter</span> ci-dessous pour ajouter le fichier exécutable associé à la fenêtre active à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span>`,
-            ],
-            linkedgamefocussub: `Pour remplacer le suivi automatique de tous les processus de jeu en cours effectué par <span class="hl">SANWatcher</span>, ajoutez une nouvelle entrée à <span class="hl">Jeux liés</span>`,
-            autoreleasegamefocussub: `Si Steam affiche toujours un jeu comme étant <i>En cours</i> après la fermeture de sa fenêtre, essayez d'ajouter une nouvelle entrée à <span class="hl">Jeux à libération automatique</span>`,
-            focussub: `Pour faire cela pour le jeu actuel, cliquez sur le bouton <span class="hl">Ajouter</span> ci-dessous afin d'ajouter le fichier exécutable associé à la fenêtre active à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Que se passe-t-il lorsque je clique sur le bouton Ajouter ?</u></span>`,
-            linkgamehelp: "Lier via le focus",
-            linkgamehelpsub: [
-                `En cliquant sur le bouton <span class="hl">Ajouter</span>, une nouvelle entrée sera automatiquement ajoutée à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span>, en utilisant les informations de la fenêtre actuellement active.`,
-                `Après avoir cliqué sur le bouton <span class="hl">Ajouter</span>, un compte à rebours de 5 secondes commencera`,
-                `Avant la fin du compte à rebours, mettez le focus sur la fenêtre du jeu`,
-                `Une fois le compte à rebours terminé, une nouvelle entrée pour l'<span class="hl">AppID</span> actuel sera ajoutée à <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span>, en utilisant le fichier exécutable associé à la fenêtre active`,
-                `Les nouvelles tentatives remplaceront les entrées existantes, ou l'entrée pourra être supprimée via <span class="hl">Paramètres</span> > <span class="hl">Jeux</span> > <span class="hl">Jeux à libération automatique</span> en cliquant sur le bouton <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Impossible d'ajouter la fenêtre",
-            addlinkfailedsub: `Cliquez sur le bouton <span class="hl">Ajouter</span> pour réessayer`
-        }
     },
     exclusions: {
         content: {
@@ -1022,8 +956,6 @@ export const translations = {
             sshiddeniconpos: "Icône cachée",
             decorationpos: "Décoration",
             ssdecorationpos: "Décoration",
-            percentpos: "Pourcentage de rareté",
-            sspercentpos: "Pourcentage de rareté",
             percentbadge: "Insigne de pourcentage",
             sspercentbadge: "Insigne de pourcentage",
             percentbadgepos: "Position de l'insigne",
@@ -1075,78 +1007,19 @@ export const translations = {
             themes: "Thèmes",
             src: "Source de capture d'écran",
             themedeleted: "Thème supprimé",
+            findappid: "Trouver l'AppID Steam",
+            findappidsub: [
+                `Chaque jeu Steam possède un numéro unique appelé <span class="hl">AppID</span>. Vous pouvez trouver l'AppID de n'importe quel jeu Steam de l'une des façons suivantes :`,
+                `Dans le <span class="hl">client Steam</span>, <i>cliquez avec le bouton droit</i> sur un jeu de votre <span class="hl">Bibliothèque</span>, puis sélectionnez <i>Propriétés</i> > <i>Mises à jour</i> - l'AppID y sera affiché`,
+                `L'<span class="hl">URL</span> de la <span class="hl">page de la boutique</span> du jeu - il s'agit du numéro situé après <span class="hl">app/</span> : <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Des sites tels que <span class="hl">SteamDB</span> - la section <span class="hl">App Info</span> affiche l'AppID de chaque jeu`
+            ],
             rafindgameid: "Trouver le GameID RA",
             rafindgameidsub: [
                 `Chaque jeu RetroAchievements possède un numéro unique qui lui est associé, appelé <span class="hl">GameID</span>. Vous pouvez trouver le GameID de n'importe quel jeu RetroAchievements en vérifiant :`,
                 `L'<span class="hl">URL</span> de la <span class="hl">page du jeu</span> sur le site RetroAchievements : il s'agit du numéro indiqué après <span class="hl">game/</span> : <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Définir comme valeur par défaut pour RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Dépannage",
-        content: {
-            copydata: "Copier",
-            noissues: "Aucun problème trouvé !",
-            noissuessub: "Ce jeu devrait être libéré automatiquement.",
-            manualrelease: `Vous pouvez libérer manuellement n'importe quel jeu via <span class="hl">Zone de notification</span> > <span class="hl">Options</span> > <span class="hl">Libérer le jeu</span>.`,
-            addedvia: "Ajouté via"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Aucun processus actif",
-                issue: "Aucun processus de jeu actif trouvé",
-                detail: "Le fichier exécutable associé à ce jeu n'est pas détecté comme un processus en cours d'exécution. Les fichiers exécutables suivants ont été vérifiés :",
-                solution: [
-                    `Essayez d'ajouter le fichier exécutable du jeu à $linkedgamesmenu.`,
-                    `Assurez-vous que l'entrée sous $linkedgamesmenu pointe vers le bon fichier exécutable.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Exécutable inconnu",
-                issue: "Impossible d'identifier le fichier exécutable du jeu",
-                detail: "Le chemin vers le fichier exécutable du jeu n'a pas pu être localisé automatiquement, ce qui est généralement dû aux lanceurs préalables au lancement du jeu lorsque celui-ci est lancé via Steam.",
-                solution: [
-                    `Ajoutez une nouvelle entrée pour ce jeu à $linkedgamesmenu, ou supprimez toute entrée pointant vers un fichier exécutable incorrect. Sinon, vérifiez si le jeu prend en charge une option de lancement Steam permettant de contourner les lanceurs préalables au lancement, comme <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Essayez d'activer $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Exécutable manquant",
-                issue: "Fichier exécutable du jeu introuvable sur le disque",
-                detail: `Le fichier exécutable associé à ce jeu est introuvable sur le disque. Les fichiers exécutables suivants ont été vérifiés :`,
-                solution: ["Essayez de vérifier l'intégrité des fichiers du jeu via Steam ou de réinstaller le jeu."]
-            },
-            notexecutable: {
-                title: "Non exécutable",
-                issue: `Le jeu n'a pas l'autorisation d'être exécuté`,
-                detail: "Le fichier utilisé par Steam pour lancer le jeu ne peut pas être exécuté. Le fichier a été signalé comme :",
-                solution: ["Pour rendre ce fichier exécutable, consultez les instructions correspondant à votre distribution Linux."]
-            },
-            notwithininstalldir: {
-                title: "Pas dans le répertoire du jeu",
-                issue: "L'exécutable n'est pas dans le répertoire d'installation",
-                detail: "Une entrée pour ce jeu a été détectée dans $linkedgamesmenu, mais le fichier exécutable associé ne se trouve pas dans le dossier d'installation du jeu, ce qui peut indiquer qu'il ne s'agit pas du bon fichier.",
-                solution: ["Modifiez l'entrée $linkedgamesmenu pour ce jeu et assurez-vous qu'elle pointe vers le bon fichier exécutable du jeu."]
-            },
-            wrongplatformpath: {
-                title: "Chemin du jeu invalide",
-                issue: "Le chemin du jeu est invalide pour le système d'exploitation actuel",
-                detail: "Le chemin du fichier exécutable de ce jeu semble appartenir à un autre système d'exploitation - peut-être en raison d'une configuration copiée depuis une autre machine ou d'une configuration à double démarrage.",
-                solution: [`N'utilisez pas une configuration copiée depuis une autre machine/un autre système d'exploitation, car cela ne fonctionnera probablement pas comme prévu. Tous les <span class="hl">Thèmes</span> existants peuvent être importés/exportés entre les plateformes via le menu <span class="hl">Personnaliseur</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Entrées en double",
-                issue: "Des entrées $linkedgamesmenu en double ont été trouvées",
-                detail: "Ce fichier exécutable de jeu est également lié à $appids dans $linkedgamesmenu.",
-                solution: ["Supprimez l'une des entrées en double et assurez-vous que l'entrée restante pointe vers le bon fichier exécutable du jeu."]
-            },
-            releasing: {
-                title: "Libération du jeu",
-                issue: "Le jeu est en cours de libération",
-                detail: "Ce jeu est sur le point d'être libéré.",
-                solution: [`Veuillez patienter quelques secondes supplémentaires - le point dans l'icône de la <span class="hl">Zone de notification</span> passera de <span class="troubleshooterdialogicon" grey></span> (libération en cours) à <span class="troubleshooterdialogicon" red></span> (inactif) une fois le jeu libéré.`]
-            }
         }
     }
 }

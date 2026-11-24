@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Färdig",
         achievementdesc: "Klickade på knappen för att visa testmeddelande",
         gamecompletedesc: "Du har låst upp alla prestationer!",
+        setname: "Setnamn",
+        setcomplete: "Du har slutfört hela prestationssamlingen!",
         defaultcustomfont: "Standard (Inget typsnitt valt)",
         defaultsoundfile: "Standard (Ingen fil vald)",
         defaultsounddir: "Standard (Ingen mapp vald)",
@@ -44,11 +46,6 @@ export const translations = {
         show: "Visa",
         exit: "Avsluta",
         donotshowagain: "Visa inte den här dialogrutan igen",
-        releasegame: "Frigör Spel",
-        releasegamesub: [
-            `Starta om bakgrundsprocessen för Worker och frigör det nuvarande spelet från att spåras`,
-            `Prova detta alternativ om du nyligen har stängt ett spel men Steam visar fortfarande att det körs, eller om Steam Achievement Notifier fortfarande visar att det spårar ett spel som redan har stängts`
-        ],
         noupdateavailable: "Inga uppdateringar tillgängliga",
         latestversion: "Senaste versionen installerad",
         missingdeps: "Saknad beroende",
@@ -62,6 +59,7 @@ export const translations = {
         new: "Nytt...",
         nodata: "Inga Data",
         webhookunlockmsg: "$user har låst upp en prestation",
+        webhookunlockmsgset: "$user slutförde ett prestationsset",
         webhookunlockmsgplat: "$user har låst upp alla prestationer",
         webhookingame: "i $gamename",
         notconnected: "Inte ansluten",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "Uppdateringar",
         checkapplog: "Vänligen kontrollera apploggen för mer information.",
-        workercrash: "Worker har kraschat!",
-        workercrashsub: "Klicka här för att starta om Worker och försöka spåra spelet igen"
+        customtextvars: "Variabler",
+        customtextvarssub: `<span class="hl">Variabler</span> kan användas i <span class="hl">Anpassad text</span> för att visa spel-/prestationinformation i aviseringar:`,
+        customtextvarsdesc: {
+            game: "Speltitel",
+            title: "Prestationens titel",
+            desc: "Prestationsbeskrivning",
+            percent: "Procentandel som har låst upp prestationen",
+            total: "Upplåsta/totala prestationer"
+        },
+        customtextvarsset: "Namn på prestationsuppsättning",
+        customtextvarsplat: `"$gamecomplete"-meddelande`
     },
     app: {
         content: {
@@ -196,10 +203,6 @@ export const translations = {
             content: {
                 rarity: "Sällsynthetsprocent",
                 semirarity: "Silverprocent",
-                rareonly: "Endast sällsynta",
-                all: "Alla",
-                off: "Av",
-                showpercent: "Visa procent",
                 soundonly: "Endast ljud",
                 nowtracking: "Visa spårningsmeddelande",
                 nowtrackingscale: "Spårningsskala",
@@ -222,17 +225,18 @@ export const translations = {
                 trophymode: "Trofyläge",
                 notifymax: "Maximalt antal aviseringar", 
                 notifyspace: "Aviseringsavstånd",
-                notify1line: "Begränsa text till 1 rad",
-                testnotifycustomtext: "Anpassad text för testavisering",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beskrivning"
+                notifylinemode: "Radläge",
+                single: "Enkel",
+                max: "Max",
+                notifyoverflow: "Överflödesläge",
+                ellipsis: "Ellips",
+                scroll: "Rullning",
+                setplat: "100 % slutförandemeddelanden"
             }
         },
         games: {
             title: "Spel",
             content: {
-                linkedgames: "Länkade spel",
-                autoreleasegames: "Automatiskt Frigjorda Spel",
                 themeswitch: "Automatisk byte av teman",
                 exclusionlist: "Undantagslista",
                 inclusionlist: "Inklusionslista",
@@ -320,7 +324,6 @@ export const translations = {
                 nvda: "Aktivera NVDA-stöd",
                 tooltips: "Visa verktygstips",
                 showsystrayopts: "Visa systemfältalternativ",
-                releaseshortcut: "Genväg för att frigöra spel",
                 noshortcuts: "Inaktivera tangentbordsgenvägar"
             }
         },
@@ -328,11 +331,6 @@ export const translations = {
             title: "Avancerad",
             content: {
                 pollrate: "Undersökningsfrekvens",
-                initdelay: "Försening spårning",
-                releasedelay: "Utgivningsfördröjning",
-                maxretries: "Maximalt antal återförsök",
-                debug: "Debugpanel",
-                userust: "Alternativ bearbetningsläge",
                 notifydebug: "Visa felsökningsaviseringar",
                 workerdebug: "Visa Worker DevTools",
                 exportachdata: "Exportera prestationsdata",
@@ -340,6 +338,7 @@ export const translations = {
                 audiocooldown: "Ljudnedkylning",
                 usecustomfiles: "Använd anpassade appfiler",
                 showcustomfiles: "Visa anpassade appfiler",
+                cleariconcache: "Rensa ikoncache",
                 appdatadir: "Visa AppData-mapp",
                 backup: "Säkerhetskopiering",
                 backuppath: "Säkerhetskopieringsväg",
@@ -356,8 +355,6 @@ export const translations = {
                     "❗ Efter bekräftelse startas appen om för att återställa den valda säkerhetskopieringsfilen"
                 ],
                 restorefailed: "Kunde inte återställa säkerhetskopian.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Väntetid för frigöring",
                 logresourceusage: "Logga resursanvändning"
             }
         },
@@ -405,18 +402,16 @@ export const translations = {
             content: {
                 preset: "Meddelandeinställning",
                 iconanim: "Sällsynt ikonanimation",
-                alldetails: "Visa alla detaljer",
                 usepercent: "Använd Procent",
                 displaytime: "Visningstid",
                 scale: "Skala",
                 customtext: "Anpassad text",
-                usegametitle: "Använd speltitel",
                 customfont: "Anpassad typsnitt",
-                platcustomtext: "Anpassad 100%-text",
                 usecustomtext: "Anpassad text",
                 customtextunlockmsg: "Upplåsningsmeddelande",
                 customtexttitle: "Prestationstitel",
-                customtextdesc: "Prestationsbeskrivning"
+                customtextdesc: "Prestationsbeskrivning",
+                scrollrepeat: "Upprepad rullning"
             }
         },
         sound: {
@@ -452,7 +447,6 @@ export const translations = {
                 descfontsize: "Beskrivning",
                 textvspace: "Textavstånd",
                 opacity: "Opacitet",
-                bgonly: "Endast bakgrund",
                 glow: "Glow",
                 glowcolor: "Färg",
                 glowsize: "Storlek",
@@ -589,6 +583,14 @@ export const translations = {
                 copytheme: "Kopiera tema",
                 copythemesub: "Välj vilka aviseringstyper som det valda temat ska kopieras till"
             }
+        },
+        platnotifytype: {
+            title: "Anpassa",
+            content: {
+                platsubtype: "Undertyp",
+                game: "Spel",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -612,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Prestationsmeddelande har stött på ett problem och behöver stängas av.",
+            steam: "Steam-installationen hittades inte",
             details: "Här är feldetaljerna:",
             sub: "Klicka på knapparna nedan för att rapportera detta problem via din föredragna plattform.",
             report: "Rapportera",
@@ -628,8 +631,8 @@ export const translations = {
         discord: "Gå med på Discord!",
         github: "Rapportera ett problem",
         lang: "Välj det användargränssnittsspråk som används i appen",
-        steamlang: `Försök att ladda översättningar som finns i Steam-applikationsfilerna för att visa prestationer på det språk som användaren valt i Steam-klienten<br><br><span class="ttdesc">Detta alternativ försöker hitta översättningar i en JSON-fil som lagras i Steam-applikationsdata. Om en översättning för den aktuella prestationen inte kan hittas, visas istället information om prestationen som hämtas från Steamworks.</span>`,
-        maxsteamlangretries: `Antal försök (per 100 ms) för att hitta giltiga översättningar för den aktuella prestationen<br><br><span class="ttdesc">Steam lagrar för närvarande endast en liten mängd prestationsdata i JSON-filen som är kopplad till varje spel. Eventuella prestationer som inte finns i denna fil kommer att läggas till efter att prestationen har upplåsts.<br><br>Eftersom det kan ta tid att lägga till nya data, kommer en ökning av detta värde att öka chansen att hitta översättningsdata för den aktuella prestationen, men kan också fördröja visningen av meddelandet på skärmen med den tid som beräknas av denna inställning.<br><br>Om inga giltiga översättningsdata kan hittas för den aktuella prestationen, kommer översättningen att återgå till det språk som anges i Steamworks.</span>`,
+        steamlang: `Försök att läsa in översättningar från Steams programfiler för att visa prestationsinformation på det språk som användaren har valt i Steam-klienten<br><br><span class="ttdesc">Det här alternativet försöker hitta översättningar i en JSON-fil som lagras i Steams programdata. Om en översättning för den aktuella prestationen inte kan hittas visas i stället prestationsinformationen som hämtats från Steams interna binärfiler</span>`,
+        maxsteamlangretries: `Antalet gånger (med 100 ms mellanrum) som ett försök görs att hitta giltiga översättningar för den aktuella prestationen<br><br><span class="ttdesc">Steam lagrar för närvarande endast en liten mängd prestationsdata i varje spels tillhörande JSON-fil. Alla prestationer som inte finns i den här filen läggs till efter att prestationen har låsts upp.<br><br>Eftersom det kan ta tid att lägga till nya data ökar ett högre värde sannolikheten för att översättningsdata för den aktuella prestationen hittas, men det kan också fördröja aviseringens visning på skärmen med den tid som beräknas utifrån den här inställningen.<br><br>Om inga giltiga översättningsdata kan hittas för den aktuella prestationen används engelska som reservspråk.</span>`,
         desktop: "Växla en genväg på skrivbordet för att köra appen",
         startwin: "Starta Steam Achievement Notifier automatiskt efter inloggning",
         startmin: "Efter starten dölj appens användargränssnittsfönster tills det öppnas från systemfältet",
@@ -637,7 +640,6 @@ export const translations = {
         litemode: "Inaktivera alla interaktiva användargränssnittselement och erbjuda endast begränsad appfunktionalitet via systemfältets ikon. Kan förbättra resursförbrukningen av appen",
         rarity: `Procentandelen vid vilken sällsynta prestationer kommer att utlösa notifikationer.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visas som en Huvudnotifikation<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Silvernotifikation</span>`,
         semirarity: `Procentandelen vid vilken "Silver"-notifikationselement kommer att visas (t.ex. <span class="hl">Sällsynthetsmärken</span>, <span class="hl">Dekorationer</span> osv.).<br><br>Varje prestation med en upplåsningsprocent under (eller lika med) detta värde, och över värdet för <span class="hl">Sällsynthetsprocent</span>, kommer att visa notifikationselement konfigurerade för "Silver"-sällsyntheter.<br><br>Varje prestation med en upplåsningsprocent över detta värde kommer att visa notifikationselement konfigurerade för "Brons"-sällsyntheter<br><br><span class="ttdesc">Om <span class="hl">Trofyläge</span> är aktiverat kommer varje prestation med en upplåsningsprocent över detta värde istället att visas som en Bronsnotifikation</span>`,
-        showpercent: "Visa upplåsningsprocenten för prestationen i aviseringen för de valda typerna",
         soundonly: "Inaktivera aviseringar och spela endast ljud som är inställt via anpassaren",
         extwin: "Skapa ett fönster som duplicerar alla meddelanden som för närvarande visas på skärmen. Detta fönster kan sedan läggas till som en fönsterkälla för användning i streamingsprogramvara som OBS",
         extwinframerate: "Ställ in målbilder för strömnotifikationer",
@@ -663,11 +665,6 @@ export const translations = {
         tooltips: "Visa verktygstips när du håller musen över vissa användargränssnittselement",
         colorprofile: `Tvinga alla appfönster att renderas med den valda färgprofilen<br><br><span class="ttdesc">Kräver omstart av appen</span>`,
         pollrate: `Ställ in uppdateringsintervallet för prestationdata under spel<br><br><span class="ttdesc">Prestandan kan öka/minska beroende på värdet eller systemets maskinvara. Högre värden resulterar vanligtvis i lägre systembelastning, men kan orsaka fördröjningar i aviseringar</span>`,
-        initdelay: `Ställ in förseningen mellan upptäckten av aktuellt <span class="hl">AppID</span> och när process-/prestations-spårning börjar<br><br><span class="ttdesc">Att öka detta värde kan förhindra scenarier där Steam inte kan starta det aktuella spelet (på grund av att applikationen initialiserar Steamworks innan spelet har startats)</span><br><br><span class="ttdesc">Alternativt kan ökning av detta värde också användas för att kringgå felaktig upptäckt av för-spelsstart-processer</span>`,
-        releasedelay: `Ställ in hur länge bakgrundsprocessen Worker väntar innan den startar om efter att det aktuella spelet har frigjorts. Påverkar både automatisk processpårning och Automatiskt Frigjorda Spel<br><br><span class="ttdesc">Tillåter ett längre tidsfönster för att Steamworks ska kunna frigöras helt från appen. Att öka detta värde kan förhindra ovanligt beteende, till exempel att ett tidigare stängt spel fortfarande spåras</span>`,
-        maxretries: `Ställ in det maximala antalet försök att länka en körande process till ett upptäckt AppID. Påverkar både automatisk processpårning och Automatiskt Frigjorda Spel<br><br><span class="ttdesc">Försök görs en gång per sekund. Om en körande process inte länkas till det aktuella AppID:t efter detta antal försök, returneras en ogiltig process. I sådana fall måste spelet frigöras manuellt via Systemfält > Alternativ > Frigör Spel</span>`,
-        debug: "Öppna Debugpanelen, som visar detaljerad processpårningsinformation",
-        userust: "Använd en alternativ Rust-baserad funktion för att kontrollera om de spårade spelprocesserna för närvarande körs på systemet. När det inte är markerat kommer standardprocesskontrollen baserad på NodeJS att användas istället.",
         notifydebug: "Skapa ett DevTools-fönster för alla aviseringar. Användbart för felsökning av aviseringar",
         workerdebug: "Skapa ett DevTools-fönster för Worker-processen. Användbart för felsökning och problemlösning av problem med spelspårning",
         usecustomfiles: "Aktiverar aviseringar för att ladda användaranpassade filer. Försiktighet rekommenderas för vanliga användare",
@@ -678,12 +675,10 @@ export const translations = {
         replay: "Starta om animationen av förhandsgranskningen av aviseringen",
         preset: "Välj förinställningen för aviseringen att anpassa",
         iconanim: "Växla sällsynt ikonram och animation",
-        alldetails: "Visa alla textelement i aviseringen, inklusive de som är dolda som standard för denna förinställning",
         usepercent: "Visa låsningsprocenten för prestationen, istället för XP/S-värdet",
         displaytime: "Ange antalet sekunder som aviseringen kommer att visas",
         scale: "Öka eller minska storleken på aviseringen",
         customtext: `Ställ in ett anpassat meddelande som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
-        usegametitle: "Visa titeln på det aktuella spelet i aviseringen",
         customfont: "Ladda en anpassad typsnitt som ska användas i aviseringen",
         soundmode: "Välj antingen en enskild ljudfil eller en slumpmässigt vald ljudfil från en mapp som innehåller flera ljudfiler när en avisering inträffar",
         soundfile: "Välj en ljudfil som ska spelas när en avisering inträffar",
@@ -700,7 +695,6 @@ export const translations = {
         roundness: "Ställ in rundheten för aviseringens kanter",
         fontsize: "Ställ in storleken på teckensnittet som används i aviseringen",
         opacity: "Ställ in den totala opaciteten för aviseringen",
-        bgonly: "Ställ endast in opaciteten för aviseringens bakgrund och behåll andra element med full opacitet",
         glow: "Aktivera en glödeffekt som omger meddelandet",
         glowcolor: "Ställ in färgen på glödeffekten",
         glowsize: "Ställ in storleken på glödeffekten",
@@ -768,6 +762,7 @@ export const translations = {
         webhooksemi: `Växla om prestationinformation ska skickas till en Discord-server när en $semi prestation låses upp`,
         webhookrare: "Växla om prestationinformation ska skickas till en Discord-server när en $rare prestation låses upp",
         webhookplat: "Växla om prestationinformation ska skickas till en Discord-server när en $plat prestation låses upp",
+        webhookset: "Växla om information om prestationer ska publiceras på en Discord-server när ett prestationsset har slutförts",
         webhooktest: "Växla om testinformation ska skickas till en Discord-server när testnotifikationer av något slag utlöses",
         webhookurl: `Ställ in <span class="hl">Webhook-URL</span> för den önskade Discord-servern<br><br><span class="ttdesc">En <span class="hl">Webhook-URL</span> används för att posta på en Discord-server/kanal på uppdrag av en användare eller applikation. För att konfigurera en ny Webhook för en Discord-server måste användaren ha en roll på den önskade servern som tillåter skapande av Webhooks<br><br><u>En Webhook-URL är nödvändig när du använder det här alternativet</u><br><br>Se Dischords officiella dokumentation för mer information</span>`,
         webhookspoilers: `Lägg till en spoiler-tag till "Dolda" prestationer när de postas på Discord`,
@@ -777,8 +772,6 @@ export const translations = {
         desc: "Ställ in positionen för prestationsbeskrivningen inom $type",
         notification: "notifikation",
         screenshot: "skärmbild",
-        percentpos: "Ställ in positionen för sällsynthetsprocenten inom $type",
-        sspercentpos: "Ställ in positionen för sällsynthetsprocenten inom $type",
         hiddeniconpos: "Ställ in positionen för den dolda/hemliga prestationikonen inom $type",
         sshiddeniconpos: "Ställ in positionen för den dolda/hemliga prestationikonen inom $type",
         decorationpos: "Ställ in positionen för dekorationselementet inom $type",
@@ -814,7 +807,6 @@ export const translations = {
         themeswitch: `Automatiskt byta till vilket <span class="hl">Tema</span> som helst som sparats när ett specifikt spel upptäcks`,
         userthemesync: `Synkronisera anpassningar i det valda <span class="hl">Temat</span> till alla andra notifieringstyper`,
         showsystrayopts: `Visa alla alternativ som vanligtvis finns under <span class="hl">Systemfält</span> > <span class="hl">Alternativ</span> i <span class="hl">Inställningar</span> > <span class="hl">Övrigt</span>`,
-        releaseshortcut: "Frigör det nuvarande spårade spelet med den angivna tangentbordsgenvägen",
         themeselect: "Välj ett tidigare sparat tema",
         statwin: `Visa konfigurerbara prestationstatistik för det aktuella spelet i ett externt fönster<br><br><span class="ttdesc">När den används tillsammans med alternativet <span class="hl">Översätt prestationer till Steam-språk</span> kan vissa översättningar vara otillgängliga tills den specifika prestationen är upplåst</span>`,
         statwinaot: `Ställ in prestationsstatistikfönstret till "Alltid överst"-läge, så att fönstret visas ovanför spelfönstret<br><br><span class="ttdesc">När detta alternativ är aktiverat kommer prestationsstatistikfönstret inte längre registrera användarinteraktioner, som till exempel "klick"-händelser. För att återaktivera interaktion med fönstret måste detta alternativ inaktiveras</span>`,
@@ -842,6 +834,7 @@ export const translations = {
         webhookembedcolorsemi: "Ange färgen som används i webhook-embed när en $semi prestation låses upp",
         webhookembedcolorrare: "Ange färgen som används i webhook-embed när en $rare prestation låses upp",
         webhookembedcolorplat: "Ange färgen som används i webhook-embed när en $plat prestation låses upp",
+        webhookembedcolorset: "Ange färgen som används i webhook-inbäddningen när ett prestationsset har slutförts",
         raemus: "Visa meddelanden när spel detekteras i stödda emulatorer",
         rauser: "Ställ in användarnamnet för RetroAchievements för att spåra prestationer",
         rakey: `Ställ in Web API-nyckeln som ska användas för autentisering med RetroAchievements API<br><br><span class="ttdesc">En Web API-nyckel kan kopieras eller regenereras genom att logga in på RetroAchievements-webbplatsen och navigera till <span class="hl">Inställningar > Nycklar > Web API Key</span><br><br>🔒 Den angivna nyckeln kommer att krypteras innan den lagras lokalt på systemet (om det aktuella operativsystemet stöder kryptering)</span>`,
@@ -860,7 +853,7 @@ export const translations = {
         unlockmsgfontcolor: "Ange färgen för det första textelementet",
         titlefontcolor: "Ange färgen för det andra textelementet",
         descfontcolor: "Ange färgen för det tredje textelementet",
-        exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exportera prestationsdata till en JSON-fil när en prestation låses upp<br><br><span class="ttdesc">När aktiverat kommer <span class="ttcode">achdata.json</span> att exporteras till:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Justera det vertikala avståndet mellan textelementen i notifikationen",
         ssmode: `Ställ in om hela skärmen eller det aktuella spelfönstret<span style="color: red;">*</span> ska fångas i skärmbilder<br><br><span class="ttdesc">Om den aktuella spelets <span class="hl">körbara fil</span> inte kan hittas (<i>antingen via <span class="hl">automatisk processpårning</span> eller när det läggs till som en post i <span class="hl">Automatiskt Frigjorda Spel</span></i>), kommer detta alternativ som standard att använda läget "Skärm"</span>`,
         replaynotify: "Repetera den senaste prestationen",
@@ -879,10 +872,10 @@ export const translations = {
         audiocooldown: `Ställ in hur lång tid efterföljande aviseringar väntar innan nytt ljud kan spelas upp<br><br><span class="ttdesc">Ljudet påverkas inte om Maximalt antal aviseringar är satt till 1</span>`,
         rauseemudir: "Spara skärmbilder/aviseringsbilder upplåsta via RetroAchievements i en undermapp för den aktuella emulatorn inom den angivna katalogen för skärmbilder/bilder",
         ssext: "Ange filformat för skärmbilder som genereras via alternativet Screenshot with Notification Overlay",
-        notify1line: `Begränsa antalet textrader som visas i alla aviseringar till 1<br><br><span class="ttdesc">Textsträngar som inte får plats på en enda rad kommer att trunkeras med "..."</span>`,
         copytheme: "Kopiera det valda temat till en annan aviseringstyp",
         ssaddtosteam: "Lägg automatiskt till genererat media i det aktuella spelets inspelningar och skärmbilder i Steam",
         appdatadir: "Öppna platsen för appens AppData-mapp",
+        cleariconcache: "Ta bort alla tidigare cachade prestationsikoner",
         backup: "Säkerhetskopiera innehållet i appens AppData-mapp till en vald plats, vilket fungerar som en återställningspunkt för appens nuvarande tillstånd",
         restore: "Återställ innehållet i appens AppData-mapp från en tidigare säkerhetskopia",
         gametimerwin: "Visa en timer på skärmen som visar hur lång tid det tagit att låsa upp alla prestationer för det aktuella spelet",
@@ -891,13 +884,7 @@ export const translations = {
         resetgametimer: "Återställ Timern för spelavslut för det aktuella spelet",
         noshortcuts: `Inaktiverar alla tangentbordsgenvägar i appen<br><br><span class="ttdesc">När detta är aktiverat kommer <u>alla genvägar i appen inte längre att fungera</u>. Alla alternativ relaterade till tangentbordsgenvägar kommer också att döljas</span>`,
         extwinnotify: "Växla synlighet för alla skärmnotifikationer vid användning av Stream Notifications",
-        usesanwatcher: `Aktivera SAN:s nya övervakare för spelprocesser<br><br><span class="ttdesc">Skillnaderna mellan den nya SANWatcher och den gamla metoden för automatisk processövervakning är följande:<br><br><div class="wrapper sanwatcher"><span class="hl">PÅ</span><ul><li>Övervakar aktivt start- och avslutningshändelser för alla processer som finns i spelets installationskatalog</li><li>Kräver inte att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Beteendet hos startprogram före spelets start kan variera, så full kompatibilitet med alla Steam-spel kan inte garanteras</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">AV</span><ul><li>Söker igenom spelets installationskatalog efter körbara filer som är igång efter att spelet har startats</li><li>Kräver att spelets körbara fil är känd för att frigöra det aktuella spelet</li><li>Om spelprocessen inte kan fastställas automatiskt måste användaren manuellt lägga till en ny post i <span class="hl">Automatiskt Frigjorda Spel</span> för att spel ska frigöras automatiskt</li></ul></div>`,
-        releasewaittime: `Ange hur länge SANWatcher ska vänta på att nya spelprocesser startas innan det aktuella spelet släpps<br><br><span class="ttdesc">Om det aktuella spelet till exempel startar ett förstartsfönster/en konfigurationsruta innan själva spelet startas, avgör denna inställning hur många sekunder SANWatcher ska vänta på att det faktiska spelfönstret ska startas efter att förstartsfönstret/konfigurationsrutan har stängts<br><br>Om en ny aktiv spelprocess upptäcks inom denna väntetid kommer frigöringen att avbrytas och den nyaktiva processen kommer i stället att spåras<br><br>💡 Spelnamnet kommer att <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">blinka</span> i rutan <span class="hl">Spelvisning</span> medan det aktuella spelet väntar på att släppas</span>`,
-        platcustomtext: `Ställ in ett anpassat meddelande för 100% spelklarering som ska visas i aviseringen<br><br><span class="ttdesc">Detta alternativ döljs när Customiser > Förinställning > Aviseringselement > Beskrivning av prestation är inaktiverat</span>`,
         raui: "Visa namnen på upptäckta RetroAchievements-spel i spelvisningsgränssnittet/systemfältets användargränssnitt",
-        testnotifycustomtext: "Åsidosätt texten som visas i alla testaviseringar",
-        testnotifycustomtexttitle: "Åsidosätt texten som visas för titelfältet i alla testaviseringar",
-        testnotifycustomtextdesc: "Åsidosätt texten som visas för beskrivningsfältet i alla testaviseringar",
         radefault: `Växla alltid automatiskt till denna post när någon RetroAchievements-prestation låses upp<br><br><span class="ttdesc">Endast en Automatisk byte av teman-post kan anges som standard för alla RetroAchievements-prestationer. Denna standard kan också åsidosättas per spel genom att lägga till en ny Automatisk byte av teman-post för ett specifikt RetroAchievements <span class="hl">GameID</span></span>`,
         statwintype: "Ställ in layouttypen för Prestationstatistikfönster",
         statwinunlockonly: "Håll Prestationstatistikfönster dolt tills en prestation låses upp",
@@ -909,7 +896,12 @@ export const translations = {
         usecustomtext: "Ange anpassade meddelanden som ska visas i aviseringen",
         customtextunlockmsg: `Ange ett anpassat meddelande som ska visas i elementet Upplåsningsmeddelande<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Upplåsningsmeddelande är inaktiverat</span>`,
         customtexttitle: `Ange ett anpassat meddelande som ska visas i elementet Prestationstitel<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationstitel är inaktiverat</span>`,
-        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`
+        customtextdesc: `Ange ett anpassat meddelande som ska visas i elementet Prestationsbeskrivning<br><br><span class="ttdesc">Detta alternativ döljs när Anpassning > Förinställning > Aviseringselement > Prestationsbeskrivning är inaktiverat</span>`,
+        notifylinemode: "Ställ in det maximala antalet textrader som ska visas i aviseringar",
+        notifyoverflow: "Ställ in hur överflödande text ska hanteras i aviseringar",
+        scrollrepeat: `Ställ in hur många gånger överflödande text ska rulla medan aviseringen visas på skärmen<br><br><span class="ttdesc">Rullningshastigheten beror på visningstiden, men högre upprepningsvärden kanske inte passar alla förinställningar</span>`,
+        setplat: "Visa aviseringar när varje prestationsset slutförs i kompatibla spel",
+        platsubtype: `Välj vilken <span class="hl">100%</span>-aviseringstyp som ska anpassas<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Spel</span>: Aviseringen som visas när alla prestationer i spelet har låsts upp</li><li><span class="hl">Set</span>: Aviseringen som visas när alla prestationer i ett enskilt prestationsset har låsts upp</li></ul></span>`
     },
     update: {
         updateavailable: "Uppdatering tillgänglig",
@@ -919,64 +911,6 @@ export const translations = {
             `Fullständiga versionsanteckningar finns tillgängliga på <span id="discordreleasenotes"></span> och <span id="githubreleasenotes"></span>`
         ],
         update: "Uppdatera"
-    },
-    linkgame: {
-        content: {
-            exepath: "Sökväg till körbar fil",
-            linkedgame: "Länka spel",
-            autoreleasegame: "Automatisk frigöring av spel",
-            linkedgamessub: [
-                `Åsidosätt alla spelprocesser som körs och automatiskt spåras av <span class="hl">SANWatcher</span>, och kontrollera istället bara om den valda <span class="hl">spelens körbara fil</span> är aktiv`,
-                `Länka ett spels <span class="hl">AppID</span> till en målsatt <span class="hl">spelbar körbar fil</span>, eller <span class="hl">ta bort</span> en befintlig länk`
-            ],
-            autoreleasegamessub: [
-                `Om Steam fortfarande visar ett spel som <i>Körs</i> efter att spel-fönstret har stängts, försök lägga till en ny post i <span class="hl">$linkgame</span>`,
-                `Lägg till ett specifikt spels <span class="hl">AppID</span> tillsammans med dess förväntade <span class="hl">körbara fil</span>, eller <span class="hl">ta bort</span> en befintlig post`,
-            ],
-            managesub: [
-                `När ett spel har upptäckts kan nya poster också läggas till via <span class="hl">det aktiva fönstret</span> genom att <i>högerklicka</i> på <span class="hl">systemfältsikonen</span> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Hur hittar jag ett Steam-spels AppID?</u></span>`
-            ],
-            linknew: "Ny post",
-            linknewsub: [
-                `Länka ett nytt spels <span class="hl">AppID</span> till en målsatt <span class="hl">spelbar körbar fil</span>`,
-                `När de har lagts till kan poster <span class="hl">tas bort</span> via den tidigare <span class="hl">$linkgame</span>-menyn`
-            ],
-            linkedit: "Redigera post",
-            linkeditsub: [
-                `Redigera en befintlig länk mellan ett spels <span class="hl">AppID</span> och den målsatta <span class="hl">spelbara körbara filen</span>`,
-                `När de har lagts till kan poster <span class="hl">tas bort</span> via den tidigare <span class="hl">$linkgame</span>-menyn`
-            ],
-            link: "Lägg till",
-            findappid: "Hitta Steam AppID",
-            findappidsub: [
-                `Varje Steam-spel har ett unikt nummer som kallas <span class="hl">AppID</span>. Du kan hitta AppID för vilket Steam-spel som helst på något av följande sätt:`,
-                `I <span class="hl">Steam-klienten</span>, <i>högerklicka</i> på ett spel i ditt <span class="hl">bibliotek</span> och välj <i>Egenskaper</i> > <i>Uppdateringar</i> – AppID visas där`,
-                `Spelets <span class="hl">butikssidas URL</span> – det är numret efter <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Webbplatser som <span class="hl">SteamDB</span> – avsnittet <span class="hl">App Info</span> visar AppID för varje spel`
-            ],
-            noexe: "Spel-EXE hittades inte!",
-            noexesub: "Klicka här för mer information",
-            noexedialogsub: [
-                `Steam Achievement Notifier kunde inte automatiskt hitta spelets körbara fil. Platsen för spelets körbara fil krävs för att kunna "frige" spelet när det stängs`,
-                `För att manuellt frige spelet efter stängning, <i>högerklicka</i> på <span class="hl">systemfältsikonen</span> > <span class="hl">Alternativ</span> > <span class="hl">Frige spel</span>, eller använd <span class="hl">snabbtangenten för Frige spel</span>`,
-                `Alternativt, klicka på <span class="hl">Lägg till</span>-knappen nedan för att lägga till det fokuserade fönstrets körbara fil till <span class="hl">Inställningar</span> > <span class="hl">Spel</span> > <span class="hl">Spel med automatisk frigöring</span>`,
-            ],
-            linkedgamefocussub: `För att åsidosätta alla spelprocesser som automatiskt spåras av <span class="hl">SANWatcher</span>, lägg till en ny post i <span class="hl">Länkade spel</span>`,
-            autoreleasegamefocussub: `Om Steam fortfarande visar ett spel som <i>Körs</i> efter att spel-fönstret har stängts, försök lägga till en ny post i <span class="hl">Spel med automatisk frigöring</span>`,
-            focussub: `För att göra detta för det aktuella spelet, klicka på <span class="hl">Lägg till</span>-knappen nedan för att lägga till det fokuserade fönstrets körbara fil till <span class="hl">Inställningar</span> > <span class="hl">Spel</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Vad händer när jag klickar på Lägg till-knappen?</u></span>`,
-            linkgamehelp: "Länka via fokus",
-            linkgamehelpsub: [
-                `När du klickar på <span class="hl">Lägg till</span>-knappen läggs en ny post automatiskt till i <span class="hl">Inställningar</span> > <span class="hl">Spel</span> > <span class="hl">Spel med automatisk frigöring</span>, baserat på information från det fokuserade fönstret.`,
-                `Efter att du klickat på <span class="hl">Lägg till</span>-knappen startar en 5-sekunders nedräkning`,
-                `Innan nedräkningen är slut, fokusera spel-fönstret`,
-                `När nedräkningen är klar läggs en ny post för det aktuella <span class="hl">AppID</span> till i <span class="hl">Inställningar</span> > <span class="hl">Spel</span> > <span class="hl">Spel med automatisk frigöring</span>, med den körbara fil som är kopplad till det fokuserade fönstret`,
-                `Nya försök skriver över befintliga poster, eller så kan posten tas bort i <span class="hl">Inställningar</span> > <span class="hl">Spel</span> > <span class="hl">Spel med automatisk frigöring</span> genom att klicka på knappen <span id="linkhelpunlink"></span>`
-            ],
-            addlinkfailed: "Kunde inte lägga till fönster",
-            addlinkfailedsub: `Klicka på <span class="hl">Lägg till</span>-knappen för att försöka igen`
-        }
     },
     exclusions: {
         content: {
@@ -1022,8 +956,6 @@ export const translations = {
             sshiddeniconpos: "Dold ikon",
             decorationpos: "Dekoration",
             ssdecorationpos: "Dekoration",
-            percentpos: "Sällsynthetsprocent",
-            sspercentpos: "Sällsynthetsprocent",
             percentbadge: "Procentbadge",
             sspercentbadge: "Procentbadge",
             percentbadgepos: "Badgeposition",
@@ -1075,78 +1007,19 @@ export const translations = {
             themes: "Teman",
             src: "Skärmdumpskälla",
             themedeleted: "Tema borttaget",
+            findappid: "Hitta Steam AppID",
+            findappidsub: [
+                `Varje Steam-spel har ett unikt nummer som kallas <span class="hl">AppID</span>. Du kan hitta AppID för vilket Steam-spel som helst på något av följande sätt:`,
+                `I <span class="hl">Steam-klienten</span>, <i>högerklicka</i> på ett spel i ditt <span class="hl">bibliotek</span> och välj <i>Egenskaper</i> > <i>Uppdateringar</i> – AppID visas där`,
+                `Spelets <span class="hl">butikssidas URL</span> – det är numret efter <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Webbplatser som <span class="hl">SteamDB</span> – avsnittet <span class="hl">App Info</span> visar AppID för varje spel`
+            ],
             rafindgameid: "Hitta RA GameID",
             rafindgameidsub: [
                 `Varje RetroAchievements-spel har ett unikt nummer kopplat till sig som kallas <span class="hl">GameID</span>. Du kan hitta GameID för vilket RetroAchievements-spel som helst genom att kontrollera:`,
                 `URL:en till <span class="hl">spelens sida</span> på RetroAchievements-webbplatsen – det är numret efter <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Ange som standard för RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Felsökning",
-        content: {
-            copydata: "Kopiera",
-            noissues: "Inga problem hittades!",
-            noissuessub: "Det här spelet bör startas automatiskt.",
-            manualrelease: `Du kan starta valfritt spel manuellt via <span class="hl">Systemfältet</span> > <span class="hl">Alternativ</span> > <span class="hl">Starta spel</span>.`,
-            addedvia: "Tillagd via"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Inga aktiva processer",
-                issue: "Ingen aktiv spelprocess hittades",
-                detail: "Den körbara filen som är kopplad till det här spelet upptäcks inte som en körande process. Följande körbara filer kontrollerades:",
-                solution: [
-                    `Försök lägga till spelets körbara fil i $linkedgamesmenu.`,
-                    `Se till att posten under $linkedgamesmenu pekar på rätt körbar fil.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Okänd körbar fil",
-                issue: "Det gick inte att identifiera spelets körbara fil",
-                detail: "Sökvägen till spelets körbara fil kunde inte hittas automatiskt, vilket vanligtvis orsakas av spelstartare som startas före spelet när spelet startas via Steam.",
-                solution: [
-                    `Lägg till en ny post för det här spelet i $linkedgamesmenu, eller ta bort poster som pekar på en felaktig körbar fil. Kontrollera annars om spelet har stöd för ett startalternativ i Steam som kringgår spelstartare, till exempel <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Försök aktivera $sanwatcher.`
-                ]
-            },
-            missingexecutable: {
-                title: "Körbar fil saknas",
-                issue: "Spelets körbara fil hittades inte på disken",
-                detail: `Den körbara filen som är kopplad till det här spelet kunde inte hittas på disken. Följande körbara filer kontrollerades:`,
-                solution: ["Försök verifiera integriteten hos spelfilerna via Steam eller installera om spelet."]
-            },
-            notexecutable: {
-                title: "Inte körbar",
-                issue: `Spelet saknar körbehörighet`,
-                detail: "Filen som Steam använder för att starta spelet kan inte köras. Filen rapporterades som:",
-                solution: ["För att göra den här filen körbar, se instruktionerna för din specifika Linux-distribution."]
-            },
-            notwithininstalldir: {
-                title: "Inte i spelkatalogen",
-                issue: "Den körbara filen finns inte i installationskatalogen",
-                detail: "En post för det här spelet har upptäckts under $linkedgamesmenu, men den länkade körbara filen finns inte i spelets installationsmapp, vilket kan tyda på att det inte är rätt fil.",
-                solution: ["Redigera posten för det här spelet i $linkedgamesmenu och se till att den pekar på rätt körbara fil."]
-            },
-            wrongplatformpath: {
-                title: "Ogiltig spelsökväg",
-                issue: "Spelsökvägen är ogiltig för det aktuella operativsystemet",
-                detail: "Sökvägen till det här spelets körbara fil verkar tillhöra ett annat operativsystem – möjligen på grund av en konfiguration som kopierats från en annan dator eller en dual-boot-konfiguration.",
-                solution: [`Använd inte en konfiguration som kopierats från en annan dator/OS, eftersom den förmodligen inte kommer att fungera som förväntat. Alla befintliga <span class="hl">Teman</span> kan importeras/exporteras mellan plattformar via menyn <span class="hl">Anpassare</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Dubblettposter",
-                issue: "Dubbletter av $linkedgamesmenu-poster hittades",
-                detail: "Den här körbara spelfilen är också länkad till $appids under $linkedgamesmenu.",
-                solution: ["Ta bort en av dubblettposterna och se till att den återstående posten pekar på rätt körbara spelfil."]
-            },
-            releasing: {
-                title: "Spelet startas",
-                issue: "Spelet startas",
-                detail: "Det här spelet kommer snart att startas.",
-                solution: [`Vänta några sekunder till – punkten i ikonen för <span class="hl">Systemfältet</span> ändras från <span class="troubleshooterdialogicon" grey></span> (startar) till <span class="troubleshooterdialogicon" red></span> (inaktiv) när spelet har startats.`]
-            }
         }
     }
 }

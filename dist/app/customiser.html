@@ -25,6 +25,18 @@
         </div>
         <div id="customiseropts">
             <div class="wrapper cont">
+                <span class="wrapper title" id="platnotifytype"></span>
+                <div class="wrapper optcont">
+                    <div class="wrapper opt">
+                        <span class="lbl"></span>
+                        <select name="platsubtype" id="platsubtype" os>
+                            <option value="game"></option>
+                            <option value="set"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper cont">
                 <span class="wrapper title" id="preset"></span>
                 <div class="wrapper optcont">
                     <div class="wrapper opt" nosubdisable>
@@ -56,6 +68,10 @@
                         <span class="lbl"></span>
                         <input unit="seconds" type="range" min="5" max="25" step="1" value="10" id="displaytime" os>
                     </div>
+                    <div class="wrapper opt" value="1">
+                        <span class="lbl"></span>
+                        <input unit="times" type="range" min="1" max="3" step="1" value="1" id="scrollrepeat">
+                    </div>
                     <div class="wrapper opt" value="100">
                         <span class="lbl"></span>
                         <input unit="percent" type="range" min="50" max="350" step="10" value="100" id="scale">
@@ -68,26 +84,19 @@
                     <div class="wrapper opt" star>
                         <span class="lbl"></span>
                         <input type="text" id="customtextunlockmsg" os>
-                        <div class="wrapper opt sub">
-                            <span></span>
-                            <input type="checkbox" id="usegametitleunlockmsg" os>
-                        </div>
                     </div>
                     <div class="wrapper opt" star>
                         <span class="lbl"></span>
                         <input type="text" id="customtexttitle" os>
-                        <div class="wrapper opt sub">
-                            <span></span>
-                            <input type="checkbox" id="usegametitletitle" os>
-                        </div>
                     </div>
                     <div class="wrapper opt" star>
                         <span class="lbl"></span>
                         <input type="text" id="customtextdesc" os>
-                        <div class="wrapper opt sub">
+                    </div>
+                    <div class="wrapper opt">
+                        <button class="rect" id="customtextvars" os>
                             <span></span>
-                            <input type="checkbox" id="usegametitledesc" os>
-                        </div>
+                        </button>
                     </div>
                     <div class="wrapper opt" adv>
                         <span class="lbl"></span>
@@ -195,10 +204,6 @@
                     <div class="wrapper opt" value="100" nosubdisable>
                         <span class="lbl"></span>
                         <input unit="percent" type="range" min="10" max="100" step="5" value="100" id="opacity">
-                        <div class="wrapper opt sub" adv>
-                            <span></span>
-                            <input type="checkbox" id="bgonly">
-                        </div>
                     </div>
                     <div class="wrapper opt">
                         <span></span>

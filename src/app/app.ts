@@ -1,18 +1,31 @@
+// import { app, protocol } from "electron"
 import { app } from "electron"
 import path from "path"
 
 if (process.platform === "win32" && process.env.npm_lifecycle_event !== "dev") {
-    const appdir = path.join(process.env.localappdata!,"Programs",app.name)
+    const appdir = path.dirname(process.execPath)
     process.cwd() !== appdir && process.chdir(appdir)
 }
 
 import fs from "fs"
-import asar from "@electron/asar"
 import { __root, sanhelper } from "./sanhelper"
 import { sanconfig } from "./config"
 import { log } from "./log"
 import { error } from "./error"
 import { main } from "./main"
+import { update } from "./update"
+import { utils } from "./utils"
+
+// protocol.registerSchemesAsPrivileged([{
+//     scheme: "sanplugin",
+//     privileges: {
+//         standard: true,
+//         secure: true
+//     }
+// }])
+
+const legacydir = update.getlegacydir()
+const result = legacydir && update.migrateappdata(legacydir)
 
 sanconfig.get().store.colorprofile !== "none" && app.commandLine.appendSwitch("force-color-profile",sanconfig.get().store.colorprofile)
 
@@ -27,17 +40,12 @@ if (app.commandLine.hasSwitch("clean")) {
 }
 
 const lock = app.requestSingleInstanceLock()
-const checksingleinstance = (lock: boolean) => {
-    if (!lock) {
-        log.write("WARN",`Steam Achievement Notifier (V${sanhelper.version}) is already running!`)
-        return app.exit()
-    }
-}
-
-checksingleinstance(lock)
+utils.app.checksingleinstance(lock) && app.exit()
 
 const starttime = new Date().toLocaleTimeString()
 log.init("APP")
+
+result && log.write(result.level,result.msg)
 
 ;(async () => log.write("INFO",`OS: ${await sanhelper.getosinfo()}`))()
 
@@ -47,200 +55,8 @@ sanconfig.get().store.nohwa && app.disableHardwareAcceleration()
 const sanbak = path.join(path.dirname(sanhelper.appdata),"Temp","sanbak")
 fs.existsSync(sanbak) && sanhelper.restorefrombackup(sanbak,log)
 
-// Legacy keys required to be removed if existing in config
-;([
-    "webhooktypes",
-    "uselegacynotifytimer"
-] as const).forEach(key => {
-    const config = sanconfig.get()
-    if (!config.has(key)) return
-
-    try {
-        config.delete(key)
-        log.write("INFO",`Legacy "${key}" key removed from config successfully`)
-    } catch (err) {
-        log.write("ERROR",`Unable to remove legacy "${key}" key: ${err}`)
-    }
-})
-
-const setdefaultcustomisationvalue = (config: any,key: string,values: any[]) => {
-    const [oldvalue,newvalue] = values
-    if (!config.has(key)) return log.write("WARN",`Unable to set new value for "${key}" key: Key not present in config`)
-    
-    try {
-        if (config.get(key) === oldvalue) {
-            config.set(key,newvalue)
-            log.write("INFO",`Updated default "${key}" value from "${oldvalue}" to "${newvalue}" successfully`)
-        }
-    } catch (err) {
-        log.write("ERROR",`Unable to update default value for "${key}" key: ${err}`)
-    }
-}
-
-// Overwrites old default `customisation` key values to new default key values
-new Map<string,[any,any]>([
-    ["outline",["off","solid"]]
-]).forEach((values,key) => {
-    const config = sanconfig.get()
-    
-    for (const t in config.get("customisation")) {
-        const type = t as NotifyType
-        const { usertheme } = config.get(`customisation.${type}`) as Customisation
-
-        setdefaultcustomisationvalue(config,`customisation.${type}.${key}`,values)
-
-        for (const i in usertheme) {
-            setdefaultcustomisationvalue(config,`customisation.${type}.usertheme.${i}.customisation.${key}`,values)
-        }
-    }
-})
-
-const resetlegacykey = (key: string,limittype?: NotifyType) => {
-    const config = sanconfig.get()
-
-    for (const t in config.get("customisation")) {
-        const type = t as NotifyType
-        const { usertheme } = config.get(`customisation.${type}`) as Customisation
-
-        (!limittype || limittype === type) && config.set(`customisation.${type}.${key}`,false)
-
-        for (const i in usertheme) {
-            (!limittype || limittype === type) && config.set(`customisation.${type}.usertheme.${i}.customisation.${key}`,false)
-        }
-    }
-}
-
-// Reset legacy "alldetails"/"showdecoration" keys for each type, and reset "previewhiddenicon" key for 100%
-new Map<string,NotifyType | undefined>([
-    ["alldetails",undefined],
-    ["showdecoration",undefined],
-    ["previewhiddenicon","plat"]
-])
-.forEach((value,key) => resetlegacykey(key,value))
-
-const getcustomfilesversion = (packagepath: string): string => {
-    try {
-        if (!fs.existsSync(packagepath)) throw new Error(`"package.json" does not exist in "${path.join(sanhelper.appdata,"customfiles")}"`)
-        return (JSON.parse(fs.readFileSync(packagepath).toString())).version
-    } catch (err) {
-        log.write("ERROR",`Error parsing package version number in "${packagepath}": ${err as Error}`)
-        return "0.0.0"
-    }
-}
-
-const checkdir = (dirpath: string,callback: () => void,msg: string) => {
-    if (fs.existsSync(dirpath)) {
-        if (path.basename(dirpath) !== "customfiles") return log.write("INFO",`"${dirpath}" already exists: No changes were made`)
-
-        const customfilesversion = getcustomfilesversion(path.join(dirpath,"package.json"))
-        const backuppath = dirpath + `_V${customfilesversion}`
-        
-        const { semver } = sanhelper
-        if (!semver) throw new Error("Unable to parse semver")
-        
-        if (parseInt(customfilesversion.split(".")[2]) < parseInt(semver.split(".")[2])) {
-            log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) is outdated compared to current App Version (${sanhelper.semver}): Attempting backup...`)
-
-            try {
-                fs.renameSync(dirpath,backuppath)
-                log.write("INFO",`"${backuppath}" backup directory created successfully`)
-            } catch (err) {
-                return log.write("ERROR",`Error creating backup for ${customfilesversion} "customfiles" directory: ${err as Error}`)
-            }
-        } else {
-            return log.write("INFO",`"${dirpath}" Package Version (${customfilesversion}) matches current App Version (${sanhelper.semver}): No changes were made`)
-        }
-    }
-
-    try {
-        callback()
-        log.write("INFO",msg)
-    } catch (err) {
-        log.write("ERROR",err as Error)
-    }
-}
-
-const ignore = [
-    "TODO",
-    ".git",
-    ".github",
-    ".vscode",
-    "_backup",
-    "_release",
-    "deps",
-    "node_modules",
-    "src",
-    ".gitattributes",
-    ".gitignore",
-    "beta.json",
-    "DEV.md",
-    "KNOWNISSUES.md",
-    "NOTIFY.md.old",
-    "gh_token.txt",
-    "package-lock.json",
-    "RA.md",
-    "README.md",
-    "san.d.ts",
-    "tsconfig.json",
-    "_template",
-    "_template.html",
-    "afterpack.js"
-]
-
-const copyrecursive = (src: string,dest: string,ignore: Set<string>) => {
-    if (!fs.existsSync(src) || ignore.has(path.basename(src))) return
-
-    if (fs.statSync(src).isDirectory()) {
-        !fs.existsSync(dest) && fs.mkdirSync(dest,{ recursive: true })
-
-        for (const file of fs.readdirSync(src)) {
-            copyrecursive(path.join(src,file),path.join(dest,file),ignore)
-        }
-    } else {
-        fs.copyFileSync(src,dest)
-    }
-}
-
-const createdir = (dirpath: string,src?: string,destdir?: string) => {
-    checkdir(dirpath,() => fs.mkdirSync(dirpath),`"${dirpath}" created successfully`)
-
-    if (!src || !destdir) return log.write("INFO",`No ${!src ? "src" : "destdir"} value specified - copy operation aborted`)
-
-    const dest = path.join(dirpath,destdir)
-    const ignorelist = new Set(ignore)
-    
-    if (destdir === "customfiles") {
-        ignorelist.add("temp")
-    } else if (destdir === "img") {
-        for (const entry of [
-            "dist",
-            "fonts",
-            "icon",
-            "notify",
-            "sound",
-            "temp",
-            "package.json"
-        ]) {
-            ignorelist.add(entry)
-        }
-    }
-
-    checkdir(dest,() => {
-        if (path.extname(src) === ".asar") {
-            const tempasar = path.join(sanhelper.appdata,"tempasar")
-            asar.extractAll(src,tempasar)
-
-            copyrecursive(tempasar,dest,ignorelist)
-
-            fs.rmSync(tempasar,{ recursive: true, force: true })
-            log.write("INFO",`"${src}" extracted and copied to "${dest}" successfully`)
-        } else {
-            copyrecursive(src,dest,ignorelist)
-        }
-    },`"${src}" copied to "${dest}" successfully`)
-
-    process.platform === "linux" && fs.chmod(dest,0o777,err => log.write(err ? "ERROR" : "INFO",err ? `Error setting folder permissions for "${dest}": ${err}` : `Folder permissions for "${dest}" set successfully`))
-}
+const config = sanconfig.get()
+utils.config.cleanup(config)
 
 app
 .whenReady()
@@ -248,10 +64,10 @@ app
     if (process.platform === "linux") {
         const tempdir = path.join(sanhelper.appdata,"resources","temp")
         !fs.existsSync(tempdir) && fs.mkdirSync(tempdir,{ recursive: true })
-        createdir(path.join(sanhelper.appdata,"resources"),path.join(__root,"img"),"img")
+        utils.app.createdir(path.join(sanhelper.appdata,"resources"),path.join(__root,"img"),"img")
     }
 
-    createdir(sanhelper.appdata,__root,"customfiles")
+    utils.app.createdir(sanhelper.appdata,__root,"customfiles")
     main(starttime)
 })
-.catch(async err => await error.createwin(err))
+.catch(async err => await error.showdialog(err as Error))

@@ -105,6 +105,7 @@ body:not([plat]) .opt:has(input#platcustomtext),
 .opt:has(> #decorationshadow),
 #customiseropts:has(.opt#elemselector):has(select#decorationpos > option[value="off"]:checked) .opt:has(> #decorationshadow,> [id^="decoration"]:not(#decorationpos),> #replacelogo),
 .optcont:has(input#usecustomtext:not(:checked)) > .opt:has([id^="customtext"]),
+.optcont:has(input#usecustomtext:not(:checked)) > button#customtextvars,
 .optcont:has(.sub > input[type="checkbox"][id^="usegametitle"]:checked) > .opt > .sub:has(input[type="checkbox"][id^="usegametitle"]:not(:checked)),
 #elemselector:has(select#unlockmsg > option[value="off"]:checked) ~ .opt:has(input[type="text"]#customtextunlockmsg),
 #elemselector:has(select#title > option[value="off"]:checked) ~ .opt:has(input[type="text"]#customtexttitle),
@@ -157,7 +158,8 @@ body:not([plat]) .opt:has(input#platcustomtext),
 #customiseropts:has(.opt > select#preset > option[value="windows"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale),
 #customiseropts:has(.opt > select#preset > option[value="gfwl"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale),
 #customiseropts:has(.opt > select#preset > option[value="os"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#logoscale),
-#customiseropts:has(.opt > select#preset > option[value="os"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale) {
+#customiseropts:has(.opt > select#preset > option[value="os"]:checked) > .cont:has(.title#icons) > .optcont > .opt:has(input#decorationscale),
+body:not([plat][setplat]) .cont:has(.title#platnotifytype) {
     display: none;
 }
 
@@ -316,7 +318,7 @@ span#nopreview {
     gap: 0.5rem;
     padding-bottom: 1rem;
     font-size: 0.75rem;
-    background-color: #1b1b1b;
+    background-color: var(--bggrey);
     z-index: 1;
 }
 
@@ -389,6 +391,7 @@ body[plat] .wrapper#customisertabs > .wrapper#customisertablbl::before {
     width: 100%;
     padding: 0.15rem 0.25rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     border-radius: var(--elembr);
     transition: background-color var(--transition);
 }
@@ -453,6 +456,10 @@ body[plat] .wrapper#customisertabs > #customisernextbtn,
     --icon: url("../../icon/stars.svg");
 }
 
+.cont:has(.title#platnotifytype) > .title::before {
+    --icon: url("../../icon/customise.svg");
+}
+
 .opt:has(> select#bgstyle) > .opt,
 .opt:has(> select#outline) > select#outline,
 .opt:has(> select#outline) > .opt {
@@ -461,6 +468,11 @@ body[plat] .wrapper#customisertabs > #customisernextbtn,
 
 body[customiser] .opt:has(> .lbl):not(:first-child) {
     margin-top: 0.5rem;
+}
+
+#customisercontent .opt:has(#usecustomtext),
+#customisercontent .opt:has(input[type="text"][id^="customtext"]) {
+    margin-top: 0.25rem;
 }
 
 .img#logo,
@@ -488,8 +500,7 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
     gap: 0.5rem;
 }
 
-.opt:has(#preview),
-.opt:has(#updatetheme,#savetheme,#copytheme,#importtheme,#exporttheme) {
+.opt:has(#preview,#updatetheme,#savetheme,#copytheme,#importtheme,#exporttheme,#customtextvars) {
     grid-template-columns: 1fr;
     gap: 0;
 }
@@ -497,7 +508,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 #preview,
 .cont:has(.wrapper#theme) button.rect,
 #posbtns > button,
-.wrapper#elemselector button.rect {
+.wrapper#elemselector button.rect,
+button#customtextvars {
     grid-template-columns: auto auto;
     justify-items: start;
     align-items: center;
@@ -512,7 +524,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 #preview::before,
 .cont:has(.title#theme) button.rect::before,
 #posbtns > button::before,
-.wrapper#elemselector button.rect::before {
+.wrapper#elemselector button.rect::before,
+button#customtextvars::before {
     content: "";
     display: block;
     justify-self: end;
@@ -525,7 +538,8 @@ body[customiser] .opt:has(> .lbl):not(:first-child) {
 #preview > span,
 .cont:has(.title#theme) button.rect > span,
 #posbtns > button > span,
-.wrapper#elemselector button.rect > span {
+.wrapper#elemselector button.rect > span,
+button#customtextvars > span {
     max-width: none;
     padding: 0.25rem;
 }
@@ -671,7 +685,7 @@ dialog .contentwrapper:has(.addhtml > .rect[id^="copytheme"][selected]) > .btnwr
 }
 
 .addhtml:has(.rect[id^="copytheme"]) > .rect[selected] {
-    background-color: white;
+    background: white;
     color: black;
 }
 
@@ -699,6 +713,11 @@ body[trophymode] .rect#copythemerare {
     --icon: url("../../icon/trophy_plat.svg")
 }
 
+.rect#copythemeset {
+    --icon: url("../../icon/trophy_set.svg");
+}
+
+body:not([plat][setplat]) .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="set"],
 body[main] .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="main"],
 body[semi] .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="semi"],
 body:not([trophymode]) .addhtml:has(.rect[id^="copytheme"]) > .rect[id$="semi"],
@@ -792,6 +811,25 @@ div.lockedlbl {
 div.lockedlbl::before {
     content: "* ";
     color: red;
+}
+
+.opt:has(#customtextvars) {
+    margin-block: 0.25rem;
+}
+
+button#customtextvars {
+    --icon: url("../../icon/vars.svg");
+    font-size: 0.65rem;
+    background-color: var(--primary);
+}
+
+/* Fixes type tab transition timings for Customiser elements transitioning on `@property --primary` */
+#customisercontent .lbl,
+#customisercontent input[type="checkbox"]:checked,
+#customisercontent .wrapper#elemselector > .wrapper > .wrapper > select,
+#customisercontent input[type="range"]::-webkit-slider-thumb,
+#customisercontent button.rect {
+    transition: background-color 0s;
 }
 
 @media (orientation: portrait) or (width < 400px) {

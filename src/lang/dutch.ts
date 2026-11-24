@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% Voltooid",
         achievementdesc: "Klikte op de knop Testmelding weergeven",
         gamecompletedesc: "Je hebt alle prestaties ontgrendeld!",
+        setname: "Setnaam",
+        setcomplete: "Je hebt de volledige prestatieset voltooid!",
         defaultcustomfont: "Standaard (Geen lettertype geselecteerd)",
         defaultsoundfile: "Standaard (Geen bestand geselecteerd)",
         defaultsounddir: "Standaard (Geen map geselecteerd)",
@@ -44,11 +46,6 @@ export const translations = {
         show: "Weergeven",
         exit: "Afsluiten",
         donotshowagain: "Toon dit dialoogvenster niet opnieuw",
-        releasegame: "Spel vrijgeven",
-        releasegamesub: [
-            `Herstart het achtergrondproces van de Worker en geef het huidige spel vrij om te worden gevolgd`,
-            `Probeer deze optie als je onlangs een spel hebt gesloten, maar Steam toont het nog steeds als actief, of als Steam Achievement Notifier nog steeds een spel volgt dat al is gesloten`
-        ],
         noupdateavailable: "Geen update beschikbaar",
         latestversion: "Laatste versie geïnstalleerd",
         missingdeps: "Ontbrekende afhankelijkheid",
@@ -62,6 +59,7 @@ export const translations = {
         new: "Nieuw...",
         nodata: "Geen gegevens",
         webhookunlockmsg: "$user heeft een prestatie ontgrendeld",
+        webhookunlockmsgset: "$user heeft een achievementset voltooid",
         webhookunlockmsgplat: "$user ontgrendelde alle prestaties",
         webhookingame: "in $gamename",
         notconnected: "Niet verbonden",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "Releases",
         checkapplog: "Controleer het App-logboek voor details.",
-        workercrash: "Worker is gecrasht!",
-        workercrashsub: "Klik hier om Worker opnieuw te starten en de game opnieuw te laten volgen"
+        customtextvars: "Variabelen",
+        customtextvarssub: `<span class="hl">Variabelen</span> kunnen worden gebruikt in <span class="hl">Aangepaste tekst</span> om game-/prestatiegegevens weer te geven in meldingen:`,
+        customtextvarsdesc: {
+            game: "Gametitel",
+            title: "Prestatietitel",
+            desc: "Prestatiebeschrijving",
+            percent: "Ontgrendelingspercentage van de prestatie",
+            total: "Ontgrendelde/totale prestaties"
+        },
+        customtextvarsset: "Naam van de achievementset",
+        customtextvarsplat: `"$gamecomplete"-bericht`
     },
     app: {
         content: {
@@ -196,10 +203,6 @@ export const translations = {
             content: {
                 rarity: "Zeldzaamheidspercentage",
                 semirarity: "Zilverpercentage",
-                rareonly: "Alleen zeldzaam",
-                all: "Alle",
-                off: "Uit",
-                showpercent: "Percentage tonen",
                 soundonly: "Alleen geluid",
                 nowtracking: "Toon volgwaarschuwing",
                 nowtrackingscale: "Volgschaal",
@@ -222,17 +225,18 @@ export const translations = {
                 trophymode: "Trofee-modus",
                 notifymax: "Maximaal aantal meldingen", 
                 notifyspace: "Meldingsafstand",
-                notify1line: "Beperk tekst tot 1 regel",
-                testnotifycustomtext: "Aangepaste tekst voor testmelding",
-                testnotifycustomtexttitle: "Titel",
-                testnotifycustomtextdesc: "Beschrijving"
+                notifylinemode: "Regelmodus",
+                single: "Enkel",
+                max: "Maximum",
+                notifyoverflow: "Overloopmodus",
+                ellipsis: "Beletselteken",
+                scroll: "Scrollen",
+                setplat: "100%-voltooiingsmeldingen"
             }
         },
         games: {
             title: "Spellen",
             content: {
-                linkedgames: "Gekoppelde Games",
-                autoreleasegames: "Games met Automatisch Vrijgeven",
                 themeswitch: "Automatisch Thema's Wisselen",
                 exclusionlist: "Uitsluitingslijst",
                 inclusionlist: "Inclusielijst",
@@ -320,7 +324,6 @@ export const translations = {
                 nvda: "NVDA-ondersteuning inschakelen",
                 tooltips: "Tooltips weergeven",
                 showsystrayopts: "Systeemvakopties Weergeven",
-                releaseshortcut: "Sneltoets voor Spel Vrijgeven",
                 noshortcuts: "Sneltoetsen uitschakelen"
             }
         },
@@ -328,11 +331,6 @@ export const translations = {
             title: "Geavanceerd",
             content: {
                 pollrate: "Pollfrequentie",
-                initdelay: "Vertragingsbewaking",
-                releasedelay: "Uitgavevertraging",
-                maxretries: "Maximale Aantal Herpogingen",
-                debug: "Debugpaneel",
-                userust: "Alternatieve Verwerkingsmodus",
                 notifydebug: "Melding Debugger weergeven",
                 workerdebug: "Worker DevTools weergeven",
                 exportachdata: "Prestatiegegevens exporteren",
@@ -340,6 +338,7 @@ export const translations = {
                 audiocooldown: "Audio-wachttijd",
                 usecustomfiles: "Aangepaste App-bestanden Gebruiken",
                 showcustomfiles: "Aangepaste App-bestanden Weergeven",
+                cleariconcache: "Pictogramcache wissen",
                 appdatadir: "Toon AppData-map",
                 backup: "Back-up",
                 backuppath: "Back-up pad",
@@ -356,8 +355,6 @@ export const translations = {
                     "❗ Na bevestiging wordt de app opnieuw gestart om het geselecteerde back-upbestand te herstellen"
                 ],
                 restorefailed: "Kan back-up niet herstellen.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "Wachttijd voor vrijgave",
                 logresourceusage: "Resourcegebruik loggen"
             }
         },
@@ -405,18 +402,16 @@ export const translations = {
             content: {
                 preset: "Notificatie Voorinstelling",
                 iconanim: "Zeldzame Icoonanimatie",
-                alldetails: "Toon Alle Details",
                 usepercent: "Gebruik Percentage",
                 displaytime: "Weergavetijd",
                 scale: "Schaal",
                 customtext: "Aangepaste Tekst",
-                usegametitle: "Gebruik Speltitel",
                 customfont: "Aangepast Lettertype",
-                platcustomtext: "Aangepaste 100%-tekst",
                 usecustomtext: "Aangepaste tekst",
                 customtextunlockmsg: "Ontgrendelingsbericht",
                 customtexttitle: "Prestatietitel",
-                customtextdesc: "Prestatiebeschrijving"
+                customtextdesc: "Prestatiebeschrijving",
+                scrollrepeat: "Scrollherhaling"
             }
         },
         sound: {
@@ -452,7 +447,6 @@ export const translations = {
                 descfontsize: "Beschrijving",
                 textvspace: "Tekstafstand",
                 opacity: "Doorzichtigheid",
-                bgonly: "Alleen Achtergrond",
                 glow: "Gloed",
                 glowcolor: "Kleur",
                 glowsize: "Grootte",
@@ -589,6 +583,14 @@ export const translations = {
                 copytheme: "Thema kopiëren",
                 copythemesub: "Selecteer het/de meldingstype(n) om het geselecteerde thema naartoe te kopiëren"
             }
+        },
+        platnotifytype: {
+            title: "Aanpassen",
+            content: {
+                platsubtype: "Subtype",
+                game: "Game",
+                set: "Set"
+            }
         }
     },
     logwin: {
@@ -612,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier is tegen een probleem aangelopen en moet worden gesloten.",
+            steam: "Steam-installatie niet gevonden",
             details: "Hier zijn de foutdetails:",
             sub: "Klik op de knoppen hieronder om dit probleem te rapporteren via uw voorkeursplatform.",
             report: "Rapport",
@@ -628,8 +631,8 @@ export const translations = {
         discord: "Doe mee op Discord!",
         github: "Meld een probleem",
         lang: "Selecteer de UI-taal die in de app wordt gebruikt",
-        steamlang: `Probeer vertalingen te laden die zich in de applicatiebestanden van Steam bevinden om prestatie-informatie weer te geven in de door de gebruiker gekozen taal van de Steam-client<br><br><span class="ttdesc">Deze optie probeert vertalingen te vinden in een JSON-bestand dat is opgeslagen in de applicatiegegevens van Steam. Als er geen vertaling voor de huidige prestatie kan worden gevonden, wordt in plaats daarvan prestatie-informatie weergegeven die is opgehaald uit Steamworks.</span>`,
-        maxsteamlangretries: `Het aantal pogingen (per 100ms) om geldige vertalingen voor de huidige prestatie te vinden<br><br><span class="ttdesc">Steam slaat momenteel slechts een kleine hoeveelheid prestatiegegevens op in het bijbehorende JSON-bestand van elke game. Eventuele prestaties die niet in dit bestand aanwezig zijn, worden toegevoegd nadat de prestatie is ontgrendeld.<br><br>Aangezien het toevoegen van nieuwe gegevens tijd kan kosten, zal het verhogen van deze waarde de kans vergroten dat vertaalgegevens voor de huidige prestatie worden gevonden, maar het kan ook de melding op het scherm vertragen met de tijd die door deze instelling wordt berekend.<br><br>Als er geen geldige vertaalgegevens voor de huidige prestatie kunnen worden gevonden, wordt de vertaling teruggezet naar de taal die is gespecificeerd in Steamworks.</span>`,
+        steamlang: `Probeer vertalingen te laden die zich in de toepassingsbestanden van Steam bevinden om prestatie-informatie weer te geven in de door de gebruiker gekozen Steam-clienttaal<br><br><span class="ttdesc">Deze optie probeert vertalingen te vinden in een JSON-bestand dat is opgeslagen in de toepassingsgegevens van Steam. Als er geen vertaling voor de huidige prestatie kan worden gevonden, wordt in plaats daarvan de prestatie-informatie weergegeven die is opgehaald uit de interne binaire bestanden van Steam</span>`,
+        maxsteamlangretries: `Het aantal keren dat wordt geprobeerd (elke 100ms) om geldige vertalingen voor de huidige prestatie te vinden<br><br><span class="ttdesc">Steam slaat momenteel slechts een kleine hoeveelheid prestatiegegevens op in het JSON-bestand dat bij elke game hoort. Alle prestaties die niet in dit bestand aanwezig zijn, worden toegevoegd nadat ze zijn ontgrendeld.<br><br>Omdat het toevoegen van nieuwe gegevens tijd kan kosten, vergroot het verhogen van deze waarde de kans dat vertaalgegevens voor de huidige prestatie worden gevonden. Het kan er echter ook voor zorgen dat de melding pas later op het scherm verschijnt, afhankelijk van de tijd die door deze instelling wordt berekend.<br><br>Als er geen geldige vertaalgegevens voor de huidige prestatie kunnen worden gevonden, worden de Engelse vertalingen gebruikt.</span>`,
         desktop: "Schakel een snelkoppeling op het bureaublad in om de app uit te voeren",
         startwin: "Start Steam Achievement Notifier automatisch na het inloggen",
         startmin: "Verberg het app-UI-venster na het starten totdat het wordt geopend vanuit het systeemvak",
@@ -637,7 +640,6 @@ export const translations = {
         litemode: "Schakel alle interactieve UI-elementen uit en bied alleen beperkte app-functionaliteit via het systeemvakpictogram. Kan de bronnen die door de app worden verbruikt verbeteren",
         rarity: `Het percentage waarbij meldingen voor Zeldzame prestaties worden getoond.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde wordt weergegeven als een Hoofd-melding<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Zilver-melding</span>`,
         semirarity: `Het percentage waarbij "Zilver"-meldingsonderdelen worden weergegeven (bijv. <span class="hl">Zeldzaamheidsbadges</span>, <span class="hl">Decoraties</span>, enz.).<br><br>Elke prestatie met een ontgrendelingspercentage lager dan (of gelijk aan) deze waarde en hoger dan de waarde van <span class="hl">Zeldzaamheidspercentage</span>, zal meldingsonderdelen tonen die zijn geconfigureerd voor "Zilver"-zeldzaamheden.<br><br>Elke prestatie met een ontgrendelingspercentage boven deze waarde toont meldingsonderdelen geconfigureerd voor "Brons"-zeldzaamheden<br><br><span class="ttdesc">Als <span class="hl">Trofee-modus</span> is ingeschakeld, wordt elke prestatie met een ontgrendelingspercentage boven deze waarde in plaats daarvan weergegeven als een Brons-melding</span>`,
-        showpercent: "Toon het ontgrendelingspercentage van de prestatie in de melding voor de geselecteerde type(n)",
         soundonly: "Schakel meldingen uit en speel alleen geluiden af die zijn ingesteld via de Customiser",
         extwin: "Maak een venster dat alle meldingen dupliceert die momenteel op het scherm worden weergegeven. Dit venster kan vervolgens worden toegevoegd als een Window Capture-bron voor gebruik in streamingsoftware, zoals OBS",
         extwinframerate: "Stel de doelbeeldsnelheid in voor streammeldingen",
@@ -663,11 +665,6 @@ export const translations = {
         tooltips: "Toon tooltips bij het zweven over bepaalde UI-elementen",
         colorprofile: `Dwing alle app-vensters om weer te geven met het geselecteerde kleurprofiel<br><br><span class="ttdesc">Vereist een herstart van de app</span>`,
         pollrate: `Stel het update-interval in voor prestatiegegevens tijdens het spelen<br><br><span class="ttdesc">De prestaties kunnen toenemen/afnemen, afhankelijk van de waarde of de hardware van het systeem. Hogere waarden resulteren doorgaans in lagere systeembelasting, maar kunnen notificaties vertragen</span>`,
-        initdelay: `Stel de vertraging in tussen de detectie van de huidige <span class="hl">AppID</span> en wanneer het volgen van processen/prestaties begint<br><br><span class="ttdesc">Het verhogen van deze waarde kan scenario's voorkomen waarin Steam niet in staat is om het huidige spel te starten (doordat de app Steamworks initialiseert voordat het spel is gestart)</span><br><br><span class="ttdesc">Als alternatief kan het verhogen van deze waarde ook worden gebruikt om onjuiste detectie van pre-game launcher-processen te omzeilen</span>`,
-        releasedelay: `Stel in hoe lang het achtergrondproces Worker wacht voordat het opnieuw start nadat het huidige spel is vrijgegeven. Heeft invloed op zowel automatische procestracking als Automatisch vrijgeven van spellen<br><br><span class="ttdesc">Biedt een langer tijdsbestek zodat Steamworks volledig uit de app kan worden vrijgegeven. Het verhogen van deze waarde kan ongewoon gedrag voorkomen, zoals het volgen van een eerder gesloten spel</span>`,
-        maxretries: `Stel het maximale aantal pogingen in om een actief proces te koppelen aan een gedetecteerde AppID. Heeft invloed op zowel automatische procestracking als Automatisch vrijgeven van spellen<br><br><span class="ttdesc">Pogingen worden eenmaal per seconde uitgevoerd. Als een actief proces na dit aantal pogingen niet is gekoppeld aan de huidige AppID, wordt een ongeldig proces geretourneerd. In dergelijke gevallen moet het spel handmatig worden vrijgegeven via System Tray > Opties > Spel vrijgeven</span>`,
-        debug: "Open het Debugpaneel, dat gedetailleerde procesvolginformatie weergeeft",
-        userust: "Gebruik een alternatieve Rust-gebaseerde functie om te controleren of de getrackte gameprocessen momenteel actief zijn op het systeem. Wanneer niet aangevinkt, zal de standaard NodeJS-gebaseerde procescontrole in plaats daarvan worden gebruikt.",
         notifydebug: "Maak een DevTools-venster voor alle meldingen. Handig voor het oplossen van problemen met meldingen",
         workerdebug: "Maak een DevTools-venster voor het Worker-proces. Handig voor het debuggen/oplossen van problemen met het volgen van games",
         usecustomfiles: "Hiermee kunnen meldingen gebruikersaanpasbare bestanden laden. Voorzichtigheid is geboden voor reguliere gebruikers",
@@ -678,12 +675,10 @@ export const translations = {
         replay: "Start de animatie van de meldingsvoorbeeld opnieuw",
         preset: "Selecteer het meldingsvoorinstelling om aan te passen",
         iconanim: "Schakel de rand en animatie van het zeldzame pictogram in",
-        alldetails: "Toon alle tekstelementen in de melding, inclusief die standaard verborgen zijn voor deze voorinstelling",
         usepercent: "Toon het ontgrendelingspercentage van de prestatie, in plaats van de XP/S-waarde",
         displaytime: "Stel het aantal seconden in dat de melding wordt weergegeven",
         scale: "Vergroot of verklein de grootte van de melding",
         customtext: `Stel een aangepast bericht in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Ontgrendelingsbericht is uitgeschakeld</span>`,
-        usegametitle: "Toon de titel van het huidige spel in de melding",
         customfont: "Laad een aangepast lettertype dat binnen de melding wordt gebruikt",
         soundmode: "Selecteer een enkel audiobestand of een willekeurig geselecteerd audiobestand uit een map met meerdere audiobestanden wanneer een melding optreedt",
         soundfile: "Selecteer een audiobestand dat wordt afgespeeld wanneer een melding optreedt",
@@ -700,7 +695,6 @@ export const translations = {
         roundness: "Stel de rondheid van de meldingsranden in",
         fontsize: "Stel de grootte van het lettertype in dat in de melding wordt gebruikt",
         opacity: "Stel de algehele dekking van de melding in",
-        bgonly: "Stel alleen de dekking in voor de meldingsachtergrond en behoud andere elementen op volledige dekking",
         glow: "Activeer een gloei-effect dat de melding omringt",
         glowcolor: "Stel de kleur van het gloei-effect in",
         glowsize: "Stel de grootte van het gloei-effect in",
@@ -768,6 +762,7 @@ export const translations = {
         webhooksemi: `Schakel in of prestatie-informatie naar een Discord-server moet worden gestuurd wanneer een $semi prestatie wordt ontgrendeld`,
         webhookrare: "Schakel in of prestatie-informatie naar een Discord-server moet worden gestuurd wanneer een $rare prestatie wordt ontgrendeld",
         webhookplat: "Schakel in of prestatie-informatie naar een Discord-server moet worden gestuurd wanneer een $plat prestatie wordt ontgrendeld",
+        webhookset: "Schakel in of uit of informatie over achievements naar een Discord-server wordt geplaatst wanneer een achievementset is voltooid",
         webhooktest: "Schakel in of er testinformatie naar een Discord-server moet worden gestuurd wanneer testmeldingen van welk type dan ook worden geactiveerd",
         webhookurl: `Stel de <span class="hl">webhook-URL</span> in voor de gewenste Discord-server<br><br><span class="ttdesc">Een <span class="hl">webhook-URL</span> wordt gebruikt om namens een gebruiker of applicatie te plaatsen in een Discord-server/kanaal. Om een nieuwe webhook in te stellen voor een Discord-server, moet de gebruiker een rol hebben binnen de gewenste server die het maken van webhooks toestaat<br><br><u>Een webhook-URL is vereist bij gebruik van deze optie</u><br><br>Raadpleeg de officiële documentatie van Discord voor meer informatie</span>`,
         webhookspoilers: `Voeg een spoilerlabel toe aan "Verborgen" prestaties bij het posten naar Discord`,
@@ -777,8 +772,6 @@ export const translations = {
         desc: "Stel de positie in van de prestatie beschrijving binnen de $type",
         notification: "melding",
         screenshot: "screenshot",
-        percentpos: "Stel de positie in van het zeldzaamheidspercentage binnen de $type",
-        sspercentpos: "Stel de positie in van het zeldzaamheidspercentage binnen de $type",
         hiddeniconpos: "Stel de positie in van het verborgen/geheime prestatie-icoon binnen de $type",
         sshiddeniconpos: "Stel de positie in van het verborgen/geheime prestatie-icoon binnen de $type",
         decorationpos: "Stel de positie in van het decoratie-element binnen de $type",
@@ -814,7 +807,6 @@ export const translations = {
         themeswitch: `Wissel automatisch naar een opgeslagen <span class="hl">Thema</span> wanneer een specifiek spel wordt gedetecteerd`,
         userthemesync: `Synchroniseer aanpassingen in het geselecteerde <span class="hl">Thema</span> naar alle andere meldingstypen`,
         showsystrayopts: `Weergeef alle opties die normaal te vinden zijn onder <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> in <span class="hl">Instellingen</span> > <span class="hl">Diversen</span>`,
-        releaseshortcut: "Geef het momenteel gevolgde spel vrij met de opgegeven sneltoets",
         themeselect: "Selecteer een eerder opgeslagen Thema",
         statwin: `Toon configureerbare prestatiestatistieken voor het huidige spel in een extern venster<br><br><span class="ttdesc">Wanneer gebruikt in combinatie met de optie <span class="hl">Vertaal Prestaties naar de Steam-taal</span>, kunnen sommige vertalingen pas beschikbaar zijn zodra de specifieke prestatie is ontgrendeld</span>`,
         statwinaot: `Stel het venster voor Prestatiestatistieken in op de modus "Altijd bovenaan", zodat het venster boven het spelvenster wordt weergegeven<br><br><span class="ttdesc">Wanneer deze optie is ingeschakeld, registreert het venster voor Prestatiestatistieken geen gebruikersinteracties meer, zoals "klik"-gebeurtenissen. Om interactie met het venster opnieuw in te schakelen, moet deze optie worden uitgeschakeld</span>`,
@@ -842,6 +834,7 @@ export const translations = {
         webhookembedcolorsemi: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $semi prestatie wordt ontgrendeld",
         webhookembedcolorrare: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $rare prestatie wordt ontgrendeld",
         webhookembedcolorplat: "Stel de kleur in die wordt gebruikt in de webhook-embed wanneer een $plat prestatie wordt ontgrendeld",
+        webhookembedcolorset: "Stel de kleur in die wordt gebruikt in de webhook-insluiting wanneer een achievementset is voltooid",
         raemus: "Meldingen weergeven wanneer spellen worden gedetecteerd in ondersteunde emulators",
         rauser: "Stel de RetroAchievements-gebruikersnaam in om achievements bij te houden",
         rakey: `Stel de Web API-sleutel in die gebruikt wordt voor authenticatie met de RetroAchievements API<br><br><span class="ttdesc">Een Web API-sleutel kan worden gekopieerd of opnieuw gegenereerd door in te loggen op de RetroAchievements-website en te navigeren naar <span class="hl">Instellingen > Sleutels > Web API-sleutel</span><br><br>🔒 De opgegeven sleutel wordt versleuteld voordat deze lokaal op het systeem wordt opgeslagen (als het huidige besturingssysteem versleuteling ondersteunt)</span>`,
@@ -860,7 +853,7 @@ export const translations = {
         unlockmsgfontcolor: "Stel de kleur in van het eerste tekstelement",
         titlefontcolor: "Stel de kleur in van het tweede tekstelement",
         descfontcolor: "Stel de kleur in van het derde tekstelement",
-        exportachdata: `Exporteer prestatiegegevens naar een JSON-bestand wanneer een prestatie wordt ontgrendeld<br><br><span class="ttdesc">Wanneer ingeschakeld, wordt <span class="ttcode">achdata.json</span> geëxporteerd naar:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `Exporteer prestatiegegevens naar een JSON-bestand wanneer een prestatie wordt ontgrendeld<br><br><span class="ttdesc">Wanneer ingeschakeld, wordt <span class="ttcode">achdata.json</span> geëxporteerd naar:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "Past de verticale afstand aan tussen tekstelementen in de melding",
         ssmode: `Stel in of schermafbeeldingen het volledige scherm of het huidige spelvenster vastleggen<span style="color: red;">*</span><br><br><span class="ttdesc">Als het <span class="hl">uitvoerbare bestand</span> van het huidige spel niet kan worden gevonden (<i>hetzij via <span class="hl">automatische procestracking</span> of wanneer het is toegevoegd als een vermelding in <span class="hl">Automatisch vrijgeven van spellen</span></i>), wordt deze optie standaard ingesteld op de modus "Scherm"</span>`,
         replaynotify: "Herhaal de laatste prestatiemelding",
@@ -879,10 +872,10 @@ export const translations = {
         audiocooldown: `Stel de wachttijd in voordat volgende meldingen een nieuw geluid kunnen afspelen<br><br><span class="ttdesc">Audio wordt niet beïnvloed als Maximaal aantal meldingen is ingesteld op 1</span>`,
         rauseemudir: "Sla screenshots/meldingsafbeeldingen die zijn ontgrendeld via RetroAchievements op in een submap voor de huidige emulator binnen de opgegeven map voor screenshots/afbeeldingen",
         ssext: "Stel het bestandsformaat in van screenshots die worden gegenereerd via de optie Screenshot met meldingsoverlay",
-        notify1line: `Beperk het aantal tekstregels dat wordt weergegeven in alle meldingen tot 1<br><br><span class="ttdesc">Overlopende tekst die niet op één regel past, wordt afgekapt met "..."</span>`,
         copytheme: "Kopieer het geselecteerde thema naar een ander meldingstype",
         ssaddtosteam: "Automatisch gegenereerde media toevoegen aan de Opnamen en Screenshots van de huidige game in Steam",
         appdatadir: "Open de locatie van de AppData-map van de app",
+        cleariconcache: "Alle eerder in de cache opgeslagen prestatiepictogrammen verwijderen",
         backup: "Maak een back-up van de inhoud van de AppData-map van de app naar een gekozen locatie, die fungeert als herstelpunt voor de huidige staat van de app",
         restore: "Herstel de inhoud van de AppData-map van de app vanuit een eerdere back-up",
         gametimerwin: "Toont een timer op het scherm die laat zien hoeveel tijd nodig was om alle achievements voor het huidige spel te ontgrendelen",
@@ -891,13 +884,7 @@ export const translations = {
         resetgametimer: "Reset de spelvoltooiingstimer voor het huidige spel",
         noshortcuts: `Schakelt alle sneltoetsen binnen de app uit<br><br><span class="ttdesc">Wanneer ingeschakeld, <u>werken alle sneltoetsen binnen de app niet langer</u>. Alle opties met betrekking tot sneltoetsen worden ook verborgen</span>`,
         extwinnotify: "Schakelt de zichtbaarheid van alle meldingen op het scherm tijdens het gebruik van Stream Notifications",
-        usesanwatcher: `Schakel SAN's nieuwe controlefunctie voor spelprocessen in<br><br><span class="ttdesc">De verschillen tussen de nieuwe SANWatcher en de oude methoden voor automatische procesdetectie zijn als volgt:<br><br><div class="wrapper sanwatcher"><span class="hl">AAN</span><ul><li>Controleert actief start-/afsluitgebeurtenissen van elk proces dat is opgeslagen in de installatiemap van het spel</li><li>Vereist niet dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Het gedrag van opstartprogramma's vóór het spel kan verschillen, waardoor volledige compatibiliteit met alle Steam-spellen niet kan worden gegarandeerd</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">UIT</span><ul><li>Scant de installatiemap van het spel op actieve uitvoerbare bestanden nadat het spel is gestart</li><li>Vereist dat het uitvoerbare bestand van het spel bekend is om het huidige spel vrij te geven</li><li>Als het spelproces niet automatisch kan worden vastgesteld, moet de gebruiker handmatig een nieuwe vermelding toevoegen aan <span class="hl">Automatisch vrijgeven van spellen</span> zodat spellen automatisch kunnen worden vrijgegeven</li></ul></div>`,
-        releasewaittime: `Stel in hoe lang SANWatcher wacht totdat nieuwe gameprocessen worden gestart voordat de huidige game wordt vrijgegeven<br><br><span class="ttdesc">Als de huidige game bijvoorbeeld eerst een opstart-/configuratievenster opent voordat de daadwerkelijke game wordt gestart, bepaalt deze instelling hoeveel seconden SANWatcher wacht totdat het daadwerkelijke gamevenster verschijnt nadat het opstart-/configuratievenster is gesloten<br><br>Als binnen deze wachttijd een nieuw actief gameproces wordt gedetecteerd, wordt de vrijgave geannuleerd en wordt in plaats daarvan het nieuw actieve proces gevolgd<br><br>💡 De naam van de game zal <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">knipperen</span> in het vak <span class="hl">Gameweergave</span> terwijl de huidige game wacht om te worden vrijgegeven</span>`,
-        platcustomtext: `Stel een aangepast bericht voor 100% spelvoltooiing in dat in de melding wordt weergegeven<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Customiser > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
         raui: "Toon de namen van gedetecteerde RetroAchievements-games in de Gameweergave-/systeemvak-UI",
-        testnotifycustomtext: "De tekst overschrijven die wordt weergegeven in alle testmeldingen",
-        testnotifycustomtexttitle: "De tekst overschrijven die wordt weergegeven voor het titeldeel in alle testmeldingen",
-        testnotifycustomtextdesc: "De tekst overschrijven die wordt weergegeven voor het beschrijvingsdeel in alle testmeldingen",
         radefault: `Altijd automatisch overschakelen naar dit item wanneer een RetroAchievements-prestatie wordt ontgrendeld<br><br><span class="ttdesc">Slechts één Automatisch Thema's Wisselen-item kan als standaard worden ingesteld voor alle RetroAchievements-prestaties. Deze standaardinstelling kan ook per spel worden overschreven door een nieuw Automatisch Thema's Wisselen-item toe te voegen voor een specifieke RetroAchievements <span class="hl">GameID</span></span>`,
         statwintype: "Het lay-outtype van het Prestatiestatistiekenvenster instellen",
         statwinunlockonly: "Het Prestatiestatistiekenvenster verborgen houden totdat een prestatie is ontgrendeld",
@@ -909,7 +896,12 @@ export const translations = {
         usecustomtext: "Aangepaste berichten instellen die in de melding worden weergegeven",
         customtextunlockmsg: `Een aangepast bericht instellen dat wordt weergegeven in het element Ontgrendelingsbericht<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Ontgrendelingsbericht is uitgeschakeld</span>`,
         customtexttitle: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatietitel<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatietitel is uitgeschakeld</span>`,
-        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`
+        customtextdesc: `Een aangepast bericht instellen dat wordt weergegeven in het element Prestatiebeschrijving<br><br><span class="ttdesc">Deze optie wordt verborgen wanneer Aanpassen > Voorinstelling > Meldingselementen > Prestatiebeschrijving is uitgeschakeld</span>`,
+        notifylinemode: "Stel het maximale aantal tekstregels in dat in meldingen wordt weergegeven",
+        notifyoverflow: "Stel in hoe overlopende tekst in meldingen wordt weergegeven",
+        scrollrepeat: `Stel in hoe vaak overlopende tekst scrolt terwijl de melding op het scherm staat<br><br><span class="ttdesc">De scrollsnelheid is afhankelijk van de weergaveduur, maar hogere herhalingswaarden zijn mogelijk niet geschikt voor alle presets</span>`,
+        setplat: "Meldingen weergeven wanneer elke achievementset in compatibele games is voltooid",
+        platsubtype: `Selecteer het <span class="hl">100%</span>-meldingssubtype dat je wilt aanpassen<br><br><span class="ttdesc" nostar><ul><li><span class="hl">Game</span>: De melding die wordt weergegeven wanneer alle achievements in de game zijn ontgrendeld</li><li><span class="hl">Set</span>: De melding die wordt weergegeven wanneer alle achievements in één achievementset zijn ontgrendeld</li></ul></span>`
     },
     update: {
         updateavailable: "Update beschikbaar",
@@ -919,64 +911,6 @@ export const translations = {
             `Volledige release-opmerkingen beschikbaar op <span id="discordreleasenotes"></span> en <span id="githubreleasenotes"></span>`
         ],
         update: "Update"
-    },
-    linkgame: {
-        content: {
-            exepath: "Pad naar uitvoerbaar bestand",
-            linkedgame: "Game koppelen",
-            autoreleasegame: "Game automatisch vrijgeven",
-            linkedgamessub: [
-                `Negeer alle actieve gameprocessen die automatisch worden gevolgd door <span class="hl">SANWatcher</span> en controleer in plaats daarvan alleen of het geselecteerde <span class="hl">uitvoerbare bestand van de game</span> momenteel actief is`,
-                `Koppel de <span class="hl">AppID</span> van een game aan een doel-<span class="hl">uitvoerbaar bestand van de game</span> of <span class="hl">verwijder</span> een bestaande koppeling`
-            ],
-            autoreleasegamessub: [
-                `Als Steam een game nog steeds als <i>Wordt gespeeld</i> weergeeft nadat het gamevenster is gesloten, probeer dan een nieuwe vermelding toe te voegen aan <span class="hl">$linkgame</span>`,
-                `Voeg de <span class="hl">AppID</span> van een specifieke game toe samen met het bijbehorende <span class="hl">uitvoerbare bestand van de game</span> of <span class="hl">verwijder</span> een bestaande vermelding`,
-            ],
-            managesub: [
-                `Zodra een game is gedetecteerd, kunnen ook nieuwe vermeldingen worden toegevoegd via <span class="hl">vensterfocus</span> door met de <i>rechtermuisknop</i> op het <span class="hl">systeemvakpictogram</span> te klikken > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>Hoe vind ik de AppID van een Steam-game?</u></span>`
-            ],
-            linknew: "Nieuwe vermelding",
-            linknewsub: [
-                `Koppel de <span class="hl">AppID</span> van een nieuwe game aan een doel-<span class="hl">uitvoerbaar bestand van de game</span>`,
-                `Na het toevoegen kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">$linkgame</span>`
-            ],
-            linkedit: "Vermelding bewerken",
-            linkeditsub: [
-                `Bewerk een bestaande koppeling tussen de <span class="hl">AppID</span> van een game en het doel-<span class="hl">uitvoerbare bestand van de game</span>`,
-                `Na het toevoegen kunnen vermeldingen <span class="hl">worden verwijderd</span> via het vorige menu <span class="hl">$linkgame</span>`
-            ],
-            link: "Toevoegen",
-            findappid: "Steam AppID zoeken",
-            findappidsub: [
-                `Elke Steam-game heeft een uniek nummer dat een <span class="hl">AppID</span> wordt genoemd. Je kunt de AppID van elke Steam-game op een van de volgende manieren vinden:`,
-                `Klik in de <span class="hl">Steam-client</span> met de <i>rechtermuisknop</i> op een game in je <span class="hl">Bibliotheek</span> en kies <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier weergegeven`,
-                `De <span class="hl">URL</span> van de <span class="hl">Winkelpagina</span> van de game - dit is het nummer na <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `Websites zoals <span class="hl">SteamDB</span> - in de sectie <span class="hl">App Info</span> staat de AppID van elke game`
-            ],
-            noexe: "Game-EXE niet gevonden!",
-            noexesub: "Klik hier voor meer informatie",
-            noexedialogsub: [
-                `Steam Achievement Notifier kon het uitvoerbare bestand van deze game niet automatisch vinden. De locatie van het uitvoerbare bestand van de game is vereist om de game na het afsluiten te kunnen "vrijgeven"`,
-                `Om de game na het afsluiten handmatig vrij te geven, klik je met de <i>rechtermuisknop</i> op het <span class="hl">systeemvakpictogram</span> > <span class="hl">Opties</span> > <span class="hl">Game vrijgeven</span>, of gebruik je de <span class="hl">Sneltoets voor game vrijgeven</span>`,
-                `Je kunt ook op de knop <span class="hl">Toevoegen</span> hieronder klikken om het uitvoerbare bestand van het momenteel actieve venster toe te voegen aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span>`,
-            ],
-            linkedgamefocussub: `Om alle actieve gameprocessen die automatisch worden gevolgd door <span class="hl">SANWatcher</span> te negeren, voeg je een nieuwe vermelding toe aan <span class="hl">Gekoppelde Games</span>`,
-            autoreleasegamefocussub: `Als Steam een game nog steeds als <i>Wordt gespeeld</i> weergeeft nadat het gamevenster is gesloten, probeer dan een nieuwe vermelding toe te voegen aan <span class="hl">Games met Automatisch Vrijgeven</span>`,
-            focussub: `Om dit voor de huidige game te doen, klik je op de knop <span class="hl">Toevoegen</span> hieronder om het uitvoerbare bestand van het momenteel actieve venster toe te voegen aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>Wat gebeurt er als ik op de knop Toevoegen klik?</u></span>`,
-            linkgamehelp: "Koppelen via focus",
-            linkgamehelpsub: [
-                `Door op de knop <span class="hl">Toevoegen</span> te klikken, wordt automatisch een nieuwe vermelding toegevoegd aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span>, met behulp van informatie uit het momenteel actieve venster.`,
-                `Nadat je op de knop <span class="hl">Toevoegen</span> hebt geklikt, start een timer van 5 seconden`,
-                `Zorg ervoor dat het gamevenster actief is voordat de timer afloopt`,
-                `Wanneer de timer is afgelopen, wordt een nieuwe vermelding voor de huidige <span class="hl">AppID</span> toegevoegd aan <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span>, met behulp van het uitvoerbare bestand van het actieve venster`,
-                `Nieuwe pogingen overschrijven bestaande vermeldingen, of de vermelding kan worden verwijderd via <span class="hl">Instellingen</span> > <span class="hl">Games</span> > <span class="hl">Games met Automatisch Vrijgeven</span> door op de knop <span id="linkhelpunlink"></span> te klikken`
-            ],
-            addlinkfailed: "Kan venster niet toevoegen",
-            addlinkfailedsub: `Klik op de knop <span class="hl">Toevoegen</span> om het opnieuw te proberen`
-        }
     },
     exclusions: {
         content: {
@@ -1022,8 +956,6 @@ export const translations = {
             sshiddeniconpos: "Verborgen Icoon",
             decorationpos: "Decoratie",
             ssdecorationpos: "Decoratie",
-            percentpos: "Zeldzaamheidspercentage",
-            sspercentpos: "Zeldzaamheidspercentage",
             percentbadge: "Percentage Badge",
             sspercentbadge: "Percentage Badge",
             percentbadgepos: "Badgepositie",
@@ -1075,78 +1007,19 @@ export const translations = {
             themes: "Thema's",
             src: "Bron voor schermafbeeldingen",
             themedeleted: "Thema verwijderd",
+            findappid: "Steam AppID zoeken",
+            findappidsub: [
+                `Elke Steam-game heeft een uniek nummer dat een <span class="hl">AppID</span> wordt genoemd. Je kunt de AppID van elke Steam-game op een van de volgende manieren vinden:`,
+                `Klik in de <span class="hl">Steam-client</span> met de <i>rechtermuisknop</i> op een game in je <span class="hl">Bibliotheek</span> en kies <i>Eigenschappen</i> > <i>Updates</i> - de AppID wordt hier weergegeven`,
+                `De <span class="hl">URL</span> van de <span class="hl">Winkelpagina</span> van de game - dit is het nummer na <span class="hl">app/</span>: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `Websites zoals <span class="hl">SteamDB</span> - in de sectie <span class="hl">App Info</span> staat de AppID van elke game`
+            ],
             rafindgameid: "RA GameID zoeken",
             rafindgameidsub: [
                 `Elk RetroAchievements-spel heeft een uniek nummer dat eraan is gekoppeld, een <span class="hl">GameID</span>. Je kunt de GameID van elk RetroAchievements-spel vinden door het volgende te controleren:`,
                 `De <span class="hl">URL</span> van de <span class="hl">spelpagina</span> op de RetroAchievements-website. Dit is het nummer dat volgt op <span class="hl">game/</span>: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "Instellen als standaard voor RetroAchievements"
-        }
-    },
-    troubleshooter: {
-        title: "Problemen oplossen",
-        content: {
-            copydata: "Kopiëren",
-            noissues: "Geen problemen gevonden!",
-            noissuessub: "Deze game zou automatisch moeten worden vrijgegeven.",
-            manualrelease: `Je kunt elke game handmatig vrijgeven via <span class="hl">Systeemvak</span> > <span class="hl">Opties</span> > <span class="hl">Game vrijgeven</span>.`,
-            addedvia: "Toegevoegd via"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "Geen actieve processen",
-                issue: "Geen actief gameproces gevonden",
-                detail: "Het uitvoerbare bestand dat aan deze game is gekoppeld, wordt niet gedetecteerd als een actief proces. De volgende uitvoerbare bestanden zijn gecontroleerd:",
-                solution: [
-                    `Probeer het uitvoerbare bestand van de game toe te voegen aan $linkedgamesmenu.`,
-                    `Zorg ervoor dat de vermelding onder $linkedgamesmenu naar het juiste uitvoerbare bestand verwijst.`
-                ]
-            },
-            unknownexecutable: {
-                title: "Uitvoerbaar bestand onbekend",
-                issue: "Kan het uitvoerbare bestand van de game niet identificeren",
-                detail: "Het pad naar het uitvoerbare bestand van de game kon niet automatisch worden gevonden. Dit wordt meestal veroorzaakt door pre-game launchers wanneer de game via Steam wordt gestart.",
-                solution: [
-                    `Voeg een nieuwe vermelding voor deze game toe aan $linkedgamesmenu, of verwijder vermeldingen die naar een onjuist uitvoerbaar bestand van de game verwijzen. Controleer anders of de game een Steam-startoptie ondersteunt om pre-game launchers over te slaan, zoals <code style="font-size: 0.55rem;">-skiplauncher</code>.`,
-                    `Probeer $sanwatcher in te schakelen.`
-                ]
-            },
-            missingexecutable: {
-                title: "Uitvoerbaar bestand ontbreekt",
-                issue: "Uitvoerbaar bestand van de game niet op schijf gevonden",
-                detail: `Het uitvoerbare bestand dat aan deze game is gekoppeld, kon niet op schijf worden gevonden. De volgende uitvoerbare bestanden zijn gecontroleerd:`,
-                solution: ["Probeer de integriteit van de gamebestanden via Steam te verifiëren of installeer de game opnieuw."]
-            },
-            notexecutable: {
-                title: "Niet uitvoerbaar",
-                issue: `De game mist uitvoeringsrechten`,
-                detail: "Het bestand dat Steam gebruikt om de game te starten, kan niet worden uitgevoerd. Het bestand werd gemeld als:",
-                solution: ["Raadpleeg de instructies voor je specifieke Linux-distributie om dit bestand uitvoerbaar te maken."]
-            },
-            notwithininstalldir: {
-                title: "Niet in gamemap",
-                issue: "Uitvoerbaar bestand niet in installatiemap",
-                detail: "Er is een vermelding voor deze game gevonden onder $linkedgamesmenu, maar het gekoppelde uitvoerbare bestand bevindt zich niet in de installatiemap van de game, wat erop kan wijzen dat het niet het juiste bestand is.",
-                solution: ["Bewerk de $linkedgamesmenu-vermelding voor deze game en zorg ervoor dat deze naar het juiste uitvoerbare bestand van de game verwijst."]
-            },
-            wrongplatformpath: {
-                title: "Ongeldig gamepad",
-                issue: "Gamepad is ongeldig voor het huidige besturingssysteem",
-                detail: "Het pad naar het uitvoerbare bestand van deze game lijkt bij een ander besturingssysteem te horen - mogelijk door een configuratie die van een andere computer is gekopieerd of door een dual-bootconfiguratie.",
-                solution: [`Gebruik geen configuratie die van een andere computer/een ander besturingssysteem is gekopieerd, omdat deze waarschijnlijk niet naar verwachting zal werken. Alle bestaande <span class="hl">Thema's</span> kunnen platformonafhankelijk worden geïmporteerd/geëxporteerd via het menu <span class="hl">Aanpassingen</span>.`]
-            },
-            duplicatelinkentries: {
-                title: "Dubbele vermeldingen",
-                issue: "Dubbele $linkedgamesmenu-vermeldingen gevonden",
-                detail: "Dit uitvoerbare bestand van de game is ook gekoppeld aan $appids onder $linkedgamesmenu.",
-                solution: ["Verwijder een van de dubbele vermeldingen en zorg ervoor dat de overgebleven vermelding naar het juiste uitvoerbare bestand van de game verwijst."]
-            },
-            releasing: {
-                title: "Game wordt vrijgegeven",
-                issue: "De game wordt vrijgegeven",
-                detail: "Deze game wordt binnenkort vrijgegeven.",
-                solution: [`Wacht nog een paar seconden - de stip in het <span class="hl">Systeemvak</span>-pictogram verandert van <span class="troubleshooterdialogicon" grey></span> (wordt vrijgegeven) naar <span class="troubleshooterdialogicon" red></span> (inactief) zodra de game is vrijgegeven.`]
-            }
         }
     }
 }

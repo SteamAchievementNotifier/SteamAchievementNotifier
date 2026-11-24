@@ -1,9 +1,9 @@
 {
     "private": true,
-    "name": "steamachievementnotifierv1.9",
+    "name": "steamachievementnotifierv2.0",
     "author": "SteamAchievementNotifier",
-    "version": "1.9.49",
-    "description": "Steam Achievement Notifier (V1.9)",
+    "version": "2.0.0",
+    "description": "Steam Achievement Notifier (V2.0)",
     "main": "dist/app/app.js",
     "scripts": {
         "dev": "npx tsc && electron ./dist/app/app.js --ozone-platform=x11",
@@ -23,6 +23,7 @@
     "homepage": "https://github.com/SteamAchievementNotifier/SteamAchievementNotifier#readme",
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
+        "@types/semver": "^7.8.0",
         "@types/sortablejs": "^1.15.8",
         "electron": "^44.5.1",
         "electron-builder": "^26.15.7",
@@ -33,32 +34,25 @@
         "@electron/asar": "^3.3.1",
         "@jaames/iro": "^5.5.2",
         "@retroachievements/api": "^2.4.0",
+        "@xan105/vdf": "^1.0.0",
         "adm-zip": "^0.6.0",
         "electron-log": "4.4.8",
         "electron-store": "8.2.0",
         "electron-updater": "^6.1.7",
         "fs-extra": "^11.2.0",
         "icojs": "^0.22.1",
-        "jpeg-js": "^0.4.4",
         "sanhelper.rs": "./deps/sanhelper.rs",
-        "sanwatcher.rs": "./deps/sanwatcher.rs",
+        "semver": "^7.8.6",
         "simple-vdf": "^1.1.1",
         "sortablejs": "^1.15.6",
-        "steam-game-path": "^2.3.0",
-        "steamworks.js": "./deps/steamworks.js",
         "tippy.js": "^6.3.7"
     },
     "overrides": {
-        "steam-game-path": {
-            "steam-appticket": "^2.0.1",
-            "steam-user": "^5.2.3"
-        },
-        "adm-zip": "^0.6.0",
         "brace-expansion": "^5.0.8"
     },
     "build": {
         "appId": "com.SteamAchievementNotifier.Jackson0ne",
-        "productName": "Steam Achievement Notifier (V1.9)",
+        "productName": "Steam Achievement Notifier (V2.0)",
         "directories": {
             "output": "_release"
         },
@@ -105,7 +99,7 @@
             "artifactName": "SteamAchievementNotifier_V${version}.exe",
             "createDesktopShortcut": false,
             "deleteAppDataOnUninstall": true,
-            "shortcutName": "Steam Achievement Notifier (V1.9)"
+            "shortcutName": "Steam Achievement Notifier (V2.0)"
         },
         "linux": {
             "target": "AppImage",
@@ -114,5 +108,8 @@
             "category": "Utility"
         },
         "afterPack": "./afterpack.js"
+    },
+    "allowScripts": {
+        "electron-winstaller@5.4.0": true
     }
 }

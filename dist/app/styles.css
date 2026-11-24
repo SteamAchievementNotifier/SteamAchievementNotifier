@@ -214,44 +214,6 @@ body[beta] .logo::before {
     --icon: url("../../icon/game.svg");
 }
 
-.rect#game[releasing] {
-    animation: release calc(var(--transition) * 2.5) linear alternate infinite;
-}
-
-.rect#game[releasing]::before {
-    animation: waiting calc(var(--transition) * 2.5) linear alternate infinite;
-}
-
-@keyframes release {
-    to { color: transparent; }
-}
-
-body[noanim] .rect#game[releasing] {
-    color: #808080;
-}
-
-.rect#game[workercrash]::before {
-    --icon: url("../../icon/worker_crash.svg");
-}
-
-.rect#game[raworkercrash]::before {
-    --icon: url("../../icon/ra_worker_crash.svg");
-}
-
-.rect#game[workercrash],
-.rect#game[raworkercrash] {
-    color: red;
-}
-
-body:not([noanim]) .rect#game[waiting]:not([releasing])::before {
-    --icon: url("../../icon/worker_waiting.svg");
-    animation: waiting calc(var(--transition) * 2.5) linear alternate infinite;
-}
-
-@keyframes waiting {
-    to { opacity: 0; }
-}
-
 .rect#usertheme::before {
     --icon: url("../../icon/stars.svg");
 }
@@ -320,6 +282,7 @@ body[trophymode] .wrapper#tabs {
     padding-block: 0.25vh;
     font-size: 0.8rem;
     background-color: var(--primary);
+    background: var(--primarygradient);
     transition: background-color var(--transition),
         color var(--transition),
         opacity var(--transition);
@@ -335,6 +298,7 @@ body[semi] .wrapper > .tab[semi],
 body[rare] .wrapper > .tab[rare],
 body[plat] .wrapper > .tab[plat] {
     background-color: white;
+    background: white;
     color: black;
     opacity: 1;
     pointer-events: none;

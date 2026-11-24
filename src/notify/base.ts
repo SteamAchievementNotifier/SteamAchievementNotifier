@@ -13,14 +13,6 @@ const hiddenelems = [
     "ps5"
 ]
 
-const styles = {
-    brackets: ["(",")"],
-    sqbrackets: ["[","]"],
-    dash: "-",
-    pipe: "|",
-    none: ""
-}
-
 let notifyid: number = -1
 
 const notifyhelper = {
@@ -62,7 +54,7 @@ const notifyhelper = {
         if (iswebview || skipaudio) return
     
         const audio = document.querySelector("audio")!
-        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${(type !== "main" && type !== "semi") ? `_${type}` : ""}.wav`
+        audio.src = notifyhelper.getaudiofile(customisation.soundmode,customisation[`sound${customisation.soundmode === "file" ? "file" : "dir"}`]) || `../sound/notify${(type !== "main" && type !== "semi") ? `_${type === "set" ? "plat" : type}` : ""}.wav`
         audio.volume = customisation.volume / 100
         audio.play()
     },
@@ -96,7 +88,7 @@ const notifyhelper = {
     
         return notifyhelper.playaudio(customisation,iswebview,skipaudio,type)
     },
-    setcustomisations: (customisation: Customisation,percent: { value: number, rarity: number, semirarity: number },iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,icon: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
+    setcustomisations: (customisation: Customisation,percent: PercentInfo,iswebview: "customiser" | "sspreview" | "ss" | null,appid: number,steampath: string,steam3id: number,hqicon: string,temp: string,percentimg: "bronze" | "silver" | "gold",gamearticon: string,gameartlibhero: string,gameartlogo: string,icon: string,ra?: boolean): Promise<HTMLImageElement[] | null> => {
         return new Promise<HTMLImageElement[] | null>(async (resolve,reject) => {
             const fontloader = document.getElementById("fontloader")
             fontloader && fontloader.remove()
@@ -174,8 +166,8 @@ const notifyhelper = {
                 }
             }
 
-            // Increases font-size value if being used in a screenshot `webview` to better match on-screen font-size
-            const fontsizescalefactor = iswebview && iswebview !== "customiser" ? 1.0075 : 1
+            // // Increases font-size value if being used in a screenshot `webview` to better match on-screen font-size
+            // const fontsizescalefactor = iswebview && iswebview !== "customiser" ? 1.0075 : 1
 
             const properties = new Map<string,string>([
                 ["--displaytime",`${customisation.displaytime}s`],
@@ -185,7 +177,8 @@ const notifyhelper = {
                 ["--bgimgbrightness",`${customisation.bgimgbrightness}%`],
                 ["--brightness",`${customisation.brightness}%`],
                 ["--roundness",`${(customisation.roundness / 4) * (customisation.scale / 100)}px`],
-                ["--fontsize", `${(customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100) * fontsizescalefactor}`],
+                // ["--fontsize", `${(customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100) * fontsizescalefactor}`],
+                ["--fontsize", `${customisation.usecustomfontsizes ? 1 : customisation.fontsize / 100}`],
                 ["--opacity", `${customisation.opacity / 100}`],
                 ["--iconroundness",customisation.iconroundness === 100 ? "50%" : `${(customisation.iconroundness / 6) * (customisation.scale / 100)}px`],
                 ["--fontoutline",customisation.fontoutline ? `${(customisation.scale / 100) * customisation.fontoutlinescale}px ${customisation.fontoutlinecolor}` : "none"],
@@ -193,7 +186,7 @@ const notifyhelper = {
                 ["--logo",getcustomicon("logo")],
                 ["--decoration",getcustomicon("decoration")],
                 ["--decorationdisplaytype","block"],
-                ["--gs",customisation.usepercent ? `${percent.value.toFixed(1)}` : `${getpercent()}`],
+                ["--gs",customisation.usepercent ? (percent.isplat ? "100" : percent.value.toFixed(1)) : `${getpercent()}`],
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" || customisation.preset === "gfwl" ? "G" : ""))],
                 ["--raritycolor",`${percent.value > percent.semirarity ? "#a05526" : (percent.value <= percent.semirarity && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
@@ -219,9 +212,12 @@ const notifyhelper = {
                 ["--iconanimcolor",`${customisation.iconanimcolor}`],
                 ["--logoscale",`${customisation.logoscale / 100}`],
                 ["--decorationscale",`${customisation.decorationscale / 100}`],
-                ["--unlockmsgfontsize",`${((customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
-                ["--titlefontsize",`${((customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
-                ["--descfontsize",`${((customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                // ["--unlockmsgfontsize",`${((customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                // ["--titlefontsize",`${((customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                // ["--descfontsize",`${((customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100) * fontsizescalefactor}`],
+                ["--unlockmsgfontsize",`${(customisation.usecustomfontsizes ? customisation.unlockmsgfontsize : customisation.fontsize) / 100}`],
+                ["--titlefontsize",`${(customisation.usecustomfontsizes ? customisation.titlefontsize : customisation.fontsize) / 100}`],
+                ["--descfontsize",`${(customisation.usecustomfontsizes ? customisation.descfontsize : customisation.fontsize) / 100}`],
                 ["--unlockmsgfontcolor",`${customisation.usecustomfontcolors ? customisation.unlockmsgfontcolor : customisation.fontcolor}`],
                 ["--titlefontcolor",`${customisation.usecustomfontcolors ? customisation.titlefontcolor : customisation.fontcolor}`],
                 ["--descfontcolor",`${customisation.usecustomfontcolors ? customisation.descfontcolor : customisation.fontcolor}`],
@@ -230,7 +226,8 @@ const notifyhelper = {
                 ["--iconborderscale",`${customisation.iconborderscale / 100}`],
                 ["--iconborderx",`${customisation.iconborderx}`],
                 ["--iconbordery",`${customisation.iconbordery}`],
-                ["--textvspace",`${customisation.textvspace}`]
+                ["--textvspace",`${customisation.textvspace}`],
+                ["--scrollrepeat",`${customisation.scrollrepeat}`]
             ])
 
             const xpwrapper = document.getElementById("xpwrapper")
@@ -269,15 +266,10 @@ const notifyhelper = {
             return reject(errobj)
         })
     },
-    setstyle: (str: string,value: string | string[],pos: "left" | "right") => {
-        if (!str) return ""
-        if (Array.isArray(value)) return `${value[0]}${str}${value[1]}`
-        return pos === "left" ? `${str}${value ? ` ${value} ` : ""}` : `${value ? ` ${value} ` : ""}${str}`
-    },
     isoverflowing: (elem: HTMLElement): boolean => {
         const clone = elem.cloneNode(true) as HTMLElement
 
-        Object.assign(clone.style, {
+        Object.assign(clone.style,{
             position: "absolute",
             visibility: "hidden",
             pointerEvents: "none",
@@ -307,38 +299,41 @@ const notifyhelper = {
     waitforlayout: async (elem: HTMLElement): Promise<void> => {
         await document.fonts.ready
 
-        const previousframe = {
-            width: -1,
-            height: -1
+        const nextframe = () => new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+        const getelemsize = () => {
+            const { width, height } = elem.getBoundingClientRect()
+            return `${width}x${height}`
         }
 
-        let stable = 0
+        let previous = getelemsize()
+        let frames = 0
 
-        while (stable < 2) {
-            await new Promise<void>(resolve => requestAnimationFrame(() => resolve()))
+        while (frames < 2) {
+            await nextframe()
+            const current = getelemsize()
 
-            const { width, height } = elem.getBoundingClientRect()
-
-            if (width === previousframe.width && height === previousframe.height) {
-                stable++
-            } else {
-                stable = 0
-            }
-
-            previousframe.width = width
-            previousframe.height = height
+            frames = current === previous ? frames + 1 : 0
+            previous = current
         }
     },
     addscroller: async (elem: HTMLElement) => {
         let scroller = elem.querySelector(".scroller") as HTMLElement | null
 
         if (!scroller) {
+            await document.fonts.ready
+            await notifyhelper.waitforlayout(elem)
+            
+            if (!notifyhelper.isoverflowing(elem)) return
+
             const html = elem.innerHTML
             elem.innerHTML = ""
-
             scroller = document.createElement("span")
             scroller.className = "scroller"
             scroller.innerHTML = html
+            
+            for (const attr of ["gs","unit"]) {
+                elem.hasAttribute(attr) && scroller.setAttribute(attr,elem.getAttribute(attr)!)
+            }
             
             elem.appendChild(scroller)
         }
@@ -347,7 +342,39 @@ const notifyhelper = {
         await notifyhelper.waitforlayout(elem)
 
         const scrolldistance = Math.max(0,scroller.scrollWidth - elem.clientWidth)
+
+        if (!scrolldistance) {
+            elem.innerHTML = scroller.innerHTML
+            return
+        }
+
         scroller.style.setProperty("--scrolldistance",`${scrolldistance}px`)
+
+        const scrollh = scroller.getAnimations().find(a => (a as CSSAnimation).animationName === "scrollh")
+        
+        if (!scrollh || (scrollh.effect!.getComputedTiming().duration as number) <= 0) {
+            elem.innerHTML = scroller.innerHTML
+            return
+        }
+
+        await notifyhelper.syncscroller(scroller)
+    },
+    syncscroller: async (scroller: HTMLElement) => {
+        const anims = scroller.getAnimations() as CSSAnimation[]
+        if (!anims.length) return
+
+        await Promise.all(anims.map(anim => anim.ready))
+
+        const animset = new Set<CSSAnimation>(anims)
+        
+        const start = (document.getAnimations() as CSSAnimation[]).filter(anim => !animset.has(anim)).map(anim => anim.startTime as number | null).filter(starttime => starttime !== null)
+        if (!start.length) return
+
+        const origin = Math.min(...start)
+
+        for (const anim of anims) {
+            anim.startTime = origin
+        }
     }
 }
 
@@ -355,16 +382,17 @@ try {
     document.body.addEventListener("animationend",({ animationName }) => animationName === "animend" && ipcRenderer.send(`animend_${notifyid}`,notifyid))
     
     ipcRenderer.on("notify",async (event,obj: Info,id: number) => {
-        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notify1line, showpercentpos, showpercentstyle, ra } = obj
+        const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notifylinemode, notifyoverflow, ra } = obj
         notifyid = id // Store globally to access in "notifyfinished" IPC event
     
         try {
             document.body.setAttribute(type,"")
+            type === "set" && document.body.setAttribute("plat","")
             document.body.toggleAttribute("noiconanim",!!!customisation.iconanim)
     
             const ssdisplay = screenshots === "overlay" && customisation.ssdisplay
             document.body.toggleAttribute("ssdisplay",ssdisplay)
-            document.body.toggleAttribute("notify1line",notify1line)
+            document.body.toggleAttribute("notify1line",notifylinemode === "single")
             document.body.toggleAttribute("nodecorationshadow",!customisation.decorationshadow)
     
             if (iswebview === "customiser") {
@@ -419,11 +447,10 @@ try {
     
                 const ss = iswebview && !customisation.elemsmatch && iswebview.startsWith("ss") ? "ss" : ""
 
-                const percentvalue = Math.max(parseFloat(percent.value.toFixed(1)),0.1)
-                const percentstr = customisation[`${ss}percentbadge`] ? "" : `${((type === "main" || type === "semi") && percent.showpercent === "all" || type === "rare" && percent.showpercent !== "off") ? `${percentvalue}%` : ""}`
+                const percentvalue = percent.isplat ? 0 : Math.max(parseFloat(percent.value.toFixed(1)),0.1)
                 const percentimg = percentvalue <= percent.rarity ? "gold" : ((percentvalue <= percent.semirarity && percentvalue > percent.rarity) ? "silver" : "bronze")
     
-                customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : `${percentvalue}%`}</span>`))
+                customisation[`${ss}percentbadge`] && document.querySelectorAll(".wrapper#achiconwrapper")!.forEach(icon => icon.insertAdjacentHTML("beforeend",`<span id="badge" ${customisation[`${ss}percentbadgeimg`] ? "badgeimg" : ""}>${customisation[`${ss}percentbadgeimg`] ? "" : (percent.isplat ? "100%" : `${percentvalue}%`)}</span>`))
     
                 const str = {
                     unlockmsg,
@@ -441,11 +468,10 @@ try {
     
                     const offset = hiddenelems.includes(customisation.preset) && !document.body.hasAttribute("alldetails") ? 1 : 0
     
-                    const addelem = (type: "percent" | "hiddenicon" | "decoration",pos: number) => {
+                    const addelem = (type: "hiddenicon" | "decoration",pos: number) => {
                         if (!customisation[`${ss}${type}pos`] || customisation[`${ss}${type}pos`] + (ssnodetails ? 1 : 0) !== pos) return ""
                         
                         switch (type) {
-                            case "percent": return notifyhelper.setstyle(percentstr,styles[showpercentstyle],showpercentpos)
                             case "hiddenicon": return customisation.showhiddenicon && hidden ? `<span id="hiddenicon"></span>` : ""
                             case "decoration": return customisation[`${ss}decorationpos`] ? `<span id="decoration"></span>` : ""
                             default: return ""
@@ -462,10 +488,8 @@ try {
                         const desc = key === "unlockmsg" && ssnodetails ? "" : str[filter[value[1]]] || ""
                         const decoration = addelem("decoration",value[0])
                         const hiddenicon = addelem("hiddenicon",value[0])
-                        const percent = addelem("percent",value[0])
-                        const text = (showpercentpos === "left" ? [percent,desc] : [desc,percent]).filter(text => !!text).join(" ")
 
-                        elem.innerHTML = `${decoration}${hiddenicon}${text}`
+                        elem.innerHTML = `${decoration}${hiddenicon}${desc}`
                         
                         // Once `innerHTML` has been added, see if it has any `textContent`. If not, remove the element's `innerHTML`
                         // Not ideal, but "hiddenicon"/"decoration" elements aren't added until the text is, so checking for `textContent` beforehand added won't work
@@ -473,15 +497,26 @@ try {
                     })
     
                     document.documentElement.style.setProperty("--decorationindex",(customisation[`${ss}decorationpos`]).toString())
+                    
+                    const scrollmode = notifylinemode === "single" && notifyoverflow === "scroll"
+                    document.body.toggleAttribute("scrollmode",scrollmode)
 
-                    requestAnimationFrame(async () => {
+                    scrollmode && requestAnimationFrame(async () => {
                         for (const elem of Array.from(document.querySelectorAll("#unlockmsg,#title,#desc")) as HTMLElement[]) {
                             if (!elem.textContent || ss) continue
-    
-                            await notifyhelper.waitforlayout(elem)
-                            notifyhelper.isoverflowing(elem) && await notifyhelper.addscroller(elem)
-                            
-                            elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem))
+
+                            const container = elem.closest("#achcont") as HTMLElement // `default` has two `#achcont` instances, so find the closest one to the current elem
+
+                            switch (customisation.preset) {
+                                case "default":
+                                    container.addEventListener("animationend",async ({ animationName, target }) => target === container && animationName === "expand" && await notifyhelper.addscroller(elem)) // Start scrolling when elem's container has fully expanded
+                                    break
+                                default:
+                                    elem.addEventListener("animationstart",async ({ animationName }) => (animationName === "fadein" || animationName === "slideup") && await notifyhelper.addscroller(elem)) // Start scrolling when elem's text animation starts
+                                    await notifyhelper.waitforlayout(elem)
+                                    notifyhelper.isoverflowing(elem) && await notifyhelper.addscroller(elem)
+                                    break
+                            }
                         }
                     })
                 }

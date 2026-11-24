@@ -28,7 +28,7 @@ body:
     attributes:
       label: Version
       description: The version of the app currently installed. The full version number can be found at the bottom of the **Settings** menu.
-      placeholder: 1.9.x
+      placeholder: x.x.x
     validations:
       required: true
   - type: textarea

@@ -4,25 +4,25 @@ import path from "path"
 import electronlog, { transports, catchErrors } from "electron-log"
 import { sanhelper } from "./sanhelper"
 
-const iconmap = new Map([
+export const iconmap = new Map([
     ["INFO","🔵"],
     ["WARN","🟡"],
     ["ERROR","🔴"],
     ["EXIT","⚫"]
 ])
 
-const rustlogfiles: RustLogFiles[] = [
-    "steamworks",
-    "sanwatcher"
-]
-
 export const logfiles: LogFiles[] = [
     "san",
-    ...rustlogfiles,
-    "sanhelper"
+    "sanhelper",
+    "sanhelperworker"
 ]
 
 const backupregex = new RegExp(`^(\\d{8}_\\d{6})_(?:${logfiles.join("|")})\\.log$`) // Only matches backup log files, not live (e.g. "san.log"/"san_reset.log")
+
+const invaliddirs = [
+    "NaN",
+    "0.0"
+] as const
 
 export const log = {
     create: (process: "APP" | "MAIN" | "RENDERER" | "WORKER" | "ERROR") => {
@@ -40,31 +40,24 @@ export const log = {
 
         if (process === "APP") {
             log.clear()
-            
-            // Rust-based log files must be created before game tracking starts to prevent continuous missing file error logging
-            for (const logfile of rustlogfiles) {
-                try {
-                    fs.writeFileSync(path.join(sanhelper.appdata,"logs",`${logfile}.log`),"")
-                    log.write("INFO",`"${logfile}.log" created successfully`)
-                } catch (err) {
-                    log.write("ERROR",`Error creating "${logfile}.log": ${(err as Error).stack || (err as Error).message}`)
-                }
-            }
-        } else if (process === "RENDERER") {
-            const vnan = path.join(sanhelper.appdata,"..","Steam Achievement Notifier (VNaN)")
 
-            try {
-                fs.existsSync(vnan) && fs.rmSync(vnan,{ recursive: true, force: true })
-                log.write("INFO",`"VNaN" dir detected and removed successfully`)
-            } catch (err) {
-                log.write("ERROR",`Error removing "VNaN" dir: ${(err as Error).stack || (err as Error).message}`)
+            for (const dirname of invaliddirs) {
+                const dir = path.join(sanhelper.appdata,"..",`Steam Achievement Notifier (V${dirname})`)
+                if (!fs.existsSync(dir)) continue
+
+                try {
+                    fs.rmSync(dir,{ recursive: true, force: true })
+                    log.write("INFO",`"V${dirname}" dir detected and removed successfully`)
+                } catch (err) {
+                    log.write("ERROR",`Error removing "V${dirname}" dir: ${(err as Error).stack || (err as Error).message}`)
+                }
             }
         }
 
         log.write("INFO",`"${process}" process created`)
     },
-    write: (event: "INFO" | "WARN" | "ERROR" | "EXIT", msg: Error | string) => {
-        electronlog.info(`${`${iconmap.get(event) || "❔"} ${event}`}\n${event === "ERROR" && msg instanceof Error ? msg.stack : msg}`)
+    write: (level: "INFO" | "WARN" | "ERROR" | "EXIT", msg: Error | string) => {
+        electronlog.info(`${`${iconmap.get(level) || "❔"} ${level}`}\n${level === "ERROR" && msg instanceof Error ? msg.stack : msg}`)
 
         process.type === "renderer" && (async () => {
             const { sanconfig } = await import("./config")
@@ -139,7 +132,7 @@ export const log = {
 
             for (const logtype of logfiles) {
                 const src = path.join(logspath,`${logtype}.log`)
-                if (!fs.existsSync(src)) continue // Not every log exists on every launch (e.g. "sanwatcher.log" when SANWatcher is not in use)
+                if (!fs.existsSync(src)) continue // Not every log exists on every launch
 
                 const logpath = path.join(logspath,`${timestamp}_${logtype}.log`)
 

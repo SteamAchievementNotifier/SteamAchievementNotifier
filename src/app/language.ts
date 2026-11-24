@@ -46,10 +46,10 @@ export const language = {
                     const settingscontent = document.getElementById("settingscontent")!
                     const settingsversion = document.getElementById("settingsversion")!
 
-                    langmap.set(settingsheader.querySelector(`span`)!,global.settings)
-                    langmap.set(settingsversion.querySelector(`span:first-child`)!,`${global.appversion}:`)
+                    langmap.set(settingsheader.querySelector("span")!,global.settings)
+                    langmap.set(settingsversion.querySelector("span:first-child")!,`${global.appversion}:`)
 
-                    const settingstitles = Array.from(settingscontent.querySelectorAll(`.cont > .title`)).map(title => title.id)
+                    const settingstitles = Array.from(settingscontent.querySelectorAll(".cont > .title")).map(title => title.id)
 
                     const selectignore = [
                         "lang",
@@ -90,7 +90,7 @@ export const language = {
                     })
 
                     langmap.set(settingscontent.querySelector(".wrapper:has(.lbl#raemus) > .lbl")!,settings.ra.content.raemus)
-                    langmap.set(settingscontent.querySelector("span#raloghelp > u")!,global.raloghelp)
+                    langmap.set(settingscontent.querySelector("button#raloghelp")!,global.raloghelp)
 
                     ;(["status","game","lastachievement"] as const).forEach(id => langmap.set(settingscontent.querySelector(`.wrapper#rastatuswrapper > div#ra${id} > span:nth-child(1)`)!,`${settings.ra.content[id]}:`))
                 }
@@ -148,7 +148,7 @@ export const language = {
                     })
                 })
 
-                customisercontent.querySelectorAll(`.sub:has([id^="usegametitle"]) > input[type="checkbox"]`).forEach(input => langmap.set(input.parentElement!.querySelector("span")!,customiser.preset.content.usegametitle))
+                langmap.set(customisercontent.querySelector("button#customtextvars > span")!,global.customtextvars)
 
                 const themeselect = customisercontent.querySelector(`#customiseropts > .opt:has(select) > select`)!
                 langmap.set(themeselect.parentElement!.querySelector("span")!,customiser.theme.content[themeselect.id])
@@ -169,18 +169,21 @@ export const language = {
         }
     },
     getkeypath: (obj: any,keys: string[]): any => keys.reduce((acc,key) => (acc && acc[key] !== undefined ? acc[key] : undefined),obj),
+    lookup: async (lang: string,id: string,keys?: string | string[]) => {
+        const { translations, translations: { global } } = await import(`../lang/${lang}`)
+        if (!keys) return global[id]
+
+        const [top,...keysarr] = Array.isArray(keys) ? [...keys] : [keys]
+        return language.getkeypath(translations[top],keysarr)?.[id]
+    },
     get: async (id: string,keys?: string | string[]) => {
         const config = sanconfig.get()
         const lang = config.get("lang") || "english"
     
         try {
-            const { translations, translations: { global } } = await import(`../lang/${lang}`)
-            if (!keys) return global[id]
-
-            const [top,...keysarr] = Array.isArray(keys) ? [...keys] : [keys]
-            const keypath = language.getkeypath(translations[top],keysarr)
-    
-            return keypath ? keypath[id] : "MISSING!!!"
+            // Fall back to `english` for keys not yet translated in the selected language file
+            const value = (await language.lookup(lang,id,keys)) ?? (lang !== "english" ? await language.lookup("english",id,keys) : undefined)
+            return value ?? (keys ? "MISSING!!!" : undefined)
         } catch (err) {
             log.write("ERROR",`Error getting translation for "${id}" in language file "${lang}.js": ${err}`)
         }

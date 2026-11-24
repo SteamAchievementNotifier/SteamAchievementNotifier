@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% 完成",
         achievementdesc: "點擊按鈕以顯示測試通知",
         gamecompletedesc: "您已解鎖所有成就！",
+        setname: "組合名稱",
+        setcomplete: "你已完成整套成就！",
         defaultcustomfont: "默認（未選擇字體）",
         defaultsoundfile: "默認（未選擇文件）",
         defaultsounddir: "默認（未選擇文件夾）",
@@ -44,11 +46,6 @@ export const translations = {
         show: "顯示",
         exit: "退出",
         donotshowagain: "不再顯示此對話框",
-        releasegame: "釋放遊戲",
-        releasegamesub: [
-            `重新啟動背景的 Worker 程序並停止追蹤當前遊戲`,
-            `如果你最近關閉了一個遊戲，但 Steam 仍然顯示它正在運行，或者 Steam Achievement Notifier 仍然顯示正在追蹤已經關閉的遊戲，請嘗試此選項`
-        ],
         noupdateavailable: "沒有可用的更新",
         latestversion: "最新版本已安裝",
         missingdeps: "缺少依賴",
@@ -62,6 +59,7 @@ export const translations = {
         new: "新增...",
         nodata: "無資料",
         webhookunlockmsg: "$user 解鎖了一個成就",
+        webhookunlockmsgset: "$user 已完成一個成就組合",
         webhookunlockmsgplat: "$user 解鎖了所有成就",
         webhookingame: "在 $gamename",
         notconnected: "未連接",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "版本發佈",
         checkapplog: "請查看應用程式日誌以獲取詳細資訊。",
-        workercrash: "Worker 已崩潰！",
-        workercrashsub: "點擊此處重新啟動 Worker 並重新嘗試遊戲追蹤"
+        customtextvars: "Variabler",
+        customtextvarssub: `<span class="hl">Variabler</span> kan användas i <span class="hl">Anpassad text</span> för att visa spel-/prestationinformation i aviseringar:`,
+        customtextvarsdesc: {
+            game: "Speltitel",
+            title: "Prestationens titel",
+            desc: "Prestationsbeskrivning",
+            percent: "Procentandel som har låst upp prestationen",
+            total: "Upplåsta/totala prestationer"
+        },
+        customtextvarsset: "成就集合名稱",
+        customtextvarsplat: `"$gamecomplete" 訊息`
     },
     app: {
         content: {
@@ -196,10 +203,6 @@ export const translations = {
             content: {
                 rarity: "稀有度百分比",
                 semirarity: "白銀百分比",
-                rareonly: "僅顯示稀有",
-                all: "全部",
-                off: "關閉",
-                showpercent: "顯示百分比",
                 soundonly: "僅聲音",
                 nowtracking: "顯示追蹤通知",
                 nowtrackingscale: "追蹤比例",
@@ -222,17 +225,18 @@ export const translations = {
                 trophymode: "獎盃模式",
                 notifymax: "最大通知數量", 
                 notifyspace: "通知間距",
-                notify1line: "將文字限制為一行",
-                testnotifycustomtext: "測試通知自訂文字",
-                testnotifycustomtexttitle: "標題",
-                testnotifycustomtextdesc: "描述"
+                notifylinemode: "行數模式",
+                single: "單行",
+                max: "最大值",
+                notifyoverflow: "溢出模式",
+                ellipsis: "省略號",
+                scroll: "捲動",
+                setplat: "100% 完成通知"
             }
         },
         games: {
             title: "遊戲",
             content: {
-                linkedgames: "關聯遊戲",
-                autoreleasegames: "自動釋放遊戲",
                 themeswitch: "自動切換主題",
                 exclusionlist: "排除清單",
                 inclusionlist: "包含清單",
@@ -320,7 +324,6 @@ export const translations = {
                 nvda: "啟用 NVDA 支援",
                 tooltips: "顯示工具提示",
                 showsystrayopts: "顯示系統托盤選項",
-                releaseshortcut: "釋放遊戲快捷鍵",
                 noshortcuts: "停用鍵盤快捷鍵"
             }
         },
@@ -328,11 +331,6 @@ export const translations = {
             title: "進階",
             content: {
                 pollrate: "輪詢率",
-                initdelay: "追踪延迟",
-                releasedelay: "發布延遲",
-                maxretries: "最大重試次數",
-                debug: "除錯面板",
-                userust: "替代處理模式",
                 notifydebug: "顯示偵錯通知",
                 workerdebug: "顯示 Worker DevTools",
                 exportachdata: "匯出成就數據",
@@ -340,6 +338,7 @@ export const translations = {
                 audiocooldown: "音訊冷卻時間",
                 usecustomfiles: "使用自定義應用程式檔案",
                 showcustomfiles: "顯示自定義應用程式檔案",
+                cleariconcache: "清除圖示快取",
                 appdatadir: "顯示 AppData 資料夾",
                 backup: "備份",
                 backuppath: "備份路徑",
@@ -356,8 +355,6 @@ export const translations = {
                     "❗ 確認後，應用程式將重新啟動以還原所選的備份檔"
                 ],
                 restorefailed: "無法還原備份。",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "釋放等待時間",
                 logresourceusage: "記錄資源使用情況"
             }
         },
@@ -405,18 +402,16 @@ export const translations = {
             content: {
                 preset: "通知預設",
                 iconanim: "稀有圖示動畫",
-                alldetails: "顯示所有詳細資訊",
                 usepercent: "使用百分比",
                 displaytime: "顯示時間",
                 scale: "比例",
                 customtext: "自訂文字",
-                usegametitle: "使用遊戲標題",
                 customfont: "自訂字型",
-                platcustomtext: "自訂 100% 文字",
                 usecustomtext: "自訂文字",
                 customtextunlockmsg: "解鎖訊息",
                 customtexttitle: "成就標題",
-                customtextdesc: "成就描述"
+                customtextdesc: "成就描述",
+                scrollrepeat: "捲動重複次數"
             }
         },
         sound: {
@@ -452,7 +447,6 @@ export const translations = {
                 descfontsize: "描述",
                 textvspace: "文字間距",
                 opacity: "不透明度",
-                bgonly: "僅背景",
                 glow: "發光",
                 glowcolor: "顏色",
                 glowsize: "大小",
@@ -589,6 +583,14 @@ export const translations = {
                 copytheme: "複製主題",
                 copythemesub: "選擇要將所選主題複製到的通知類型"
             }
+        },
+        platnotifytype: {
+            title: "自訂",
+            content: {
+                platsubtype: "子類型",
+                game: "遊戲",
+                set: "組合"
+            }
         }
     },
     logwin: {
@@ -612,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam 成就通知器遇到問題，需要關閉。",
+            steam: "找不到 Steam 安裝目錄",
             details: "以下是錯誤詳細資訊：",
             sub: "請按下方按鈕報告此問題至您偏好的平台。",
             report: "報告",
@@ -628,8 +631,8 @@ export const translations = {
         discord: "加入 Discord！",
         github: "報告問題",
         lang: "選擇應用程式中使用的 UI 語言",
-        steamlang: `嘗試從 Steam 應用程式檔案中載入翻譯，以在用戶選擇的 Steam 客戶端語言中顯示成就資訊<br><br><span class="ttdesc">此選項會嘗試在存儲於 Steam 應用程式數據中的 JSON 文件中查找翻譯。如果找不到當前成就的翻譯，則會顯示從 Steamworks 獲取的成就資訊。</span>`,
-        maxsteamlangretries: `查找當前成就有效翻譯的嘗試次數（每 100 毫秒）<br><br><span class="ttdesc">Steam 目前僅在與每個遊戲相關聯的 JSON 文件中儲存少量的成就數據。任何不在此文件中的成就將在成就解鎖後添加。<br><br>由於添加新數據可能需要時間，增加此值將提高找到當前成就翻譯數據的機率，但也可能會延遲通知在螢幕上顯示的時間，根據此設定計算的時間。<br><br>如果無法找到當前成就的有效翻譯數據，翻譯將回退到 Steamworks 中指定的語言。</span>`,
+        steamlang: `嘗試載入 Steam 應用程式檔案中的翻譯，以便使用使用者選擇的 Steam 用戶端語言顯示成就資訊<br><br><span class="ttdesc">此選項會嘗試在儲存於 Steam 應用程式資料中的 JSON 檔案內尋找翻譯。如果找不到目前成就的翻譯，則會改為顯示從 Steam 內部二進位檔案中取得的成就資訊</span>`,
+        maxsteamlangretries: `嘗試尋找目前成就有效翻譯的次數（每 100 毫秒一次）<br><br><span class="ttdesc">Steam 目前僅在每個遊戲對應的 JSON 檔案中儲存少量成就資料。任何未包含在此檔案中的成就，都會在解鎖後追加至檔案中。<br><br>由於追加新資料可能需要一些時間，增加此數值將提高找到目前成就翻譯資料的機率，但也可能依據此設定計算出的時間延遲螢幕通知的顯示。<br><br>如果找不到目前成就的有效翻譯資料，則會改用英文。</span>`,
         desktop: "切換桌面捷徑以運行應用程式",
         startwin: "在登錄後自動啟動 Steam Achievement Notifier",
         startmin: "啟動後，將應用程式 UI 視窗隱藏，直到從系統匣中打開",
@@ -637,7 +640,6 @@ export const translations = {
         litemode: "停用所有互動式 UI 元素，僅通過系統匣圖示提供有限的應用程式功能。可能提高應用程式消耗的資源",
         rarity: `觸發稀有成就通知的百分比。<br><br>任何解鎖百分比高於此值的成就將顯示為主要通知<br><br><span class="ttdesc">如果啟用了<span class="hl">獎盃模式</span>，任何解鎖百分比高於此值的成就將改為顯示為白銀通知</span>`,
         semirarity: `顯示「白銀」通知元素的百分比（例如<span class="hl">稀有度徽章</span>、<span class="hl">裝飾</span>等）。<br><br>任何解鎖百分比低於（或等於）此值且高於<span class="hl">稀有度百分比</span>的成就，將顯示為配置為「白銀」稀有度的通知元素。<br><br>任何解鎖百分比高於此值的成就，將顯示為配置為「青銅」稀有度的通知元素<br><br><span class="ttdesc">如果啟用了<span class="hl">獎盃模式</span>，任何解鎖百分比高於此值的成就將改為顯示為青銅通知</span>`,
-        showpercent: "在所選類型的通知中顯示成就的解鎖百分比",
         soundonly: "僅播放通過自訂器設置的聲音，禁用通知",
         extwin: "創建一個窗口，複製當前屏幕上顯示的所有通知。然後，可以將該窗口作為窗口捕捉源添加到流媒體軟體中，如 OBS",
         extwinframerate: "設置流通知的目標幀率",
@@ -663,11 +665,6 @@ export const translations = {
         tooltips: "在應用程式的某些 UI 元素上懸停時顯示工具提示",
         colorprofile: `強制所有應用程式視窗使用選定的顏色設定檔<br><br><span class="ttdesc">需要重新啟動應用程式</span>`,
         pollrate: `設定遊戲中成就資料的更新間隔<br><br><span class="ttdesc">效能可能會因系統值或硬體而增加/減少。較高的值通常會導致較低的系統負載，但可能會造成通知延遲</span>`,
-        initdelay: `設定當前 <span class="hl">AppID</span> 檢測與進程/成就追踪開始之間的延遲<br><br><span class="ttdesc">增加此值可以避免 Steam 無法啟動當前遊戲的情況（因為在遊戲啟動之前 Steamworks 初始化應用程序）</span><br><br><span class="ttdesc">另外，增加此值也可以用於繞過遊戲前啟動進程錯誤檢測</span>`,
-        releasedelay: `設定目前遊戲被釋放後，背景 Worker 處理程序在重新啟動前所等待的時間。此設定會影響自動處理程序追蹤與自動釋放遊戲<br><br><span class="ttdesc">可提供較長的時間讓 Steamworks 完全從應用程式中釋放。提高此數值可避免異常行為，例如持續追蹤已關閉的遊戲</span>`,
-        maxretries: `設定將執行中的處理程序連結至偵測到之 AppID 的最大重試次數。此設定會影響自動處理程序追蹤與自動釋放遊戲<br><br><span class="ttdesc">每秒會嘗試一次重試。若在此重試次數後，執行中的處理程序仍未連結至目前的 AppID，將會回傳無效的處理程序。在此情況下，必須透過 系統匣 > 選項 > 釋放遊戲 手動釋放該遊戲</span>`,
-        debug: "打開除錯面板，顯示詳細的處理追蹤資訊",
-        userust: "使用基於 Rust 的替代功能來檢查系統上目前是否正在執行追蹤的遊戲處理。未選中時，將使用基於 NodeJS 的預設處理檢查。",
         notifydebug: "為所有通知創建 DevTools 視窗。用於調試/排除通知問題",
         workerdebug: "為 Worker 處理程序建立一個 DevTools 視窗。可用於偵錯及排除遊戲追蹤問題",
         usecustomfiles: "啟用通知加載用戶自定義文件。建議常規用戶謹慎使用",
@@ -678,12 +675,10 @@ export const translations = {
         replay: "重新開始通知預覽的動畫",
         preset: "選擇要自定義的通知預設",
         iconanim: "切換稀有成就圖標邊框和動畫",
-        alldetails: "顯示通知中的所有文本元素，包括此預設情況下默認隱藏的元素",
         usepercent: "顯示成就解鎖百分比，而不是XP/S值",
         displaytime: "設置通知顯示的秒數",
         scale: "增加或減小通知的大小",
         customtext: `設定要在通知中顯示的自訂訊息<br><br><span class="ttdesc">當 Customiser > 預設 > 通知元素 > 解鎖訊息 被停用時，此選項將會隱藏</span>`,
-        usegametitle: "在通知中顯示當前遊戲的標題",
         customfont: "加載要在通知中使用的自定義字體",
         soundmode: "在通知發生時選擇單個音訊文件或從包含多個音訊文件的文件夾中隨機選擇音訊文件",
         soundfile: "選擇通知發生時播放的音訊文件",
@@ -700,7 +695,6 @@ export const translations = {
         roundness: "設置通知邊緣的圓角程度",
         fontsize: "設置通知中使用的字體大小",
         opacity: "設置通知的整體不透明度",
-        bgonly: "僅設置通知背景的不透明度，使其他元素完全不透明",
         glow: "啟用環繞通知的發光效果",
         glowcolor: "設定發光效果的顏色",
         glowsize: "設定發光效果的大小",
@@ -768,6 +762,7 @@ export const translations = {
         webhooksemi: `切換是否在解鎖 $semi 成就時向 Discord 伺服器發布成就資訊`,
         webhookrare: "切換是否在解鎖 $rare 成就時向 Discord 伺服器發布成就資訊",
         webhookplat: "切換是否在解鎖 $plat 成就時向 Discord 伺服器發布成就資訊",
+        webhookset: "切換是否在成就組合完成時，將成就資訊發佈到 Discord 伺服器",
         webhooktest: "切換是否在觸發任何類型的測試通知時，將測試資訊發佈到Discord伺服器",
         webhookurl: `設置所需 Discord 伺服器的 <span class="hl">Webhook URL</span><br><br><span class="ttdesc">Webhook URL 用於代表用戶或應用程序在 Discord 伺服器/頻道上發布。要為 Discord 伺服器設置新的 Webhook，用戶必須在所需伺服器上擁有允許創建 Webhook 的角色<br><br><u>使用此選項時需要 Webhook URL</u><br><br>詳情請參閱 Discord 的官方文檔</span>`,
         webhookspoilers: `在發布到Discord時，為「隱藏」成就添加劇透標籤`,
@@ -777,8 +772,6 @@ export const translations = {
         desc: "設置 $type 內成就描述的位置",
         notification: "通知",
         screenshot: "截圖",
-        percentpos: "設置 $type 內稀有度百分比的位置",
-        sspercentpos: "設置 $type 內稀有度百分比的位置",
         hiddeniconpos: "設置 $type 內隱藏/秘密成就圖標的位置",
         sshiddeniconpos: "設置 $type 內隱藏/秘密成就圖標的位置",
         decorationpos: "設置 $type 內裝飾元素的位置",
@@ -814,7 +807,6 @@ export const translations = {
         themeswitch: `當檢測到特定遊戲時，自動切換到任何已保存的 <span class="hl">主題</span>`,
         userthemesync: `將所選 <span class="hl">主題</span> 中的自定義同步到所有其他通知類型`,
         showsystrayopts: `顯示通常位於 <span class="hl">系統托盤</span> > <span class="hl">選項</span> 下的所有選項，在 <span class="hl">設置</span> > <span class="hl">其他</span>`,
-        releaseshortcut: "使用指定的鍵盤快捷鍵釋放當前跟蹤的遊戲",
         themeselect: "選擇之前保存的主題",
         statwin: `在外部窗口中顯示當前遊戲的可配置成就統計<br><br><span class="ttdesc">當與“<span class="hl">將成就翻譯為 Steam 語言</span>”選項一起使用時，某些翻譯可能在解鎖特定成就之前無法使用</span>`,
         statwinaot: `將成就統計覆蓋層設置為「始終置於最前面」模式，讓視窗顯示在遊戲視窗的上方<br><br><span class="ttdesc">啟用後，成就統計覆蓋層將不再註冊用戶互動，例如「點擊」事件。要重新啟用與視窗的互動，必須禁用此選項</span>`,
@@ -842,6 +834,7 @@ export const translations = {
         webhookembedcolorsemi: "設定在解鎖 $semi 成就時 webhook 內嵌使用的顏色",
         webhookembedcolorrare: "設定在解鎖 $rare 成就時 webhook 內嵌使用的顏色",
         webhookembedcolorplat: "設定在解鎖 $plat 成就時 webhook 內嵌使用的顏色",
+        webhookembedcolorset: "設定成就組合完成時 Webhook 嵌入訊息所使用的顏色",
         raemus: "當遊戲在支持的模擬器中被偵測到時顯示通知",
         rauser: "設定 RetroAchievements 使用者名稱來追蹤成就",
         rakey: `設定用於與 RetroAchievements API 進行身份驗證的 Web API 密鑰<br><br><span class="ttdesc">Web API 密鑰可以通過登入 RetroAchievements 網站並前往 <span class="hl">設定 > 密鑰 > Web API Key</span> 來複製或重新生成<br><br>🔒 提供的密鑰將在儲存在本地系統之前進行加密（如果當前操作系統支持加密）</span>`,
@@ -860,7 +853,7 @@ export const translations = {
         unlockmsgfontcolor: "設定第一個文字元素的顏色",
         titlefontcolor: "設定第二個文字元素的顏色",
         descfontcolor: "設定第三個文字元素的顏色",
-        exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `當成就解鎖時，將成就數據匯出為 JSON 文件<br><br><span class="ttdesc">啟用後，<span class="ttcode">achdata.json</span> 將匯出至:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "調整通知中各文本元素之間的垂直間距",
         ssmode: `設定螢幕截圖時要擷取整個螢幕或目前的遊戲視窗<span style="color: red;">*</span><br><br><span class="ttdesc">如果無法找到目前遊戲的 <span class="hl">可執行檔</span>（<i>無論是透過 <span class="hl">自動處理程序追蹤</span>，或是新增為 <span class="hl">自動釋放遊戲</span> 項目時</i>），此選項將預設使用「螢幕」模式</span>`,
         replaynotify: "重播最後的成就通知",
@@ -879,10 +872,10 @@ export const translations = {
         audiocooldown: `設定後續通知在播放新音訊前需等待的時間<br><br><span class="ttdesc">若最大通知數量設為 1，音訊將不受影響</span>`,
         rauseemudir: "將透過 RetroAchievements 解鎖的截圖/通知影像儲存到指定截圖/影像路徑目錄中當前模擬器的子資料夾內",
         ssext: "設定透過 Screenshot with Notification Overlay 選項產生的截圖檔案格式",
-        notify1line: `將所有通知中顯示的文字行數限制為 1<br><br><span class="ttdesc">無法容納於單行的文字字串將會以 "..." 截斷</span>`,
         copytheme: "將所選主題複製到另一種通知類型",
         ssaddtosteam: "自動將產生的媒體新增至目前遊戲在 Steam 中的錄製與截圖",
         appdatadir: "打開應用程式 AppData 資料夾的位置",
+        cleariconcache: "刪除所有先前快取的成就圖示",
         backup: "將應用程式的 AppData 資料夾內容備份到選定位置，作為應用程式當前狀態的還原點",
         restore: "從先前的備份還原應用程式 AppData 資料夾的內容",
         gametimerwin: "顯示一個螢幕計時器，用於顯示完成目前遊戲所有成就所花費的時間",
@@ -891,13 +884,7 @@ export const translations = {
         resetgametimer: "重設目前遊戲的遊戲完成計時器",
         noshortcuts: `停用所有應用程式內鍵盤快捷鍵<br><br><span class="ttdesc">啟用後，<u>所有應用程式內快捷鍵將不再運作</u>。所有與鍵盤快捷鍵相關的選項也將被隱藏</span>`,
         extwinnotify: "切換使用 Stream Notifications 時所有螢幕通知的可見性",
-        usesanwatcher: `啟用 SAN 的新遊戲程序監視器<br><br><span class="ttdesc">新版 SANWatcher 與舊版自動程序追蹤方法之間的差異如下：<br><br><div class="wrapper sanwatcher"><span class="hl">開啟</span><ul><li>主動監視儲存在遊戲安裝目錄中的任何程序之啟動與結束事件</li><li>無需知道遊戲執行檔即可釋放目前遊戲</li><li>遊戲啟動前啟動器的行為可能有所不同，因此無法保證與所有 Steam 遊戲完全相容</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">關閉</span><ul><li>在遊戲啟動後掃描遊戲安裝目錄中的所有執行中可執行檔</li><li>需要知道遊戲執行檔才能釋放目前遊戲</li><li>如果無法自動判定遊戲程序，使用者必須手動新增一筆項目至 <span class="hl">自動釋放遊戲</span>，遊戲才能自動釋放</li></ul></div>`,
-        releasewaittime: `設定 SANWatcher 在釋放目前遊戲之前，等待新遊戲程序啟動的時間長度<br><br><span class="ttdesc">例如，如果目前遊戲會先啟動遊戲前啟動器／設定視窗，然後才啟動實際遊戲，則此設定會決定在遊戲前啟動器／設定視窗關閉後，SANWatcher 等待實際遊戲視窗啟動的秒數<br><br>如果在此等待時間內偵測到新的作用中遊戲程序，則釋放作業將會取消，並改為追蹤新啟用的程序<br><br>💡 當目前遊戲正在等待釋放時，遊戲名稱將會在<span class="hl">遊戲顯示</span>方塊中<span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">閃爍</span></span>`,
-        platcustomtext: `設定要在通知中顯示的遊戲 100% 完成自訂訊息<br><br><span class="ttdesc">當 Customiser > 預設 > 通知元素 > 成就描述 被停用時，此選項將會隱藏</span>`,
         raui: "在遊戲顯示介面/系統匣介面中顯示已偵測到的 RetroAchievements 遊戲名稱",
-        testnotifycustomtext: "覆寫所有測試通知中顯示的文字",
-        testnotifycustomtexttitle: "覆寫所有測試通知中標題元素顯示的文字",
-        testnotifycustomtextdesc: "覆寫所有測試通知中描述元素顯示的文字",
         radefault: `當任何 RetroAchievements 成就解鎖時，始終自動切換至此項目<br><br><span class="ttdesc">只能將一個 自動切換主題 項目指定為所有 RetroAchievements 成就的預設項目。也可以透過為特定的 RetroAchievements <span class="hl">GameID</span> 新增一個 自動切換主題 項目來覆寫個別遊戲的預設設定</span>`,
         statwintype: "設定成就統計窗口的版面配置類型",
         statwinunlockonly: "在解鎖成就前保持隱藏成就統計窗口",
@@ -909,7 +896,12 @@ export const translations = {
         usecustomtext: "設定要在通知中顯示的自訂訊息",
         customtextunlockmsg: `設定要在解鎖訊息元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 解鎖訊息停用時，此選項將會隱藏</span>`,
         customtexttitle: `設定要在成就標題元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 成就標題停用時，此選項將會隱藏</span>`,
-        customtextdesc: `設定要在成就描述元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 成就描述停用時，此選項將會隱藏</span>`
+        customtextdesc: `設定要在成就描述元素中顯示的自訂訊息<br><br><span class="ttdesc">當自訂 > 預設 > 通知元素 > 成就描述停用時，此選項將會隱藏</span>`,
+        notifylinemode: "設定通知中顯示的最大文字行數",
+        notifyoverflow: "設定通知中文字溢出時的處理方式",
+        scrollrepeat: `設定通知顯示期間溢出文字的捲動次數<br><br><span class="ttdesc">捲動速度取決於顯示時間，但較高的重複次數可能不適用於所有預設設定</span>`,
+        setplat: "在相容的遊戲中，於每個成就組合完成時顯示通知",
+        platsubtype: `選擇要自訂的 <span class="hl">100%</span> 通知子類型<br><br><span class="ttdesc" nostar><ul><li><span class="hl">遊戲</span>：當遊戲中的所有成就都解鎖時顯示的通知</li><li><span class="hl">組合</span>：當單一成就組合中的所有成就都解鎖時顯示的通知</li></ul></span>`
     },
     update: {
         updateavailable: "有可用更新",
@@ -919,64 +911,6 @@ export const translations = {
             `完整的發行說明在 <span id="discordreleasenotes"></span> 和 <span id="githubreleasenotes"></span> 上可用`
         ],
         update: "更新"
-    },
-    linkgame: {
-        content: {
-            exepath: "可執行檔路徑",
-            linkedgame: "關聯遊戲",
-            autoreleasegame: "自動釋放遊戲",
-            linkedgamessub: [
-                `覆蓋由 <span class="hl">SANWatcher</span> 自動追蹤的所有執行中遊戲程序，改為僅檢查所選<span class="hl">遊戲可執行檔</span>是否正在執行`,
-                `將任何遊戲的 <span class="hl">AppID</span> 關聯到目標<span class="hl">遊戲可執行檔</span>，或<span class="hl">移除</span>現有關聯`
-            ],
-            autoreleasegamessub: [
-                `如果 Steam 在遊戲視窗關閉後仍顯示<i>正在執行</i>，請嘗試在 <span class="hl">$linkgame</span> 中新增項目`,
-                `新增特定遊戲的 <span class="hl">AppID</span> 及其對應的<span class="hl">遊戲可執行檔</span>，或<span class="hl">移除</span>現有項目`,
-            ],
-            managesub: [
-                `偵測到遊戲後，也可透過<span class="hl">目前焦點視窗</span>新增項目：在<span class="hl">系統匣圖示</span>上<i>按右鍵</i> > <span class="hl">$linkgame</span>`,
-                `<span class="hl help" id="appidhelp"><u>如何找到 Steam 遊戲的 AppID？</u></span>`
-            ],
-            linknew: "新增項目",
-            linknewsub: [
-                `將新遊戲的 <span class="hl">AppID</span> 關聯到目標<span class="hl">遊戲可執行檔</span>`,
-                `新增後，可透過先前的 <span class="hl">$linkgame</span> 選單<span class="hl">移除</span>項目`
-            ],
-            linkedit: "編輯項目",
-            linkeditsub: [
-                `編輯遊戲 <span class="hl">AppID</span> 與目標<span class="hl">遊戲可執行檔</span>之間的關聯`,
-                `新增後，可透過先前的 <span class="hl">$linkgame</span> 選單<span class="hl">移除</span>項目`
-            ],
-            link: "新增",
-            findappid: "尋找 Steam AppID",
-            findappidsub: [
-                `每個 Steam 遊戲都有一個唯一的編號，稱為 <span class="hl">AppID</span>。你可以透過以下方式找到 Steam 遊戲的 AppID：`,
-                `在 <span class="hl">Steam 用戶端</span>中，於<span class="hl">收藏庫</span>中<i>右鍵點擊</i>遊戲，選擇<i>內容</i> > <i>更新</i> — AppID 會顯示在此`,
-                `遊戲<span class="hl">商店頁面</span>的 <span class="hl">URL</span> — 在 <span class="hl">app/</span> 後面的數字即為 AppID：<code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `例如 <span class="hl">SteamDB</span> 等網站 — 在 <span class="hl">App Info</span> 區段可查看每個遊戲的 AppID`
-            ],
-            noexe: "未找到遊戲 EXE！",
-            noexesub: "點擊此處查看更多資訊",
-            noexedialogsub: [
-                `Steam Achievement Notifier 無法自動定位此遊戲的可執行檔。必須知道遊戲可執行檔的位置才能在遊戲關閉後「釋放」遊戲`,
-                `若要在遊戲關閉後手動釋放遊戲，請在<span class="hl">系統匣圖示</span>上<i>按右鍵</i> > <span class="hl">選項</span> > <span class="hl">釋放遊戲</span>，或使用<span class="hl">釋放遊戲快捷鍵</span>`,
-                `或者，點擊下方的<span class="hl">新增</span>按鈕，將目前焦點視窗的可執行檔新增至 <span class="hl">設定</span> > <span class="hl">遊戲</span> > <span class="hl">自動釋放遊戲</span>`,
-            ],
-            linkedgamefocussub: `若要覆蓋由 <span class="hl">SANWatcher</span> 自動追蹤的所有執行中遊戲程序，請在<span class="hl">關聯遊戲</span>中新增項目`,
-            autoreleasegamefocussub: `如果 Steam 在遊戲視窗關閉後仍顯示<i>正在執行</i>，請嘗試在<span class="hl">自動釋放遊戲</span>中新增項目`,
-            focussub: `若要對目前遊戲執行此操作，請點擊下方的<span class="hl">新增</span>按鈕，將目前焦點視窗的可執行檔新增至 <span class="hl">設定</span> > <span class="hl">遊戲</span> > <span class="hl">$linkgame</span>`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>點擊「新增」按鈕會發生什麼事？</u></span>`,
-            linkgamehelp: "透過焦點視窗關聯",
-            linkgamehelpsub: [
-                `點擊<span class="hl">新增</span>按鈕後，將自動在 <span class="hl">設定</span> > <span class="hl">遊戲</span> > <span class="hl">自動釋放遊戲</span>中新增一個項目，使用目前焦點視窗的資訊。`,
-                `點擊<span class="hl">新增</span>按鈕後將開始 5 秒倒數`,
-                `在倒數結束前，請將焦點切換到遊戲視窗`,
-                `倒數結束後，將為目前 <span class="hl">AppID</span> 在 <span class="hl">設定</span> > <span class="hl">遊戲</span> > <span class="hl">自動釋放遊戲</span>中新增項目，並使用焦點視窗的可執行檔`,
-                `新的嘗試將覆蓋現有項目，或可在 <span class="hl">設定</span> > <span class="hl">遊戲</span> > <span class="hl">自動釋放遊戲</span>中點擊<span id="linkhelpunlink"></span>按鈕移除項目`
-            ],
-            addlinkfailed: "無法新增視窗",
-            addlinkfailedsub: `點擊<span class="hl">新增</span>按鈕以重試`
-        }
     },
     exclusions: {
         content: {
@@ -1022,8 +956,6 @@ export const translations = {
             sshiddeniconpos: "隱藏圖標",
             decorationpos: "裝飾",
             ssdecorationpos: "裝飾",
-            percentpos: "稀有度百分比",
-            sspercentpos: "稀有度百分比",
             percentbadge: "百分比徽章",
             sspercentbadge: "百分比徽章",
             percentbadgepos: "徽章位置",
@@ -1075,78 +1007,19 @@ export const translations = {
             themes: "主題",
             src: "螢幕截圖來源",
             themedeleted: "主題已刪除",
+            findappid: "尋找 Steam AppID",
+            findappidsub: [
+                `每個 Steam 遊戲都有一個唯一的編號，稱為 <span class="hl">AppID</span>。你可以透過以下方式找到 Steam 遊戲的 AppID：`,
+                `在 <span class="hl">Steam 用戶端</span>中，於<span class="hl">收藏庫</span>中<i>右鍵點擊</i>遊戲，選擇<i>內容</i> > <i>更新</i> — AppID 會顯示在此`,
+                `遊戲<span class="hl">商店頁面</span>的 <span class="hl">URL</span> — 在 <span class="hl">app/</span> 後面的數字即為 AppID：<code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `例如 <span class="hl">SteamDB</span> 等網站 — 在 <span class="hl">App Info</span> 區段可查看每個遊戲的 AppID`
+            ],
             rafindgameid: "尋找 RA GameID",
             rafindgameidsub: [
                 `每個 RetroAchievements 遊戲都有一個唯一編號，稱為 <span class="hl">GameID</span>。你可以透過以下方式找到任何 RetroAchievements 遊戲的 GameID：`,
                 `RetroAchievements 網站上的 <span class="hl">遊戲頁面</span> URL —— 即 <span class="hl">game/</span> 之後的數字：<code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "設為 RetroAchievements 預設項目"
-        }
-    },
-    troubleshooter: {
-        title: "疑難排解",
-        content: {
-            copydata: "複製",
-            noissues: "未發現問題！",
-            noissuessub: "此遊戲應會自動啟動。",
-            manualrelease: `你可以透過 <span class="hl">系統匣</span> > <span class="hl">選項</span> > <span class="hl">啟動遊戲</span> 手動啟動任何遊戲。`,
-            addedvia: "新增方式"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "沒有作用中的程序",
-                issue: "找不到作用中的遊戲程序",
-                detail: "未偵測到與此遊戲相關的可執行檔正在作為執行中的程序。已檢查以下可執行檔：",
-                solution: [
-                    `請嘗試將遊戲的可執行檔新增至 $linkedgamesmenu。`,
-                    `確保 $linkedgamesmenu 中的項目指向正確的可執行檔。`
-                ]
-            },
-            unknownexecutable: {
-                title: "未知的可執行檔",
-                issue: "無法識別遊戲的可執行檔",
-                detail: "無法自動找到遊戲可執行檔的路徑，這通常是因為透過 Steam 啟動遊戲時存在遊戲啟動前的啟動器。",
-                solution: [
-                    `在 $linkedgamesmenu 中為此遊戲新增項目，或移除任何指向錯誤遊戲可執行檔的項目。否則，請檢查遊戲是否支援 Steam 啟動選項，以略過遊戲啟動前的啟動器，例如 <code style="font-size: 0.55rem;">-skiplauncher</code>。`,
-                    `請嘗試啟用 $sanwatcher。`
-                ]
-            },
-            missingexecutable: {
-                title: "缺少可執行檔",
-                issue: "在磁碟上找不到遊戲的可執行檔",
-                detail: `在磁碟上找不到與此遊戲相關的可執行檔。已檢查以下可執行檔：`,
-                solution: ["請嘗試透過 Steam 驗證遊戲檔案的完整性，或重新安裝遊戲。"]
-            },
-            notexecutable: {
-                title: "無法執行",
-                issue: `遊戲缺少執行權限`,
-                detail: "Steam 用來啟動遊戲的檔案無法執行。該檔案回報為：",
-                solution: ["若要讓此檔案可執行，請參閱適用於你的 Linux 發行版的相關說明。"]
-            },
-            notwithininstalldir: {
-                title: "不在遊戲目錄中",
-                issue: "可執行檔不在安裝目錄中",
-                detail: "$linkedgamesmenu 中偵測到此遊戲的項目，但連結的可執行檔並不位於遊戲的安裝資料夾內，這可能表示該檔案並不正確。",
-                solution: ["編輯此遊戲的 $linkedgamesmenu 項目，並確保其指向正確的遊戲可執行檔。"]
-            },
-            wrongplatformpath: {
-                title: "遊戲路徑無效",
-                issue: "遊戲路徑不適用於目前的作業系統",
-                detail: "此遊戲的可執行檔路徑看起來屬於不同的作業系統——可能是因為設定檔從另一台電腦複製而來，或是因為雙系統設定。",
-                solution: [`請勿使用從其他電腦／作業系統複製的設定，因為這很可能無法正常運作。所有現有的 <span class="hl">主題</span> 都可以透過 <span class="hl">自訂器</span> 選單進行跨平台匯入／匯出。`]
-            },
-            duplicatelinkentries: {
-                title: "重複項目",
-                issue: "發現重複的 $linkedgamesmenu 項目",
-                detail: "此遊戲可執行檔也與 $linkedgamesmenu 下的 $appids 建立了連結。",
-                solution: ["移除其中一個重複項目，並確保剩餘的項目指向正確的遊戲可執行檔。"]
-            },
-            releasing: {
-                title: "遊戲正在啟動",
-                issue: "遊戲正在啟動",
-                detail: "此遊戲即將啟動。",
-                solution: [`請再等待幾秒鐘——遊戲啟動後，<span class="hl">系統匣</span> 圖示中的圓點會從 <span class="troubleshooterdialogicon" grey></span>（啟動中）變為 <span class="troubleshooterdialogicon" red></span>（閒置）。`]
-            }
         }
     }
 }

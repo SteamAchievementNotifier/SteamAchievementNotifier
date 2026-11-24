@@ -34,6 +34,8 @@ export const translations = {
         gamecomplete: "100% 완료",
         achievementdesc: "테스트 알림 버튼을 클릭했습니다",
         gamecompletedesc: "모든 업적이 잠금 해제되었습니다!",
+        setname: "세트 이름",
+        setcomplete: "업적 세트를 모두 완료했습니다!",
         defaultcustomfont: "기본값 (선택된 폰트 없음)",
         defaultsoundfile: "기본값 (선택된 파일 없음)",
         defaultsounddir: "기본값 (선택된 폴더 없음)",
@@ -44,11 +46,6 @@ export const translations = {
         show: "보이기",
         exit: "종료",
         donotshowagain: "이 대화 상자를 다시 표시하지 않음",
-        releasegame: "게임 릴리즈",
-        releasegamesub: [
-            `백그라운드 Worker 프로세스를 재시작하고 현재 게임의 추적을 해제합니다`,
-            `최근에 게임을 종료했지만 Steam이 여전히 실행 중으로 표시하거나, Steam Achievement Notifier가 이미 종료된 게임을 추적 중으로 표시하는 경우 이 옵션을 시도해보세요`
-        ],
         noupdateavailable: "사용 가능한 업데이트가 없습니다",
         latestversion: "최신 버전이 설치되어 있습니다",
         missingdeps: "부족한 종속성",
@@ -62,6 +59,7 @@ export const translations = {
         new: "새로 만들기...",
         nodata: "데이터 없음",
         webhookunlockmsg: "$user가 업적을 잠금 해제했습니다",
+        webhookunlockmsgset: "$user 님이 도전 과제 세트를 완료했습니다",
         webhookunlockmsgplat: "$user 님이 모든 업적을 해제했습니다",
         webhookingame: "$gamename에서",
         notconnected: "연결되지 않음",
@@ -163,8 +161,17 @@ export const translations = {
         ],
         betaghreleases: "릴리스",
         checkapplog: "자세한 내용은 앱 로그를 확인하세요.",
-        workercrash: "Worker가 충돌했습니다!",
-        workercrashsub: "여기를 클릭하여 Worker를 다시 시작하고 게임 추적을 다시 시도하세요"
+        customtextvars: "변수",
+        customtextvarssub: `<span class="hl">변수</span>는 알림에 게임/도전 과제 정보를 표시하기 위해 <span class="hl">사용자 지정 텍스트</span> 내에서 사용할 수 있습니다:`,
+        customtextvarsdesc: {
+            game: "게임 제목",
+            title: "도전 과제 제목",
+            desc: "도전 과제 설명",
+            percent: "도전 과제 달성률",
+            total: "달성한/전체 도전 과제 수"
+        },
+        customtextvarsset: "업적 세트 이름",
+        customtextvarsplat: `"$gamecomplete" 메시지`
     },
     app: {
         content: {
@@ -196,10 +203,6 @@ export const translations = {
             content: {
                 rarity: "희귀도 비율",
                 semirarity: "실버 비율",
-                rareonly: "희귀 항목만",
-                all: "모두",
-                off: "끔",
-                showpercent: "백분율 표시",
                 soundonly: "사운드만",
                 nowtracking: "추적 알림 표시",
                 nowtrackingscale: "추적 스케일",
@@ -222,17 +225,18 @@ export const translations = {
                 trophymode: "트로피 모드",
                 notifymax: "최대 알림 수", 
                 notifyspace: "알림 간격",
-                notify1line: "텍스트를 1줄로 제한",
-                testnotifycustomtext: "테스트 알림 사용자 지정 텍스트",
-                testnotifycustomtexttitle: "제목",
-                testnotifycustomtextdesc: "설명"
+                notifylinemode: "줄 표시 모드",
+                single: "한 줄",
+                max: "최대",
+                notifyoverflow: "오버플로 모드",
+                ellipsis: "줄임표",
+                scroll: "스크롤",
+                setplat: "100% 달성 알림"
             }
         },
         games: {
             title: "게임",
             content: {
-                linkedgames: "연결된 게임",
-                autoreleasegames: "자동 해제 게임",
                 themeswitch: "테마 자동 전환",
                 exclusionlist: "제외 목록",
                 inclusionlist: "포함 목록",
@@ -320,7 +324,6 @@ export const translations = {
                 nvda: "NVDA 지원 활성화",
                 tooltips: "도구 설명 표시",
                 showsystrayopts: "시스템 트레이 옵션 표시",
-                releaseshortcut: "게임 릴리스 단축키",
                 noshortcuts: "키보드 단축키 비활성화"
             }
         },
@@ -328,11 +331,6 @@ export const translations = {
             title: "고급 설정",
             content: {
                 pollrate: "폴링 속도",
-                initdelay: "추적 지연",
-                releasedelay: "릴리스 지연",
-                maxretries: "최대 재시도 횟수",
-                debug: "디버그 패널",
-                userust: "대체 처리 모드",
                 notifydebug: "디버그 알림 표시",
                 workerdebug: "Worker DevTools 표시",
                 exportachdata: "업적 데이터 내보내기",
@@ -340,6 +338,7 @@ export const translations = {
                 audiocooldown: "오디오 대기 시간",
                 usecustomfiles: "사용자 정의 앱 파일 사용",
                 showcustomfiles: "사용자 정의 앱 파일 표시",
+                cleariconcache: "아이콘 캐시 지우기",
                 appdatadir: "AppData 폴더 표시",
                 backup: "백업",
                 backuppath: "백업 경로",
@@ -356,8 +355,6 @@ export const translations = {
                     "❗ 확인 후, 선택한 백업 파일을 복원하기 위해 앱이 재시작됩니다"
                 ],
                 restorefailed: "백업 복원에 실패했습니다.",
-                usesanwatcher: "SANWatcher",
-                releasewaittime: "해제 대기 시간",
                 logresourceusage: "리소스 사용량 기록"
             }
         },
@@ -405,18 +402,16 @@ export const translations = {
             content: {
                 preset: "알림 프리셋",
                 iconanim: "희귀 아이콘 애니메이션",
-                alldetails: "모든 세부사항 표시",
                 usepercent: "백분율 사용",
                 displaytime: "표시 시간",
                 scale: "크기 조절",
                 customtext: "사용자 정의 텍스트",
-                usegametitle: "게임 제목 사용",
                 customfont: "사용자 정의 글꼴",
-                platcustomtext: "사용자 지정 100% 텍스트",
                 usecustomtext: "사용자 지정 텍스트",
                 customtextunlockmsg: "잠금 해제 메시지",
                 customtexttitle: "업적 제목",
-                customtextdesc: "업적 설명"
+                customtextdesc: "업적 설명",
+                scrollrepeat: "스크롤 반복"
             }
         },
         sound: {
@@ -452,7 +447,6 @@ export const translations = {
                 descfontsize: "설명",
                 textvspace: "텍스트 간격",
                 opacity: "불투명도",
-                bgonly: "배경만",
                 glow: "발광",
                 glowcolor: "색상",
                 glowsize: "크기",
@@ -589,6 +583,14 @@ export const translations = {
                 copytheme: "테마 복사",
                 copythemesub: "선택한 테마를 복사할 알림 유형을 선택하세요"
             }
+        },
+        platnotifytype: {
+            title: "사용자 지정",
+            content: {
+                platsubtype: "하위 유형",
+                game: "게임",
+                set: "세트"
+            }
         }
     },
     logwin: {
@@ -612,6 +614,7 @@ export const translations = {
     error: {
         content: {
             subtitle: "Steam Achievement Notifier에 문제가 발생하여 종료해야 합니다.",
+            steam: "Steam 설치를 찾을 수 없습니다",
             details: "다음은 오류 세부 정보입니다:",
             sub: "선호하는 플랫폼을 통해 이 문제를 보고하려면 아래 버튼을 클릭하십시오.",
             report: "보고",
@@ -628,8 +631,8 @@ export const translations = {
         discord: "Discord에 가입하기!",
         github: "문제 보고",
         lang: "앱에서 사용되는 UI 언어 선택",
-        steamlang: `Steam의 애플리케이션 파일에 있는 번역을 로드하여 사용자가 선택한 언어로 성취 정보를 표시하려고 시도합니다<br><br><span class="ttdesc">이 옵션은 Steam의 애플리케이션 데이터에 저장된 JSON 파일에서 번역을 찾으려고 시도합니다. 현재 성취의 번역을 찾을 수 없는 경우, 대신 Steamworks에서 가져온 성취 정보가 표시됩니다.</span>`,
-        maxsteamlangretries: `현재 성취에 대한 유효한 번역을 찾기 위한 시도 횟수 (100ms마다)<br><br><span class="ttdesc">Steam은 현재 각 게임과 연결된 JSON 파일에 적은 양의 성취 데이터만 저장합니다. 이 파일에 없는 성취는 성취가 잠금 해제된 후에 추가됩니다.<br><br>새로운 데이터를 추가하는 데 시간이 걸릴 수 있으므로 이 값을 높이면 현재 성취에 대한 번역 데이터를 찾을 가능성이 높아지지만, 이 설정에 의해 계산된 시간만큼 화면에 알림이 표시되는 것이 지연될 수도 있습니다.<br><br>현재 성취에 대한 유효한 번역 데이터를 찾을 수 없는 경우, 번역은 Steamworks에서 지정한 언어로 돌아갑니다.</span>`,
+        steamlang: `Steam 클라이언트에서 사용자가 선택한 언어로 도전 과제 정보를 표시하기 위해 Steam 애플리케이션 파일에 있는 번역을 불러오려고 시도합니다<br><br><span class="ttdesc">이 옵션은 Steam 애플리케이션 데이터에 저장된 JSON 파일에서 번역을 검색합니다. 현재 도전 과제에 대한 번역을 찾을 수 없는 경우 Steam의 내부 바이너리 파일에서 가져온 도전 과제 정보가 대신 표시됩니다</span>`,
+        maxsteamlangretries: `현재 도전 과제에 대한 유효한 번역을 찾기 위해 시도할 횟수(100ms당)<br><br><span class="ttdesc">현재 Steam은 각 게임과 연결된 JSON 파일에 소량의 도전 과제 데이터만 저장합니다. 이 파일에 포함되지 않은 도전 과제는 잠금 해제된 후에 추가됩니다.<br><br>새 데이터를 추가하는 데 시간이 걸릴 수 있으므로 이 값을 높이면 현재 도전 과제의 번역 데이터를 찾을 가능성이 높아지지만, 이 설정으로 계산된 시간만큼 알림이 화면에 표시되는 시점이 지연될 수도 있습니다.<br><br>현재 도전 과제에 대한 유효한 번역 데이터를 찾을 수 없는 경우 영어 번역이 사용됩니다.</span>`,
         desktop: "데스크톱에 앱 실행 바로 가기 전환",
         startwin: "로그인 후 Steam Achievement Notifier 자동 시작",
         startmin: "실행 후, 시스템 트레이에서 열릴 때까지 앱 UI 창 숨기기",
@@ -637,7 +640,6 @@ export const translations = {
         litemode: "모든 상호 작용 UI 요소 비활성화, 시스템 트레이 아이콘을 통한 제한된 앱 기능만 제공. 앱이 사용하는 리소스 개선 가능",
         rarity: `희귀 업적 알림이 표시되는 비율입니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 메인 알림으로 표시됩니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 실버 알림으로 표시됩니다</span>`,
         semirarity: `"실버" 알림 요소가 표시되는 비율입니다 (예: <span class="hl">희귀 배지</span>, <span class="hl">장식</span> 등).<br><br>이 값 이하(또는 같고)이며 <span class="hl">희귀도 비율</span>보다 높은 잠금 해제 비율을 가진 모든 업적은 "실버" 희귀도용으로 설정된 알림 요소를 표시합니다.<br><br>이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 "브론즈" 희귀도용으로 설정된 알림 요소를 표시합니다<br><br><span class="ttdesc"><span class="hl">트로피 모드</span>가 활성화된 경우, 이 값보다 높은 잠금 해제 비율을 가진 모든 업적은 대신 브론즈 알림으로 표시됩니다</span>`,
-        showpercent: "선택한 유형의 알림에 업적의 잠금 해제 백분율 표시",
         soundonly: "알림 비활성화, Customiser에서 설정한 사운드만 재생",
         extwin: "현재 화면에 표시되는 모든 알림을 복제하는 창을 생성합니다. 이 창은 OBS와 같은 스트리밍 소프트웨어에서 창 캡처 소스로 추가할 수 있습니다",
         extwinframerate: "스트림 알림을 위한 목표 프레임 속도 설정",
@@ -663,11 +665,6 @@ export const translations = {
         tooltips: "특정 UI 요소 위에 마우스를 올렸을 때 도구 설명 표시",
         colorprofile: `선택한 색상 프로필을 사용하여 모든 애플리케이션 창을 렌더링하도록 강제<br><br><span class="ttdesc">앱 재시작이 필요합니다</span>`,
         pollrate: `게임 중 성취 데이터의 업데이트 간격을 설정합니다<br><br><span class="ttdesc">값이나 시스템 하드웨어에 따라 성능이 증가하거나 감소할 수 있습니다. 일반적으로 높은 값은 시스템 부하를 줄이지만 알림이 지연될 수 있습니다</span>`,
-        initdelay: `현재 <span class="hl">AppID</span> 감지와 프로세스/성취 추적 시작 사이의 지연을 설정합니다<br><br><span class="ttdesc">이 값을 증가시키면 Steam이 현재 게임을 시작할 수 없는 시나리오를 방지할 수 있습니다 (게임이 시작되기 전에 Steamworks가 애플리케이션을 초기화하는 경우)</span><br><br><span class="ttdesc">또한 이 값을 증가시켜 게임 전 시작 프로세스의 잘못된 감지를 우회하는 데 사용할 수도 있습니다</span>`,
-        releasedelay: `현재 게임이 릴리스된 후 백그라운드 Worker 프로세스가 다시 시작되기까지 대기하는 시간을 설정합니다. 자동 프로세스 추적과 자동 릴리스 게임 모두에 영향을 미칩니다<br><br><span class="ttdesc">Steamworks가 앱에서 완전히 해제될 수 있도록 더 긴 시간을 허용합니다. 이 값을 늘리면 이전에 종료된 게임을 추적하는 것과 같은 비정상적인 동작을 방지할 수 있습니다</span>`,
-        maxretries: `실행 중인 프로세스를 감지된 AppID에 연결하기 위한 최대 재시도 횟수를 설정합니다. 자동 프로세스 추적과 자동 릴리스 게임 모두에 영향을 미칩니다<br><br><span class="ttdesc">재시도는 1초마다 수행됩니다. 이 횟수 내에 실행 중인 프로세스가 현재 AppID에 연결되지 않으면 잘못된 프로세스가 반환됩니다. 이러한 경우 시스템 트레이 > 옵션 > 게임 릴리스를 통해 수동으로 게임을 릴리스해야 합니다</span>`,
-        debug: "디버그 패널을 열면 프로세스 추적 정보가 자세하게 표시됩니다.",
-        userust: "시스템에서 추적된 게임 프로세스가 현재 실행 중인지 확인하기 위해 Rust 기반의 대체 기능을 사용합니다. 체크를 해제하면 대신 기본 NodeJS 기반 프로세스 확인이 사용됩니다.",
         notifydebug: "모든 알림에 대한 DevTools 창 생성. 알림 문제의 디버깅/문제 해결에 유용",
         workerdebug: "Worker 프로세스용 DevTools 창을 생성합니다. 게임 추적 문제를 디버깅하거나 문제를 해결하는 데 유용합니다",
         usecustomfiles: "사용자 정의 가능한 파일을 알림에로드 가능하게 함. 일반 사용자에게 주의가 필요",
@@ -678,12 +675,10 @@ export const translations = {
         replay: "알림 미리보기 애니메이션 다시 시작",
         preset: "사용자 정의할 알림 프리셋 선택",
         iconanim: "희귀 아이콘 테두리 및 애니메이션 전환",
-        alldetails: "이 프리셋에 대해 기본적으로 숨겨진 모든 텍스트 요소를 알림에 표시",
         usepercent: "XP/S 값 대신 업적의 잠금 해제 백분율 표시",
         displaytime: "알림이 표시될 시간(초) 설정",
         scale: "알림의 크기를 확대 또는 축소",
         customtext: `알림에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">Customiser > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화되면 이 옵션은 숨겨집니다</span>`,
-        usegametitle: "알림 내에 현재 게임의 제목 표시",
         customfont: "알림 내에서 사용할 사용자 정의 글꼴 로드",
         soundmode: "알림이 발생할 때 단일 오디오 파일 또는 여러 오디오 파일이 포함된 폴더에서 무작위로 선택된 오디오 파일 중 하나 선택",
         soundfile: "알림이 발생할 때 재생할 오디오 파일 선택",
@@ -700,7 +695,6 @@ export const translations = {
         blur: "알림 배경에 적용되는 흐림 수준을 설정합니다",
         fontsize: "알림에서 사용되는 글꼴 크기 설정",
         opacity: "알림의 전체 투명도 설정",
-        bgonly: "알림 배경에만 투명도 설정, 다른 요소는 완전한 불투명도 유지",
         glow: "알림을 둘러싸는 발광 효과를 활성화합니다",
         glowcolor: "발광 효과의 색상을 설정합니다",
         glowsize: "발광 효과의 크기를 설정합니다",
@@ -768,6 +762,7 @@ export const translations = {
         webhooksemi: `$semi 업적이 잠금 해제될 때 Discord 서버에 업적 정보를 게시할지 전환`,
         webhookrare: `$rare 업적이 잠금 해제될 때 Discord 서버에 업적 정보를 게시할지 전환`,
         webhookplat: `$plat 업적이 잠금 해제될 때 Discord 서버에 업적 정보를 게시할지 전환`,
+        webhookset: "도전 과제 세트 완료 시 Discord 서버에 도전 과제 정보를 게시할지 여부를 전환합니다",
         webhooktest: "모든 유형의 테스트 알림이 트리거될 때 테스트 정보를 Discord 서버에 게시할지 여부를 전환",
         webhookurl: `원하는 Discord 서버를 위한 <span class="hl">Webhook URL</span>을 설정하세요<br><br><span class="ttdesc">Webhook URL은 사용자 또는 애플리케이션을 대신하여 Discord 서버/채널에 게시하는 데 사용됩니다. Discord 서버에 새로운 Webhook을 설정하려면 사용자가 Webhook 생성을 허용하는 역할을 가진 서버의 멤버여야 합니다<br><br><u>이 옵션을 사용하려면 Webhook URL이 필요합니다</u><br><br>자세한 내용은 Discord의 공식 문서를 참조하세요</span>`,
         webhookspoilers: `Discord에 게시할 때 "숨겨진" 업적에 스포일러 태그 추가`,
@@ -777,8 +772,6 @@ export const translations = {
         desc: "$type 내에서 업적 설명의 위치를 설정하세요",
         notification: "알림",
         screenshot: "스크린샷",
-        percentpos: "$type 내에서 희귀도 백분율의 위치를 설정하세요",
-        sspercentpos: "$type 내에서 희귀도 백분율의 위치를 설정하세요",
         hiddeniconpos: "$type 내에서 숨겨진/비밀 업적 아이콘의 위치를 설정하세요",
         sshiddeniconpos: "$type 내에서 숨겨진/비밀 업적 아이콘의 위치를 설정하세요",
         decorationpos: "$type 내에서 장식 요소의 위치를 설정하세요",
@@ -814,7 +807,6 @@ export const translations = {
         themeswitch: `특정 게임이 감지될 때 저장된 <span class="hl">테마</span>로 자동 전환`,
         userthemesync: `선택한 <span class="hl">테마</span>의 사용자 정의를 모든 다른 알림 유형에 동기화`,
         showsystrayopts: `보통 <span class="hl">시스템 트레이</span> > <span class="hl">옵션</span> 아래에 위치하는 모든 옵션을 표시 <span class="hl">설정</span> > <span class="hl">기타</span>`,
-        releaseshortcut: "지정된 키보드 단축키를 사용하여 현재 추적 중인 게임을 릴리스합니다",
         themeselect: "이전에 저장된 테마 선택",
         statwin: `현재 게임에 대한 구성 가능한 업적 통계를 외부 창에 표시<br><br><span class="ttdesc">"<span class="hl">Steam 언어로 업적 번역</span>" 옵션과 함께 사용 시, 특정 업적이 잠금 해제될 때까지 일부 번역이 제공되지 않을 수 있습니다</span>`,
         statwinaot: `성취 통계 오버레이를 "항상 위에" 모드로 설정하여 게임 창 위에 표시되도록 합니다<br><br><span class="ttdesc">이 옵션이 활성화되면 성취 통계 오버레이는 더 이상 사용자 상호작용(예: "클릭" 이벤트)을 등록하지 않습니다. 창과의 상호작용을 다시 활성화하려면 이 옵션을 비활성화해야 합니다</span>`,
@@ -842,6 +834,7 @@ export const translations = {
         webhookembedcolorsemi: `$semi 업적이 잠금 해제될 때 웹후크 임베드에 사용되는 색상 설정`,
         webhookembedcolorrare: `$rare 업적이 잠금 해제될 때 웹후크 임베드에 사용되는 색상 설정`,
         webhookembedcolorplat: `$plat 업적이 잠금 해제될 때 웹후크 임베드에 사용되는 색상 설정`,
+        webhookembedcolorset: "도전 과제 세트 완료 시 웹훅 임베드에 사용되는 색상을 설정합니다",
         raemus: "지원되는 에뮬레이터에서 게임이 감지될 때 알림 표시",
         rauser: "업적 추적에 사용할 RetroAchievements 사용자 이름 설정",
         rakey: `RetroAchievements API 인증에 사용할 Web API 키를 설정합니다<br><br><span class="ttdesc">Web API 키는 RetroAchievements 웹사이트에 로그인하고 <span class="hl">설정 > 키 > Web API 키</span>로 이동하여 복사하거나 다시 생성할 수 있습니다<br><br>🔒 제공된 키는 시스템에 로컬로 저장되기 전에 암호화됩니다 (현재 운영 체제가 암호화를 지원하는 경우)</span>`,
@@ -860,7 +853,7 @@ export const translations = {
         unlockmsgfontcolor: "첫 번째 텍스트 요소의 색상 설정",
         titlefontcolor: "두 번째 텍스트 요소의 색상 설정",
         descfontcolor: "세 번째 텍스트 요소의 색상 설정",
-        exportachdata: `업적이 잠금 해제되면 JSON 파일로 업적 데이터를 내보냅니다<br><br><span class="ttdesc">활성화하면, <span class="ttcode">achdata.json</span>이 다음 경로에 내보내집니다:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V1.9)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V1.9)</span></li></ul></span>`,
+        exportachdata: `업적이 잠금 해제되면 JSON 파일로 업적 데이터를 내보냅니다<br><br><span class="ttdesc">활성화하면, <span class="ttcode">achdata.json</span>이 다음 경로에 내보내집니다:<br><br><ul><li><span class="hllb">%localappdata%\\Steam Achievement Notifier (V$version)</span></li><li>🐧 <span class="hllb">~/.local/share/Steam Achievement Notifier (V$version)</span></li></ul></span>`,
         textvspace: "알림 내 텍스트 요소 간의 수직 간격을 조정",
         ssmode: `스크린샷에서 전체 화면을 캡처할지, 현재 게임 창<span style="color: red;">*</span>을 캡처할지 설정합니다<br><br><span class="ttdesc">현재 게임의 <span class="hl">실행 파일</span>을 찾을 수 없는 경우(<i><span class="hl">자동 프로세스 추적</span>을 통해서든, <span class="hl">자동 릴리스 게임</span> 항목으로 추가된 경우든</i>), 이 옵션은 기본적으로 "화면" 모드로 설정됩니다</span>`,
         replaynotify: "최근 성취 알림을 재생",
@@ -879,10 +872,10 @@ export const translations = {
         audiocooldown: `다음 알림이 새로운 오디오를 재생하기 전에 대기해야 하는 시간을 설정합니다<br><br><span class="ttdesc">최대 알림 수가 1로 설정된 경우 오디오는 영향을 받지 않습니다</span>`,
         rauseemudir: "RetroAchievements를 통해 획득한 스크린샷/알림 이미지를 지정된 스크린샷/이미지 경로 디렉터리 내 현재 에뮬레이터용 하위 폴더에 저장합니다",
         ssext: "알림 오버레이가 포함된 스크린샷 옵션으로 생성되는 스크린샷의 파일 형식을 설정합니다",
-        notify1line: `모든 알림에 표시되는 텍스트 줄 수를 1줄로 제한합니다<br><br><span class="ttdesc">한 줄에 표시할 수 없는 긴 텍스트는 "..."로 잘립니다</span>`,
         copytheme: "선택한 테마를 다른 알림 유형으로 복사합니다",
         ssaddtosteam: "생성된 미디어를 현재 게임의 Steam 녹화 및 스크린샷에 자동으로 추가",
         appdatadir: "앱의 AppData 폴더 위치 열기",
+        cleariconcache: "이전에 캐시된 모든 도전 과제 아이콘 삭제",
         backup: "앱의 AppData 폴더 내용을 선택한 위치에 백업하여, 앱의 현재 상태를 복원할 수 있는 복원 지점으로 사용합니다",
         restore: "앱의 AppData 폴더 내용을 이전 백업에서 복원합니다",
         gametimerwin: "현재 게임의 모든 achievement를 잠금 해제하는 데 걸린 시간을 표시하는 화면 타이머를 표시합니다",
@@ -891,13 +884,7 @@ export const translations = {
         resetgametimer: "현재 게임의 게임 완료 타이머를 초기화합니다",
         noshortcuts: `앱 내의 모든 키보드 단축키를 비활성화합니다<br><br><span class="ttdesc">활성화되면 <u>모든 앱 내 단축키가 더 이상 작동하지 않습니다</u>. 키보드 단축키와 관련된 모든 옵션도 숨겨집니다</span>`,
         extwinnotify: "Stream Notifications 사용 중 모든 화면 알림의 표시 여부를 전환합니다",
-        usesanwatcher: `SAN의 새로운 게임 프로세스 감시 기능 활성화<br><br><span class="ttdesc">새로운 SANWatcher와 기존 자동 프로세스 추적 방식의 차이점은 다음과 같습니다.<br><br><div class="wrapper sanwatcher"><span class="hl">ON</span><ul><li>게임 설치 디렉터리에 저장된 모든 프로세스의 시작/종료 이벤트를 적극적으로 모니터링합니다</li><li>현재 게임을 해제하기 위해 게임 실행 파일을 미리 알고 있을 필요가 없습니다</li><li>게임 실행 전 런처의 동작은 달라질 수 있으므로 모든 Steam 게임과의 완전한 호환성은 보장되지 않습니다</li></ul></div><br><div class="wrapper sanwatcher"><span class="hl" style="color: firebrick;">OFF</span><ul><li>게임 실행 후 게임 설치 디렉터리에서 실행 중인 실행 파일을 검색합니다</li><li>현재 게임을 해제하려면 게임 실행 파일을 알고 있어야 합니다</li><li>게임 프로세스를 자동으로 확인할 수 없는 경우, 게임을 자동으로 해제하려면 사용자가 <span class="hl">자동 릴리스 게임</span>에 새 항목을 수동으로 추가해야 합니다</li></ul></div>`,
-        releasewaittime: `현재 게임을 해제하기 전에 SANWatcher가 새 게임 프로세스가 시작될 때까지 대기할 시간을 설정합니다<br><br><span class="ttdesc">예를 들어, 현재 게임이 실제 게임을 실행하기 전에 런처 또는 설정 창을 먼저 실행하는 경우, 이 설정은 런처 또는 설정 창이 닫힌 후 실제 게임 창이 나타날 때까지 SANWatcher가 기다릴 초 단위를 결정합니다<br><br>이 대기 시간 내에 새로운 활성 게임 프로세스가 감지되면 해제가 취소되고, 대신 새로 활성화된 프로세스가 추적됩니다<br><br>💡 현재 게임이 해제 대기 중인 동안 게임 이름이 <span style="animation: release calc(var(--transition) * 2.5) linear alternate infinite;">깜박이며</span> <span class="hl">게임 표시</span> 상자에 표시됩니다</span>`,
-        platcustomtext: `알림에 표시할 게임 100% 완료 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">Customiser > 프리셋 > 알림 요소 > 업적 설명이 비활성화되면 이 옵션은 숨겨집니다</span>`,
         raui: "감지된 RetroAchievements 게임의 이름을 게임 표시 UI/시스템 트레이 UI에 표시합니다",
-        testnotifycustomtext: "모든 테스트 알림에 표시되는 텍스트를 재정의합니다",
-        testnotifycustomtexttitle: "모든 테스트 알림의 제목 요소에 표시되는 텍스트를 재정의합니다",
-        testnotifycustomtextdesc: "모든 테스트 알림의 설명 요소에 표시되는 텍스트를 재정의합니다",
         radefault: `RetroAchievements 업적이 잠금 해제될 때마다 항상 이 항목으로 자동 전환합니다<br><br><span class="ttdesc">모든 RetroAchievements 업적에 대해 기본값으로 지정할 수 있는 자동 테마 전환 항목은 하나뿐입니다. 이 기본값은 특정 RetroAchievements <span class="hl">GameID</span>에 대한 새 자동 테마 전환 항목을 추가하여 게임별로 재정의할 수도 있습니다</span>`,
         statwintype: "업적 통계 창의 레이아웃 유형 설정",
         statwinunlockonly: "업적이 달성될 때까지 업적 통계 창 숨기기",
@@ -909,7 +896,12 @@ export const translations = {
         usecustomtext: "알림에 표시할 사용자 지정 메시지를 설정합니다",
         customtextunlockmsg: `잠금 해제 메시지 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 잠금 해제 메시지가 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
         customtexttitle: `업적 제목 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 제목이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
-        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`
+        customtextdesc: `업적 설명 요소에 표시할 사용자 지정 메시지를 설정합니다<br><br><span class="ttdesc">사용자 지정 > 프리셋 > 알림 요소 > 업적 설명이 비활성화된 경우 이 옵션은 숨겨집니다</span>`,
+        notifylinemode: "알림에 표시할 텍스트의 최대 줄 수를 설정합니다",
+        notifyoverflow: "알림에서 텍스트가 넘칠 경우의 동작을 설정합니다",
+        scrollrepeat: `알림이 화면에 표시되는 동안 넘치는 텍스트를 스크롤할 횟수를 설정합니다<br><br><span class="ttdesc">스크롤 속도는 표시 시간에 따라 달라지며, 반복 횟수가 너무 높으면 일부 프리셋에 적합하지 않을 수 있습니다</span>`,
+        setplat: "호환되는 게임에서 각 도전 과제 세트를 완료할 때 알림을 표시합니다",
+        platsubtype: `사용자 지정할 <span class="hl">100%</span> 알림 하위 유형을 선택하세요<br><br><span class="ttdesc" nostar><ul><li><span class="hl">게임</span>: 게임 내 모든 도전 과제를 잠금 해제했을 때 표시되는 알림</li><li><span class="hl">세트</span>: 하나의 도전 과제 세트에 포함된 모든 도전 과제를 잠금 해제했을 때 표시되는 알림</li></ul></span>`
     },
     update: {
         updateavailable: "업데이트 가능",
@@ -919,64 +911,6 @@ export const translations = {
             `<span id="discordreleasenotes"></span> 및 <span id="githubreleasenotes"></span>에서 전체 릴리스 노트 확인 가능`
         ],
         update: "업데이트"
-    },
-    linkgame: {
-        content: {
-            exepath: "실행 파일 경로",
-            linkedgame: "게임 연결",
-            autoreleasegame: "게임 자동 해제",
-            linkedgamessub: [
-                `<span class="hl">SANWatcher</span>가 자동으로 추적하는 모든 실행 중인 게임 프로세스를 무시하고, 대신 선택한 <span class="hl">게임 실행 파일</span>이 현재 실행 중인지 여부만 확인합니다`,
-                `게임의 <span class="hl">AppID</span>를 대상 <span class="hl">게임 실행 파일</span>에 연결하거나 기존 연결을 <span class="hl">삭제</span>합니다`
-            ],
-            autoreleasegamessub: [
-                `게임 창을 닫은 후에도 Steam에 게임이 <i>플레이 중</i>으로 표시된다면 <span class="hl">$linkgame</span>에 새 항목을 추가해 보세요`,
-                `특정 게임의 <span class="hl">AppID</span>와 해당 <span class="hl">게임 실행 파일</span>을 추가하거나 기존 항목을 <span class="hl">삭제</span>합니다`,
-            ],
-            managesub: [
-                `게임이 감지되면 <span class="hl">시스템 트레이 아이콘</span>을 <i>마우스 오른쪽 버튼으로 클릭</i>한 뒤 <span class="hl">$linkgame</span>을 선택하여 <span class="hl">포커스된 창</span>을 통해 새 항목을 추가할 수도 있습니다`,
-                `<span class="hl help" id="appidhelp"><u>Steam 게임의 AppID는 어떻게 찾나요?</u></span>`
-            ],
-            linknew: "새 항목",
-            linknewsub: [
-                `새 게임의 <span class="hl">AppID</span>를 대상 <span class="hl">게임 실행 파일</span>에 연결합니다`,
-                `추가한 후에는 이전 <span class="hl">$linkgame</span> 메뉴에서 항목을 <span class="hl">삭제</span>할 수 있습니다`
-            ],
-            linkedit: "항목 편집",
-            linkeditsub: [
-                `게임의 <span class="hl">AppID</span>와 대상 <span class="hl">게임 실행 파일</span> 간의 기존 연결을 편집합니다`,
-                `추가한 후에는 이전 <span class="hl">$linkgame</span> 메뉴에서 항목을 <span class="hl">삭제</span>할 수 있습니다`
-            ],
-            link: "추가",
-            findappid: "Steam AppID 찾기",
-            findappidsub: [
-                `모든 Steam 게임에는 <span class="hl">AppID</span>라고 하는 고유 번호가 있습니다. Steam 게임의 AppID는 다음 방법 중 하나로 확인할 수 있습니다:`,
-                `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>의 게임을 <i>마우스 오른쪽 버튼으로 클릭</i>한 후 <i>속성</i> > <i>업데이트</i>를 선택하면 AppID가 표시됩니다`,
-                `게임의 <span class="hl">상점 페이지</span> <span class="hl">URL</span>에서 <span class="hl">app/</span> 뒤에 있는 숫자가 AppID입니다: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
-                `<span class="hl">SteamDB</span>와 같은 웹사이트에서는 <span class="hl">App Info</span> 섹션에서 각 게임의 AppID를 확인할 수 있습니다`
-            ],
-            noexe: "게임 실행 파일을 찾을 수 없습니다!",
-            noexesub: "자세한 내용을 보려면 여기를 클릭하세요",
-            noexedialogsub: [
-                `Steam Achievement Notifier가 이 게임의 실행 파일을 자동으로 찾지 못했습니다. 게임이 종료된 후 게임을 "해제"하려면 게임 실행 파일의 위치가 필요합니다`,
-                `게임 종료 후 수동으로 게임을 해제하려면 <span class="hl">시스템 트레이 아이콘</span>을 <i>마우스 오른쪽 버튼으로 클릭</i>한 후 <span class="hl">옵션</span> > <span class="hl">게임 해제</span>를 선택하거나 <span class="hl">게임 해제 단축키</span>를 사용하세요`,
-                `또는 아래의 <span class="hl">추가</span> 버튼을 클릭하여 현재 포커스된 창과 연결된 실행 파일을 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에 추가하세요`,
-            ],
-            linkedgamefocussub: `<span class="hl">SANWatcher</span>가 자동으로 추적하는 모든 실행 중인 게임 프로세스를 무시하려면 <span class="hl">연결된 게임</span>에 새 항목을 추가하세요`,
-            autoreleasegamefocussub: `게임 창을 닫은 후에도 Steam에 게임이 <i>플레이 중</i>으로 표시된다면 <span class="hl">자동 해제 게임</span>에 새 항목을 추가해 보세요`,
-            focussub: `현재 게임에 대해 이 작업을 수행하려면 아래의 <span class="hl">추가</span> 버튼을 클릭하여 현재 포커스된 창과 연결된 실행 파일을 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">$linkgame</span>에 추가하세요`,
-            linkgamehelplink: `<span class="hl help" id="linkgamehelp"><u>추가 버튼을 클릭하면 어떻게 되나요?</u></span>`,
-            linkgamehelp: "포커스를 통한 연결",
-            linkgamehelpsub: [
-                `<span class="hl">추가</span> 버튼을 클릭하면 현재 포커스된 창의 정보를 사용하여 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에 새 항목이 자동으로 추가됩니다.`,
-                `<span class="hl">추가</span> 버튼을 클릭하면 5초 타이머가 시작됩니다`,
-                `타이머가 끝나기 전에 게임 창에 포커스를 맞추세요`,
-                `타이머가 끝나면 현재 <span class="hl">AppID</span>에 대한 새 항목이 포커스된 창과 연결된 실행 파일을 사용하여 <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에 추가됩니다`,
-                `새로 시도하면 기존 항목이 덮어써지며, <span class="hl">설정</span> > <span class="hl">게임</span> > <span class="hl">자동 해제 게임</span>에서 <span id="linkhelpunlink"></span> 버튼을 클릭하여 항목을 삭제할 수도 있습니다`
-            ],
-            addlinkfailed: "창을 추가할 수 없습니다",
-            addlinkfailedsub: `<span class="hl">추가</span> 버튼을 클릭하여 다시 시도하세요`
-        }
     },
     exclusions: {
         content: {
@@ -1022,8 +956,6 @@ export const translations = {
             sshiddeniconpos: "숨겨진 아이콘",
             decorationpos: "장식",
             ssdecorationpos: "장식",
-            percentpos: "희귀도 백분율",
-            sspercentpos: "희귀도 백분율",
             percentbadge: "퍼센트 배지",
             sspercentbadge: "퍼센트 배지",
             percentbadgepos: "배지 위치",
@@ -1075,78 +1007,19 @@ export const translations = {
             themes: "테마",
             src: "스크린샷 소스",
             themedeleted: "테마가 삭제되었습니다",
+            findappid: "Steam AppID 찾기",
+            findappidsub: [
+                `모든 Steam 게임에는 <span class="hl">AppID</span>라고 하는 고유 번호가 있습니다. Steam 게임의 AppID는 다음 방법 중 하나로 확인할 수 있습니다:`,
+                `<span class="hl">Steam 클라이언트</span>에서 <span class="hl">라이브러리</span>의 게임을 <i>마우스 오른쪽 버튼으로 클릭</i>한 후 <i>속성</i> > <i>업데이트</i>를 선택하면 AppID가 표시됩니다`,
+                `게임의 <span class="hl">상점 페이지</span> <span class="hl">URL</span>에서 <span class="hl">app/</span> 뒤에 있는 숫자가 AppID입니다: <code class="helpcode">https://store.steampowered.com/app/<span class="hl">4000</span></code>`,
+                `<span class="hl">SteamDB</span>와 같은 웹사이트에서는 <span class="hl">App Info</span> 섹션에서 각 게임의 AppID를 확인할 수 있습니다`
+            ],
             rafindgameid: "RA GameID 찾기",
             rafindgameidsub: [
                 `RetroAchievements의 각 게임에는 <span class="hl">GameID</span>라는 고유 번호가 있습니다. RetroAchievements 게임의 GameID는 다음에서 확인할 수 있습니다:`,
                 `RetroAchievements 사이트의 <span class="hl">게임 페이지</span> <span class="hl">URL</span>을 확인하세요. <span class="hl">game/</span> 뒤에 있는 숫자가 GameID입니다: <code class="helpcode">https://retroachievements.org/game/<span class="hl">10003</span></code>`
             ],
             radefault: "RetroAchievements의 기본값으로 설정"
-        }
-    },
-    troubleshooter: {
-        title: "문제 해결",
-        content: {
-            copydata: "복사",
-            noissues: "문제가 발견되지 않았습니다!",
-            noissuessub: "이 게임은 자동으로 릴리스되어야 합니다.",
-            manualrelease: `<span class="hl">System Tray</span> > <span class="hl">Options</span> > <span class="hl">Release Game</span>을 통해 게임을 수동으로 릴리스할 수 있습니다.`,
-            addedvia: "추가 경로"
-        },
-        rules: {
-            noactiveprocesses: {
-                title: "활성 프로세스 없음",
-                issue: "활성 게임 프로세스를 찾을 수 없음",
-                detail: "이 게임과 연결된 실행 파일이 실행 중인 프로세스로 감지되지 않습니다. 다음 실행 파일을 확인했습니다:",
-                solution: [
-                    `게임의 실행 파일을 $linkedgamesmenu에 추가해 보세요.`,
-                    `$linkedgamesmenu의 항목이 올바른 실행 파일을 가리키는지 확인하세요.`
-                ]
-            },
-            unknownexecutable: {
-                title: "실행 파일을 알 수 없음",
-                issue: "게임 실행 파일을 식별할 수 없음",
-                detail: "게임의 실행 파일 경로를 자동으로 찾을 수 없습니다. 이는 일반적으로 Steam을 통해 게임을 실행할 때 게임 실행 전 런처가 사용되기 때문에 발생합니다.",
-                solution: [
-                    `이 게임에 대한 새 항목을 $linkedgamesmenu에 추가하거나 잘못된 게임 실행 파일을 가리키는 항목을 제거하세요. 그렇지 않은 경우 <code style="font-size: 0.55rem;">-skiplauncher</code>와 같이 게임 실행 전 런처를 우회할 수 있는 Steam 실행 옵션을 게임에서 지원하는지 확인하세요.`,
-                    `$sanwatcher를 활성화해 보세요.`
-                ]
-            },
-            missingexecutable: {
-                title: "실행 파일 누락",
-                issue: "디스크에서 게임 실행 파일을 찾을 수 없음",
-                detail: `이 게임과 연결된 실행 파일을 디스크에서 찾을 수 없습니다. 다음 실행 파일을 확인했습니다:`,
-                solution: ["Steam을 통해 게임 파일의 무결성을 확인하거나 게임을 다시 설치해 보세요."]
-            },
-            notexecutable: {
-                title: "실행할 수 없음",
-                issue: `게임 실행 파일에 실행 권한이 없음`,
-                detail: "Steam에서 게임을 실행하는 데 사용하는 파일을 실행할 수 없습니다. 파일 상태는 다음과 같습니다:",
-                solution: ["이 파일을 실행 가능하게 만들려면 사용 중인 Linux 배포판에 해당하는 지침을 참조하세요."]
-            },
-            notwithininstalldir: {
-                title: "게임 디렉터리에 없음",
-                issue: "실행 파일이 설치 디렉터리에 없음",
-                detail: "$linkedgamesmenu에서 이 게임의 항목이 감지되었지만 연결된 실행 파일이 게임의 설치 폴더 안에 없습니다. 올바른 실행 파일이 아닐 수 있습니다.",
-                solution: ["이 게임의 $linkedgamesmenu 항목을 편집하고 올바른 게임 실행 파일을 가리키는지 확인하세요."]
-            },
-            wrongplatformpath: {
-                title: "게임 경로가 잘못됨",
-                issue: "현재 OS에 유효하지 않은 게임 경로",
-                detail: "이 게임의 실행 파일 경로가 다른 OS에 속한 것으로 보입니다. 다른 컴퓨터에서 복사한 설정이나 듀얼 부트 환경 때문일 수 있습니다.",
-                solution: [`다른 컴퓨터/OS에서 복사한 설정을 사용하지 마세요. 예상대로 작동하지 않을 가능성이 높습니다. 기존의 모든 <span class="hl">Themes</span>는 <span class="hl">Customiser</span> 메뉴를 통해 플랫폼 간에 가져오기/내보내기할 수 있습니다.`]
-            },
-            duplicatelinkentries: {
-                title: "중복 항목",
-                issue: "중복된 $linkedgamesmenu 항목이 발견됨",
-                detail: "이 게임 실행 파일은 $linkedgamesmenu의 $appids에도 연결되어 있습니다.",
-                solution: ["중복된 항목 중 하나를 제거하고 남은 항목이 올바른 게임 실행 파일을 가리키는지 확인하세요."]
-            },
-            releasing: {
-                title: "게임 릴리스 중",
-                issue: "게임이 릴리스되고 있음",
-                detail: "이 게임은 곧 릴리스됩니다.",
-                solution: [`몇 초만 더 기다려 주세요. 릴리스가 완료되면 <span class="hl">System Tray</span> 아이콘의 점이 <span class="troubleshooterdialogicon" grey></span>(릴리스 중)에서 <span class="troubleshooterdialogicon" red></span>(유휴)로 변경됩니다.`]
-            }
         }
     }
 }

@@ -12,6 +12,7 @@ deps/steamworks_build_instructions.md
 temp/
 _release/
 _backup/
+_deps/
 notify/_template.html
 notify/**/*.png
 notify/**/*.mp3
@@ -24,3 +25,7 @@ TODO
 /deps/hudhook
 /dist/app/sanlogo.css
 /dist/app/index_sanlogo.html
+**/*.txt
+*.zip
+src/plugins/
+src/plugin.d.ts

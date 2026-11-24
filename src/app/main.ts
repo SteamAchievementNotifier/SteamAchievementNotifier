@@ -7,8 +7,7 @@ import { sanconfig } from "./config"
 import { listeners } from "./listeners"
 import { gamescope } from "./gamescope"
 
-// Sets AppUserModelId for Native OS notifications
-app.setAppUserModelId(sanhelper.devmode ? process.execPath : "com.SteamAchievementNotifier.Jackson0ne")
+app.setAppUserModelId(sanhelper.devmode ? process.execPath : "com.SteamAchievementNotifier.Jackson0ne") // Sets AppUserModelId for Native OS notifications
 ipcMain.on("version",event => event.returnValue = app.getVersion())
 sanhelper.devmode && ipcMain.on("beta",event => event.returnValue = app.commandLine.hasSwitch("beta"))
 
@@ -17,15 +16,13 @@ let win: BrowserWindow
 export const main = async (starttime: string) => {
     const config = sanconfig.get()
     if (config.get("desktop") === undefined) config.store = sanconfig.create()
-
-    // Validate config on launch
-    sanconfig.create(true)
+    
+    sanconfig.create(true) // Validate config on launch
     
     const createwin = async () => {
         try {
-            // Check Steam is installed
-            const steampath = await sanhelper.steampath
-            if (!steampath) throw new Error(`Steam installation path not found. Please install Steam before running Steam Achievement Notifier`)
+            const { steampath } = sanhelper // Check Steam is installed
+            if (!steampath) throw new Error(`Steam installation path not found. Please install Steam before running Steam Achievement Notifier.`)
             log.write("INFO",`Steam installation path: ${steampath}`)
             gamescope.active && log.write("INFO",`gamescope session detected - notifications will be displayed as gamescope external overlays`)
         } catch (err) {
@@ -36,7 +33,7 @@ export const main = async (starttime: string) => {
         if (config === undefined) throw new Error(`"${path.join(sanhelper.appdata,"config.json")}" does not exist`)
 
         win = new BrowserWindow({
-            title: `Steam Achievement Notifier (V${parseFloat(app.getVersion())})`,
+            title: `Steam Achievement Notifier (V${sanhelper.version})`,
             icon: path.join(__root,"img",`sanlogo.${process.platform === "linux" ? "png" : "ico"}`),
             width: config.get("width"),
             minWidth: 300,
@@ -69,12 +66,10 @@ export const main = async (starttime: string) => {
         sanhelper.devmode && sanhelper.setdevtools(win)
 
         let update = false
-        // Emitted from `update.ts`
-        ipcMain.on("update",() => update = true)
+        ipcMain.on("update",() => update = true) // Emitted from `update.ts`
 
         win.on("close",event => {
-            // Send event to `listeners.ts` to quit worker if it exists
-            if (update) return ipcMain.emit("quitforupdate")
+            if (update) return ipcMain.emit("quitforupdate") // Send event to `listeners.ts` to quit worker if it exists
 
             event.preventDefault()
             return win.hide()
@@ -103,8 +98,8 @@ export const main = async (starttime: string) => {
 
     nativeTheme.themeSource = "dark"
 
-    process.on("uncaughtException",err => win?.webContents.send("error",err))
-    process.on("unhandledRejection",err => win?.webContents.send("error",err))
+    process.on("uncaughtException",err => win && !win.isDestroyed() && win.webContents.send("error",err))
+    process.on("unhandledRejection",err => win && !win.isDestroyed() && win.webContents.send("error",err))
 
     app.on("window-all-closed",app.quit)
 
@@ -112,7 +107,7 @@ export const main = async (starttime: string) => {
     .whenReady()
     .then(createwin)
     .catch(async err => {
-        await error.createwin(err)
+        await error.showdialog(err as Error)
         win && win.destroy()
     })
 }

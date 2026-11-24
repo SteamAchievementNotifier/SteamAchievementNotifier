@@ -81,6 +81,10 @@
                     <span></span>
                     <input type="checkbox" id="trophymode">
                 </div>
+                <div class="wrapper opt">
+                    <span></span>
+                    <input type="checkbox" id="setplat">
+                </div>
                 <div class="wrapper opt" star adv>
                     <span></span>
                     <input type="range" min="1" max="5" step="1" id="notifymax">
@@ -96,31 +100,6 @@
                 <div class="wrapper opt" star adv>
                     <span></span>
                     <input type="range" min="10" max="99" step="1" id="semirarity">
-                </div>
-                <div class="wrapper opt" adv>
-                    <span></span>
-                    <select name="showpercent" id="showpercent">
-                        <option value="rareonly"></option>
-                        <option value="all"></option>
-                        <option value="off"></option>
-                    </select>
-                </div>
-                <div class="wrapper opt" adv>
-                    <span></span>
-                    <select name="showpercentpos" id="showpercentpos">
-                        <option value="left"></option>
-                        <option value="right"></option>
-                    </select>
-                </div>
-                <div class="wrapper opt" adv>
-                    <span></span>
-                    <select name="showpercentstyle" id="showpercentstyle">
-                        <option value="brackets"></option>
-                        <option value="sqbrackets"></option>
-                        <option value="dash"></option>
-                        <option value="pipe"></option>
-                        <option value="none"></option>
-                    </select>
                 </div>
                 <div class="wrapper opt">
                     <span></span>
@@ -151,7 +130,17 @@
                 </div>
                 <div class="wrapper opt" adv>
                     <span></span>
-                    <input type="checkbox" id="notify1line">
+                    <select name="notifylinemode" id="notifylinemode">
+                        <option value="single"></option>
+                        <option value="max"></option>
+                    </select>
+                </div>
+                <div class="wrapper opt" adv>
+                    <span></span>
+                    <select name="notifyoverflow" id="notifyoverflow">
+                        <option value="ellipsis"></option>
+                        <option value="scroll"></option>
+                    </select>
                 </div>
                 <div class="wrapper opt">
                     <span></span>
@@ -202,8 +191,6 @@
         <div class="wrapper cont" adv>
             <span class="wrapper title" id="games"></span>
             <div class="wrapper optcont">
-                <button class="wrapper" id="linkedgames"></button>
-                <button class="wrapper" id="autoreleasegames"></button>
                 <button class="wrapper" id="themeswitch"></button>
                 <button class="wrapper" id="exclusionlist"></button>
                 <button class="wrapper" id="listmode" mode="exclusion"></button>
@@ -247,10 +234,10 @@
                     <span></span>
                     <input type="checkbox" id="hdrmode">
                 </div>
-                <div class="wrapper opt" ssonly overlay notifyimg>
+                <!-- <div class="wrapper opt" ssonly overlay notifyimg>
                     <span></span>
                     <input type="checkbox" id="ssaddtosteam">
-                </div>
+                </div> -->
                 <div class="wrapper settingstabs" id="ovtabs" ssonly overlay notifyimg>
                     <button class="tab" main></button>
                     <button class="tab" semi></button>
@@ -372,10 +359,7 @@
                 <div class="wrapper opt">
                     <span></span>
                     <input type="checkbox" id="gametimerwin">
-                </div>
-                <div class="wrapper opt">
-                    <span></span>
-                    <input type="checkbox" id="gametimerwinaot">
+                    <button class="iconbtn" id="gametimerwinaot"></button>
                 </div>
                 <div class="wrapper opt">
                     <span class="lbl"></span>
@@ -418,46 +402,14 @@
                     <span></span>
                     <input type="checkbox" id="showsystrayopts">
                 </div>
-                <div class="wrapper opt">
-                    <span class="lbl"></span>
-                    <button class="shortcutbtn" id="releaseshortcut"></button>
-                </div>
             </div>
         </div>
         <div class="wrapper cont">
             <span class="wrapper title" id="advanced"></span>
             <div class="wrapper optcont">
-                <div class="wrapper opt" star beta>
-                    <span></span>
-                    <input type="checkbox" id="usesanwatcher">
-                </div>
-                <div class="wrapper opt" star beta adv>
-                    <span></span>
-                    <input type="range" min="1" max="10" step="1" id="releasewaittime">
-                </div>
                 <div class="wrapper opt" star adv>
                     <span></span>
                     <input type="range" min="50" max="1000" step="50" id="pollrate">
-                </div>
-                <div class="wrapper opt" star adv>
-                    <span></span>
-                    <input type="range" min="0" max="30" step="5" id="initdelay">
-                </div>
-                <div class="wrapper opt" star adv>
-                    <span></span>
-                    <input type="range" min="0" max="10" step="1" id="releasedelay">
-                </div>
-                <div class="wrapper opt" star adv>
-                    <span></span>
-                    <input type="range" min="5" max="60" step="5" id="maxretries">
-                </div>
-                <div class="wrapper opt" adv>
-                    <span></span>
-                    <input type="checkbox" id="userust">
-                </div>
-                <div class="wrapper opt" adv>
-                    <span></span>
-                    <input type="checkbox" id="debug">
                 </div>
                 <div class="wrapper opt" adv>
                     <span></span>
@@ -488,6 +440,7 @@
                     <input type="checkbox" id="usecustomfiles">
                 </div>
                 <button class="wrapper" id="showcustomfiles" adv></button>
+                <button class="wrapper" id="cleariconcache" adv></button>
                 <button class="wrapper" id="appdatadir" adv></button>
                 <button class="wrapper" id="backup"></button>
                 <button class="wrapper" id="restore"></button>
@@ -527,9 +480,19 @@
                         <button></button>
                     </div>
                 </div>
-                <span class="hl help" id="raloghelp"><u></u></span>
+                <button class="wrapper" id="raloghelp"></button>
             </div>
         </div>
+        <!-- <div class="wrapper cont">
+            <span class="wrapper title" id="plugins"></span>
+            <div class="wrapper optcont">
+                <div class="wrapper opt" adv>
+                    <span></span>
+                    <input type="checkbox" id="plugins">
+                </div>
+                <button class="wrapper" id="loadplugin"></button>
+            </div>
+        </div> -->
         <div class="wrapper cont">
             <span class="wrapper title" id="misc"></span>
             <div class="wrapper optcont">
@@ -545,7 +508,6 @@
                     </select>
                 </div>
                 <button class="wrapper" id="resetwindow" systray></button>
-                <button class="wrapper" id="releasegame" systray></button>
                 <button class="wrapper" id="suspendresume" systray></button>
                 <button class="wrapper" id="restartapp" systray></button>
                 <button class="wrapper" id="checkforupdates"></button>

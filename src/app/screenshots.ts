@@ -5,6 +5,8 @@ import { sanconfig } from "./config"
 import { log } from "./log"
 import { __root, sanhelper } from "./sanhelper"
 
+const invalidexes = ["steam","steamwebhelper"].flatMap(exe => [exe,`${exe}.exe`])
+
 // Used in `dialog.ts`/`renderer.ts` to close "sswin", and in `renderer.ts` to spawn the Preview window
 ipcMain.on("sswin",(event,notify?: Notify,src?: number) => {
     const { screenshots, monitor } = sanconfig.get().store
@@ -26,7 +28,8 @@ ipcMain.on("sswin",(event,notify?: Notify,src?: number) => {
         src: monitor || -1,
         timer: null,
         windowtitle: null,
-        haswarned: false
+        haswarned: false,
+        capturing: false
     })
 
     screenshot.createsswin(screenshots === "notifyimg" ? "img" : (screenshots === "overlay" ? "ss" : "ssonly"),notify,true)
@@ -72,11 +75,10 @@ export const screenshot = {
         return { monitor: monitor || null, display: display || null }
     },
     srcpath: (id: number) => path.join(sanhelper.temp,`${id}.png`),
-    checksrcimg: (notify: Notify,windowtitle: string | null,retries = 0) => {
+    checksrcimg: (notify: Notify,windowtitle: string | null,retries = 0,interval = 250) => {
         const tempimgpath = path.join(sanhelper.temp,`${notify.id}.png`)
         const sswin = sswins.get(notify.id)
         const { ssdelay, screenshots } = sanconfig.get().store
-        const interval = 250
         const max = Math.ceil((5000 + ((ssdelay * 1000) * 2)) / interval)
 
         sanhelper.devmode && console.log(`\nRETRIES = ${retries} | SSDELAY = ${ssdelay} | MAX = ${max}\n`)
@@ -88,6 +90,12 @@ export const screenshot = {
 
         if (!sswin) {
             setTimeout(() => screenshot.checksrcimg(notify,windowtitle,retries + 1),interval)
+            return
+        }
+
+        if (sswin.capturing) {
+            sswin.timer && clearTimeout(sswin.timer)
+            sswin.timer = setTimeout(() => screenshot.checksrcimg(notify,windowtitle,retries),interval)
             return
         }
 
@@ -122,6 +130,7 @@ export const screenshot = {
         log.write("INFO",`Building screenshot for "${notify.id}"...`)
         ssmode !== "window" || sswin.windowtitle !== null ? screenshot.checksrcimg(notify,sswin.windowtitle) : log.write("WARN",`Window Title for ID ${notify.id} not found`)
     },
+    isinvalidwin: (exepath: string) => exepath.toLowerCase() === process.execPath.toLowerCase() || invalidexes.includes(path.basename(exepath.toLowerCase())) || exepath.toLowerCase().startsWith("steam achievement notifier"),
     configuresrc: async (notify: Notify,monitorid?: number) => {
         try {
             const config = sanconfig.get()
@@ -130,11 +139,12 @@ export const screenshot = {
 
             const sswinsobj = {
                 win: null,
-                src: monitorid || -1,
+                src: monitorid ?? -1,
                 timer: null,
                 windowtitle: null,
-                haswarned: false
-            }
+                haswarned: false,
+                capturing: false
+            } as SSWin
 
             if (screenshots === "notifyimg") {
                 sswins.set(notify.id,sswinsobj)
@@ -158,12 +168,12 @@ export const screenshot = {
             const sswin = sswins.get(notify.id)!
 
             if (worker && config.get("ssmode") === "window" && !notify.ra) {
-                sswin.windowtitle = !appid ? win.title : await new Promise(resolve => {
-                    ipcMain.once("windowtitles",(event,windowtitles: string[]) => resolve(windowtitles[0]))
-                    worker!.webContents.send("windowtitles")
-                })
+                const focusedwin = appid ? sanhelper.getfocusedwin : null
+                const isgamewin = !!focusedwin && focusedwin.width > 0 && focusedwin.height > 0 && !screenshot.isinvalidwin(focusedwin.path)
+                
+                sswin.windowtitle = !appid ? win.title : (isgamewin ? focusedwin.title : null)
 
-                const { x, y, width, height } = sanhelper.getwindowbounds(sswin.windowtitle || "")
+                const { x, y, width, height } = (appid && isgamewin) ? focusedwin : sanhelper.getwindowbounds(sswin.windowtitle || "")
                 const { id } = screen.getDisplayNearestPoint({ x, y })
 
                 sswin.src = id
@@ -213,8 +223,57 @@ export const screenshot = {
             return screenshot.clearsswin(notify.id)
         }
     },
+    findwinsrc: async (windowtitle: string,bounds: Electron.Size,timeout = 3000,interval = 100) => {
+        const max = Date.now() + timeout
+        let retries = 0
+
+        while (true) {
+            retries++
+
+            const srcs = await desktopCapturer.getSources({
+                types: ["window"],
+                thumbnailSize: { width: 0,height: 0 }
+            })
+
+            if (srcs.some(src => src.name === windowtitle)) {
+                const srcs = await desktopCapturer.getSources({
+                    types: ["window"],
+                    thumbnailSize: bounds
+                })
+
+                const src = srcs.find(src => src.name === windowtitle)
+                
+                if (src) return { src, srcs, retries }
+            }
+
+            if (Date.now() >= max) return { src: null, srcs, retries }
+            await new Promise(resolve => setTimeout(resolve,interval))
+        }
+    },
+    getscreensrc: async (sswin: SSWin,monitor: ScreenshotConfig["monitor"],label: string) => {
+        const srcs = await desktopCapturer.getSources({
+            types: ["screen"],
+            thumbnailSize: monitor.bounds
+        })
+        
+        if (!srcs.length) throw new Error(`Error configuring screenshot: No available screen sources detected`)
+
+        const src = srcs.find(src => parseInt(src.display_id) === sswin.src || screen.getPrimaryDisplay().id === sswin.src)
+        if (src) return src
+
+        const fbsrc = srcs[0]
+        log.write("WARN",`Error configuring screenshot: No matching display source ID found for monitor ${sswin.src} ("${label}") - using only available monitor ${fbsrc.name} (${fbsrc.display_id})`)
+
+        const fbdisplay = screen.getAllDisplays().find(display => display.id === parseInt(fbsrc.display_id))
+        if (!fbdisplay) throw new Error(`No matching display found for fallback source ${fbsrc.display_id} ("${fbsrc.name}")`)
+
+        sswin.src = parseInt(fbsrc.display_id)
+        sswin.display = fbdisplay
+
+        return fbsrc
+    },
     capturesrc: async (ssconfig: ScreenshotConfig) => {
-        const { config, notify, bounds, id, label, monitor, ssmode, srcpath, windowtitle } = ssconfig
+        const { config, notify, bounds, monitor, label, ssmode, srcpath, windowtitle } = ssconfig
         const sswin = sswins.get(notify.id)
         if (!sswin) return log.write("WARN",`"sswin" not found for ID ${notify.id}`)
         
@@ -226,7 +285,7 @@ export const screenshot = {
                 
                 if (validwinsize) {
                     const { x, y, width, height } = screenshot.sswinbounds.bounds
-                    area = [y,x,width,height] // Order of elements for `screenshots::Screen.capture_area()` is y/x/w/h
+                    area = [x,y,width,height]
                 } else {
                     log.write("WARN",`A width/height value for the matching window is invalid (0) for ID ${notify.id} - falling back to "screen" mode...`)
                 }
@@ -237,39 +296,34 @@ export const screenshot = {
             return
         }
 
+        sswin.capturing = true
+
         try {
-            const srcs = await desktopCapturer.getSources({
-                types: [ssmode],
-                thumbnailSize: bounds
-            })
+            const winsrc = ssmode === "window" ? await screenshot.findwinsrc(windowtitle!,bounds) : null
 
-            if (!srcs.length) throw new Error(`Error configuring screenshot: No available screen sources detected`)
-
-            log.write("INFO",`[Selected ${ssmode === "window" ? "Window Title" : "Monitor ID"}]:\n- ${ssmode === "window" ? windowtitle : id}\n\n[Available ${ssmode.replace(ssmode[0],ssmode[0].toUpperCase())} Sources]:\n- ${srcs.map(src => `${ssmode === "window" ? src.name : src.display_id} (${ssmode === "window" ? `Window name: ${src.name}` : `Parsed id: ${parseInt(src.display_id)}`} | Match?: ${ssmode === "window" ? src.name === windowtitle : parseInt(src.display_id) === sswin.src})`).join("\n- ")}`)
-
-            const src = srcs.find(src => ssmode === "window" ? src.name === windowtitle : (parseInt(src.display_id) === sswin.src || screen.getPrimaryDisplay().id === sswin.src))
-            const fbsrc = srcs[0]
-            
-            if (!src && ssmode === "screen") {
-                log.write("WARN",`Error configuring screenshot: No matching display source ID found for monitor ${sswin.src} ("${label}") - using only available monitor ${fbsrc.name} (${fbsrc.display_id})`)
-                sswin.src = parseInt(fbsrc.display_id)
-                
-                const fbdisplay = screen.getAllDisplays().find(display => display.id === parseInt(fbsrc.display_id))
-                if (!fbdisplay) throw new Error(`No matching display found for fallback source ${fbsrc.display_id} ("${fbsrc.name}")`)
-                
-                sswin.display = fbdisplay
+            if (winsrc) {
+                log.write("INFO",`Window source ${winsrc.src ? "found" : "not found"} for "${windowtitle}" (${winsrc.retries} retries)`)
+                !winsrc.src && log.write("WARN",`No window source found for "${windowtitle}" - falling back to "screen" mode...`)
             }
+
+            const src = winsrc?.src ?? await screenshot.getscreensrc(sswin,monitor,label)
             
-            fs.writeFileSync(srcpath,(src ?? fbsrc).thumbnail.toPNG())
+            fs.writeFileSync(srcpath,src.thumbnail.toPNG())
         } catch (err) {
             log.write("ERROR",err as Error)
             return screenshot.clearsswin(notify.id)
+        } finally {
+            const sswin = sswins.get(notify.id)
+            sswin && (sswin.capturing = false)
         }
     },
     sspathinfo: (config: any,type: "ssonly" | "ss" | "img",notify: Notify,info: BuildNotifyInfo,imgpath: string) => {
         const regex = /[<>:"/\\|?*\x00-\x1F]/g // Removes Windows/Linux illegal filename characters while still supporting non-ASCII characters
         const ssdir = path.join(imgpath,(!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier").replace(regex,"").replace(/\.$/,"").trim()).replace(/\\/g,"/")
-        const ssbasename = `${(info.name.replace(regex,"").trim() || info.apiname)}${type === "img" ? " - Notification" : ""}`
+
+        const ssname = sanhelper.plattype(notify.type) ? `${!notify.istestnotification && info.gamename ? info.gamename : "Steam Achievement Notifier"} - ${notify.type === "set" ? (notify.setname || info.name) : info.name}` : info.name // "set": `<game name> - <set name>.png`/"plat": `<game name> - 100%.png`
+        const ssbasename = `${(ssname.replace(regex,"").trim() || info.apiname)}${type === "img" ? " - Notification" : ""}`
+        
         const ssext: ".png" | ".jpg" = `.${config.get("screenshots") === "notifyimg" ? "png" : config.get("ssext") as "png" | "jpg"}`
 
         let sscounter = 0
@@ -297,7 +351,7 @@ export const screenshot = {
             const srcpath: string | null = isss ? (!ispreview ? screenshot.srcpath(notify.id) : sanhelper.setfilepath("img","santextlogobg.png")) : null
 
             try {
-                !fs.existsSync(imgpath) && fs.mkdirSync(imgpath, { recursive: true })
+                !fs.existsSync(imgpath) && fs.mkdirSync(imgpath,{ recursive: true })
                 log.write("INFO",`"${imgpath}" ${!fs.existsSync(imgpath) ? "created successfully" : "already exists"}`)
             } catch (err) {
                 log.write("ERROR",`Error creating "${imgpath}": ${err as Error}`)
@@ -313,8 +367,8 @@ export const screenshot = {
                     fs.copyFileSync(srcpath as string,ssimg)
                     log.write("INFO",`"${srcpath}" copied to "${ssimg}" successfully`)
                     
-                    // Add generated media to Steam's Recordings and Screenshots menu
-                    screenshot.addtosteam(!notify.istestnotification && config.get("ssaddtosteam"),ssimg,nativeImage.createFromPath(ssimg))
+                    // // Add generated media to Steam's Recordings and Screenshots menu
+                    // screenshot.addtosteam(!notify.istestnotification && config.get("ssaddtosteam"),ssimg,nativeImage.createFromPath(ssimg))
                 } catch (err) {
                     log.write("ERROR",`Unable to copy "${srcpath}" to "${imgpath}": ${err as Error}`)
                 }
@@ -375,6 +429,8 @@ export const screenshot = {
     
                         sswin.win.setResizable(false)
 
+                        const { notifylinemode, notifyoverflow } = config.store
+
                         eventinfo = {
                             info: {
                                 info,
@@ -390,7 +446,8 @@ export const screenshot = {
                                 gamearticon: icon,
                                 gameartlibhero: libhero,
                                 gameartlogo: logo,
-                                notify1line: config.get("notify1line"),
+                                notifylinemode,
+                                notifyoverflow,
                                 ra: notify.ra
                             } as Info,
                             dims
@@ -414,8 +471,8 @@ export const screenshot = {
 
                         log.write("INFO",`${sswintype.replace(" Window","")} written to "${ssimg}" successfully`)
 
-                        // Add generated media to Steam's Recordings and Screenshots menu
-                        screenshot.addtosteam(!notify.istestnotification && config.get("ssaddtosteam"),ssimg,img) // Send the `<filename>_STEAM.<png|jpg>` copy to Steam
+                        // // Add generated media to Steam's Recordings and Screenshots menu
+                        // screenshot.addtosteam(!notify.istestnotification && config.get("ssaddtosteam"),ssimg,img) // Send the `<filename>_STEAM.<png|jpg>` copy to Steam
                     } catch (err) {
                         log.write("ERROR",`Error capturing screenshot for "${info.apiname}": ${err as Error}`)
                     }
@@ -477,14 +534,14 @@ export const screenshot = {
             screenshot.clearsswin(notify.id)
         }
     },
-    addtosteam: (shouldadd: boolean,imgpath: string,img: Electron.NativeImage) => {
-        if (!shouldadd) return
-        if (!fs.existsSync(imgpath)) throw new Error(`Unable to add media to Steam: "${imgpath}" does not exist`)
+    // addtosteam: (shouldadd: boolean,imgpath: string,img: Electron.NativeImage) => {
+    //     if (!shouldadd) return
+    //     if (!fs.existsSync(imgpath)) throw new Error(`Unable to add media to Steam: "${imgpath}" does not exist`)
         
-        const { width, height } = img.getSize()
+    //     const { width, height } = img.getSize()
         
-        ipcMain.emit("addtosteam",null,imgpath,Math.round(width),Math.round(height))
-    },
+    //     ipcMain.emit("addtosteam",null,imgpath,Math.round(width),Math.round(height))
+    // },
     clearsswin: (id: number) => {
         const sswin = sswins.get(id)
 

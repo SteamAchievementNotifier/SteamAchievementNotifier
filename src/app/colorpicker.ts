@@ -12,7 +12,7 @@ export const createcolorpicker = (instance: Instance<Props>,input: HTMLInputElem
     const picker = instance.popper.querySelector("div#picker") as HTMLElement
     if (picker.innerHTML.length) return
 
-    const type = sanhelper.type
+    const { type } = sanhelper
     const config = sanconfig.get()
     const configstr = `${!input.id.startsWith("webhookembedcolor") ? `customisation.${type}.` : ""}${input.id}`
 

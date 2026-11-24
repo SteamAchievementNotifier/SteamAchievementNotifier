@@ -304,6 +304,13 @@ body[alldetails] .wrapper#xpwrapper {
     height: calc(1.5rem * var(--fontsize));
 }
 
+#unlockmsg,
+#title,
+#desc {
+    --scrollstart: calc(var(--transition) * 7);
+    --scrollend: calc(var(--displaytime) - var(--transition) * 7);
+}
+
 body[ss] .wrapper#achcont {
     scale: 0.65 !important;
     width: calc(100% * 1.35) !important;

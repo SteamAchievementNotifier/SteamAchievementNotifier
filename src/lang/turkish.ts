@@ -168,7 +168,8 @@ export const translations = {
             title: "Başarım başlığı",
             desc: "Başarım açıklaması",
             percent: "Başarımın açılma yüzdesi",
-            total: "Açılan/toplam başarımlar"
+            total: "Açılan/toplam başarımlar",
+            totalpercent: "Kilidi açılan/toplam yüzde"
         },
         customtextvarsset: "Başarım setinin adı",
         customtextvarsplat: `"$gamecomplete" mesajı`

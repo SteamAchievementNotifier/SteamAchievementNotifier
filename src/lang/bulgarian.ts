@@ -168,7 +168,8 @@ export const translations = {
             title: "Заглавие на постижението",
             desc: "Описание на постижението",
             percent: "Процент на отключване на постижението",
-            total: "Отключени/общо постижения"
+            total: "Отключени/общо постижения",
+            totalpercent: "Отключен/общ процент"
         },
         customtextvarsset: "Име на комплекта с постижения",
         customtextvarsplat: `Съобщение "$gamecomplete"`

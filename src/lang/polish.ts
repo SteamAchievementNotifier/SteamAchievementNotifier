@@ -168,7 +168,8 @@ export const translations = {
             title: "Tytuł osiągnięcia",
             desc: "Opis osiągnięcia",
             percent: "Procent odblokowania osiągnięcia",
-            total: "Odblokowane/łącznie osiągnięcia"
+            total: "Odblokowane/łącznie osiągnięcia",
+            totalpercent: "Odblokowany/całkowity procent"
         },
         customtextvarsset: "Nazwa zestawu osiągnięć",
         customtextvarsplat: `Wiadomość "$gamecomplete"`

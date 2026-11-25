@@ -168,7 +168,8 @@ export const translations = {
             title: "実績タイトル",
             desc: "実績の説明",
             percent: "実績の解除率",
-            total: "解除済み/全実績数"
+            total: "解除済み/全実績数",
+            totalpercent: "解除済み/合計割合"
         },
         customtextvarsset: "実績セット名",
         customtextvarsplat: `"$gamecomplete" メッセージ`

@@ -168,7 +168,8 @@ export const translations = {
             title: "成就名称",
             desc: "成就描述",
             percent: "成就解锁百分比",
-            total: "已解锁/成就总数"
+            total: "已解锁/成就总数",
+            totalpercent: "已解锁/总百分比"
         },
         customtextvarsset: "成就集名称",
         customtextvarsplat: `"$gamecomplete" 消息`

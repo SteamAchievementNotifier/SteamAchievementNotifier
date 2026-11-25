@@ -168,7 +168,8 @@ export const translations = {
             title: "Τίτλος επιτεύγματος",
             desc: "Περιγραφή επιτεύγματος",
             percent: "Ποσοστό ξεκλειδώματος επιτεύγματος",
-            total: "Ξεκλειδωμένα/συνολικά επιτεύγματα"
+            total: "Ξεκλειδωμένα/συνολικά επιτεύγματα",
+            totalpercent: "Ξεκλειδωμένο/συνολικό ποσοστό"
         },
         customtextvarsset: "Όνομα σετ επιτευγμάτων",
         customtextvarsplat: `Μήνυμα "$gamecomplete"`

@@ -168,7 +168,8 @@ export const translations = {
             title: "Título da conquista",
             desc: "Descrição da conquista",
             percent: "Porcentagem de desbloqueio da conquista",
-            total: "Conquistas desbloqueadas/total"
+            total: "Conquistas desbloqueadas/total",
+            totalpercent: "Porcentagem desbloqueada/total"
         },
         customtextvarsset: "Nome do conjunto de conquistas",
         customtextvarsplat: `Mensagem "$gamecomplete"`

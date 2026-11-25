@@ -168,7 +168,8 @@ export const translations = {
             title: "ชื่อความสำเร็จ",
             desc: "คำอธิบายความสำเร็จ",
             percent: "เปอร์เซ็นต์การปลดล็อกความสำเร็จ",
-            total: "ความสำเร็จที่ปลดล็อกแล้ว/ทั้งหมด"
+            total: "ความสำเร็จที่ปลดล็อกแล้ว/ทั้งหมด",
+            totalpercent: "เปอร์เซ็นต์ที่ปลดล็อก/ทั้งหมด"
         },
         customtextvarsset: "ชื่อชุดความสำเร็จ",
         customtextvarsplat: `ข้อความ "$gamecomplete"`

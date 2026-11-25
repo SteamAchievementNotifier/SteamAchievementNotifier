@@ -168,7 +168,8 @@ export const translations = {
             title: "Название достижения",
             desc: "Описание достижения",
             percent: "Процент игроков, разблокировавших достижение",
-            total: "Разблокированные/всего достижений"
+            total: "Разблокированные/всего достижений",
+            totalpercent: "Открытый/общий процент"
         },
         customtextvarsset: "Название набора достижений",
         customtextvarsplat: `Сообщение "$gamecomplete"`

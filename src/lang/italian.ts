@@ -168,7 +168,8 @@ export const translations = {
             title: "Titolo dell'obiettivo",
             desc: "Descrizione dell'obiettivo",
             percent: "Percentuale di sblocco dell'obiettivo",
-            total: "Obiettivi sbloccati/totali"
+            total: "Obiettivi sbloccati/totali",
+            totalpercent: "Percentuale sbloccata/totale"
         },
         customtextvarsset: "Nome del set di achievement",
         customtextvarsplat: `Messaggio "$gamecomplete"`

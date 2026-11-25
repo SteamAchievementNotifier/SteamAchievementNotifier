@@ -168,7 +168,8 @@ export const translations = {
             title: "Saavutuksen nimi",
             desc: "Saavutuksen kuvaus",
             percent: "Saavutuksen avausprosentti",
-            total: "Avatut/kaikki saavutukset"
+            total: "Avatut/kaikki saavutukset",
+            totalpercent: "Avattu/kokonaisprosentti"
         },
         customtextvarsset: "Saavutuskokoelman nimi",
         customtextvarsplat: `"$gamecomplete"-viesti`

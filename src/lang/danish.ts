@@ -168,7 +168,8 @@ export const translations = {
             title: "Præstationens titel",
             desc: "Beskrivelse af præstationen",
             percent: "Præstationens oplåsningsprocent",
-            total: "Låste op/antal præstationer"
+            total: "Låste op/antal præstationer",
+            totalpercent: "Låst op/samlet procentdel"
         },
         customtextvarsset: "Navn på achievement-sæt",
         customtextvarsplat: `"$gamecomplete"-besked`

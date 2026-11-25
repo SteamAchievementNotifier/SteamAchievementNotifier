@@ -168,7 +168,7 @@ export const translations = {
             title: "Titlul realizării",
             desc: "Descrierea realizării",
             percent: "Procentajul de deblocare a realizării",
-            total: "Realizări deblocate/în total"
+            totalpercent: "Procentaj deblocat/total"
         },
         customtextvarsset: "Numele setului de realizări",
         customtextvarsplat: `Mesaj "$gamecomplete"`

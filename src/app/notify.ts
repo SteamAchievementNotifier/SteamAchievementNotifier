@@ -21,6 +21,7 @@ export const sannotify = {
         const fbimg = sanhelper.setfilepath("img","sanlogosquare.svg")
         const gameiconpath = path.join(sanhelper.temp,"gameicon.png")
         const usegameicon = !ra && config.get(`customisation.${type}.usegameicon`) && fs.existsSync(gameiconpath)
+        const { unlocked = 0, total = 0 } = info.achnum ?? {}
  
         const notify: Notify = {
             id: Math.round(Date.now() / Math.random() * 1000),
@@ -32,6 +33,11 @@ export const sannotify = {
             unlocktime: new Date().toISOString(),
             icon: info.icon ?? (sanhelper.plattype(type) ? (customisation.customicons as CustomIcon).plat as string ?? sanhelper.setfilepath("img","ribbon.svg") : fbimg),
             gameicon: info.gameicon ?? (usegameicon ? gameiconpath : fbimg),
+            achnum: info.achnum && {
+                unlocked,
+                total,
+                totalpercent: total ? Math.floor(unlocked * 100 / total) : 0
+            },
             customisation
         }
  

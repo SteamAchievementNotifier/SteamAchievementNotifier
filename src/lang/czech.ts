@@ -168,7 +168,8 @@ export const translations = {
             title: "Název úspěchu",
             desc: "Popis úspěchu",
             percent: "Procento odemčení úspěchu",
-            total: "Odemčené/celkové úspěchy"
+            total: "Odemčené/celkové úspěchy",
+            totalpercent: "Odemčeno/celkové procento"
         },
         customtextvarsset: "Název sady achievementů",
         customtextvarsplat: `Zpráva "$gamecomplete"`

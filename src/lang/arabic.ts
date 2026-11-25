@@ -168,7 +168,8 @@ export const translations = {
             title: "عنوان الإنجاز",
             desc: "وصف الإنجاز",
             percent: "نسبة فتح الإنجاز",
-            total: "الإنجازات المفتوحة/الإجمالية"
+            total: "الإنجازات المفتوحة/الإجمالية",
+            totalpercent: "النسبة المئوية المفتوحة/الإجمالية"
         },
         customtextvarsset: "اسم مجموعة الإنجازات",
         customtextvarsplat: `رسالة "$gamecomplete"`

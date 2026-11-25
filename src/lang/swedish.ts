@@ -168,7 +168,8 @@ export const translations = {
             title: "Prestationens titel",
             desc: "Prestationsbeskrivning",
             percent: "Procentandel som har låst upp prestationen",
-            total: "Upplåsta/totala prestationer"
+            total: "Upplåsta/totala prestationer",
+            totalpercent: "Upplåst/total procentandel"
         },
         customtextvarsset: "Namn på prestationsuppsättning",
         customtextvarsplat: `"$gamecomplete"-meddelande`

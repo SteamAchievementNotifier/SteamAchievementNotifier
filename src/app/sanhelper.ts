@@ -1517,7 +1517,8 @@ export const sanhelper = {
             desc: notify.desc,
             percent: `${isplat ? "100" : Math.max(parseFloat(notify.percent.toFixed(1)),0.1)}%`,
             emulator: notify.emu ?? "Emulator",
-            total: `${notify.achnum?.unlocked ?? (isplat ? 10 : 1)}/${notify.achnum?.total ?? 10}`
+            total: `${notify.achnum?.unlocked ?? (isplat ? 10 : 1)}/${notify.achnum?.total ?? 10}`,
+            totalpercent: `${notify.achnum?.totalpercent ?? (isplat ? 100 : 10)}%`
         }
         
         return text.replace(/\{(\w+)\}/g,(match,key) => key in vars ? vars[key] : match)

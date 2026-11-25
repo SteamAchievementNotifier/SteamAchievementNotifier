@@ -168,7 +168,8 @@ export const translations = {
             title: "도전 과제 제목",
             desc: "도전 과제 설명",
             percent: "도전 과제 달성률",
-            total: "달성한/전체 도전 과제 수"
+            total: "달성한/전체 도전 과제 수",
+            totalpercent: "잠금 해제/전체 비율"
         },
         customtextvarsset: "업적 세트 이름",
         customtextvarsplat: `"$gamecomplete" 메시지`

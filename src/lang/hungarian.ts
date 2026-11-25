@@ -168,7 +168,8 @@ export const translations = {
             title: "Eredmény címe",
             desc: "Eredmény leírása",
             percent: "Eredmény feloldási százaléka",
-            total: "Feloldott/összes eredmény"
+            total: "Feloldott/összes eredmény",
+            totalpercent: "Feloldott/összes százalék"
         },
         customtextvarsset: "Achievement készlet neve",
         customtextvarsplat: `"$gamecomplete" üzenet`

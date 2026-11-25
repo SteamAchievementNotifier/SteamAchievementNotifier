@@ -168,7 +168,8 @@ export const translations = {
             title: "Erfolgstitel",
             desc: "Erfolgsbeschreibung",
             percent: "Freischaltungsrate des Erfolgs",
-            total: "Freigeschaltete/gesamte Erfolge"
+            total: "Freigeschaltete/gesamte Erfolge",
+            totalpercent: "Freigeschalteter/Gesamtprozentsatz"
         },
         customtextvarsset: "Name des Achievement-Sets",
         customtextvarsplat: `"$gamecomplete"-Nachricht`

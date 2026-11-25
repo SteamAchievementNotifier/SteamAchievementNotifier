@@ -168,7 +168,8 @@ export const translations = {
             title: "Tên thành tích",
             desc: "Mô tả thành tích",
             percent: "Tỷ lệ phần trăm người chơi mở khóa thành tích",
-            total: "Số thành tích đã mở khóa/tổng số thành tích"
+            total: "Số thành tích đã mở khóa/tổng số thành tích",
+            totalpercent: "Tỷ lệ phần trăm đã mở khóa/tổng cộng"
         },
         customtextvarsset: "Tên bộ thành tích",
         customtextvarsplat: `Thông báo "$gamecomplete"`

@@ -168,7 +168,8 @@ export const translations = {
             title: "Título del logro",
             desc: "Descripción del logro",
             percent: "Porcentaje de desbloqueo del logro",
-            total: "Logros desbloqueados/totales"
+            total: "Logros desbloqueados/totales",
+            totalpercent: "Porcentaje desbloqueado/total"
         },
         customtextvarsset: "Nombre del conjunto de logros",
         customtextvarsplat: `Mensaje "$gamecomplete"`

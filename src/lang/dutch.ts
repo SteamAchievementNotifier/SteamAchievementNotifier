@@ -168,7 +168,8 @@ export const translations = {
             title: "Prestatietitel",
             desc: "Prestatiebeschrijving",
             percent: "Ontgrendelingspercentage van de prestatie",
-            total: "Ontgrendelde/totale prestaties"
+            total: "Ontgrendelde/totale prestaties",
+            totalpercent: "Ontgrendeld/totaal percentage"
         },
         customtextvarsset: "Naam van de achievementset",
         customtextvarsplat: `"$gamecomplete"-bericht`

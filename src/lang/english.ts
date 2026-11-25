@@ -168,7 +168,8 @@ export const translations = {
             title: "Achievement title",
             desc: "Achievement description",
             percent: "Achievement unlock percentage",
-            total: "Unlocked/total achievements"
+            total: "Unlocked/total achievements",
+            totalpercent: "Unlocked/total percentage"
         },
         customtextvarsset: "Achievement set name",
         customtextvarsplat: `"$gamecomplete" message`

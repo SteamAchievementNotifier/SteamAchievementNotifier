@@ -161,14 +161,15 @@ export const translations = {
         ],
         betaghreleases: "版本發佈",
         checkapplog: "請查看應用程式日誌以獲取詳細資訊。",
-        customtextvars: "Variabler",
-        customtextvarssub: `<span class="hl">Variabler</span> kan användas i <span class="hl">Anpassad text</span> för att visa spel-/prestationinformation i aviseringar:`,
+        customtextvars: "自訂文字變數",
+        customtextvarssub: `<span class="hl">變數</span>可在<span class="hl">自訂文字</span>中使用，以便在通知中顯示遊戲／成就資訊：`,
         customtextvarsdesc: {
-            game: "Speltitel",
-            title: "Prestationens titel",
-            desc: "Prestationsbeskrivning",
-            percent: "Procentandel som har låst upp prestationen",
-            total: "Upplåsta/totala prestationer"
+            game: "遊戲名稱",
+            title: "成就名稱",
+            desc: "成就描述",
+            percent: "成就解鎖百分比",
+            total: "已解鎖／成就總數",
+            totalpercent: "已解鎖/總百分比"
         },
         customtextvarsset: "成就集合名稱",
         customtextvarsplat: `"$gamecomplete" 訊息`

@@ -244,7 +244,6 @@ declare interface Customisation {
     ovmatch: boolean,
     ovx: number,
     ovy: number,
-    // alldetails: boolean,
     primarycolor: string,
     secondarycolor: string,
     tertiarycolor: string,
@@ -309,11 +308,8 @@ declare interface Customisation {
     decorationshadow: boolean,
     usecustomtext: boolean,
     customtextunlockmsg: string,
-    // usegametitleunlockmsg: boolean,
     customtexttitle: string,
-    // usegametitletitle: boolean,
     customtextdesc: string,
-    // usegametitledesc: boolean,
     scrollrepeat: number,
     usertheme: UserTheme[],
     [key: string]: string | number | boolean | object | null
@@ -359,11 +355,12 @@ declare interface Achievement {
     unlocktime?: number,
     relocked?: boolean,
     raw?: any,
-    progress?: AchievementProgress,
-    achnum?: {
-        unlocked: number,
-        total: number
-    }
+    progress?: AchievementProgress
+}
+
+declare interface AchievementNum {
+    unlocked: number,
+    total: number
 }
 
 declare interface Notify extends Achievement {
@@ -379,8 +376,11 @@ declare interface Notify extends Achievement {
     emu?: string | null,
     libhero?: string,
     unlocktime?: string,
-    setname?: string
+    setname?: string,
+    achnum?: AchievementNum & { totalpercent: number }
 }
+
+declare type NotifyInfo = Pick<Notify,"type" | "apiname" | "name" | "gamename" | "steam3id"> & Partial<Omit<Notify,"customisation" | "achnum">> & { achnum?: AchievementNum }
 
 declare interface StatsObj {
     appid: number,
@@ -450,8 +450,6 @@ declare interface Info {
     notifyoverflow: "ellipsis" | "scroll",
     ra?: boolean
 }
-
-declare type NotifyInfo = Pick<Notify,"type" | "apiname" | "name" | "gamename" | "steam3id"> & Partial<Omit<Notify,"customisation">>
 
 declare interface PercentInfo {
     value: number,

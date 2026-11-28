@@ -640,6 +640,8 @@ declare interface SSWin {
     haswarned: boolean,
     capturing: boolean,
     display?: Electron.Display,
+    /** Monitor for the deferred Screenshot Only notification */
+    monitorid?: number
 }
 
 declare type ExtWins = "ext" | "stat" | "gametimer"

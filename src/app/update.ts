@@ -102,21 +102,57 @@ export const update = {
         const availabletest = (newversion: string) => ipcRenderer.send("availabletest",newversion)
         window.availabletest = availabletest
     },
-    migrateappdata: (legacypath: string) => {
-        const newconfig = path.join(sanhelper.appdata,"config.json")
+    migrate: {
+        appdata: (legacypath: string) => {
+            const newconfig = path.join(sanhelper.appdata,"config.json")
+    
+            if (legacypath !== sanhelper.appdata && !fs.existsSync(newconfig) && fs.existsSync(path.join(legacypath,"config.json"))) {
+                try {
+                    fs.cpSync(legacypath,sanhelper.appdata,{
+                        recursive: true,
+                        filter: src => {
+                            const relpath = path.relative(legacypath,src)
+                            if (relpath === "logs") return false
 
-        if (legacypath !== sanhelper.appdata && !fs.existsSync(newconfig) && fs.existsSync(path.join(legacypath,"config.json"))) {
-            try {
-                fs.cpSync(legacypath,sanhelper.appdata,{
-                    recursive: true,
-                    filter: src => path.relative(legacypath,src) !== "logs"
-                })
-                return { level: "INFO", msg: `Migrated "${legacypath}" to "${sanhelper.appdata}" successfully` } as MigrationResult
-            } catch (err) {
-                try { fs.rmSync(newconfig,{ force: true }) } catch {}
-                return { level: "ERROR", msg: `Error migrating "${legacypath}" to "${sanhelper.appdata}": ${(err as Error).message}` } as MigrationResult
+                            const customfiles = !relpath.includes(path.sep) && /^customfiles_V(.+)$/.exec(relpath) // Skips all `customfiles_VX.X.X` backups
+                            return !(customfiles && semver.valid(customfiles[1]))
+                        }
+                    })
+
+                    return { level: "INFO", msg: `Migrated "${legacypath}" to "${sanhelper.appdata}" successfully` } as MigrationResult
+                } catch (err) {
+                    try { fs.rmSync(newconfig,{ force: true }) } catch {}
+                    return { level: "ERROR", msg: `Error migrating "${legacypath}" to "${sanhelper.appdata}": ${(err as Error).message}` } as MigrationResult
+                }
             }
-        }
+        },
+        // Copies `Local Storage` contents from previous version (e.g. `%appdata%/steamachievementnotifiervX.X`),
+        localstorage: (appdata: string) => {
+            try {
+                const dest = path.join(appdata,"Local Storage")
+                if (fs.existsSync(dest)) return
+    
+                const parent = path.dirname(appdata)
+                const current = semver.coerce(sanhelper.version)!
+    
+                const src = fs.readdirSync(parent,{ withFileTypes: true })
+                    .filter(entry => entry.isDirectory() && entry.name !== path.basename(appdata))
+                    .map(entry => ({
+                        entry,
+                        match: /^steamachievementnotifierv(\d+\.\d+)$/i.exec(entry.name)
+                    }))
+                    .filter(({ entry,match }) => match && semver.lt(semver.coerce(match[1])!,current) && fs.existsSync(path.join(parent,entry.name,"Local Storage")))
+                    .sort((a,b) => semver.rcompare(semver.coerce(a.match![1])!,semver.coerce(b.match![1])!))
+                    .map(({ entry }) => path.join(parent,entry.name,"Local Storage"))[0]
+    
+                if (!src) return
+    
+                fs.cpSync(src,dest,{ recursive: true })
+                return { level: "INFO", msg: `Migrated localStorage from "${src}" to "${dest}" successfully` } as MigrationResult
+            } catch (err) {
+                return { level: "ERROR", msg: `Error migrating localStorage: ${(err as Error).message}` } as MigrationResult
+            }
+        },
     },
     getlegacydir: () => {
         try {
@@ -136,23 +172,18 @@ export const update = {
             return undefined
         }
     },
-    /**
-     * Removes/rebuilds the following upon upgrading to next major version.
-     * 
-     * Windows:
-     * - Auto-start entries in the Windows Registry (via `sanhelper.rs`):
-     *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Steam Achievement Notifier (VX.X)`
-     *      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run\Steam Achievement Notifier (VX.X)`
-     * - Desktop shortcut (if present): `%userprofile%\Desktop\Steam Achievement Notifier (VX.X).lnk`
-     * - Start Menu shortcut: `%appdata%\Microsoft\Windows\Start Menu\Programs\Steam Achievement Notifier (VX.X).lnk`
-     * 
-     * Linux:
-     * - Auto-start entry:
-     *      - `~/.config/autostart/Steam Achievement Notifier (VX.X).desktop`
-     * - Desktop shortcut (if present):
-     *      - `${xdgdesktopdir}/Steam Achievement Notifier (VX.X).desktop` or
-     *      - `~/Desktop/Steam Achievement Notifier (VX.X).desktop`
-     */
+    // Removes/rebuilds the following upon upgrading to next major version.
+    // 
+    // Windows:
+    //  - Auto-start entries in the Windows Registry (via `sanhelper.rs`):
+    //      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\Steam Achievement Notifier (VX.X)`
+    //      - `HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run\Steam Achievement Notifier (VX.X)`
+    //  - Desktop shortcut (if present): `%userprofile%\Desktop\Steam Achievement Notifier (VX.X).lnk`
+    //  - Start Menu shortcut: `%appdata%\Microsoft\Windows\Start Menu\Programs\Steam Achievement Notifier (VX.X).lnk`
+    // 
+    // Linux:
+    //  - Auto-start entry: `~/.config/autostart/Steam Achievement Notifier (VX.X).desktop`
+    //  - Desktop shortcut (if present): `${xdgdesktopdir}/Steam Achievement Notifier (VX.X).desktop` or `~/Desktop/Steam Achievement Notifier (VX.X).desktop`
     cleanup: (legacyversion: string,desktop: boolean,startwin: boolean) => {
         if (legacyversion === sanhelper.version) return
 
@@ -171,14 +202,13 @@ export const update = {
 
         try {
             const shortcutdir = sanhelper.desktopshortcutpath(platform)
-            if (!shortcutdir) return
+            const legacyshortcut = shortcutdir && path.join(shortcutdir,shortcutfile)
 
-            const legacyshortcut = path.join(shortcutdir,shortcutfile)
-            if (!fs.existsSync(legacyshortcut)) return
-
-            fs.rmSync(legacyshortcut)
-            log.write("INFO",`Removed legacy V${legacyversion} desktop shortcut`)
-            desktop && sanhelper.desktop(true) // Rebuild under latest version
+            if (legacyshortcut && fs.existsSync(legacyshortcut)) {
+                fs.rmSync(legacyshortcut)
+                log.write("INFO",`Removed legacy V${legacyversion} desktop shortcut`)
+                desktop && sanhelper.desktop(true) // Rebuild under latest version
+            }
         } catch (err) {
             log.write("WARN",`Unable to remove legacy V${legacyversion} desktop shortcut: ${(err as Error).message}`)
         }
@@ -187,10 +217,11 @@ export const update = {
 
         try {
             const legacystartmenu = path.join(appdata!,"Microsoft","Windows","Start Menu","Programs",shortcutfile)
-            if (!fs.existsSync(legacystartmenu)) return
 
-            fs.rmSync(legacystartmenu)
-            log.write("INFO",`Removed legacy V${legacyversion} Start Menu shortcut`)
+            if (fs.existsSync(legacystartmenu)) {
+                fs.rmSync(legacystartmenu)
+                log.write("INFO",`Removed legacy V${legacyversion} Start Menu shortcut`)
+            }
         } catch (err) {
             log.write("WARN",`Unable to remove legacy V${legacyversion} Start Menu shortcut: ${(err as Error).message}`)
         }

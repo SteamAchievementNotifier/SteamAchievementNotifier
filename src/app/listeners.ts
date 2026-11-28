@@ -316,7 +316,7 @@ export const listeners = {
 
             try {
                 fs.rmSync(temp,{ recursive: true, force: true })
-                fs.mkdirSync(temp)
+                fs.mkdirSync(temp,{ recursive: true })
                 return log.write("INFO",`"${temp}" directory cleared successfully`)
             } catch (err) {
                 return log.write("ERROR",`Error clearing "${temp}" directory: ${err as Error}`)

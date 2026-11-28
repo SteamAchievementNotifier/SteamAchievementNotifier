@@ -25,7 +25,10 @@ import { utils } from "./utils"
 // }])
 
 const legacydir = update.getlegacydir()
-const result = legacydir && update.migrateappdata(legacydir)
+const [appdata,localstorage] = legacydir ? Array.from(new Map([
+    ["appdata",legacydir],
+    ["localstorage",app.getPath("userData")]
+] as const),([key,value]) => update.migrate[key](value)) : [undefined,undefined] // Migrates `sanhelper.appdata`/`localStorage` from previous version
 
 sanconfig.get().store.colorprofile !== "none" && app.commandLine.appendSwitch("force-color-profile",sanconfig.get().store.colorprofile)
 
@@ -45,7 +48,9 @@ utils.app.checksingleinstance(lock) && app.exit()
 const starttime = new Date().toLocaleTimeString()
 log.init("APP")
 
-result && log.write(result.level,result.msg)
+// Logs `MigrationResult` for `%appdata%`/`localStorage` migration
+appdata && log.write(appdata.level,appdata.msg)
+localstorage && log.write(localstorage.level,localstorage.msg)
 
 ;(async () => log.write("INFO",`OS: ${await sanhelper.getosinfo()}`))()
 

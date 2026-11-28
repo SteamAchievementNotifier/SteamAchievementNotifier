@@ -685,7 +685,7 @@ dialog .contentwrapper:has(.addhtml > .rect[id^="copytheme"][selected]) > .btnwr
 }
 
 .addhtml:has(.rect[id^="copytheme"]) > .rect[selected] {
-    background: white;
+    background: white !important;
     color: black;
 }
 

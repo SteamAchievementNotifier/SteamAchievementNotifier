@@ -4,6 +4,26 @@ import path from "path"
 import Store from "electron-store"
 import { __root, sanhelper } from "./sanhelper"
 
+// Caches parsed `config.json` contents, so `config.get()` does not re-read the entire file on disk for every element when opening menus
+// Cache is cleared on write (i.e. `config.set()`), and when the current block ends or reaches an `await`
+class SANStore<T extends Record<string,any>> extends Store<T> {
+    private cache?: T
+
+    get store(): T {
+        if (!this.cache) {
+            this.cache = super.store
+            queueMicrotask(() => this.cache = undefined)
+        }
+        
+        return this.cache
+    }
+
+    set store(value: T) {
+        this.cache = undefined
+        super.store = value
+    }
+}
+
 // Contains keys whose values are filepaths in "config"
 const configfilekeys = [
     "ovpath",
@@ -591,7 +611,7 @@ export const sanconfig = {
 
         return obj
     },
-    get: (watch?: boolean): Store<Config> => new Store<Config>({
+    get: (watch?: boolean): Store<Config> => new SANStore<Config>({
         cwd: sanhelper.appdata,
         watch: watch || false
     }),

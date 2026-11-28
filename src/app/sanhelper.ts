@@ -76,21 +76,18 @@ export const sanhelper = {
         const iconfile = `sanlogo.${process.platform === "win32" ? "ico" : "png"}`
         const localicon = path.join(sanhelper.appdata,iconfile)
 
-        const copyicon = async () => {
-            const { log } = await import("./log")
-            if (!fs.existsSync(localicon)) {
-                try {
-                    fs.copyFileSync(path.join(sanhelper.devmode ? __root : process.resourcesPath,"img",iconfile).replace(/\\/g,"/"),localicon)
-                    return log.write("INFO",`"${iconfile}" copied to "${localicon}" successfully`)
-                } catch (err) {
-                    return log.write("ERROR",`Error copying "${iconfile}" to "${localicon}": ${err as Error}`)
-                }
-            } else {
-                return log.write("WARN",`"${iconfile}" already exists in "${localicon}"`)
+        if (!fs.existsSync(localicon)) {
+            const log = { write: async (level: "INFO" | "ERROR",msg: string) => (await import("./log")).log.write(level,msg) }
+
+            try {
+                fs.mkdirSync(sanhelper.appdata,{ recursive: true })
+                fs.copyFileSync(path.join(sanhelper.devmode ? __root : process.resourcesPath,"img",iconfile).replace(/\\/g,"/"),localicon)
+                log.write("INFO",`"${iconfile}" copied to "${localicon}" successfully`)
+            } catch (err) {
+                log.write("ERROR",`Error copying "${iconfile}" to "${localicon}": ${err as Error}`)
             }
         }
 
-        (async () => await copyicon())()
         return localicon
     },
     get steampath(): string { return sanhelper_rs.getSteamPath() },
@@ -1415,7 +1412,7 @@ export const sanhelper = {
             }
         }
         
-        if (id !== "themeswitch") return log.write("INFO",`"${id}" key in localStorage verified successfully`)
+        if (id !== "themeswitch") return
     
         const types = ["main","semi","rare","plat"] as NotifyType[]
         let json: Record<string,ThemeSwitch>
@@ -1438,15 +1435,15 @@ export const sanhelper = {
             }
         }
     
-        let err: Error | null = null
+        let error: Error | null = null
     
         try {
             localStorage.setItem(id,JSON.stringify(json))
-        } catch (e) {
-            err = e as Error
+        } catch (err) {
+            error = err as Error
         }
     
-        log.write(!err ? "INFO" : "WARN",!err ? `"${id}" key in localStorage verified successfully` : `Unable to verify "${id}" key in localStorage: ${err}`)
+        error && log.write("WARN",`Unable to verify "${id}" key in localStorage: ${error.message}`)
     },
     settabindex: (btn: HTMLButtonElement,values: (string | null | undefined)[]) => btn.tabIndex = values.every(value => !!value) ? 0 : -1,
     restorefrombackup: (sanbak: string,log: any) => {

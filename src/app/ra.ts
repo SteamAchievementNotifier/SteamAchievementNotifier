@@ -17,9 +17,7 @@ export const rasupported = [
 ]
  
 export const raelems = [...rasupported].flatMap(id => [id,`${id}path`])
- 
 export let emu: string | null = null
- 
 const logmap = new Map<string,string>()
  
 export const getlogmap = () => {
@@ -220,8 +218,7 @@ export const executeaction = async (lastaction: LogAction): Promise<[string | nu
 }
  
 const raurl = `https://media.retroachievements.org`
- 
-const geticon = async (type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format = "png") => (await sanachievement.downloadicon([url],path.join(sanhelper.temp,`${type !== "achievement" ? `${label}_${type}` : `${label}`}.${format}`)) ?? sanhelper.setfilepath("img","sanlogosquare.svg")).replace(/\\/g,"/")
+const geticon = async (gameid: number,type: "gameicon" | "gameartlibhero" | "achievement",label: string | number,url: string,format = "png") => (await sanachievement.downloadicon([url],path.join(sanhelper.temp,"RetroAchievements",`${gameid}`,`${type !== "achievement" ? type : label}.${format}`)) ?? sanhelper.setfilepath("img","sanlogosquare.svg")).replace(/\\/g,"/") // Cache RA icons to "temp/RetroAchievements/<GameID>" to prevent clashes with Steam AppID dirs
  
 export const getgamenamefromgameid = async (gameid: number,username: string,apikey: string) => {
     if (!gameid) throw new Error(`No "gameid" provided`)
@@ -239,11 +236,11 @@ const cacheradata = async (gameid: number,username: string,apikey: string,nowtra
     const { imageBoxArt, imageIcon, title: gamename, achievements, numDistinctPlayersCasual, numDistinctPlayersHardcore } = await getGameInfoAndUserProgress(auth,{ username, gameId: gameid })
     const [iconurl,gameartlibherourl] = [imageIcon,imageBoxArt].map(asset => `${raurl}${asset}`)
  
-    const gameicon = await geticon("gameicon",gameid,iconurl)
-    const gameartlibhero = await geticon("gameartlibhero",gameid,gameartlibherourl)
+    const gameicon = await geticon(gameid,"gameicon",gameid,iconurl)
+    const gameartlibhero = await geticon(gameid,"gameartlibhero",gameid,gameartlibherourl)
  
     const raachievements = await Promise.all(Object.values(achievements).map(async achievement => {
-        const icon = await geticon("achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`).catch(err => {
+        const icon = await geticon(gameid,"achievement",achievement.badgeName,`${raurl}/Badge/${achievement.badgeName}.png`).catch(err => {
             log.write("WARN",`Unable to cache RA icon: ${(err as Error).message}`);
             return ""
         })
@@ -344,6 +341,6 @@ export const testraunlock = (achid: number) => {
         const line = `Achievement ${achid} awarded\n`
         fs.appendFileSync(file,line)
     } catch (err) {
-        console.log(`[RA]: ${(err as Error).message}`)
+        log.write("WARN",`[RA]: ${(err as Error).message}`)
     }
 }

@@ -151,7 +151,7 @@ export const sanachievement = {
             }
         }
 
-        log.write("ERROR",`Failed to download "${path.basename(dest)}" from any specified Steam URL`)
+        log.write("ERROR",`Failed to download "${path.basename(dest)}" from any specified URL`)
         return null
     },
     geticon: async (appid: number,filename: string | undefined) => {

@@ -191,6 +191,28 @@ export const utils = {
                 fs.copyFileSync(src,dest)
             }
         },
+        // Deletes every `customfiles_VX.X.X` backup in the same dir as `dirpath` (except `previousversion`)
+        removecustomfilesbaks: (dirpath: string,previousversion: string) => {
+            const parentdir = path.dirname(dirpath)
+
+            try {
+                for (const entry of fs.readdirSync(parentdir,{ withFileTypes: true })) {
+                    const entrypath = path.join(parentdir,entry.name)
+                    const match = entry.isDirectory() && /^customfiles_V(.+)$/.exec(entry.name)
+
+                    if (!match || !valid(match[1]) || entrypath === previousversion) continue
+
+                    try {
+                        fs.rmSync(entrypath,{ recursive: true, force: true })
+                        log.write("INFO",`Removed outdated "${entrypath}" backup directory`)
+                    } catch (err) {
+                        log.write("WARN",`Unable to remove outdated "${entrypath}" backup directory: ${(err as Error).message}`)
+                    }
+                }
+            } catch (err) {
+                log.write("WARN",`Unable to check for outdated "customfiles" backups in "${parentdir}": ${(err as Error).message}`)
+            }
+        },
         checkdir: (dirpath: string,callback: () => void,msg: string) => {
             if (fs.existsSync(dirpath)) {
                 if (path.basename(dirpath) !== "customfiles") return log.write("INFO",`"${dirpath}" already exists: No changes were made`)
@@ -207,6 +229,7 @@ export const utils = {
                     try {
                         fs.renameSync(dirpath,backuppath)
                         log.write("INFO",`"${backuppath}" backup directory created successfully`)
+                        utils.app.removecustomfilesbaks(dirpath,backuppath) // Only the direct previous version's `customfiles` should be kept
                     } catch (err) {
                         return log.write("ERROR",`Error creating backup for ${customfilesversion} "customfiles" directory: ${err as Error}`)
                     }

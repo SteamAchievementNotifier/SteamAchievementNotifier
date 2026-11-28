@@ -11,6 +11,7 @@ import { gameart } from "./gameart"
 import { screenshot } from "./screenshots"
 import { audio } from "./audio"
 import { resourceusage } from "./resourceusage"
+import { gamescope } from "./gamescope"
 // import { plugins } from "../plugins/plugins"
 
 let appid: number = 0
@@ -64,7 +65,11 @@ export const listeners = {
 
         sanconfig.get().store.logresourceusage && resourceusage.init()
 
-        app.on("second-instance",() => win.show())
+        // `--testnotify` allows a test notification to be triggered externally (e.g. from the Decky plugin in Game Mode, where the main window can't be used)
+        app.on("second-instance",(event,argv) => {
+            if (argv.includes("--testnotify")) return win.webContents.executeJavaScript(`document.getElementById("test")?.click()`)
+            !gamescope.active && win.show()
+        })
 
         win.webContents.on("before-input-event",(event,input) => ((input.code === "Minus" || input.code === "Equal") && (input.control || input.meta)) && event.preventDefault()) // Prevent page zoom
 
@@ -369,7 +374,7 @@ export const listeners = {
             const config = sanconfig.get()
             const { scaleFactor }: Monitor = config.get("monitors").find(monitor => monitor.primary)!
 
-            const trackwin = new BrowserWindow({
+            const trackwin = new BrowserWindow(gamescope.options({
                 title: `Steam Achievement Notifier (V${sanhelper.version}): Now Tracking`,
                 width: Math.round((375 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
                 height: Math.round((112.5 / scaleFactor) * (config.get("nowtrackingscale") / 100)),
@@ -389,8 +394,9 @@ export const listeners = {
                     nodeIntegration: true,
                     contextIsolation: false
                 }
-            })
+            }))
 
+            gamescope.attach(trackwin)
             trackwin.setIgnoreMouseEvents(true)
             trackwin.setAlwaysOnTop(true,"screen-saver")
             sanhelper.devmode && sanhelper.setdevtools(trackwin)
@@ -862,6 +868,7 @@ export const listeners = {
         let runningstatwin: Record<"steam" | "ra",number> = { steam: 0, ra: 0 }
 
         ipcMain.on("stats",async (event,statsobj: StatsObj,init?: boolean) => {
+            gamescope.updatestatus(statsobj)
             if (!statwin) return
             
             const { appid, ra } = statsobj
@@ -945,7 +952,8 @@ export const listeners = {
 
         ipcMain.on("notify",async (event,notify: Notify,iswebview?: "customiser" | "sspreview" | null,monitorid?: number) => {
             const config = sanconfig.get()
-            
+            !iswebview && gamescope.addunlock(notify)
+
             if (config.get("soundonly")) {
                 if (!iswebview) {
                     win.webContents.send("soundonly",notify.type)
@@ -1216,7 +1224,8 @@ export const listeners = {
 
                 notifywins.get(notify.id)!.show()
             } else {
-                notifywins.set(notify.id,new BrowserWindow(options))
+                notifywins.set(notify.id,new BrowserWindow(gamescope.options(options as BrowserWindowConstructorOptions)))
+                gamescope.attach(notifywins.get(notify.id) as BrowserWindow) // Under gamescope, drawn via the fullscreen overlay host at the notification's position
 
                 for (const [id,offscreenwin] of offscreenwins) {
                     offscreenwin && offscreenwin.destroy()

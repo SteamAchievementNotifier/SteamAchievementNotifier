@@ -1,0 +1,11 @@
+{
+    "name": "Steam Achievement Notifier",
+    "author": "SteamAchievementNotifier",
+    "flags": [],
+    "api_version": 1,
+    "publish": {
+        "tags": ["achievements", "notifications", "overlay"],
+        "description": "Runs Steam Achievement Notifier in Game Mode, displaying its custom achievement notifications above the running game.",
+        "image": "https://raw.githubusercontent.com/SteamAchievementNotifier/SteamAchievementNotifier/master/img/sanlogo.png"
+    }
+}

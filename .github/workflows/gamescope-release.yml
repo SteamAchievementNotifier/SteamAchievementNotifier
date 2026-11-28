@@ -1,0 +1,106 @@
+name: Build & Release (Linux AppImage + Decky plugin)
+
+on:
+  push:
+    tags:
+      - "decky-v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to create (e.g. decky-v0.1.0). Leave empty to only build artifacts"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  appimage:
+    name: Build SAN AppImage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build AppImage
+        run: |
+          npx tsc --build --clean
+          npx tsc
+          npx electron-builder --linux --publish never
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: appimage
+          path: _release/*.AppImage
+          if-no-files-found: error
+
+  decky:
+    name: Build Decky plugin
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: decky
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build frontend
+        run: pnpm build
+
+      - name: Package plugin zip
+        run: |
+          mkdir -p out/SteamAchievementNotifier
+          cp -r plugin.json package.json main.py README.md dist out/SteamAchievementNotifier/
+          cd out
+          zip -r SteamAchievementNotifier-decky.zip SteamAchievementNotifier
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decky-plugin
+          path: decky/out/SteamAchievementNotifier-decky.zip
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub release
+    needs: [appimage, decky]
+    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.tag != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          target_commitish: ${{ github.sha }}
+          name: SAN Game Mode ${{ github.event.inputs.tag || github.ref_name }}
+          prerelease: true
+          body: |
+            Steam Achievement Notifier with Steam Deck/SteamOS Game Mode (gamescope) support.
+
+            **Install**
+            1. Download the `.AppImage` and place it in `~/Applications` on the Deck. Configure SAN once in Desktop Mode.
+            2. Download `SteamAchievementNotifier-decky.zip` and install it via **Decky Settings > Developer > Install Plugin from ZIP**.
+            3. In Game Mode, open the Quick Access Menu > Steam Achievement Notifier and press **Start** / **Show Test Notification**.
+          files: |
+            artifacts/*.AppImage
+            artifacts/SteamAchievementNotifier-decky.zip

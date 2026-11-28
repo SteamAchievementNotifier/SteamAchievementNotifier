@@ -908,6 +908,100 @@ export const listeners = {
             globalShortcut.register(config.get("replaynotifyshortcut") as string,() => ipcMain.emit("replaynotify"))
         })
 
+        {
+            let ps5Win: BrowserWindow | null = null
+            let ps5OrigBounds: Electron.Rectangle | null = null
+            let ps5ShortcutsOn = false
+
+            const findNotifyWin = (event?: Electron.IpcMainEvent): BrowserWindow | null => {
+                try {
+                    const all = BrowserWindow.getAllWindows()
+                    if (event && event.sender) {
+                        const owner = all.find(w => w.webContents && w.webContents.id === event.sender.id)
+                        if (owner) return owner
+                    }
+                    if (ps5Win && !ps5Win.isDestroyed()) return ps5Win
+                    for (const w of all) {
+                        try {
+                            if (w.isDestroyed()) continue
+                            const url = w.webContents.getURL() || ""
+                            if (url.includes("base.html") && w.isVisible()) return w
+                        } catch (_) {}
+                    }
+                } catch (_) {}
+                return null
+            }
+
+
+            const registerPs5Shortcuts = () => {
+                if (ps5ShortcutsOn && ps5Win && !ps5Win.isDestroyed()) return
+                unregisterPs5Shortcuts()
+                ps5ShortcutsOn = true
+                try { globalShortcut.register("Shift+Tab",() => ps5Win && ps5Win.webContents.send("ps5_toggle_expand")) } catch (_) {}
+            }
+
+            const unregisterPs5Shortcuts = () => {
+                if (!ps5ShortcutsOn) return
+                ps5ShortcutsOn = false
+                try { globalShortcut.unregister("Shift+Tab") } catch (_) {}
+            }
+
+            ipcMain.on("ps5_tab_hook",(event,enable: boolean) => {
+                ps5Win = findNotifyWin(event) || ps5Win
+                enable ? registerPs5Shortcuts() : unregisterPs5Shortcuts()
+            })
+
+
+            ipcMain.on("ps5_expand_bounds",(event,isExpand: boolean,rect?: { x: number, y: number, w: number, h: number }) => {
+                const win = findNotifyWin(event) || ps5Win
+                if (!win) return
+                ps5Win = win
+                try {
+                    if (isExpand) {
+                        ;(win as any).__ps5Expanded = true
+                        ps5OrigBounds = win.getBounds()
+                        const wa = screen.getDisplayMatching(ps5OrigBounds).workArea
+                        let w: number, x: number, y: number
+                        if (rect && rect.w > 0) {
+                            w = Math.round(rect.w)
+                            x = Math.round(ps5OrigBounds.x + rect.x)
+                            y = Math.round(ps5OrigBounds.y + rect.y)
+                        } else {
+                            w = ps5OrigBounds.width
+                            x = ps5OrigBounds.x
+                            y = ps5OrigBounds.y
+                        }
+                        const h = Math.round(w * 0.7896)
+                        w = Math.max(160,Math.min(w,wa.width))
+                        if (x + w > wa.x + wa.width) x = Math.max(wa.x,wa.x + wa.width - w)
+                        if (x < wa.x) x = wa.x
+                        if (y + h > wa.y + wa.height) y = Math.max(wa.y,wa.y + wa.height - h)
+                        y = Math.max(wa.y,Math.min(y,wa.y + wa.height - h))
+                        let prevopacity = 1
+                        try { prevopacity = win.getOpacity() } catch (_) {}
+                        try { win.setOpacity(0) } catch (_) {}
+                        win.setBounds({ x, y, width: w, height: h })
+                        setTimeout(() => { try { win.setOpacity(prevopacity) } catch (_) {} },16)
+                        registerPs5Shortcuts()
+                    } else if (ps5OrigBounds) {
+                        win.setBounds(ps5OrigBounds)
+                        ;(win as any).__ps5Expanded = false
+                        ps5OrigBounds = null
+                        unregisterPs5Shortcuts()
+                    }
+                } catch (_) {}
+            })
+
+            ipcMain.on("ps5_close_notify",(event,id: number) => {
+                const win = findNotifyWin(event) || ps5Win
+                unregisterPs5Shortcuts()
+                if (win) (win as any).__ps5Expanded = false
+                ps5OrigBounds = null
+                try { win && win.close() } catch (_) {}
+                try { ipcMain.emit("notifyfinished",null,id) } catch (_) {}
+            })
+        }
+
         ipcMain.on("loadfile",async (event,filetype) => {
             const type = new Map<string,{ name: string, extensions: string[] }>([
                 ["img",{ name: await language.get("image"), extensions: ["png","svg","jpg","jpeg","gif"] }],
@@ -1112,7 +1206,10 @@ export const listeners = {
                     semirarity: config.get("semirarity"),
                     isplat: sanhelper.plattype(type)
                 },
-                hidden
+                hidden,
+                total: notify.achnum?.total,
+                unlockedcount: notify.achnum?.unlocked,
+                globalprogress: notify.achnum?.total ? Math.round(((notify.achnum?.unlocked ?? 0) / notify.achnum.total) * 100) : null
             } as BuildNotifyInfo
         }
 
@@ -1251,7 +1348,7 @@ export const listeners = {
 
                 notifywin.loadFile(basehtml)
                 config.get("screenshots") !== "off" && config.get("ssdelay") > 0 && notifywin.setContentProtection(true) // If `ssdelay` > 0, prevents on-screen notification from being captured to prevent duplicate notifications in screenshots
-                notifywin.setIgnoreMouseEvents(true)
+                notifywin.setIgnoreMouseEvents(notify.customisation?.preset !== "ps5")
                 notifywin.setAlwaysOnTop(true,"screen-saver",1000)
                 config.get("extwin") && !config.get("nohwa") && process.platform !== "linux" && notifywin.setOpacity(!config.get("extwinnotify") ? (sanhelper.devmode ? 0.5 : 0) : 1)
 
@@ -1473,6 +1570,7 @@ export const listeners = {
                     const { notifyspace, customisation } = config.store
 
                     for (const item of stackcopy) {
+                        if ((item.win as any).__ps5Expanded) continue
                         const bounds = { ...item.bounds }
                         bounds.y = top ? stack.y + offset : stack.y - offset
 

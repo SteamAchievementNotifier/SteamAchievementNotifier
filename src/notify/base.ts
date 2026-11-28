@@ -190,6 +190,7 @@ const notifyhelper = {
                 ["--unit",customisation.usepercent ? "%" : (customisation.preset === "epicgames" ? " XP" : (customisation.preset === "xbox360" || customisation.preset === "gfwl" ? "G" : ""))],
                 ["--raritycolor",`${percent.value > percent.semirarity ? "#a05526" : (percent.value <= percent.semirarity && percent.value > percent.rarity ? "#828282" : "#b4904a")}`],
                 ["--hiddenicon",`url('${customisation.hiddenicon || "../icon/lock.svg"}')`],
+                ["--gameicon",`url('${gameiconurl || `${steampath}/appcache/librarycache/${appid}_icon.jpg`}')`],
                 ["--glow",customisation.glow ? `drop-shadow(${(customisation.glowx * (customisation.scale / 100)) / 10}px ${(customisation.glowy * (customisation.scale / 100)) / 10}px var(--glowsize) var(--glowcolor))` : "none"],
                 ["--glowsize",`${(customisation.glowsize / 100) * 0.6}rem`],
                 ["--glowcolor",customisation.glowrarity ? (percent.value > percent.semirarity ? customisation.glowcolorbronze : (percent.value <= percent.semirarity && percent.value > percent.rarity ? customisation.glowcolorsilver : customisation.glowcolorgold)) : customisation.glowcolor],
@@ -384,6 +385,9 @@ try {
     ipcRenderer.on("notify",async (event,obj: Info,id: number) => {
         const { info: { type, appid, steam3id, apiname, unlockmsg, title, desc, icon, percent, hidden }, customisation, iswebview, steampath, hqicon, temp, ssalldetails, screenshots, gamearticon, gameartlibhero, gameartlogo, notifylinemode, notifyoverflow, ra } = obj
         notifyid = id // Store globally to access in "notifyfinished" IPC event
+        ;(window as any).__san_notifyid = id
+        ;(window as any).__san_info = obj.info
+        ;(window as any).__san_obj = { customisation }
     
         try {
             document.body.setAttribute(type,"")
@@ -561,6 +565,10 @@ try {
     
     ipcRenderer.on("notifyfinished",(event,id: number,isextwin?: boolean,preset?: string) => {
         try {
+            if (document.body.hasAttribute("expanded") || (window as any).__ps5Expanded) {
+                (window as any).__ps5PendingCloseId = id
+                return
+            }
             if (isextwin) return ipcRenderer.send("notifyclosed",id,isextwin,preset)
         
             document.body.addEventListener("transitionend",(event: TransitionEvent) => event.propertyName === "opacity" && ipcRenderer.send("notifyfinished",id))
